@@ -1,1 +1,7 @@
+<?php
+class EOrdine{
 
+    
+}
+
+?>
