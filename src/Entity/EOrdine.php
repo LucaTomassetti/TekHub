@@ -1,4 +1,6 @@
 <?php
+
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping\Column;
@@ -8,6 +10,7 @@ use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
 
 #[Entity]
 #[Table('ordine')]
@@ -31,16 +34,20 @@ class EOrdine{
     #[Column(type: 'float')]
     private $importo_tot;
 
+    #[OneToMany(targetEntity:EIndirizzo::class, mappedBy:'ordini')]
+    private Collection $indirizzi;
+
     //#[Column(type: 'string')]
     private $id_venditore;
     
-    public function __construct($id_ordine,$data, $stato,$quantita_prodotto, $importo_tot,$id_venditore){
+    public function __construct($id_ordine,$data, $stato,$quantita_prodotto, $importo_tot){
         $this->id_ordine = $id_ordine;
         $this->data = $data;
         $this->stato = $stato;
         $this->quantita_prodotto = $quantita_prodotto;
         $this->importo_tot = $importo_tot;
-        $this->id_venditore = $id_venditore;
+        $this->indirizzi = new ArrayCollection();
+        //$this->id_venditore = $id_venditore;
     }
 
     /**
@@ -161,6 +168,16 @@ class EOrdine{
     public function setIdVenditore($id_venditore)
     {
         $this->id_venditore = $id_venditore;
+    }
+
+    /**
+     * Get the value of indirizzi
+     *
+     * @return $indirizzi
+     */
+    public function getIndirizzi()
+    {
+        return $this->indirizzi;
     }
 }
 ?>

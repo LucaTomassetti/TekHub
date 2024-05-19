@@ -14,22 +14,29 @@ use Doctrine\ORM\Mapping\ManyToOne;
 #[Entity]
 #[Table('indirizzo')]
 class EIndirizzo{
+    #[Id]
+    #[Column(type: 'integer', columnDefinition:'INT(5)')]
+    private $cap;
 
+    #[Id]
     #[Column(type: 'string')]
     private $nome;
 
-    #[Id, ManyToOne(targetEntity: EAcquirente::class, inversedBy:'id_acquirente')]
-    #[JoinColumn(name:'acquirenti', referencedColumnName:'id')]
-    #[Column]
-    private Collection $acquirenti;
+    #[Column(type: 'string')]
+    private $comune;
 
-    #[Id, ManyToOne(targetEntity: EOrdine::class, inversedBy:'id_ordine')]
-    #[JoinColumn(name:'ordini', referencedColumnName:'id')]
-    #[Column]
-    private Collection $ordini;
+    #[ManyToOne(targetEntity: EAcquirente::class, inversedBy:'indirizzi')]
+    #[JoinColumn(name:'acquirenti', referencedColumnName:'id_acquirente')]
+    private EAcquirente|null $acquirenti = null;
 
-    public function __construct($nome){
+    #[ManyToOne(targetEntity: EOrdine::class, inversedBy:'indirizzi')]
+    #[JoinColumn(name:'ordini', referencedColumnName:'id_ordine')]
+    private EOrdine|null $ordini = null;
+
+    public function __construct($cap, $nome, $comune){
       $this->nome = $nome;
+      $this->cap = $cap;
+      $this->comune = $comune;
     }
 
     /**
@@ -70,6 +77,46 @@ class EIndirizzo{
     public function getOrdini()
     {
         return $this->ordini;
+    }
+
+    /**
+     * Get the value of cap
+     *
+     * @return $cap
+     */
+    public function getCap()
+    {
+        return $this->cap;
+    }
+
+    /**
+     * Set the value of cap
+     *
+     * @param $cap
+     */
+    public function setCap($cap)
+    {
+        $this->cap = $cap;
+    }
+
+    /**
+     * Get the value of comune
+     *
+     * @return $comune
+     */
+    public function getComune()
+    {
+        return $this->comune;
+    }
+
+    /**
+     * Set the value of comune
+     *
+     * @param $comune
+     */
+    public function setComune($comune)
+    {
+        $this->comune = $comune;
     }
 }
 ?>

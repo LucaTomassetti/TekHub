@@ -1,4 +1,6 @@
 <?php
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping\Column;
@@ -14,7 +16,6 @@ class EAcquirente{
     #[Id]
     #[Column(type: 'integer')]
     #[GeneratedValue]
-    #[OneToMany(targetEntity:EIndirizzo::class, mappedBy:'acquirenti',cascade: ['ALL'])]
     private int|null $id_acquirente = null;
 
     #[Column(type: 'string')]
@@ -32,8 +33,11 @@ class EAcquirente{
     #[Column(type: 'string')]
     private $email;
 
-    #[Column(type: 'integer', columnDefinition: "DECIMAL(10, 0)")]
+    #[Column(type: 'integer', columnDefinition: "BIGINT(10)")]
     private $cellulare;
+
+    #[OneToMany(targetEntity:EIndirizzo::class, mappedBy:'acquirenti')]
+    private Collection $indirizzi;
 
     public function __construct($id,$nome,$cognome,$username,$password,$email,$cellulare){
        $this->nome = $nome;
@@ -43,6 +47,7 @@ class EAcquirente{
        $this->password = $password;
        $this->email = $email;
        $this->cellulare = $cellulare; 
+       $this->indirizzi = new ArrayCollection();
     }
     
     /**
@@ -173,6 +178,16 @@ class EAcquirente{
     public function setCellulare($cellulare)
     {
         $this->cellulare = $cellulare;
+    }
+
+    /**
+     * Get the value of indirizzi
+     *
+     * @return $indirizzi
+     */
+    public function getIndirizzi()
+    {
+        return $this->indirizzi;
     }
 }
 
