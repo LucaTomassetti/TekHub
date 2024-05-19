@@ -1,19 +1,44 @@
 <?php
-class EAcquirente{
-    private $nome;
-    private $cognome;
-    private $id;
-    private $username;
-    private $password;
-    private $email;
-    private $cellulare;
-    private $ordini;
-    private $indirizzi;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\Table;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\GeneratedValue;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OneToMany;
 
-    public function __construct($nome,$cognome,$id,$username,$password,$email,$cellulare){
+#[Entity]
+#[Table('acquirente')]
+class EAcquirente{
+
+    #[Id]
+    #[Column(type: 'integer')]
+    #[GeneratedValue]
+    #[OneToMany(targetEntity:EIndirizzo::class, mappedBy:'acquirenti',cascade: ['ALL'])]
+    private int|null $id_acquirente = null;
+
+    #[Column(type: 'string')]
+    private $nome;
+
+    #[Column(type: 'string')]
+    private $cognome;
+
+    #[Column(type: 'string')]
+    private $username;
+
+    #[Column(type: 'string')]
+    private $password;
+
+    #[Column(type: 'string')]
+    private $email;
+
+    #[Column(type: 'integer', columnDefinition: "DECIMAL(10, 0)")]
+    private $cellulare;
+
+    public function __construct($id,$nome,$cognome,$username,$password,$email,$cellulare){
        $this->nome = $nome;
        $this->cognome = $cognome;
-       $this->id = $id;
+       $this->id_acquirente = $id;
        $this->username = $username;
        $this->password = $password;
        $this->email = $email;
@@ -67,17 +92,7 @@ class EAcquirente{
      */
     public function getId()
     {
-        return $this->id;
-    }
-
-    /**
-     * Set the value of id
-     *
-     * @param $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
+        return $this->id_acquirente;
     }
 
     /**
@@ -158,46 +173,6 @@ class EAcquirente{
     public function setCellulare($cellulare)
     {
         $this->cellulare = $cellulare;
-    }
-
-    /**
-     * Get the value of ordini
-     *
-     * @return $ordini
-     */
-    public function getOrdini()
-    {
-        return $this->ordini;
-    }
-
-    /**
-     * Set the value of ordini
-     *
-     * @param $ordini
-     */
-    public function setOrdini($ordini)
-    {
-        $this->ordini = $ordini;
-    }
-
-    /**
-     * Get the value of indirizzi
-     *
-     * @return $indirizzi
-     */
-    public function getIndirizzi()
-    {
-        return $this->indirizzi;
-    }
-
-    /**
-     * Set the value of indirizzi
-     *
-     * @param $indirizzi
-     */
-    public function setIndirizzi($indirizzi)
-    {
-        $this->indirizzi = $indirizzi;
     }
 }
 
