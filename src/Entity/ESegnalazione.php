@@ -1,11 +1,13 @@
 <?php
 class ESegnalazione{
 
+    private $id;
     private $data_erogazione;
     private $tipo;
     private $messaggio;
 
-    public function __construct($data_erogazione,$tipo,$messaggio) {
+    public function __construct($id,$data_erogazione,$tipo,$messaggio) {
+        $this->id=$id;
         $this->data_erogazione = $data_erogazione;
         $this->tipo=$tipo;
         $this->messaggio=$messaggio;
