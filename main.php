@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ .'/src/Utility/autoload.inc.php';
+//require_once __DIR__ .'/src/Utility/autoload.inc.php';
 require_once __DIR__ .'/config/bootstrap.php';
 
 function show($arg){
@@ -26,9 +26,9 @@ function loadController(){
 show(splitURL());
 loadController();
 
-$a1 = new EAcquirente(NULL,'boh','boh','boh','boh','boh@boh.com',3891237564);
+//$a1 = new EAcquirente(NULL,'boh','boh','boh','boh','boh@boh.com',3891237564);
 
-$entityManager->persist($a1);
+//$entityManager->persist($a1);
 
 //flush() serve per sincronizzare le modifiche nel database
 $entityManager->flush();
