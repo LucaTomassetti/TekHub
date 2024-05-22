@@ -1,0 +1,1 @@
+sono nel controllore asta
