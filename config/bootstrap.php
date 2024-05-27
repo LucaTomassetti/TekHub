@@ -51,7 +51,9 @@ $classes = array(
   $entityManager->getClassMetadata('EAcquirente'),
   $entityManager->getClassMetadata('EOrdine'),
   $entityManager->getClassMetadata('EIndirizzo'),
-  $entityManager->getClassMetadata('EAsta')
+  $entityManager->getClassMetadata('EProdotto'),
+  $entityManager->getClassMetadata('ENuovo'),
+  $entityManager->getClassMetadata('EUsato')
 );
 /**
  * Using $schemaTool->createSchema($classes) works too but when you

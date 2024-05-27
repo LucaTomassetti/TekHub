@@ -1,19 +1,39 @@
 <?php
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\Table;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\GeneratedValue;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\DiscriminatorColumn;
+use Doctrine\ORM\Mapping\DiscriminatorMap;
+use Doctrine\ORM\Mapping\InheritanceType;
+
+#[Entity]
+#[Table('prodotto')]
+#[InheritanceType('JOINED')]
+#[DiscriminatorColumn(name:'discr', type:'string')]
+#[DiscriminatorMap(['prodotto'=>'EProdotto', 'p_nuovo'=>'ENuovo', 'p_usato'=>'EUsato'])]
 class EProdotto{
-
+    #[Id]
+    #[Column(type: 'integer')]
+    #[GeneratedValue()]
     private $id_prodotto;
-    private $nome;
-    private $descrizione;
-    private $prezzo;
-    private $quantita_disponibili;
 
-    public function __construct($id_prodotto, $nome, $descrizione, $prezzo, $quantita_disponibili){
+    #[Column(type: 'string')]
+    private $nome;
+
+    #[Column(type: 'string', columnDefinition: "TEXT")]
+    private $descrizione;
+
+
+    public $discr = "prodotto";
+
+    public function __construct($id_prodotto, $nome, $descrizione){
 
         $this->id_prodotto = $id_prodotto;
         $this->nome = $nome;
         $this->descrizione = $descrizione;
-        $this->prezzo = $prezzo;
-        $this->quantita_disponibili = $quantita_disponibili;
 
     }
 
@@ -75,46 +95,6 @@ class EProdotto{
     public function setDescrizione($descrizione)
     {
         $this->descrizione = $descrizione;
-    }
-
-    /**
-     * Get the value of prezzo
-     *
-     * @return $prezzo
-     */
-    public function getPrezzo()
-    {
-        return $this->prezzo;
-    }
-
-    /**
-     * Set the value of prezzo
-     *
-     * @param $prezzo
-     */
-    public function setPrezzo($prezzo)
-    {
-        $this->prezzo = $prezzo;
-    }
-
-    /**
-     * Get the value of quantita_disponibili
-     *
-     * @return $quantita_disponibili
-     */
-    public function getQuantitaDisponibili()
-    {
-        return $this->quantita_disponibili;
-    }
-
-    /**
-     * Set the value of quantita_disponibili
-     *
-     * @param $quantita_disponibili
-     */
-    public function setQuantitaDisponibili($quantita_disponibili)
-    {
-        $this->quantita_disponibili = $quantita_disponibili;
     }
 }
 ?>
