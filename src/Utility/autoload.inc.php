@@ -8,17 +8,28 @@
 //     }
 
 function my_autoloader($className) {
-	if ( $className == 'Smarty') {
-       include_once( __DIR__ . '/../smarty-libs/Smarty.class.php' );
-	} else { 
-        $first = $className[0];
-        if ( $first == 'E') {
-           include_once( __DIR__ . '/../Entity/'. $className . '.php' ); 
-        } elseif ($first == 'F') {
-           include_once( __DIR__ . '/../Foundation/'. $className . '.php' ); 
-        } elseif ( $first == 'V') {
-           include_once( __DIR__ . '/../View/'. $className . '.php' );
-        }
+	$firstLetter = $className[0];
+        switch ($firstLetter) {
+            case 'E':
+                include_once(__DIR__ . '/../Entity/'. $className . '.php' );
+                break;
+
+            case 'F':
+                include_once(__DIR__ . "/../Foundation/" . $className . '.php' );
+                break;
+
+            case 'V':
+                include_once(__DIR__ . '/../View/'. $className . '.php' );
+                break;
+
+            case 'C':
+                include_once(__DIR__ . '/../Controller/'. $className . '.php' );
+                break;
+
+            case 'U':
+                include_once (__DIR__ . '/../Utility/'. $className. '.php');
+                break;
+
     }
 }
 
