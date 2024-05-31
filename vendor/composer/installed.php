@@ -3,7 +3,7 @@
         'name' => 'vendor/tekhub',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'a6eb1e30419e8038349f198107107da212dfa06f',
+        'reference' => '22bf4f8210e303b47e8ea1cd417c61329058a1bf',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -165,15 +165,6 @@
             'provided' => array(
                 0 => '1.0|2.0|3.0',
             ),
-        ),
-        'smarty/smarty' => array(
-            'pretty_version' => 'v5.3.0',
-            'version' => '5.3.0.0',
-            'reference' => '353ca06d076da46964b0c709d8e4dd87677195b8',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../smarty/smarty',
-            'aliases' => array(),
-            'dev_requirement' => false,
         ),
         'symfony/cache' => array(
             'pretty_version' => 'v7.0.7',
@@ -439,7 +430,7 @@
         'vendor/tekhub' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'a6eb1e30419e8038349f198107107da212dfa06f',
+            'reference' => '22bf4f8210e303b47e8ea1cd417c61329058a1bf',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
