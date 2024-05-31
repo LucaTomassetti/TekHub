@@ -1,13 +1,44 @@
 <?php
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\Table;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\GeneratedValue;
+
+#[Entity]
+#[Table('venditore')]
 class EVenditore{
-    private $id;
+
+    #[id]
+    #[Column(tipe: 'integer')]
+    #[GeneratedValue]
+    private int|null $id = null;
+
+    #[Column(tipe: 'string')]
     private $nome;
+
+    #[Column(tipe: 'string')]
     private $cognome;
+
+    #[Column(tipe: 'string')]
     private $partita_iva;
+
+    #[Column(tipe: 'string')]
     private $societa;
+
+    #[Column(tipe: 'string')]
     private $email;
+
+    #[Column(tipe: 'string')]
     private $password;
+
+    #[Column(tipe: 'string')]
     private $username;
+
+    #[OneToMany(targetEntity:EProdotto::class, mappedBy:'prodotto')]
+    
 
     public function __construct($id,$nome,$cognome,$partita_iva,$societa,$email,$password,$username){
         $this->id=$id;

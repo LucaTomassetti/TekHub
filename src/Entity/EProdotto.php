@@ -1,11 +1,38 @@
 <?php
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\Table;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\GeneratedValue;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\ManyToOne;
+
+#[Entity]
+#[Table('prodotto')]
 class EProdotto{
 
-    private $id_prodotto;
+    #[Id]
+    #[Column(type: 'integer')]
+    #[GeneratedValue]
+    private int|null $id_prodotto = null;
+
+    #[Column(type: 'string')]
     private $nome;
+
+    #[Column(type: 'string')]
     private $descrizione;
+
+    #[Column(type: 'double')]
     private $prezzo;
+
+    #[Column(type: 'integer')]
     private $quantita_disponibili;
+
+
+    #[ManyToOne(targetEntity: ECategoria::class, inversedBy:'prodotto')]
+
+    #[ManyToOne(targetEntity: EVenditore::class, inversedBy:'prodotto')]
 
     public function __construct($id_prodotto, $nome, $descrizione, $prezzo, $quantita_disponibili){
 
@@ -14,6 +41,8 @@ class EProdotto{
         $this->descrizione = $descrizione;
         $this->prezzo = $prezzo;
         $this->quantita_disponibili = $quantita_disponibili;
+
+        #manca $immagini
 
     }
 

@@ -1,7 +1,20 @@
 <?php
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\Table;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\OneToMany;
 
+#[Entity]
+#[Table('categoria')]
 class ECategoria{
+    
+    #[id]
+    #[Column(type: 'string')]
     private $nome_categoria;
+
+    #[OneToMany(targetEntity:EProdotto::class, mappedBy:'prodotto')]
 
     public function __construct ($nome_categoria) {
         $this->nome_categoria= $nome_categoria;
