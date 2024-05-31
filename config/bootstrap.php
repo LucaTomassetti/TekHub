@@ -47,12 +47,7 @@ $entityManager = new EntityManager($connection, $config);
 
 //Generating the database schema
 $schemaTool = new SchemaTool($entityManager);
-$classes = array(
-  $entityManager->getClassMetadata('EAcquirente'),
-  $entityManager->getClassMetadata('EOrdine'),
-  $entityManager->getClassMetadata('EIndirizzo'),
-  $entityManager->getClassMetadata('EAsta')
-);
+$classes = $entityManager->getMetadataFactory()->getAllMetadata();
 /**
  * Using $schemaTool->createSchema($classes) works too but when you
  * reload the main.php page, you get error 500 and the problem 
