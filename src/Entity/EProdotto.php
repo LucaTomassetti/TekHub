@@ -1,29 +1,22 @@
 <?php
-use Doctrine\ORM\Mapping\Entity;
-use Doctrine\ORM\Mapping\Table;
-use Doctrine\ORM\Mapping\Column;
-use Doctrine\ORM\Mapping\Id;
-use Doctrine\ORM\Mapping\GeneratedValue;
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\DiscriminatorColumn;
-use Doctrine\ORM\Mapping\DiscriminatorMap;
-use Doctrine\ORM\Mapping\InheritanceType;
 
-#[Entity]
-#[Table('prodotto')]
-#[InheritanceType('JOINED')]
-#[DiscriminatorColumn(name:'discr', type:'string')]
-#[DiscriminatorMap(['prodotto'=>'EProdotto', 'p_nuovo'=>'ENuovo', 'p_usato'=>'EUsato'])]
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity]
+#[ORM\Table('prodotto')]
+#[ORM\InheritanceType('JOINED')]
+#[ORM\DiscriminatorColumn(name:'discr', type:'string')]
+#[ORM\DiscriminatorMap(['prodotto'=>'EProdotto', 'p_nuovo'=>'ENuovo', 'p_usato'=>'EUsato'])]
 class EProdotto{
-    #[Id]
-    #[Column(type: 'integer')]
-    #[GeneratedValue()]
+    #[ORM\Id]
+    #[ORM\Column(type: 'integer')]
+    #[ORM\GeneratedValue()]
     private $id_prodotto;
 
-    #[Column(type: 'string')]
+    #[ORM\Column(type: 'string')]
     private $nome;
 
-    #[Column(type: 'string', columnDefinition: "TEXT")]
+    #[ORM\Column(type: 'string', columnDefinition: "TEXT")]
     private $descrizione;
 
 

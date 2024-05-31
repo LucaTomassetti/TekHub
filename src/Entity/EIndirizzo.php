@@ -1,36 +1,27 @@
 <?php
-use Doctrine\ORM\Mapping\Entity;
-use Doctrine\ORM\Mapping\Table;
-use Doctrine\ORM\Mapping\Column;
-use Doctrine\ORM\Mapping\OneToMany;
-use Doctrine\ORM\Mapping\JoinColumn;
-use Doctrine\ORM\Mapping\Id;
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\GeneratedValue;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Schema\ForeignKeyConstraint;
-use Doctrine\ORM\Mapping\ManyToOne;
 
-#[Entity]
-#[Table('indirizzo')]
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity]
+#[ORM\Table('indirizzo')]
 class EIndirizzo{
-    #[Id]
-    #[Column(type: 'integer', columnDefinition:'INT(5)')]
+    #[ORM\Id]
+    #[ORM\Column(type: 'integer', columnDefinition:'INT(5)')]
     private $cap;
 
-    #[Id]
-    #[Column(type: 'string')]
+    #[ORM\Id]
+    #[ORM\Column(type: 'string')]
     private $nome;
 
-    #[Column(type: 'string')]
+    #[ORM\Column(type: 'string')]
     private $comune;
 
-    #[ManyToOne(targetEntity: EAcquirente::class, inversedBy:'indirizzi')]
-    #[JoinColumn(name:'acquirenti', referencedColumnName:'id_acquirente')]
+    #[ORM\ManyToOne(targetEntity: EAcquirente::class, inversedBy:'indirizzi')]
+    #[ORM\JoinColumn(name:'acquirenti', referencedColumnName:'id_acquirente')]
     private EAcquirente|null $acquirenti = null;
 
-    #[ManyToOne(targetEntity: EOrdine::class, inversedBy:'indirizzi')]
-    #[JoinColumn(name:'ordini', referencedColumnName:'id_ordine')]
+    #[ORM\ManyToOne(targetEntity: EOrdine::class, inversedBy:'indirizzi')]
+    #[ORM\JoinColumn(name:'ordini', referencedColumnName:'id_ordine')]
     private EOrdine|null $ordini = null;
 
     public function __construct($cap, $nome, $comune){

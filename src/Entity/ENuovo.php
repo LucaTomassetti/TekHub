@@ -1,25 +1,14 @@
 <?php
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Schema\View;
-use Doctrine\ORM\Mapping\Entity;
-use Doctrine\ORM\Mapping\Table;
-use Doctrine\ORM\Mapping\Column;
-use Doctrine\ORM\Mapping\Id;
-use Doctrine\ORM\Mapping\GeneratedValue;
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\DiscriminatorColumn;
-use Doctrine\ORM\Mapping\DiscriminatorMap;
-use Doctrine\ORM\Mapping\InheritanceType;
-use Doctrine\ORM\Mapping\OneToMany;
 
-#[Entity]
-#[Table('p_nuovo')]
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity]
+#[ORM\Table('p_nuovo')]
 class ENuovo extends EProdotto{
-    #[Column(type: 'integer', columnDefinition: "DOUBLE(5,2)")]
+    #[ORM\Column(type: 'integer', columnDefinition: "DOUBLE(5,2)")]
     private $prezzo_fisso;
 
-    #[Column(type: 'integer')]
+    #[ORM\Column(type: 'integer')]
     private $quantita_disp;
 
     public $discr = "p_nuovo";

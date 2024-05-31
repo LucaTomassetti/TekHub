@@ -1,43 +1,35 @@
 <?php
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping\Entity;
-use Doctrine\ORM\Mapping\Table;
-use Doctrine\ORM\Mapping\Column;
-use Doctrine\ORM\Mapping\ManyToOne;
-use Doctrine\ORM\Mapping\OneToMany;
-use Doctrine\ORM\Mapping\JoinColumn;
-use Doctrine\ORM\Mapping\Id;
-use Doctrine\ORM\Mapping\GeneratedValue;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
-#[Entity]
-#[Table('ordine')]
+#[ORM\Entity]
+#[ORM\Table('ordine')]
 class EOrdine{
 
-    #[Id]
-    #[Column(type: 'integer')]
-    #[GeneratedValue]
-    #[OneToMany(targetEntity:EIndirizzo::class, mappedBy:'ordini',cascade: ['ALL'])]
+    #[ORM\Id]
+    #[ORM\Column(type: 'integer')]
+    #[ORM\GeneratedValue]
+    #[ORM\OneToMany(targetEntity:EIndirizzo::class, mappedBy:'ordini',cascade: ['ALL'])]
     private int|null $id_ordine = null;
 
-    #[Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime')]
     private $data;
 
-    #[Column(type: 'string')]
+    #[ORM\Column(type: 'string')]
     private $stato;
 
-    #[Column(type: 'integer')]
+    #[ORM\Column(type: 'integer')]
     private $quantita_prodotto;
 
-    #[Column(type: 'float')]
+    #[ORM\Column(type: 'float')]
     private $importo_tot;
 
-    #[OneToMany(targetEntity:EIndirizzo::class, mappedBy:'ordini')]
+    #[ORM\OneToMany(targetEntity:EIndirizzo::class, mappedBy:'ordini')]
     private Collection $indirizzi;
 
-    //#[Column(type: 'string')]
+    //#[ORM\Column(type: 'string')]
     private $id_venditore;
     
     public function __construct($id_ordine,$data, $stato,$quantita_prodotto, $importo_tot){

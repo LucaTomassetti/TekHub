@@ -1,42 +1,36 @@
 <?php
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping\Entity;
-use Doctrine\ORM\Mapping\Table;
-use Doctrine\ORM\Mapping\Column;
-use Doctrine\ORM\Mapping\Id;
-use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\OneToMany;
 
-#[Entity]
-#[Table('acquirente')]
+#[ORM\Entity]
+#[ORM\Table('acquirente')]
 class EAcquirente{
 
-    #[Id]
-    #[Column(type: 'integer')]
-    #[GeneratedValue]
+    #[ORM\Id]
+    #[ORM\Column(type: 'integer')]
+    #[ORM\GeneratedValue]
     private int|null $id_acquirente = null;
 
-    #[Column(type: 'string')]
+    #[ORM\Column(type: 'string')]
     private $nome;
 
-    #[Column(type: 'string')]
+    #[ORM\Column(type: 'string')]
     private $cognome;
 
-    #[Column(type: 'string')]
+    #[ORM\Column(type: 'string')]
     private $username;
 
-    #[Column(type: 'string')]
+    #[ORM\Column(type: 'string')]
     private $password;
 
-    #[Column(type: 'string')]
+    #[ORM\Column(type: 'string')]
     private $email;
 
-    #[Column(type: 'integer', columnDefinition: "BIGINT(10)")]
+    #[ORM\Column(type: 'integer', columnDefinition: "BIGINT(10)")]
     private $cellulare;
 
-    #[OneToMany(targetEntity:EIndirizzo::class, mappedBy:'acquirenti')]
+    #[ORM\OneToMany(targetEntity:EIndirizzo::class, mappedBy:'acquirenti')]
     private Collection $indirizzi;
 
     public function __construct($id,$nome,$cognome,$username,$password,$email,$cellulare){

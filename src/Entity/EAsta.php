@@ -1,27 +1,24 @@
 <?php
-use Doctrine\ORM\Mapping\Entity;
-use Doctrine\ORM\Mapping\Table;
-use Doctrine\ORM\Mapping\Column;
-use Doctrine\ORM\Mapping\GeneratedValue;
-use Doctrine\ORM\Mapping\ManyToOne;
-use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping as ORM;
-#[Entity]
-#[Table('asta')]
+#[ORM\Entity]
+#[ORM\Table('asta')]
 class EAsta{
 
-    #[Id]
-    #[Column(type: 'integer')]
-    #[GeneratedValue]
+    #[ORM\Id]
+    #[ORM\Column(type: 'integer')]
+    #[ORM\GeneratedValue]
     private $id_asta;
 
-    #[Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime')]
     private $data_creazione;
 
-    #[Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime')]
     private $data_fine;
 
-    //#[Column(type: 'EOfferta')]
+    #[ORM\OneToOne(targetEntity: EUsato::class, mappedBy: 'asta')]
+    private EUsato|null $usato = null;
+
+    //#[ORM\Column(type: 'EOfferta')]
     private $ultima_offerta;
 
     public function __construct($id_asta,$data_creazione,$data_fine,$ultima_offerta){

@@ -1,23 +1,15 @@
 <?php
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Schema\View;
-use Doctrine\ORM\Mapping\Entity;
-use Doctrine\ORM\Mapping\Table;
-use Doctrine\ORM\Mapping\Column;
-use Doctrine\ORM\Mapping\Id;
-use Doctrine\ORM\Mapping\GeneratedValue;
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\DiscriminatorColumn;
-use Doctrine\ORM\Mapping\DiscriminatorMap;
-use Doctrine\ORM\Mapping\InheritanceType;
-use Doctrine\ORM\Mapping\OneToMany;
 
-#[Entity]
-#[Table('p_usato')]
+use Doctrine\ORM\Mapping as ORM;
+#[ORM\Entity]
+#[ORM\Table('p_usato')]
 class EUsato extends EProdotto{
-    #[Column(type: 'integer', columnDefinition: "DOUBLE(5,2)")]
+    #[ORM\Column(type: 'integer', columnDefinition: "DOUBLE(5,2)")]
     private $floor_price;
+    
+    #[ORM\OneToOne(targetEntity: EAsta::class, inversedBy: 'usato')]
+    #[ORM\JoinColumn(name: 'asta_id', referencedColumnName: 'id_asta')]
+    private EAsta|null $asta = null;
 
     public $discr = "p_usato";
 
