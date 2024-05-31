@@ -1,8 +1,25 @@
 <?php
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity]
+#[ORM\Table('offerta')]
 class EOfferta{
+    #[ORM\Id]
+    #[ORM\Column(type: 'integer')]
+    #[ORM\GeneratedValue]
     private $id_offerta;
+
+    #[ORM\Column(type: 'integer', columnDefinition:'DOUBLE(5,2)')]
     private $importo;
+
+    #[ORM\Column(type: 'datetime')]
     private $data;
+
+    #[ORM\ManyToOne(targetEntity: EAcquirente::class, inversedBy:'offerte')]
+    #[ORM\JoinColumn(name:'acquirente', referencedColumnName:'id_acquirente')]
+    private EAcquirente|null $acquirente = null;
 
     public function __construct($id_offerta,$importo,$data) {
         $this->id_offerta = $id_offerta;
@@ -72,5 +89,25 @@ class EOfferta{
     {
         $this->data = $data;
 
+    }
+
+    /**
+     * Get the value of acquirente
+     *
+     * @return $acquirente
+     */
+    public function getAcquirente()
+    {
+        return $this->acquirente;
+    }
+
+    /**
+     * Set the value of acquirente
+     *
+     * @param $acquirente
+     */
+    public function setAcquirente($acquirente)
+    {
+        $this->acquirente = $acquirente;
     }
 }

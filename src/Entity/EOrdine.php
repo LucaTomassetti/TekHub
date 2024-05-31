@@ -26,8 +26,12 @@ class EOrdine{
     #[ORM\Column(type: 'float')]
     private $importo_tot;
 
-    #[ORM\OneToMany(targetEntity:EIndirizzo::class, mappedBy:'ordini')]
+    #[ORM\OneToMany(targetEntity:EIndirizzo::class, mappedBy:'ordine')]
     private Collection $indirizzi;
+
+    #[ORM\ManyToOne(targetEntity: EAcquirente::class, inversedBy:'ordini')]
+    #[ORM\JoinColumn(name:'acquirente', referencedColumnName:'id_acquirente')]
+    private EAcquirente|null $acquirente = null;
 
     //#[ORM\Column(type: 'string')]
     private $id_venditore;
@@ -170,6 +174,26 @@ class EOrdine{
     public function getIndirizzi()
     {
         return $this->indirizzi;
+    }
+
+    /**
+     * Get the value of acquirente
+     *
+     * @return $acquirente
+     */
+    public function getAcquirente()
+    {
+        return $this->acquirente;
+    }
+
+    /**
+     * Set the value of acquirente
+     *
+     * @param $acquirente
+     */
+    public function setAcquirente($acquirente)
+    {
+        $this->acquirente = $acquirente;
     }
 }
 ?>

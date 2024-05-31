@@ -17,12 +17,12 @@ class EIndirizzo{
     private $comune;
 
     #[ORM\ManyToOne(targetEntity: EAcquirente::class, inversedBy:'indirizzi')]
-    #[ORM\JoinColumn(name:'acquirenti', referencedColumnName:'id_acquirente')]
-    private EAcquirente|null $acquirenti = null;
+    #[ORM\JoinColumn(name:'acquirente', referencedColumnName:'id_acquirente')]
+    private EAcquirente|null $acquirente = null;
 
     #[ORM\ManyToOne(targetEntity: EOrdine::class, inversedBy:'indirizzi')]
-    #[ORM\JoinColumn(name:'ordini', referencedColumnName:'id_ordine')]
-    private EOrdine|null $ordini = null;
+    #[ORM\JoinColumn(name:'ordine', referencedColumnName:'id_ordine')]
+    private EOrdine|null $ordine = null;
 
     public function __construct($cap, $nome, $comune){
       $this->nome = $nome;
@@ -48,26 +48,6 @@ class EIndirizzo{
     public function setNome($nome)
     {
         $this->nome = $nome;
-    }
-
-    /**
-     * Get the value of acquirenti
-     *
-     * @return $acquirenti
-     */
-    public function getAcquirenti()
-    {
-        return $this->acquirenti;
-    }
-
-    /**
-     * Get the value of ordini
-     *
-     * @return $ordini
-     */
-    public function getOrdini()
-    {
-        return $this->ordini;
     }
 
     /**
@@ -108,6 +88,46 @@ class EIndirizzo{
     public function setComune($comune)
     {
         $this->comune = $comune;
+    }
+
+    /**
+     * Get the value of acquirente
+     *
+     * @return $acquirente
+     */
+    public function getAcquirente()
+    {
+        return $this->acquirente;
+    }
+
+    /**
+     * Set the value of acquirente
+     *
+     * @param $acquirente
+     */
+    public function setAcquirente($acquirente)
+    {
+        $this->acquirente = $acquirente;
+    }
+
+    /**
+     * Get the value of ordine
+     *
+     * @return $ordine
+     */
+    public function getOrdine()
+    {
+        return $this->ordine;
+    }
+
+    /**
+     * Set the value of ordine
+     *
+     * @param $ordine
+     */
+    public function setOrdine($ordine)
+    {
+        $this->ordine = $ordine;
     }
 }
 ?>

@@ -19,6 +19,9 @@ class EProdotto{
     #[ORM\Column(type: 'string', columnDefinition: "TEXT")]
     private $descrizione;
 
+    #[ORM\ManyToOne(targetEntity: ECategoria::class, inversedBy:'prodotti')]
+    #[ORM\JoinColumn(name:'categoria', referencedColumnName:'nome_categoria')]
+    private ECategoria|null $categoria = null;
 
     public $discr = "prodotto";
 
@@ -88,6 +91,26 @@ class EProdotto{
     public function setDescrizione($descrizione)
     {
         $this->descrizione = $descrizione;
+    }
+
+    /**
+     * Get the value of categoria
+     *
+     * @return $categoria
+     */
+    public function getCategoria()
+    {
+        return $this->categoria;
+    }
+
+    /**
+     * Set the value of categoria
+     *
+     * @param $categoria
+     */
+    public function setCategoria($categoria)
+    {
+        $this->categoria = $categoria;
     }
 }
 ?>

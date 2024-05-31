@@ -30,8 +30,14 @@ class EAcquirente{
     #[ORM\Column(type: 'integer', columnDefinition: "BIGINT(10)")]
     private $cellulare;
 
-    #[ORM\OneToMany(targetEntity:EIndirizzo::class, mappedBy:'acquirenti')]
+    #[ORM\OneToMany(targetEntity:EIndirizzo::class, mappedBy:'acquirente')]
     private Collection $indirizzi;
+
+    #[ORM\OneToMany(targetEntity:EOfferta::class, mappedBy:'acquirente')]
+    private Collection $offerte;
+
+    #[ORM\OneToMany(targetEntity:EOrdine::class, mappedBy:'acquirente')]
+    private Collection $ordini;
 
     public function __construct($id,$nome,$cognome,$username,$password,$email,$cellulare){
        $this->nome = $nome;
@@ -42,6 +48,8 @@ class EAcquirente{
        $this->email = $email;
        $this->cellulare = $cellulare; 
        $this->indirizzi = new ArrayCollection();
+       $this->offerte = new ArrayCollection();
+       $this->ordini = new ArrayCollection();
     }
     
     /**
@@ -182,6 +190,46 @@ class EAcquirente{
     public function getIndirizzi()
     {
         return $this->indirizzi;
+    }
+
+    /**
+     * Get the value of offerte
+     *
+     * @return $offerte
+     */
+    public function getOfferte()
+    {
+        return $this->offerte;
+    }
+
+    /**
+     * Set the value of offerte
+     *
+     * @param $offerte
+     */
+    public function setOfferte($offerte)
+    {
+        $this->offerte = $offerte;
+    }
+
+    /**
+     * Get the value of ordini
+     *
+     * @return $ordini
+     */
+    public function getOrdini()
+    {
+        return $this->ordini;
+    }
+
+    /**
+     * Set the value of ordini
+     *
+     * @param $ordini
+     */
+    public function setOrdini($ordini)
+    {
+        $this->ordini = $ordini;
     }
 }
 
