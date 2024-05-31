@@ -23,7 +23,6 @@ function loadController(){
         require $file;
     }
 }
-show(splitURL());
 loadController();
 
 //$a1 = new EAcquirente(NULL,'boh','boh','boh','boh','boh@boh.com',3891237564);
