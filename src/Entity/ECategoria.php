@@ -7,10 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table('categoria')]
 class ECategoria{
     #[ORM\Id]
-    #[ORM\Column(type: 'string')]
-    private $nome_categoria;
+    #[ORM\Column(type:'string', columnDefinition:'VARCHAR(50)')]
+    private string $nome_categoria;
 
-    #[ORM\OneToMany(targetEntity:EProdotto::class, mappedBy:'categoria')]
+    #[ORM\OneToMany(targetEntity:EProdotto::class, mappedBy:'category_name')]
     private Collection $prodotti;
 
     public function __construct ($nome_categoria) {

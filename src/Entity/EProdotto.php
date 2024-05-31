@@ -8,10 +8,11 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\DiscriminatorColumn(name:'discr', type:'string')]
 #[ORM\DiscriminatorMap(['prodotto'=>'EProdotto', 'p_nuovo'=>'ENuovo', 'p_usato'=>'EUsato'])]
 class EProdotto{
+
     #[ORM\Id]
     #[ORM\Column(type: 'integer')]
     #[ORM\GeneratedValue()]
-    private $id_prodotto;
+    private int|null $id_prodotto = null;
 
     #[ORM\Column(type: 'string')]
     private $nome;
@@ -20,8 +21,8 @@ class EProdotto{
     private $descrizione;
 
     #[ORM\ManyToOne(targetEntity: ECategoria::class, inversedBy:'prodotti')]
-    #[ORM\JoinColumn(name:'categoria', referencedColumnName:'nome_categoria')]
-    private ECategoria|null $categoria = null;
+    #[ORM\JoinColumn(name:'category_name', referencedColumnName:'nome_categoria')]
+    private ECategoria|null $category_name = null;
 
     public $discr = "prodotto";
 
@@ -94,23 +95,23 @@ class EProdotto{
     }
 
     /**
-     * Get the value of categoria
+     * Get the value of category_name
      *
-     * @return $categoria
+     * @return $category_name
      */
-    public function getCategoria()
+    public function getCategoryName()
     {
-        return $this->categoria;
+        return $this->category_name;
     }
 
     /**
-     * Set the value of categoria
+     * Set the value of category_name
      *
-     * @param $categoria
+     * @param $category_name
      */
-    public function setCategoria($categoria)
+    public function setCategoryName($category_name)
     {
-        $this->categoria = $categoria;
+        $this->category_name = $category_name;
     }
 }
 ?>
