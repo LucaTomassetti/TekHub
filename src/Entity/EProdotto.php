@@ -22,7 +22,8 @@ class EProdotto{
 
     #[ORM\ManyToOne(targetEntity: ECategoria::class, inversedBy:'prodotti')]
     #[ORM\JoinColumn(name:'category_name', referencedColumnName:'nome_categoria')]
-    private ECategoria|null $category_name = null;
+    #[ORM\Column(nullable: false)]
+    private ECategoria $category_name;
 
     public $discr = "prodotto";
 
