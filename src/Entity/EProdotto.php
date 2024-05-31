@@ -1,39 +1,19 @@
 <?php
-use Doctrine\ORM\Mapping\Entity;
-use Doctrine\ORM\Mapping\Table;
-use Doctrine\ORM\Mapping\Column;
-use Doctrine\ORM\Mapping\Id;
-use Doctrine\ORM\Mapping\GeneratedValue;
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\DiscriminatorColumn;
-use Doctrine\ORM\Mapping\DiscriminatorMap;
-use Doctrine\ORM\Mapping\InheritanceType;
-
-#[Entity]
-#[Table('prodotto')]
-#[InheritanceType('JOINED')]
-#[DiscriminatorColumn(name:'discr', type:'string')]
-#[DiscriminatorMap(['prodotto'=>'EProdotto', 'p_nuovo'=>'ENuovo', 'p_usato'=>'EUsato'])]
 class EProdotto{
-    #[Id]
-    #[Column(type: 'integer')]
-    #[GeneratedValue()]
+
     private $id_prodotto;
-
-    #[Column(type: 'string')]
     private $nome;
-
-    #[Column(type: 'string', columnDefinition: "TEXT")]
     private $descrizione;
+    private $prezzo;
+    private $quantita_disponibili;
 
-
-    public $discr = "prodotto";
-
-    public function __construct($id_prodotto, $nome, $descrizione){
+    public function __construct($id_prodotto, $nome, $descrizione, $prezzo, $quantita_disponibili){
 
         $this->id_prodotto = $id_prodotto;
         $this->nome = $nome;
         $this->descrizione = $descrizione;
+
+        #manca $immagini
 
     }
 

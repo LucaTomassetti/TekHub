@@ -9,7 +9,7 @@
 
 function my_autoloader($className) {
 	if ( $className == 'Smarty') {
-       include_once( __DIR__ . '/../../smarty-libs/Smarty.class.php' );
+       include_once( __DIR__ . '/../smarty-libs/Smarty.class.php' );
 	} else { 
         $first = $className[0];
         if ( $first == 'E') {
