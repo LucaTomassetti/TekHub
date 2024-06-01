@@ -18,8 +18,12 @@ class EOfferta{
     private $data;
 
     #[ORM\ManyToOne(targetEntity: EAcquirente::class, inversedBy:'offerte')]
-    #[ORM\JoinColumn(name:'acquirente', referencedColumnName:'id_acquirente')]
+    #[ORM\JoinColumn(name:'acquirente', referencedColumnName:'id_acquirente', nullable:false)]
     private EAcquirente|null $acquirente = null;
+
+    #[ORM\ManyToOne(targetEntity: EUsato::class, inversedBy:'offerte')]
+    #[ORM\JoinColumn(name:'p_usato_id', referencedColumnName:'id_prodotto', nullable:false)]
+    private EUsato|null $p_usato_id = null;
 
     public function __construct($id_offerta,$importo,$data) {
         $this->id_offerta = $id_offerta;
@@ -109,5 +113,23 @@ class EOfferta{
     public function setAcquirente($acquirente)
     {
         $this->acquirente = $acquirente;
+    }
+
+    /**
+     * Get the value of p_usato_id
+     */
+    public function getPUsatoId(): ?EUsato
+    {
+        return $this->p_usato_id;
+    }
+
+    /**
+     * Set the value of p_usato_id
+     */
+    public function setPUsatoId(?EUsato $p_usato_id): self
+    {
+        $this->p_usato_id = $p_usato_id;
+
+        return $this;
     }
 }

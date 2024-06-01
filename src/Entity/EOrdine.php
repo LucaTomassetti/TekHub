@@ -30,7 +30,7 @@ class EOrdine{
     private Collection $indirizzi;
 
     #[ORM\ManyToOne(targetEntity: EAcquirente::class, inversedBy:'ordini')]
-    #[ORM\JoinColumn(name:'acquirente', referencedColumnName:'id_acquirente')]
+    #[ORM\JoinColumn(name:'acquirente', referencedColumnName:'id_acquirente', nullable:false)]
     private EAcquirente|null $acquirente = null;
 
     //#[ORM\Column(type: 'string')]

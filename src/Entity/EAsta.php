@@ -97,6 +97,24 @@ class EAsta{
     {
         $this->ultima_offerta = $ultima_offerta;
     }
+
+    /**
+     * Get the value of usato
+     */
+    public function getUsato(): ?EUsato
+    {
+        return $this->usato;
+    }
+
+    /**
+     * Set the value of usato
+     */
+    public function setUsato(?EUsato $usato): self
+    {
+        $this->usato = $usato;
+
+        return $this;
+    }
 }
 
 ?>
