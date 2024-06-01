@@ -39,6 +39,12 @@ class EAcquirente{
     #[ORM\OneToMany(targetEntity:EOrdine::class, mappedBy:'acquirente')]
     private Collection $ordini;
 
+    #[ORM\JoinTable(name: 'resi')]
+    #[ORM\JoinColumn(name: 'acquirente_id', referencedColumnName: 'id_acquirente')]
+    #[ORM\InverseJoinColumn(name: 'prodotto_id', referencedColumnName: 'id_prodotto')]
+    #[ORM\ManyToMany(targetEntity: EProdotto::class)]
+    private Collection $prodotti;
+
     public function __construct($id,$nome,$cognome,$username,$password,$email,$cellulare){
        $this->nome = $nome;
        $this->cognome = $cognome;
@@ -50,6 +56,7 @@ class EAcquirente{
        $this->indirizzi = new ArrayCollection();
        $this->offerte = new ArrayCollection();
        $this->ordini = new ArrayCollection();
+       $this->prodotti = new ArrayCollection();
     }
     
     /**
@@ -230,6 +237,24 @@ class EAcquirente{
     public function setOrdini($ordini)
     {
         $this->ordini = $ordini;
+    }
+
+    /**
+     * Get the value of prodotti
+     */
+    public function getProdotti(): Collection
+    {
+        return $this->prodotti;
+    }
+
+    /**
+     * Set the value of prodotti
+     */
+    public function setProdotti(Collection $prodotti): self
+    {
+        $this->prodotti = $prodotti;
+
+        return $this;
     }
 }
 
