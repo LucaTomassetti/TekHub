@@ -12,22 +12,22 @@ class EAcquirente{
     #[ORM\GeneratedValue]
     private int|null $id_acquirente = null;
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: 'string', length:50, columnDefinition: 'VARCHAR(50)')]
     private $nome;
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: 'string', length:70, columnDefinition: 'VARCHAR(70)')]
     private $cognome;
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: 'string', length:50, columnDefinition: 'VARCHAR(50)')]
     private $username;
 
     #[ORM\Column(type: 'string')]
     private $password;
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: 'string', length:70, columnDefinition: 'VARCHAR(70)')]
     private $email;
 
-    #[ORM\Column(type: 'integer', columnDefinition: "BIGINT(10)")]
+    #[ORM\Column(type: 'integer', columnDefinition: 'BIGINT(10)')]
     private $cellulare;
 
     #[ORM\OneToMany(targetEntity:EIndirizzo::class, mappedBy:'acquirente')]
@@ -39,11 +39,17 @@ class EAcquirente{
     #[ORM\OneToMany(targetEntity:EOrdine::class, mappedBy:'acquirente')]
     private Collection $ordini;
 
-    #[ORM\JoinTable(name: 'resi')]
-    #[ORM\JoinColumn(name: 'acquirente_id', referencedColumnName: 'id_acquirente')]
-    #[ORM\InverseJoinColumn(name: 'prodotto_id', referencedColumnName: 'id_prodotto')]
-    #[ORM\ManyToMany(targetEntity: EProdotto::class)]
-    private Collection $prodotti;
+    #[ORM\OneToMany(targetEntity:EReso::class, mappedBy:'acquirente')]
+    private Collection $resi;
+
+    #[ORM\OneToMany(targetEntity:ERecensione::class, mappedBy:'acquirente')]
+    private Collection $recensioni;
+
+    #[ORM\OneToMany(targetEntity:ECartaDiCredito::class, mappedBy:'proprietario')]
+    private Collection $carte_di_credito;
+
+    #[ORM\OneToMany(targetEntity:ERimborso::class, mappedBy:'cliente_rimborsato')]
+    private Collection $rimborsi;
 
     public function __construct($id,$nome,$cognome,$username,$password,$email,$cellulare){
        $this->nome = $nome;
@@ -56,7 +62,10 @@ class EAcquirente{
        $this->indirizzi = new ArrayCollection();
        $this->offerte = new ArrayCollection();
        $this->ordini = new ArrayCollection();
-       $this->prodotti = new ArrayCollection();
+       $this->resi = new ArrayCollection();
+       $this->recensioni = new ArrayCollection();
+       $this->carte_di_credito = new ArrayCollection();
+       $this->rimborsi = new ArrayCollection();
     }
     
     /**
@@ -240,19 +249,73 @@ class EAcquirente{
     }
 
     /**
-     * Get the value of prodotti
+     * Get the value of resi
      */
-    public function getProdotti(): Collection
+    public function getResi(): Collection
     {
-        return $this->prodotti;
+        return $this->resi;
     }
 
     /**
-     * Set the value of prodotti
+     * Set the value of resi
      */
-    public function setProdotti(Collection $prodotti): self
+    public function setResi(Collection $resi): self
     {
-        $this->prodotti = $prodotti;
+        $this->resi = $resi;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of recensioni
+     */
+    public function getRecensioni(): Collection
+    {
+        return $this->recensioni;
+    }
+
+    /**
+     * Set the value of recensioni
+     */
+    public function setRecensioni(Collection $recensioni): self
+    {
+        $this->recensioni = $recensioni;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of carte_di_credito
+     */
+    public function getCarteDiCredito(): Collection
+    {
+        return $this->carte_di_credito;
+    }
+
+    /**
+     * Set the value of carte_di_credito
+     */
+    public function setCarteDiCredito(Collection $carte_di_credito): self
+    {
+        $this->carte_di_credito = $carte_di_credito;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of rimborsi
+     */
+    public function getRimborsi(): Collection
+    {
+        return $this->rimborsi;
+    }
+
+    /**
+     * Set the value of rimborsi
+     */
+    public function setRimborsi(Collection $rimborsi): self
+    {
+        $this->rimborsi = $rimborsi;
 
         return $this;
     }

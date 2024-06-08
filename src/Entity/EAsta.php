@@ -18,6 +18,10 @@ class EAsta{
     #[ORM\OneToOne(targetEntity: EUsato::class, mappedBy: 'asta')]
     private EUsato|null $usato = null;
 
+    #[ORM\ManyToOne(targetEntity: EVenditore::class, inversedBy:'aste')]
+    #[ORM\JoinColumn(name:'venditore', referencedColumnName:'id_venditore')]
+    private EVenditore|null $venditore = null;
+
     //#[ORM\Column(type: 'EOfferta')]
     private $ultima_offerta;
 
@@ -112,6 +116,24 @@ class EAsta{
     public function setUsato(?EUsato $usato): self
     {
         $this->usato = $usato;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of venditore
+     */
+    public function getVenditore(): ?EVenditore
+    {
+        return $this->venditore;
+    }
+
+    /**
+     * Set the value of venditore
+     */
+    public function setVenditore(?EVenditore $venditore): self
+    {
+        $this->venditore = $venditore;
 
         return $this;
     }

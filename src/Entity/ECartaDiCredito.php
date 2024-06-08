@@ -1,12 +1,36 @@
 <?php
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity]
+#[ORM\Table('carta_di_credito')]
 class ECartaDiCredito{
-    
-    private $nome_titolare;
-    private $cognome_titolare;
-    private $data_scadenza;
+    #[ORM\Id]
+    #[ORM\Column(type: 'bigint', columnDefinition:'BIGINT(16)')]
     private $numero_carta;
+
+    #[ORM\Column(type: 'string', length:50, columnDefinition:'VARCHAR(50)')]
+    private $nome_titolare;
+
+    #[ORM\Column(type: 'string', length:70, columnDefinition:'VARCHAR(70)')]
+    private $cognome_titolare;
+
+    #[ORM\Column(type: 'date')]
+    private $data_scadenza;
+
+    #[ORM\Column(type: 'integer', columnDefinition: 'INT(3)')]
     private $cvv;
+
+    #[ORM\Column(type: 'string', length:70, columnDefinition: 'VARCHAR(70)')]
     private $gestore_carta;
+
+    #[ORM\ManyToOne(targetEntity: EAcquirente::class, inversedBy:'carte_di_credito')]
+    #[ORM\JoinColumn(name:'id_proprietario', referencedColumnName:'id_acquirente')]
+    private EAcquirente|null $proprietario = null;
+
+    #[ORM\OneToMany(targetEntity: EOrdine::class, mappedBy:'carta_ordine')]
+    private Collection $ordini;
 
     public function __construct($nome_titolare, $cognome_titolare, $data_scadenza, $numero_carta, $cvv, $gestore_carta){
         
@@ -15,6 +39,7 @@ class ECartaDiCredito{
         $this->data_scadenza = $data_scadenza;
         $this->cvv = $cvv;
         $this->gestore_carta = $gestore_carta;
+        $this->ordini = new ArrayCollection();
     
     }
 
@@ -136,6 +161,42 @@ class ECartaDiCredito{
     public function setGestoreCarta($gestore_carta)
     {
         $this->gestore_carta = $gestore_carta;
+    }
+
+    /**
+     * Get the value of ordini
+     */
+    public function getOrdini(): Collection
+    {
+        return $this->ordini;
+    }
+
+    /**
+     * Set the value of ordini
+     */
+    public function setOrdini(Collection $ordini): self
+    {
+        $this->ordini = $ordini;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of proprietario
+     */
+    public function getProprietario(): ?EAcquirente
+    {
+        return $this->proprietario;
+    }
+
+    /**
+     * Set the value of proprietario
+     */
+    public function setProprietario(?EAcquirente $proprietario): self
+    {
+        $this->proprietario = $proprietario;
+
+        return $this;
     }
 }
 ?>

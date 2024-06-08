@@ -1,35 +1,38 @@
 <?php
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity]
+#[ORM\Table('rimborso')]
 class ERimborso{
 
-    private $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'integer')]
+    #[ORM\GeneratedValue]
+    private int|null $id_rimborso = null;
+
+    #[ORM\Column(type: 'float', columnDefinition: 'DOUBLE(5,2)')]
     private $importo;
+
+    #[ORM\Column(type: 'date')]
     private $data_erogazione;
 
-    public function __construct($id, $importo, $data_erogazione){
+    #[ORM\ManyToOne(targetEntity:EAcquirente::class, inversedBy:'rimborsi')]
+    #[ORM\JoinColumn(name:'id_cliente_rimborsato', referencedColumnName:'id_acquirente')]
+    private EAcquirente|null $cliente_rimborsato = null;
 
-        $this->id = $id;
+    #[ORM\ManyToOne(targetEntity:EVenditore::class, inversedBy:'rimborsi')]
+    #[ORM\JoinColumn(name:'venditore', referencedColumnName:'id_venditore')]
+    private EVenditore|null $venditore = null;
+
+    #[ORM\ManyToOne(targetEntity:EProdotto::class, inversedBy:'rimborsi')]
+    #[ORM\JoinColumn(name:'prodotto', referencedColumnName:'id_prodotto')]
+    private EProdotto|null $prodotto = null;
+
+    public function __construct($id_rimborso, $importo, $data_erogazione){
+
+        $this->id_rimborso = $id_rimborso;
         $this->importo = $importo;
         $this->data_erogazione = $data_erogazione;
-    }
-
-    /**
-     * Get the value of id
-     *
-     * @return $id
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set the value of id
-     *
-     * @param $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
     }
 
     /**
@@ -70,6 +73,68 @@ class ERimborso{
     public function setDataErogazione($data_erogazione)
     {
         $this->data_erogazione = $data_erogazione;
+    }
+
+    /**
+     * Get the value of id_rimborso
+     */
+    public function getIdRimborso(): ?int
+    {
+        return $this->id_rimborso;
+    }
+
+    /**
+     * Get the value of cliente_rimborsato
+     */
+    public function getClienteRimborsato(): ?EAcquirente
+    {
+        return $this->cliente_rimborsato;
+    }
+
+    /**
+     * Set the value of cliente_rimborsato
+     */
+    public function setClienteRimborsato(?EAcquirente $cliente_rimborsato): self
+    {
+        $this->cliente_rimborsato = $cliente_rimborsato;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of prodotto
+     */
+    public function getProdotto(): ?EProdotto
+    {
+        return $this->prodotto;
+    }
+
+    /**
+     * Set the value of prodotto
+     */
+    public function setProdotto(?EProdotto $prodotto): self
+    {
+        $this->prodotto = $prodotto;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of venditore
+     */
+    public function getVenditore(): ?EVenditore
+    {
+        return $this->venditore;
+    }
+
+    /**
+     * Set the value of venditore
+     */
+    public function setVenditore(?EVenditore $venditore): self
+    {
+        $this->venditore = $venditore;
+
+        return $this;
     }
 }
 ?>

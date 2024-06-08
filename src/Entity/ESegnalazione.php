@@ -1,38 +1,34 @@
 <?php
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity]
+#[ORM\Table('segnalazione')]
 class ESegnalazione{
 
-    private $id;
-    private $data_erogazione;
+    #[ORM\Id]
+    #[ORM\Column(type: 'integer')]
+    #[ORM\GeneratedValue]
+    private int|null $id_segnalazione = null;
+
+    #[ORM\Column(type: 'string', length:50, columnDefinition: 'VARCHAR(50)')]
     private $tipo;
+
+    #[ORM\Column(type: 'string', columnDefinition:'TEXT')]
     private $messaggio;
 
-    public function __construct($id,$data_erogazione,$tipo,$messaggio) {
-        $this->id=$id;
-        $this->data_erogazione = $data_erogazione;
+    #[ORM\OneToOne(targetEntity: ERecensione::class, mappedBy: 'segnalazione')]
+    private ERecensione|null $recensione = null;
+
+    #[ORM\ManyToOne(targetEntity:EVenditore::class, inversedBy:'segnalazioni')]
+    #[ORM\JoinColumn(name:'venditore', referencedColumnName:'id_venditore')]
+    private EVenditore|null $venditore = null;
+
+    public function __construct($id_segnalazione,$tipo,$messaggio) {
+        $this->id_segnalazione=$id_segnalazione;
         $this->tipo=$tipo;
         $this->messaggio=$messaggio;
-    }
-    
-
-    /**
-     * Get the value of data_erogazione
-     *
-     * @return $data_erogazione
-     */
-    public function getDataErogazione()
-    {
-        return $this->data_erogazione;
-    }
-
-    /**
-    * Set the value of data_erogazione
-    *
-    * @param $data_erogazione
-    */   
-    public function setDataErogazione($data_erogazione)
-    {
-        $this->data_erogazione = $data_erogazione;
-
     }
 
     /**
@@ -75,5 +71,49 @@ class ESegnalazione{
     {
         $this->messaggio = $messaggio;
 
+    }
+
+    /**
+     * Get the value of recensione
+     */
+    public function getRecensione(): ?ERecensione
+    {
+        return $this->recensione;
+    }
+
+    /**
+     * Set the value of recensione
+     */
+    public function setRecensione(?ERecensione $recensione): self
+    {
+        $this->recensione = $recensione;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of venditore
+     */
+    public function getVenditore(): ?EVenditore
+    {
+        return $this->venditore;
+    }
+
+    /**
+     * Set the value of venditore
+     */
+    public function setVenditore(?EVenditore $venditore): self
+    {
+        $this->venditore = $venditore;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of id_segnalazione
+     */
+    public function getIdSegnalazione(): ?int
+    {
+        return $this->id_segnalazione;
     }
 }

@@ -10,10 +10,10 @@ class EIndirizzo{
     private $cap;
 
     #[ORM\Id]
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: 'string', length:150, columnDefinition: 'VARCHAR(150)')]
     private $nome;
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: 'string', length:70, columnDefinition: 'VARCHAR(70)')]
     private $comune;
 
     #[ORM\ManyToOne(targetEntity: EAcquirente::class, inversedBy:'indirizzi')]

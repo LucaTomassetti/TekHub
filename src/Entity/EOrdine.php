@@ -17,7 +17,7 @@ class EOrdine{
     #[ORM\Column(type: 'datetime')]
     private $data;
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: 'string', length:50, columnDefinition: 'VARCHAR(50)')]
     private $stato;
 
     #[ORM\Column(type: 'integer')]
@@ -33,8 +33,12 @@ class EOrdine{
     #[ORM\JoinColumn(name:'acquirente', referencedColumnName:'id_acquirente', nullable:false)]
     private EAcquirente|null $acquirente = null;
 
-    //#[ORM\Column(type: 'string')]
-    private $id_venditore;
+    #[ORM\ManyToOne(targetEntity: ECartaDiCredito::class, inversedBy:'ordini')]
+    #[ORM\JoinColumn(name:'carta_ordine', referencedColumnName:'numero_carta', nullable:false)]
+    private ECartaDiCredito|null $carta_ordine = null;
+
+    #[ORM\OneToMany(targetEntity: EOrdineProdotto::class, mappedBy: 'ordine_id')]
+    private Collection $q_prodotto_ordine;
     
     public function __construct($id_ordine,$data, $stato,$quantita_prodotto, $importo_tot){
         $this->id_ordine = $id_ordine;
@@ -43,7 +47,7 @@ class EOrdine{
         $this->quantita_prodotto = $quantita_prodotto;
         $this->importo_tot = $importo_tot;
         $this->indirizzi = new ArrayCollection();
-        //$this->id_venditore = $id_venditore;
+        $this->q_prodotto_ordine = new ArrayCollection();
     }
 
     /**
@@ -147,26 +151,6 @@ class EOrdine{
     }
 
     /**
-     * Get the value of id_venditore
-     *
-     * @return $id_venditore
-     */
-    public function getIdVenditore()
-    {
-        return $this->id_venditore;
-    }
-
-    /**
-     * Set the value of id_venditore
-     *
-     * @param $id_venditore
-     */
-    public function setIdVenditore($id_venditore)
-    {
-        $this->id_venditore = $id_venditore;
-    }
-
-    /**
      * Get the value of indirizzi
      *
      * @return $indirizzi
@@ -194,6 +178,42 @@ class EOrdine{
     public function setAcquirente($acquirente)
     {
         $this->acquirente = $acquirente;
+    }
+
+    /**
+     * Get the value of carta_ordine
+     */
+    public function getCartaOrdine(): ?ECartaDiCredito
+    {
+        return $this->carta_ordine;
+    }
+
+    /**
+     * Set the value of carta_ordine
+     */
+    public function setCartaOrdine(?ECartaDiCredito $carta_ordine): self
+    {
+        $this->carta_ordine = $carta_ordine;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of q_prodotto_ordine
+     */
+    public function getQProdottoOrdine(): Collection
+    {
+        return $this->q_prodotto_ordine;
+    }
+
+    /**
+     * Set the value of q_prodotto_ordine
+     */
+    public function setQProdottoOrdine(Collection $q_prodotto_ordine): self
+    {
+        $this->q_prodotto_ordine = $q_prodotto_ordine;
+
+        return $this;
     }
 }
 ?>
