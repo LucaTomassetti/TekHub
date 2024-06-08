@@ -22,14 +22,10 @@ class EAsta{
     #[ORM\JoinColumn(name:'venditore', referencedColumnName:'id_venditore')]
     private EVenditore|null $venditore = null;
 
-    //#[ORM\Column(type: 'EOfferta')]
-    private $ultima_offerta;
-
     public function __construct($id_asta,$data_creazione,$data_fine,$ultima_offerta){
         $this->id_asta=$id_asta;
         $this->data_creazione=$data_creazione;
         $this->data_fine=$data_fine;
-        $this->ultima_offerta = $ultima_offerta;
     }
 
     /**
@@ -80,26 +76,6 @@ class EAsta{
     public function setDataFine($data_fine)
     {
         $this->data_fine = $data_fine;
-    }
-    
-    /**
-     * Get the value of ultima_offerta
-     *
-     * @return $ultima_offerta
-     */
-    public function getUltimaOfferta()
-    {
-        return $this->ultima_offerta;
-    }
-
-    /**
-     * Set the value of ultima_offerta
-     *
-     * @param $ultima_offerta
-     */
-    public function setUltimaOfferta($ultima_offerta)
-    {
-        $this->ultima_offerta = $ultima_offerta;
     }
 
     /**
