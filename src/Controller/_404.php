@@ -1,1 +1,3 @@
-controllore non trovato
+<?php
+echo "Controllore non trovato";
+?>
