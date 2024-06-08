@@ -1,14 +1,14 @@
 <?php
 require_once __DIR__ .'/config/bootstrap.php';
-require_once __DIR__ . "/config/StartSmarty.php";
+require_once __DIR__ .'/config/StartSmarty.php';
 
- $fc = new CFrontController();
- $fc->run();
+$fc = new CFrontController();
+$fc->run();
 
- $smarty = new StartSmarty();
 /**
  * To verify that smarty works out, you can run the 
  * following method:
+ * $smarty = StartSmarty::configuration();
  * $smarty->testInstall();
  */
 
