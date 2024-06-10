@@ -18,11 +18,11 @@ class ERecensione{
     private $valutazione;
 
     #[ORM\ManyToOne(targetEntity:EAcquirente::class, inversedBy:'recensioni')]
-    #[ORM\JoinColumn(name:'id_acquirente', referencedColumnName:'id_acquirente')]
+    #[ORM\JoinColumn(name:'id_acquirente', referencedColumnName:'id_acquirente', nullable:false)]
     private EAcquirente|null $acquirente = null;
     
     #[ORM\ManyToOne(targetEntity:EProdotto::class, inversedBy:'recensioni')]
-    #[ORM\JoinColumn(name:'id_prodotto', referencedColumnName:'id_prodotto')]
+    #[ORM\JoinColumn(name:'id_prodotto', referencedColumnName:'id_prodotto', nullable:false)]
     private EProdotto|null $prodotto = null;
 
     #[ORM\OneToOne(targetEntity: ESegnalazione::class, inversedBy: 'recensione')]

@@ -19,7 +19,7 @@ class EAsta{
     private EUsato|null $usato = null;
 
     #[ORM\ManyToOne(targetEntity: EVenditore::class, inversedBy:'aste')]
-    #[ORM\JoinColumn(name:'venditore', referencedColumnName:'id_venditore')]
+    #[ORM\JoinColumn(name:'venditore', referencedColumnName:'id_venditore', nullable:false)]
     private EVenditore|null $venditore = null;
 
     public function __construct($id_asta,$data_creazione,$data_fine,$ultima_offerta){

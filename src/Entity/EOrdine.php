@@ -34,7 +34,7 @@ class EOrdine{
     private EAcquirente|null $acquirente = null;
 
     #[ORM\ManyToOne(targetEntity: ECartaDiCredito::class, inversedBy:'ordini')]
-    #[ORM\JoinColumn(name:'carta_ordine', referencedColumnName:'numero_carta', nullable:false)]
+    #[ORM\JoinColumn(name:'carta_ordine', referencedColumnName:'numero_carta')]
     private ECartaDiCredito|null $carta_ordine = null;
 
     #[ORM\OneToMany(targetEntity: EOrdineProdotto::class, mappedBy: 'ordine_id')]

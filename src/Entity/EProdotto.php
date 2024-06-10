@@ -25,11 +25,11 @@ class EProdotto{
     private Collection $immagini;
 
     #[ORM\ManyToOne(targetEntity: ECategoria::class, inversedBy:'prodotti')]
-    #[ORM\JoinColumn(name:'category_name', referencedColumnName:'nome_categoria')]
+    #[ORM\JoinColumn(name:'category_name', referencedColumnName:'nome_categoria', nullable:false)]
     private ECategoria|null $category_name = null;
 
     #[ORM\ManyToOne(targetEntity: EVenditore::class, inversedBy:'prodotti')]
-    #[ORM\JoinColumn(name:'venditore', referencedColumnName:'id_venditore')]
+    #[ORM\JoinColumn(name:'venditore', referencedColumnName:'id_venditore', nullable:false)]
     private EVenditore|null $venditore = null;
 
     #[ORM\OneToMany(targetEntity:EReso::class, mappedBy:'prodotto')]

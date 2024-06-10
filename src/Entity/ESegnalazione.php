@@ -22,7 +22,7 @@ class ESegnalazione{
     private ERecensione|null $recensione = null;
 
     #[ORM\ManyToOne(targetEntity:EVenditore::class, inversedBy:'segnalazioni')]
-    #[ORM\JoinColumn(name:'venditore', referencedColumnName:'id_venditore')]
+    #[ORM\JoinColumn(name:'venditore', referencedColumnName:'id_venditore', nullable:false)]
     private EVenditore|null $venditore = null;
 
     public function __construct($id_segnalazione,$tipo,$messaggio) {

@@ -17,15 +17,15 @@ class ERimborso{
     private $data_erogazione;
 
     #[ORM\ManyToOne(targetEntity:EAcquirente::class, inversedBy:'rimborsi')]
-    #[ORM\JoinColumn(name:'id_cliente_rimborsato', referencedColumnName:'id_acquirente')]
+    #[ORM\JoinColumn(name:'id_cliente_rimborsato', referencedColumnName:'id_acquirente', nullable:false)]
     private EAcquirente|null $cliente_rimborsato = null;
 
     #[ORM\ManyToOne(targetEntity:EVenditore::class, inversedBy:'rimborsi')]
-    #[ORM\JoinColumn(name:'venditore', referencedColumnName:'id_venditore')]
+    #[ORM\JoinColumn(name:'venditore', referencedColumnName:'id_venditore', nullable:false)]
     private EVenditore|null $venditore = null;
 
     #[ORM\ManyToOne(targetEntity:EProdotto::class, inversedBy:'rimborsi')]
-    #[ORM\JoinColumn(name:'prodotto', referencedColumnName:'id_prodotto')]
+    #[ORM\JoinColumn(name:'prodotto', referencedColumnName:'id_prodotto', nullable:false)]
     private EProdotto|null $prodotto = null;
 
     public function __construct($id_rimborso, $importo, $data_erogazione){
