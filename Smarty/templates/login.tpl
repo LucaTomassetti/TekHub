@@ -21,22 +21,28 @@
   </style>
 </head>
 <body>
-<form method="POST" action="homepage">
+<form method="POST" action="/TekHub/login/checkLogin">
   <div class="login-container">
     <div class="login-box">
       <h1 class="title has-text-centered">Login</h1>
-      <form>
+      {if $errore == 1}
+        <div class="notification is-danger">
+          <button class="delete"></button>
+          Username vuoto! Inserisci un username
+        </div>
+      {/if}
+        
         <div class="field">
-          <label class="label">Email</label>
+          <label class="label">Username</label>
           <div class="control">
-            <input class="input" type="email" placeholder="Enter your email" required>
+            <input name="username" class="input" type="text" placeholder="Enter your username">
           </div>
         </div>
 
         <div class="field">
           <label class="label">Password</label>
           <div class="control">
-            <input class="input" type="password" placeholder="Enter your password" required>
+            <input name="password" class="input" type="password" placeholder="Enter your password">
           </div>
         </div>
 
@@ -49,7 +55,6 @@
         <div class="has-text-centered">
           <a href="#">Forgot password?</a>
         </div>
-      </form>
     </div>
   </div>
 </form>
