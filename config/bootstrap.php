@@ -11,10 +11,6 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMSetup;
 use Doctrine\ORM\Tools\SchemaTool;
 
-$paths = [__DIR__ . '/../src/Entity/'];
-$isDevMode = false;
-
-// the connection configuration
 $dbParams = [
     'host'     => '127.0.0.1',
     'port'     => '3306',
@@ -41,13 +37,29 @@ try{
     die();
 }
 //Obtaining the entity manager
-$config = ORMSetup::createAttributeMetadataConfiguration($paths, $isDevMode);
-$connection = DriverManager::getConnection($dbParams, $config);
-$entityManager = new EntityManager($connection, $config);
+function getEntityManager() : EntityManager
+{
+    $entityManager = null;
+
+    if ($entityManager === null)
+    {
+        $paths = [__DIR__ . '/../src/Entity/'];
+        $isDevMode = false;
+        global $dbParams;
+        # set up configuration parameters for doctrine.
+        # Make sure you have installed the php7.0-sqlite package.
+
+        $config = ORMSetup::createAttributeMetadataConfiguration($paths, $isDevMode);
+        $connection = DriverManager::getConnection($dbParams, $config);
+        $entityManager = new EntityManager($connection, $config);
+    }
+
+    return $entityManager;
+}
 
 //Generating the database schema
-$schemaTool = new SchemaTool($entityManager);
-$classes = $entityManager->getMetadataFactory()->getAllMetadata();
+$schemaTool = new SchemaTool(getEntityManager());
+$classes = getEntityManager()->getMetadataFactory()->getAllMetadata();
 /**
  * Using $schemaTool->createSchema($classes) works too but when you
  * reload the main.php page, you get error 500 and the problem 

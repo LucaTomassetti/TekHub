@@ -13,5 +13,5 @@ $fc->run();
  */
 
 //flush() serve per sincronizzare le modifiche nel database
-$entityManager->flush();
+getEntityManager()->flush();
 ?>
