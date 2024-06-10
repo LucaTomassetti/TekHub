@@ -7,7 +7,10 @@ class CFrontController{
         $URL = explode('/', $URL);
         
         $file = "./src/Controller/C".ucfirst($URL[2]).".php";
-        if(file_exists($file)){
+        if($URL[2] == ''){
+            header('Location: /TekHub/homepage');
+            require './src/Controller/CHomepage.php';
+        }else if(file_exists($file)){
             require $file;
         }
         else{

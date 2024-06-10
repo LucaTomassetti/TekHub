@@ -1,3 +1,4 @@
 <?php
-echo "Controllore non trovato";
+$smarty = StartSmarty::configuration();
+$smarty->display('error_page.tpl');
 ?>
