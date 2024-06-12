@@ -1,6 +1,6 @@
 <?php
 
-class VAcquirente{
+class VUtente{
 
     private $smarty;
 
@@ -22,7 +22,7 @@ class VAcquirente{
      * @throws SmartyException
      */
     public function showLoginForm(){
-        $this->smarty->assign('errore', 0);
+        $this->smarty->assign('errore', "false");
         $this->smarty->display('login.tpl');
     }
 
@@ -64,7 +64,7 @@ class VAcquirente{
      * @throws SmartyException
      */
     public function loginError() {
-        $this->smarty->assign('errore', 1);
+        $this->smarty->assign('errore', "true");
         $this->smarty->display('login.tpl');
     }
     public function registrationError() {

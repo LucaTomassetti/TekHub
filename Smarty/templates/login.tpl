@@ -16,19 +16,19 @@
       max-width: 400px;
       width: 100%;
       padding: 2rem;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
     }
   </style>
 </head>
 <body>
-<form method="POST" action="/TekHub/login/checkLogin">
+<form method="POST" action="/TekHub/utente/login">
   <div class="login-container">
     <div class="login-box">
       <h1 class="title has-text-centered">Login</h1>
-      {if $errore == 1}
+      {if $errore!="false"}
         <div class="notification is-danger">
           <button class="delete"></button>
-          Username vuoto! Inserisci un username
+          Username vuoto!
         </div>
       {/if}
         

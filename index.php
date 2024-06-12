@@ -12,6 +12,4 @@ $fc->run();
  * $smarty->testInstall();
  */
 
-//flush() serve per sincronizzare le modifiche nel database
-getEntityManager()->flush();
 ?>
