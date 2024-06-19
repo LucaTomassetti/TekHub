@@ -29,8 +29,7 @@ class ERecensione{
     #[ORM\JoinColumn(name: 'id_segnalazione', referencedColumnName: 'id_segnalazione', nullable:false)]
     private ESegnalazione|null $segnalazione = null;
 
-    public function __construct($id, $testo, $valutazione) {
-        $this->id = $id;
+    public function __construct($testo, $valutazione) {
         $this->testo=$testo;
         $this->valutazione=$valutazione;
 

@@ -25,8 +25,7 @@ class ESegnalazione{
     #[ORM\JoinColumn(name:'venditore', referencedColumnName:'id_venditore', nullable:false)]
     private EVenditore|null $venditore = null;
 
-    public function __construct($id_segnalazione,$tipo,$messaggio) {
-        $this->id_segnalazione=$id_segnalazione;
+    public function __construct($tipo,$messaggio) {
         $this->tipo=$tipo;
         $this->messaggio=$messaggio;
     }

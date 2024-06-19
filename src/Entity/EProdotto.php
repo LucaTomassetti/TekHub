@@ -46,9 +46,7 @@ class EProdotto{
 
     public $discr = "prodotto";
 
-    public function __construct($id_prodotto, $nome, $descrizione){
-
-        $this->id_prodotto = $id_prodotto;
+    public function __construct($nome, $descrizione){
         $this->nome = $nome;
         $this->descrizione = $descrizione;
         $this->immagini = new ArrayCollection();

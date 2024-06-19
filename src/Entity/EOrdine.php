@@ -40,8 +40,7 @@ class EOrdine{
     #[ORM\OneToMany(targetEntity: EOrdineProdotto::class, mappedBy: 'ordine_id')]
     private Collection $q_prodotto_ordine;
     
-    public function __construct($id_ordine,$data, $stato,$quantita_prodotto, $importo_tot){
-        $this->id_ordine = $id_ordine;
+    public function __construct($data, $stato,$quantita_prodotto, $importo_tot){
         $this->data = $data;
         $this->stato = $stato;
         $this->quantita_prodotto = $quantita_prodotto;

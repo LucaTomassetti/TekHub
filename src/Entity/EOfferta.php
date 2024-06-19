@@ -25,8 +25,7 @@ class EOfferta{
     #[ORM\JoinColumn(name:'p_usato_id', referencedColumnName:'id_prodotto', nullable:false)]
     private EUsato|null $p_usato_id = null;
 
-    public function __construct($id_offerta,$importo,$data) {
-        $this->id_offerta = $id_offerta;
+    public function __construct($importo,$data) {
         $this->importo=$importo;
         $this->data=$data;
 

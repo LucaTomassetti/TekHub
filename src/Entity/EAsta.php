@@ -22,8 +22,7 @@ class EAsta{
     #[ORM\JoinColumn(name:'venditore', referencedColumnName:'id_venditore', nullable:false)]
     private EVenditore|null $venditore = null;
 
-    public function __construct($id_asta,$data_creazione,$data_fine,$ultima_offerta){
-        $this->id_asta=$id_asta;
+    public function __construct($data_creazione,$data_fine){
         $this->data_creazione=$data_creazione;
         $this->data_fine=$data_fine;
     }

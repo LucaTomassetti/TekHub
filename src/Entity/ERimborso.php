@@ -28,9 +28,7 @@ class ERimborso{
     #[ORM\JoinColumn(name:'prodotto', referencedColumnName:'id_prodotto', nullable:false)]
     private EProdotto|null $prodotto = null;
 
-    public function __construct($id_rimborso, $importo, $data_erogazione){
-
-        $this->id_rimborso = $id_rimborso;
+    public function __construct($importo, $data_erogazione){
         $this->importo = $importo;
         $this->data_erogazione = $data_erogazione;
     }

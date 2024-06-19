@@ -45,8 +45,7 @@ class EVenditore{
     #[ORM\OneToMany(targetEntity:EAsta::class, mappedBy:'venditore')]
     private Collection $aste;
 
-    public function __construct($id_venditore,$nome,$cognome,$partita_iva,$societa,$email,$password,$username){
-        $this->id_venditore=$id_venditore;
+    public function __construct($nome,$cognome,$partita_iva,$societa,$email,$password,$username){
         $this->nome=$nome;
         $this->cognome=$cognome;
         $this->partita_iva=$partita_iva;

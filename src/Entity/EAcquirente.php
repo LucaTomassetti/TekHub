@@ -3,7 +3,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass:FAcquirente::class)]
 #[ORM\Table('acquirente')]
 class EAcquirente{
 
@@ -27,7 +27,7 @@ class EAcquirente{
     #[ORM\Column(type: 'string', length:70, columnDefinition: 'VARCHAR(70)')]
     private $email;
 
-    #[ORM\Column(type: 'integer', columnDefinition: 'BIGINT(10)')]
+    #[ORM\Column(type: 'string', length:10, columnDefinition: 'VARCHAR(10)')]
     private $cellulare;
 
     #[ORM\OneToMany(targetEntity:EIndirizzo::class, mappedBy:'acquirente')]
@@ -51,10 +51,9 @@ class EAcquirente{
     #[ORM\OneToMany(targetEntity:ERimborso::class, mappedBy:'cliente_rimborsato')]
     private Collection $rimborsi;
 
-    public function __construct($id,$nome,$cognome,$username,$password,$email,$cellulare){
+    public function __construct($nome,$cognome,$username,$password,$email,$cellulare){
        $this->nome = $nome;
        $this->cognome = $cognome;
-       $this->id_acquirente = $id;
        $this->username = $username;
        $this->password = $password;
        $this->email = $email;

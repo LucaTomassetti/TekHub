@@ -36,6 +36,12 @@
           <a class="navbar-item" href="#">Products</a>
           <a class="navbar-item" href="#">About</a>
           <a class="navbar-item" href="#">Contact</a>
+          {if $check_login == 1}
+            <a href="/TekHub/utente/logout" class="navbar-item">Logout</a>
+            
+          {else}
+            <a href="/TekHub/utente/login" class="navbar-item">Accedi</a>
+          {/if}
         </div>
       </div>
     </div>
