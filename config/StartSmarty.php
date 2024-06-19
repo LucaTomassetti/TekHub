@@ -12,8 +12,6 @@ class StartSmarty{
 
         $smarty->setEscapeHtml(true);
 
-        $smarty->caching = Smarty::CACHING_LIFETIME_CURRENT;
-
         return $smarty;
    }
 }

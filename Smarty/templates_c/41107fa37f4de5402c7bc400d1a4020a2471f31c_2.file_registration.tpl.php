@@ -1,4 +1,28 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 5.3.0, created on 2024-06-19 18:23:42
+  from 'file:registration.tpl' */
+
+/* @var \Smarty\Template $_smarty_tpl */
+if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
+  'version' => '5.3.0',
+  'unifunc' => 'content_6673060ec508d7_09840191',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '41107fa37f4de5402c7bc400d1a4020a2471f31c' => 
+    array (
+      0 => 'registration.tpl',
+      1 => 1718814069,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+))) {
+function content_6673060ec508d7_09840191 (\Smarty\Template $_smarty_tpl) {
+$_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
+?><!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -29,12 +53,12 @@
     <div class="registration-box">
       <h1 class="title has-text-centered">Registrati</h1>
 
-      {if $errore_r == 1}
+      <?php if ($_smarty_tpl->getValue('errore_r') == 1) {?>
         <div class="notification is-danger">
           <button class="delete"></button>
           Email già esistente! Registrati con un'altra email!
         </div>
-      {/if}
+      <?php }?>
         <div id="error-message" class="notification is-danger">
           <button class="delete"></button>
           Le password non corrispondono!
@@ -94,7 +118,8 @@
   </div>
 </form>
 
-  <script>
+  <?php echo '<script'; ?>
+>
     document.getElementById('registrationForm').addEventListener('submit', function(event) {
       var password = document.getElementById('password').value;
       var confirmPassword = document.getElementById('confirm-password').value;
@@ -107,6 +132,9 @@
         errorMessage.style.display = 'none'; // Hide error message if they match
       }
     });
-  </script>
+  <?php echo '</script'; ?>
+>
 </body>
 </html>
+<?php }
+}

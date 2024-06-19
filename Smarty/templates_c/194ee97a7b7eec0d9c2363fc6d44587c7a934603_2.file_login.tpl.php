@@ -1,4 +1,28 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 5.3.0, created on 2024-06-19 18:23:19
+  from 'file:login.tpl' */
+
+/* @var \Smarty\Template $_smarty_tpl */
+if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
+  'version' => '5.3.0',
+  'unifunc' => 'content_667305f79d2e80_91487108',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '194ee97a7b7eec0d9c2363fc6d44587c7a934603' => 
+    array (
+      0 => 'login.tpl',
+      1 => 1718814073,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+))) {
+function content_667305f79d2e80_91487108 (\Smarty\Template $_smarty_tpl) {
+$_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
+?><!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -26,12 +50,12 @@
     <div class="login-box">
       <h1 class="title has-text-centered">Login</h1>
 
-      {if $errore_log == 1}
+      <?php if ($_smarty_tpl->getValue('errore_log') == 1) {?>
         <div class="notification is-danger">
           <button class="delete"></button>
           Username o password non corretti!
         </div>
-      {/if}
+      <?php }?>
         
         <div class="field">
           <label class="label">Email</label>
@@ -61,3 +85,5 @@
 </form>
 </body>
 </html>
+<?php }
+}
