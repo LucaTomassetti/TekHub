@@ -13,7 +13,7 @@ class CUtente {
         }elseif ($_SERVER['REQUEST_METHOD']=="POST"){
             $email = $_POST['email-log'];
             //$cliente = getEntityManager()->getRepository('EAcquirente')->findOneBy(array('email' => $email));
-            $cliente = getEntityManager()->getRepository('EAcquirente')->findAcquirente($email);
+            $cliente = FPersistentManager::getInstance()->findAcquirente($email);
             if($cliente == null){
                 $view->loginError();
             } else{
@@ -39,13 +39,13 @@ class CUtente {
                 $array_data[$key] = $value;
             }
             $new_cliente = new EAcquirente($array_data['nome'],$array_data['cognome'],$array_data['username'],$array_data['password'], $array_data['email'],$array_data['cellulare']);
-            $check_email = getEntityManager()->getRepository('EAcquirente')->findAcquirente($new_cliente->getEmail());
+            $check_email = FPersistentManager::getInstance()->findAcquirente($new_cliente);
             /* Controllo se l'email esiste già */
             if($check_email != null){
                 // se esiste ricarico la form per la registrazione
                 $view_register->signUpError();
             }else{
-                getEntityManager()->getRepository('EAcquirente')->insertNewCliente($new_cliente);
+                FPersistentManager::getInstance()->insertNewCliente($new_cliente);
                 $view_register->signUpSuccess();
             }
             

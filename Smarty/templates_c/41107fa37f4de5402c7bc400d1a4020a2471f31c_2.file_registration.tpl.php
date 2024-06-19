@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-19 18:23:42
+/* Smarty version 5.3.0, created on 2024-06-19 19:39:02
   from 'file:registration.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_6673060ec508d7_09840191',
+  'unifunc' => 'content_667317b6aea7e9_89579108',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '41107fa37f4de5402c7bc400d1a4020a2471f31c' => 
     array (
       0 => 'registration.tpl',
-      1 => 1718814069,
+      1 => 1718818737,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_6673060ec508d7_09840191 (\Smarty\Template $_smarty_tpl) {
+function content_667317b6aea7e9_89579108 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="en">
@@ -40,7 +40,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
       max-width: 400px;
       width: 100%;
       padding: 2rem;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     }
     #error-message {
       display: none; /* Nasconde il messaggio di errore inizialmente */

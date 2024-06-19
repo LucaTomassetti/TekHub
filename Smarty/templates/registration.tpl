@@ -16,7 +16,7 @@
       max-width: 400px;
       width: 100%;
       padding: 2rem;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     }
     #error-message {
       display: none; /* Nasconde il messaggio di errore inizialmente */
