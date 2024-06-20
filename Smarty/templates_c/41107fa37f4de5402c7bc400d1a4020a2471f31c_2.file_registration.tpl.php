@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-19 19:39:02
+/* Smarty version 5.3.0, created on 2024-06-20 12:47:07
   from 'file:registration.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_667317b6aea7e9_89579108',
+  'unifunc' => 'content_667408abc83346_02971395',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '41107fa37f4de5402c7bc400d1a4020a2471f31c' => 
     array (
       0 => 'registration.tpl',
-      1 => 1718818737,
+      1 => 1718880387,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_667317b6aea7e9_89579108 (\Smarty\Template $_smarty_tpl) {
+function content_667408abc83346_02971395 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="en">
@@ -42,7 +42,11 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
       padding: 2rem;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     }
-    #error-message {
+    #error-message{
+      display: none; /* Nasconde il messaggio di errore inizialmente */
+    }
+    .seller-fields{
+      margin-bottom: 15px;
       display: none; /* Nasconde il messaggio di errore inizialmente */
     }
   </style>
@@ -63,6 +67,21 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
           <button class="delete"></button>
           Le password non corrispondono!
         </div>
+
+        <div class="field">
+          <label class="label">Sei un venditore o un acquirente?</label>
+          <div class="control">
+            <label class="radio">
+              <input type="radio" name="userType" value="acquirente" required>
+              Acquirente
+            </label>
+            <label class="radio">
+              <input type="radio" name="userType" value="venditore" required>
+              Venditore
+            </label>
+          </div>
+        </div>
+
         <div class="field">
           <div class="control">
           <input name="nome" type="text" class="input" id="nome" placeholder="Nome..." required>
@@ -93,6 +112,19 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
           </div>
         </div>
 
+        <div class="seller-fields">
+          <div id="partita_iva_div" class="field">
+            <div class="control">
+            <input name="società" type="text" class="input" id="società" placeholder="Società...">
+            </div>
+          </div>
+          <div id="società_div" class="field">
+            <div class="control">
+            <input name="partita_iva" type="text" class="input" id="partita_iva" placeholder="es. 08100750010" pattern="[0-9]+" maxlength="11">
+            </div>
+          </div>
+        </div>
+
         <div class="field">
           <div class="control">
           <input name="password" type="password" class="input" id="password" placeholder="Password..." required>
@@ -120,6 +152,16 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 
   <?php echo '<script'; ?>
 >
+    document.querySelectorAll('input[name="userType"]').forEach((elem) => {
+      elem.addEventListener("change", function(event) {
+        var sellerFields = document.querySelector('.seller-fields');
+        if (event.target.value === 'venditore') {
+          sellerFields.style.display = 'block';
+        } else {
+          sellerFields.style.display = 'none';
+        }
+      });
+    });
     document.getElementById('registrationForm').addEventListener('submit', function(event) {
       var password = document.getElementById('password').value;
       var confirmPassword = document.getElementById('confirm-password').value;

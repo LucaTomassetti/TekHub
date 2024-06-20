@@ -18,7 +18,11 @@
       padding: 2rem;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     }
-    #error-message {
+    #error-message{
+      display: none; /* Nasconde il messaggio di errore inizialmente */
+    }
+    .seller-fields{
+      margin-bottom: 15px;
       display: none; /* Nasconde il messaggio di errore inizialmente */
     }
   </style>
@@ -39,6 +43,21 @@
           <button class="delete"></button>
           Le password non corrispondono!
         </div>
+
+        <div class="field">
+          <label class="label">Sei un venditore o un acquirente?</label>
+          <div class="control">
+            <label class="radio">
+              <input type="radio" name="userType" value="acquirente" required>
+              Acquirente
+            </label>
+            <label class="radio">
+              <input type="radio" name="userType" value="venditore" required>
+              Venditore
+            </label>
+          </div>
+        </div>
+
         <div class="field">
           <div class="control">
           <input name="nome" type="text" class="input" id="nome" placeholder="Nome..." required>
@@ -69,6 +88,19 @@
           </div>
         </div>
 
+        <div class="seller-fields">
+          <div id="partita_iva_div" class="field">
+            <div class="control">
+            <input name="società" type="text" class="input" id="società" placeholder="Società...">
+            </div>
+          </div>
+          <div id="società_div" class="field">
+            <div class="control">
+            <input name="partita_iva" type="text" class="input" id="partita_iva" placeholder="es. 08100750010" pattern="[0-9]+" maxlength="11">
+            </div>
+          </div>
+        </div>
+
         <div class="field">
           <div class="control">
           <input name="password" type="password" class="input" id="password" placeholder="Password..." required>
@@ -95,6 +127,16 @@
 </form>
 
   <script>
+    document.querySelectorAll('input[name="userType"]').forEach((elem) => {
+      elem.addEventListener("change", function(event) {
+        var sellerFields = document.querySelector('.seller-fields');
+        if (event.target.value === 'venditore') {
+          sellerFields.style.display = 'block';
+        } else {
+          sellerFields.style.display = 'none';
+        }
+      });
+    });
     document.getElementById('registrationForm').addEventListener('submit', function(event) {
       var password = document.getElementById('password').value;
       var confirmPassword = document.getElementById('confirm-password').value;

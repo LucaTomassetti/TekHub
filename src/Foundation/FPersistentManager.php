@@ -124,22 +124,36 @@ class FPersistentManager{
         return $this->getRepository($entityClass)->findOneBy($criteria);
     }
 
-    public function findAcquirente($cliente){
+    public function findUtente($utente){
         /** Se $cliente è un oggetto richiamerà findCliente($cliente->getEmail())
          * altrimenti se è una stringa (cioè se è una email) richiamerà findCliente($cliente)
          */
-        if(is_object($cliente)){
-            return getEntityManager()->getRepository('EAcquirente')->findAcquirente($cliente->getEmail());
-        }else if(is_string($cliente)){
-            return getEntityManager()->getRepository('EAcquirente')->findAcquirente($cliente);
-        }
-        else{
-            return null;
-        }
-        
+        if($utente instanceof EAcquirente){
+            if(is_object($utente)){
+                return getEntityManager()->getRepository('EAcquirente')->findAcquirente($utente->getEmail());
+            }else if(is_string($utente)){
+                return getEntityManager()->getRepository('EAcquirente')->findAcquirente($utente);
+            }else{
+                return null;
+            }
+        }else if($utente instanceof EVenditore){
+            if(is_object($utente)){
+                return getEntityManager()->getRepository('EVenditore')->findVenditore($utente->getEmail());
+            }else if(is_string($utente)){
+                return getEntityManager()->getRepository('EVenditore')->findVenditore($utente);
+            }else{
+                return null;
+            }
+        } 
     }
-    public function insertNewCliente($new_cliente){
-        getEntityManager()->getRepository('EAcquirente')->insertNewCliente($new_cliente);
+
+    public function insertNewUtente($new_utente){
+        if($new_utente instanceof EAcquirente){
+            getEntityManager()->getRepository('EAcquirente')->insertNewAcquirente($new_utente);
+        }else if($new_utente instanceof EVenditore){
+            getEntityManager()->getRepository('EVenditore')->insertNewVenditore($new_utente);
+        } 
+        
     }
 
 }

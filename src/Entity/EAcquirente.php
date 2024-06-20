@@ -12,6 +12,9 @@ class EAcquirente{
     #[ORM\GeneratedValue]
     private int|null $id_acquirente = null;
 
+    #[ORM\Column(type: 'string', length:70, columnDefinition: 'VARCHAR(70)')]
+    private $email;
+
     #[ORM\Column(type: 'string', length:50, columnDefinition: 'VARCHAR(50)')]
     private $nome;
 
@@ -23,9 +26,6 @@ class EAcquirente{
 
     #[ORM\Column(type: 'string')]
     private $password;
-
-    #[ORM\Column(type: 'string', length:70, columnDefinition: 'VARCHAR(70)')]
-    private $email;
 
     #[ORM\Column(type: 'string', length:10, columnDefinition: 'VARCHAR(10)')]
     private $cellulare;

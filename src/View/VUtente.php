@@ -51,5 +51,8 @@ class VUtente{
         $this->smarty->assign('errore_r', 1);
         $this->smarty->display('registration.tpl');
     }
+    public function showAdminDashboard(){
+        $this->smarty->display('admin_dashboard.tpl');
+    }
 }
 ?>
