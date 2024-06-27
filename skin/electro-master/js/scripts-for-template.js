@@ -1,25 +1,4 @@
 /*
-document.getElementById('userMenuBtn').addEventListener('click', function() {
-    var menu = document.getElementById('userMenu');
-    if (menu.style.display === 'block') {
-        menu.style.display = 'none';
-    } else {
-        menu.style.display = 'block';
-    }
-});
-
-window.onclick = function(event) {
-    if (!event.target.matches('#userMenuBtn')) {
-        var dropdowns = document.getElementsByClassName('dropdown-content');
-        for (var i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.style.display === 'block') {
-                openDropdown.style.display = 'none';
-            }
-        }
-    }
-};
-
 // Funzione per aggiornare il numero quando si fa clic sul pulsante
 function Aggiungi() {
     var numeroAttuale = parseInt(document.getElementById("numeroAcquisti").innerText);

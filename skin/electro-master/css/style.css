@@ -423,33 +423,9 @@ border-color: black;
   display:block;
   text-align: center;
 }
-#userMenu {
-  display: none;
-  position: absolute;
-  top:80px;
-  background-color: #FAC57F;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  border-radius: 10px;
-  z-index: 2;
-}
-
-#userMenu a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-#userMenu a:hover {
-  background-color: #ddd;
-  border-radius: 10px;
-}
-#userMenu a img {
-  margin-right: 10px;
-}
 #polygon{
   position: absolute;
-  top:-15px;
+  top:-10px;
   left:40px;
 }
 .content-area {
@@ -470,7 +446,21 @@ border-color: black;
 .form-group{
   margin-top: 30px;
 }
-
+.dropdown-menu{
+  position: absolute;
+  width: 190px;
+  background: #FFF;
+  padding: 10px;
+  -webkit-box-shadow: 0px 0px 0px 2px #FFF;
+  box-shadow: 0px 0px 0px 2px #FFF;
+  z-index: 99;
+  right: 0;
+  opacity: 1;
+  visibility: visible;
+}
+.dropdown-item{
+  margin:30px 0px;
+}
 
 /*----------------------------*\
 	Section

@@ -38,24 +38,29 @@
                 <div class="header-ctn">
                 <!-- My Account -->
                         {if $check_login == 1}
-                            <div>
-                            <a href="/TekHub/utente/userinfo">
-                                <i class="fas fa-user" style="color: #ffffff;"></i>
-                                <span>Il mio account</span>
-                            </a>
+                            <div class="dropdown">
+                                <a href="#" class="dropdown-toggle" id="accountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <i class="fas fa-user" style="color: #ffffff;"></i>
+                                    <span>Il mio account</span>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="accountDropdown">
+                                        <i id="polygon" class="fas fa-caret-up" style="color: #FFF;"></i>
+                                        <a class="dropdown-item" href="/TekHub/utente/userDataSection"><i class="fas fa-info-circle" style="color: #2B2D42;"></i>  I miei dati personali</a>
+                                        <a class="dropdown-item" href="/TekHub/utente/userHistoryOrders"><i class="fas fa-history" style="color: #2B2D42;"></i>  Storico ordini</a>
+                                </div>
                             </div>
                             <div>
-                            <a href="/TekHub/utente/logout">
-                                <i class="fas fa-sign-out-alt" style="color: #ffffff;"></i>
-                                <span>Logout</span>
-                            </a>
+                                <a href="/TekHub/utente/logout">
+                                    <i class="fas fa-sign-out-alt" style="color: #ffffff;"></i>
+                                    <span>Logout</span>
+                                </a>
                             </div>
                         {else}
                             <div>
-                            <a href="/TekHub/utente/login">
-                                <i class="fas fa-sign-in-alt" style="color: #ffffff;"></i>
-                                <span>Accedi</span>
-                            </a>
+                                <a href="/TekHub/utente/login">
+                                    <i class="fas fa-sign-in-alt" style="color: #ffffff;"></i>
+                                    <span>Accedi</span>
+                                </a>
                             </div>
                         {/if}
 

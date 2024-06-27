@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-27 19:59:35
+/* Smarty version 5.3.0, created on 2024-06-28 00:16:47
   from 'file:header_section.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_667da887098771_43514037',
+  'unifunc' => 'content_667de4cf3027a1_09549879',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '865963af9ff487a66b8dbfc323e093391d8a98dc' => 
     array (
       0 => 'header_section.tpl',
-      1 => 1719511115,
+      1 => 1719526604,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_667da887098771_43514037 (\Smarty\Template $_smarty_tpl) {
+function content_667de4cf3027a1_09549879 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?><!-- HEADER -->
 <header>
@@ -62,24 +62,29 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
                 <div class="header-ctn">
                 <!-- My Account -->
                         <?php if ($_smarty_tpl->getValue('check_login') == 1) {?>
-                            <div>
-                            <a href="/TekHub/utente/userinfo">
-                                <i class="fas fa-user" style="color: #ffffff;"></i>
-                                <span>Il mio account</span>
-                            </a>
+                            <div class="dropdown">
+                                <a href="#" class="dropdown-toggle" id="accountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <i class="fas fa-user" style="color: #ffffff;"></i>
+                                    <span>Il mio account</span>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="accountDropdown">
+                                        <i id="polygon" class="fas fa-caret-up" style="color: #FFF;"></i>
+                                        <a class="dropdown-item" href="/TekHub/utente/userDataSection"><i class="fas fa-info-circle" style="color: #2B2D42;"></i>  I miei dati personali</a>
+                                        <a class="dropdown-item" href="/TekHub/utente/userHistoryOrders"><i class="fas fa-history" style="color: #2B2D42;"></i>  Storico ordini</a>
+                                </div>
                             </div>
                             <div>
-                            <a href="/TekHub/utente/logout">
-                                <i class="fas fa-sign-out-alt" style="color: #ffffff;"></i>
-                                <span>Logout</span>
-                            </a>
+                                <a href="/TekHub/utente/logout">
+                                    <i class="fas fa-sign-out-alt" style="color: #ffffff;"></i>
+                                    <span>Logout</span>
+                                </a>
                             </div>
                         <?php } else { ?>
                             <div>
-                            <a href="/TekHub/utente/login">
-                                <i class="fas fa-sign-in-alt" style="color: #ffffff;"></i>
-                                <span>Accedi</span>
-                            </a>
+                                <a href="/TekHub/utente/login">
+                                    <i class="fas fa-sign-in-alt" style="color: #ffffff;"></i>
+                                    <span>Accedi</span>
+                                </a>
                             </div>
                         <?php }?>
 
