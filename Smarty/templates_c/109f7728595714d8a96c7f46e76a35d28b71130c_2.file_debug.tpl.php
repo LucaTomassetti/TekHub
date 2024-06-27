@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-19 18:23:14
+/* Smarty version 5.3.0, created on 2024-06-27 11:18:58
   from 'file:C:\xampp\htdocs\TekHub\vendor\smarty\smarty\src/debug.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_667305f2422fc3_15028498',
+  'unifunc' => 'content_667d2e82d8c0c6_09021522',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_667305f2422fc3_15028498 (\Smarty\Template $_smarty_tpl) {
+function content_667d2e82d8c0c6_09021522 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\vendor\\smarty\\smarty\\src';
 $_smarty_tpl->getSmarty()->getRuntime('Capture')->open($_smarty_tpl, '_smarty_debug', 'debug_output', null);?>
     <!DOCTYPE html>

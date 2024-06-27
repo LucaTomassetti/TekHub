@@ -144,7 +144,15 @@ class FPersistentManager{
             }else{
                 return null;
             }
-        } 
+        } else if(is_string($utente)){
+            if(getEntityManager()->getRepository('EAcquirente')->findAcquirente($utente) != null){
+                return getEntityManager()->getRepository('EAcquirente')->findAcquirente($utente);
+            }else if(getEntityManager()->getRepository('EVenditore')->findVenditore($utente) != null){
+                return getEntityManager()->getRepository('EVenditore')->findVenditore($utente);
+            }else{
+                return null;
+            }       
+        }
     }
 
     public function insertNewUtente($new_utente){
@@ -154,6 +162,27 @@ class FPersistentManager{
             getEntityManager()->getRepository('EVenditore')->insertNewVenditore($new_utente);
         } 
         
+    }
+    public function updatePass($utente, $new_password){
+        if($utente instanceof EAcquirente){
+            getEntityManager()->getRepository('EAcquirente')->updatePass($utente, $new_password);
+        }else if($utente instanceof EVenditore){
+            getEntityManager()->getRepository('EVenditore')->updatePass($utente, $new_password);
+        } 
+    }
+    public function updateAcquirente($utente, $array_data){
+        if($utente instanceof EAcquirente){
+            getEntityManager()->getRepository('EAcquirente')->updateAcquirente($utente, $array_data);
+        }else if($utente instanceof EVenditore){
+            getEntityManager()->getRepository('EVenditore')->updateVenditore($utente, $array_data);
+        } 
+    }
+    public function deleteAcquirente($utente){
+        if($utente instanceof EAcquirente){
+            getEntityManager()->getRepository('EAcquirente')->deleteAcquirente($utente);
+        }else if($utente instanceof EVenditore){
+            getEntityManager()->getRepository('EVenditore')->deleteVenditore($utente);
+        } 
     }
 
 }

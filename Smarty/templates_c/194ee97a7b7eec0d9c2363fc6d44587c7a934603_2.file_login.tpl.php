@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-19 18:23:19
+/* Smarty version 5.3.0, created on 2024-06-27 19:33:36
   from 'file:login.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_667305f79d2e80_91487108',
+  'unifunc' => 'content_667da270bfd423_19491993',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '194ee97a7b7eec0d9c2363fc6d44587c7a934603' => 
     array (
       0 => 'login.tpl',
-      1 => 1718814073,
+      1 => 1719509614,
       2 => 'file',
     ),
   ),
@@ -20,69 +20,81 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_667305f79d2e80_91487108 (\Smarty\Template $_smarty_tpl) {
+function content_667da270bfd423_19491993 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-  <style>
-    .login-container {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .login-box {
-      max-width: 400px;
-      width: 100%;
-      padding: 2rem;
-      box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- Google font -->
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+
+		<!-- Bootstrap -->
+		<link type="text/css" rel="stylesheet" href="/TekHub/skin/electro-master/css/bootstrap.min.css"/>
+
+		<!-- Slick -->
+		<link type="text/css" rel="stylesheet" href="/TekHub/skin/electro-master/css/slick.css"/>
+		<link type="text/css" rel="stylesheet" href="/TekHub/skin/electro-master/css/slick-theme.css"/>
+
+		<!-- nouislider -->
+		<link type="text/css" rel="stylesheet" href="/TekHub/skin/electro-master/css/nouislider.min.css"/>
+
+		<!-- Font Awesome Icon -->
+		<link rel="stylesheet" href="/TekHub/skin/electro-master/css/font-awesome.min.css">
+
+		<!-- Custom stlylesheet -->
+		<link type="text/css" rel="stylesheet" href="/TekHub/skin/electro-master/css/style.css"/>
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		  <?php echo '<script'; ?>
+ src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"><?php echo '</script'; ?>
+>
+		  <?php echo '<script'; ?>
+ src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"><?php echo '</script'; ?>
+>
+		<![endif]-->
 </head>
 <body>
-<form method="POST" action="/TekHub/utente/login">
-  <div class="login-container">
-    <div class="login-box">
-      <h1 class="title has-text-centered">Login</h1>
-
-      <?php if ($_smarty_tpl->getValue('errore_log') == 1) {?>
-        <div class="notification is-danger">
-          <button class="delete"></button>
-          Username o password non corretti!
-        </div>
-      <?php }?>
-        
-        <div class="field">
-          <label class="label">Email</label>
-          <div class="control">
-            <input name="email-log" class="input" type="text" placeholder="Inserisci email...">
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Password</label>
-          <div class="control">
-            <input name="password-log" class="input" type="password" placeholder="Inserisci la password...">
-          </div>
-        </div>
-
-        <div class="field">
-          <div class="control">
-            <button type="submit" class="button is-primary is-fullwidth">Login</button>
-          </div>
-        </div>
-
-        <div class="has-text-centered">
-          <a href="/TekHub/utente/signUp">Non sei registrato? Registrati!</a>
-        </div>
+    <div class="form-container">
+          <h2 class="text-center">Login</h2>
+          <?php if ($_smarty_tpl->getValue('errore_log') == 1) {?>
+            <div class="mt-5">
+                <div class="alert alert-danger" role="alert">
+                    Email o password non corretti!
+                </div>
+            </div>
+          <?php }?>       
+                    <div class="card-body">
+                        <form method="POST" action="/TekHub/utente/login">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input name="email-log" type="email" class="form-control" id="email" placeholder="ad es. prova@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input name="password-log" type="password" class="form-control" id="password" placeholder="Password...">
+                            </div>
+                            <br>
+                            <button type="submit" class="btn btn-primary btn-block">Login</button>
+                        </form>
+                    </div>
+                    <br>
+                    <div class="card-footer text-center">
+                        <a href="/TekHub/utente/signUp">Non sei registrato? Registrati!</a>
+                    </div>
+                    <br>
     </div>
-  </div>
-</form>
+    <?php echo '<script'; ?>
+ src="js/jquery.min.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
+>
+    <!-- Include any other JS files needed -->
 </body>
 </html>
 <?php }

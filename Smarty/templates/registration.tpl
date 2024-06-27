@@ -1,154 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registrati</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-  <style>
-    .registration-container {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .registration-box {
-      max-width: 400px;
-      width: 100%;
-      padding: 2rem;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    }
-    #error-message{
-      display: none; /* Nasconde il messaggio di errore inizialmente */
-    }
-    .seller-fields{
-      margin-bottom: 15px;
-      display: none; /* Nasconde il messaggio di errore inizialmente */
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrati</title>
+    <!-- Google font -->
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+
+		<!-- Bootstrap -->
+		<link type="text/css" rel="stylesheet" href="/TekHub/skin/electro-master/css/bootstrap.min.css"/>
+
+		<!-- Slick -->
+		<link type="text/css" rel="stylesheet" href="/TekHub/skin/electro-master/css/slick.css"/>
+		<link type="text/css" rel="stylesheet" href="/TekHub/skin/electro-master/css/slick-theme.css"/>
+
+		<!-- nouislider -->
+		<link type="text/css" rel="stylesheet" href="/TekHub/skin/electro-master/css/nouislider.min.css"/>
+
+		<!-- Font Awesome Icon -->
+		<link rel="stylesheet" href="/TekHub/skin/electro-master/css/font-awesome.min.css">
+
+		<!-- Custom stlylesheet -->
+		<link type="text/css" rel="stylesheet" href="/TekHub/skin/electro-master/css/style.css"/>
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
 </head>
 <body>
-<form id="registrationForm" method="POST" action="/TekHub/utente/signup">
-  <div class="registration-container">
-    <div class="registration-box">
-      <h1 class="title has-text-centered">Registrati</h1>
-
-      {if $errore_r == 1}
-        <div class="notification is-danger">
-          <button class="delete"></button>
-          Email già esistente! Registrati con un'altra email!
-        </div>
-      {/if}
-        <div id="error-message" class="notification is-danger">
-          <button class="delete"></button>
-          Le password non corrispondono!
-        </div>
-
-        <div class="field">
-          <label class="label">Sei un venditore o un acquirente?</label>
-          <div class="control">
-            <label class="radio">
-              <input type="radio" name="userType" value="acquirente" required>
-              Acquirente
-            </label>
-            <label class="radio">
-              <input type="radio" name="userType" value="venditore" required>
-              Venditore
-            </label>
-          </div>
-        </div>
-
-        <div class="field">
-          <div class="control">
-          <input name="nome" type="text" class="input" id="nome" placeholder="Nome..." required>
-          </div>
-        </div>
-
-        <div class="field">
-          <div class="control">
-          <input name="cognome" type="text" class="input" id="cognome" placeholder="Cognome..." required>
-          </div>
-        </div>
-
-        <div class="field">
-          <div class="control">
-          <input name="username" type="text" class="input" id="username" placeholder="Username..." required>
-          </div>
-        </div>
-
-        <div class="field">
-          <div class="control">
-          <input name="cellulare" type="tel" class="input" id="cellulare" placeholder="es. 3456789333" pattern="[0-9]+" maxlength="10" required>
-          </div>
-        </div>
-
-        <div class="field">
-          <div class="control">
-          <input name="email" type="email" class="input" id="email" placeholder="es. prova@example.com" required>
-          </div>
-        </div>
-
-        <div class="seller-fields">
-          <div id="partita_iva_div" class="field">
-            <div class="control">
-            <input name="società" type="text" class="input" id="società" placeholder="Società...">
-            </div>
-          </div>
-          <div id="società_div" class="field">
-            <div class="control">
-            <input name="partita_iva" type="text" class="input" id="partita_iva" placeholder="es. 08100750010" pattern="[0-9]+" maxlength="11">
-            </div>
-          </div>
-        </div>
-
-        <div class="field">
-          <div class="control">
-          <input name="password" type="password" class="input" id="password" placeholder="Password..." required>
-          </div>
-        </div>
-
-        <div class="field">
-          <div class="control">
-          <input name="confirm-password" type="password" class="input" id="confirm-password" placeholder="Conferma password..." required>
-          </div>
-        </div>
-
-        <div class="field">
-          <div class="control">
-            <button type="submit" class="button is-primary is-fullwidth">Registrati</button>
-          </div>
-        </div>
-
-        <div class="has-text-centered">
-          <a href="/TekHub/utente/login">Hai già un account? Accedi</a>
-        </div>
+<div class="form-container">
+<h2 class="text-center">Registrazione</h2>
+{if $errore_r == 1}
+    <div class="mt-5">
+    <div class="alert alert-danger" role="alert">
+        Email già esistente! Registrati con un'altra email!
     </div>
+</div>
+{/if}
+
+{if $check_pass == 1}
+<div class="mt-5">
+    <div class="alert alert-danger" role="alert">
+        Le password non coincidono! Riprovare
+    </div>
+</div>
+{/if}
+<div class="card-body">
+  <form method="POST" action="/TekHub/utente/signup">
+      <div class="form-group">
+      <label for="userType" class="form-label">Sei un venditore o un acquirente?</label>
+      <div class="form-check">
+          <input class="form-check-input" type="radio" name="userType" id="acquirente" value="acquirente" required>
+          <label class="form-check-label" for="acquirente">
+              Acquirente
+          </label>
+      </div>
+      <div class="form-check">
+          <input class="form-check-input" type="radio" name="userType" id="venditore" value="venditore" required>
+          <label class="form-check-label" for="venditore">
+              Venditore
+          </label>
+      </div>
+      </div>
+
+      <div class="form-group">
+          
+          <input name="nome" type="text" class="form-control" id="nome" placeholder="Nome..." required>
+      </div>
+      <div class="form-group">
+          
+          <input name="cognome" type="text" class="form-control" id="cognome" placeholder="Cognome..." required>
+      </div>
+      <div class="form-group">
+          
+          <input name="username" type="text" class="form-control" id="username" placeholder="Username..." required>
+      </div>
+      <div class="form-group">
+          
+          <input name="cellulare" type="tel" class="form-control" id="cellulare" placeholder="es. 3456789333" pattern="[0-9]+" maxlength="10" required>
+      </div>
+      <div class="form-group">
+          
+          <input name="email" type="email" class="form-control" id="email" placeholder="es. prova@example.com" required>
+      </div>
+
+      <div class="seller-fields">
+          <div id="società_div" class="mb-3 seller-field">
+              <input name="società" type="text" class="form-control" id="società" placeholder="Società...">
+          </div>
+          <div id="partita_iva_div" class="mb-3 seller-field">
+              <input name="partita_iva" type="text" class="form-control" id="partita_iva" placeholder="p.IVA es. 08100750010" pattern="[0-9]+" maxlength="11">
+          </div>
+      </div>
+
+      <div class="form-group">
+          
+          <input name="password" type="password" class="form-control" id="password" placeholder="Password..." required>
+      </div>
+      <div class="form-group">
+          
+          <input name="confirm-password" type="password" class="form-control" id="confirm-password" placeholder="Conferma password..." required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Registrati</button>
+      <br>
+      <a href="/TekHub/utente/login" id="linkpass">Hai già un account? Accedi</a>
+  </form>
   </div>
-</form>
-
-  <script>
-    document.querySelectorAll('input[name="userType"]').forEach((elem) => {
-      elem.addEventListener("change", function(event) {
-        var sellerFields = document.querySelector('.seller-fields');
-        if (event.target.value === 'venditore') {
-          sellerFields.style.display = 'block';
-        } else {
-          sellerFields.style.display = 'none';
-        }
-      });
-    });
-    document.getElementById('registrationForm').addEventListener('submit', function(event) {
-      var password = document.getElementById('password').value;
-      var confirmPassword = document.getElementById('confirm-password').value;
-      var errorMessage = document.getElementById('error-message');
-
-      if (password !== confirmPassword) {
-        event.preventDefault(); // Prevent form from submitting
-        errorMessage.style.display = 'block'; // Show error message
-      } else {
-        errorMessage.style.display = 'none'; // Hide error message if they match
-      }
-    });
-  </script>
+</div>
+<script>
+document.querySelectorAll('input[name="userType"]').forEach((elem) => {
+  elem.addEventListener("change", function(event) {
+    var sellerFields = document.querySelector('.seller-fields');
+    if (event.target.value === 'venditore') {
+      sellerFields.style.display = 'block';
+    } else {
+      sellerFields.style.display = 'none';
+    }
+  });
+});
+</script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <!-- Include any other JS files needed -->
 </body>
 </html>

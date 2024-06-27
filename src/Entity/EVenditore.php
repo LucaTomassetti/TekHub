@@ -32,6 +32,9 @@ class EVenditore{
 
     #[ORM\Column(type: 'string', length:50, columnDefinition: 'VARCHAR(50)')]
     private $username;
+    
+    #[ORM\Column(type: 'string', length:10, columnDefinition: 'VARCHAR(10)')]
+    private $cellulare;
 
     #[ORM\OneToMany(targetEntity:ERimborso::class, mappedBy:'venditore')]
     private Collection $rimborsi;
@@ -45,7 +48,7 @@ class EVenditore{
     #[ORM\OneToMany(targetEntity:EAsta::class, mappedBy:'venditore')]
     private Collection $aste;
 
-    public function __construct($nome,$cognome,$partita_iva,$societa,$email,$password,$username){
+    public function __construct($nome,$cognome,$partita_iva,$societa,$email,$password,$username, $cellulare){
         $this->nome=$nome;
         $this->cognome=$cognome;
         $this->partita_iva=$partita_iva;
@@ -53,6 +56,7 @@ class EVenditore{
         $this->email=$email;
         $this->password=$password;
         $this->username=$username;
+        $this->cellulare = $cellulare;
         $this->rimborsi = new ArrayCollection();
         $this->prodotti = new ArrayCollection();
         $this->segnalazioni = new ArrayCollection();
@@ -275,6 +279,24 @@ class EVenditore{
     public function setAste(Collection $aste): self
     {
         $this->aste = $aste;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of cellulare
+     */
+    public function getCellulare()
+    {
+        return $this->cellulare;
+    }
+
+    /**
+     * Set the value of cellulare
+     */
+    public function setCellulare($cellulare): self
+    {
+        $this->cellulare = $cellulare;
 
         return $this;
     }
