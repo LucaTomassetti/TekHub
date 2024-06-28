@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-27 12:51:38
+/* Smarty version 5.3.0, created on 2024-06-28 11:07:26
   from 'file:registration.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_667d443aeca7e2_19535570',
+  'unifunc' => 'content_667e7d4ec3b3f5_23783787',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '41107fa37f4de5402c7bc400d1a4020a2471f31c' => 
     array (
       0 => 'registration.tpl',
-      1 => 1719485493,
+      1 => 1719565620,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_667d443aeca7e2_19535570 (\Smarty\Template $_smarty_tpl) {
+function content_667e7d4ec3b3f5_23783787 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="en">
@@ -138,19 +138,8 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
   </form>
   </div>
 </div>
-<?php echo '<script'; ?>
->
-document.querySelectorAll('input[name="userType"]').forEach((elem) => {
-  elem.addEventListener("change", function(event) {
-    var sellerFields = document.querySelector('.seller-fields');
-    if (event.target.value === 'venditore') {
-      sellerFields.style.display = 'block';
-    } else {
-      sellerFields.style.display = 'none';
-    }
-  });
-});
-<?php echo '</script'; ?>
+    <?php echo '<script'; ?>
+ src="/TekHub/skin/electro-master/js/scripts-for-template.js"><?php echo '</script'; ?>
 >
     <?php echo '<script'; ?>
  src="js/jquery.min.js"><?php echo '</script'; ?>

@@ -6,6 +6,16 @@ function Aggiungi() {
     document.getElementById("numeroAcquisti").innerText = nuovoNumero;
 }
 */
+document.querySelectorAll('input[name="userType"]').forEach((elem) => {
+    elem.addEventListener("change", function(event) {
+      var sellerFields = document.querySelector('.seller-fields');
+      if (event.target.value === 'venditore') {
+        sellerFields.style.display = 'block';
+      } else {
+        sellerFields.style.display = 'none';
+      }
+    });
+  });
 document.addEventListener('DOMContentLoaded', function () {
     const confirmationPopup = document.getElementById('confirmationPopup');
     const confirmInput = document.getElementById('confirmInput');

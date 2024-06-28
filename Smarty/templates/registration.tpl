@@ -110,18 +110,7 @@
   </form>
   </div>
 </div>
-<script>
-document.querySelectorAll('input[name="userType"]').forEach((elem) => {
-  elem.addEventListener("change", function(event) {
-    var sellerFields = document.querySelector('.seller-fields');
-    if (event.target.value === 'venditore') {
-      sellerFields.style.display = 'block';
-    } else {
-      sellerFields.style.display = 'none';
-    }
-  });
-});
-</script>
+    <script src="/TekHub/skin/electro-master/js/scripts-for-template.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <!-- Include any other JS files needed -->
