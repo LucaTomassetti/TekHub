@@ -38,17 +38,6 @@
                 <div class="header-ctn">
                 <!-- My Account -->
                         {if $check_login == 1}
-                            <div class="dropdown">
-                                <a href="#" class="dropdown-toggle" id="accountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    <i class="fas fa-user" style="color: #ffffff;"></i>
-                                    <span>Il mio account</span>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="accountDropdown">
-                                        <i id="polygon" class="fas fa-caret-up" style="color: #FFF;"></i>
-                                        <a class="dropdown-item" href="/TekHub/utente/userDataSection"><i class="fas fa-info-circle" style="color: #2B2D42;"></i>  I miei dati personali</a>
-                                        <a class="dropdown-item" href="/TekHub/utente/userHistoryOrders"><i class="fas fa-history" style="color: #2B2D42;"></i>  Storico ordini</a>
-                                </div>
-                            </div>
                             <div>
                                 <a href="/TekHub/utente/logout">
                                     <i class="fas fa-sign-out-alt" style="color: #ffffff;"></i>
@@ -64,6 +53,7 @@
                             </div>
                         {/if}
 
+                    {if $check_login_acquirente == 1 || $check_login == 0}
                     <!-- Cart -->
                     <div class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
@@ -108,7 +98,7 @@
                         </div>
                     </div>
                     <!-- /Cart -->
-
+                    {/if}
                     <!-- Menu Toogle -->
                     <div class="menu-toggle">
                         <a href="#">
@@ -128,3 +118,37 @@
 <!-- /MAIN HEADER -->
 </header>
 <!-- /HEADER -->
+
+<!-- NAVIGATION -->
+<nav id="navigation">
+<!-- container -->
+<div class="container">
+    <!-- responsive-nav -->
+    <div id="responsive-nav">
+        <!-- NAV -->
+        {if $check_login_acquirente == 1}
+        <ul class="main-nav nav navbar-nav">
+            <li><a href="/TekHub/utente/userDataSection">Profilo</a></li>
+            <li><a href="/TekHub/utente/userHistoryOrders">Stato ordini</a></li>
+            <li><a href="#">Recensioni</a></li>
+            <li><a href="#">Offerte effettuate</a></li>
+            <li><a href="#">Gestione resi</a></li>
+        </ul>
+        {elseif $check_login_venditore == 1}
+        <ul class="main-nav nav navbar-nav">
+        <li><a href="/TekHub/utente/home">Profilo</a></li>
+            <li><a href="#">Gestione prodotti</a></li>
+            <li><a href="#">Ordini in attesa</a></li>
+            <li><a href="#">Stato ordini</a></li>
+            <li><a href="#">Gestione resi</a></li>
+            <li><a href="#">Storico ordini</a></li>
+            <li><a href="#">Recensioni</a></li>
+        </ul>
+        {/if}
+        <!-- /NAV -->
+    </div>
+    <!-- /responsive-nav -->
+</div>
+<!-- /container -->
+</nav>
+<!-- /NAVIGATION -->

@@ -9,7 +9,11 @@ class CUtente {
          $_SESSION['cart'] = $array_prodotti;
         */
         if (static::isLogged()) {
-            $view_home->loginSuccess();
+            if($_SESSION['utente'] instanceof EAcquirente){
+                $view_home->loginSuccessAcquirente();
+            }else if($_SESSION['utente'] instanceof EVenditore){
+                $view_home->loginSuccessVenditore();
+            }
         } else {
             $view_home->logout();
         }
@@ -18,7 +22,11 @@ class CUtente {
         $view = new VUtente();
         if($_SERVER['REQUEST_METHOD']=="GET"){
             if (static::isLogged()) {
-                $view->loginSuccess();
+                if($_SESSION['utente'] instanceof EAcquirente){
+                    $view->loginSuccessAcquirente();
+                }else if($_SESSION['utente'] instanceof EVenditore){
+                    $view->loginSuccessVenditore();
+                }
             } else {
                 $view->showLoginForm();
             }
@@ -117,20 +125,15 @@ class CUtente {
             
         }
     }
-    public static function userinfo()
-    {
-        $view_utente = new VUtente();
-        if (static::isLogged()) {
-            $view_utente->userinfo();
-        } else {
-            header('Location: /TekHub/utente/login');
-        }
-    }
     public static function userDataForm()
     {
         $view_utente = new VUtente();
         if (static::isLogged()) {
-            $view_utente->userDataForm();
+            if($_SESSION['utente'] instanceof EAcquirente){
+                $view_utente->userDataForm(1,0);
+            }else if($_SESSION['utente'] instanceof EVenditore){
+                $view_utente->userDataForm(0,1);
+            }
         } else {
             header('Location: /TekHub/utente/login');
         }
@@ -139,7 +142,11 @@ class CUtente {
     {
         $view_utente = new VUtente();
         if (static::isLogged()) {
-            $view_utente->userDataSection(0, 0);
+            if($_SESSION['utente'] instanceof EAcquirente){
+                $view_utente->userDataSection(0,0,1,0);
+            }else if($_SESSION['utente'] instanceof EVenditore){
+                $view_utente->userDataSection(0,0,0,1);
+            }
         } else {
             header('Location: /TekHub/utente/login');
         }
@@ -175,7 +182,11 @@ class CUtente {
         session_start();
         $view = new VUtente();
         if ($_SERVER['REQUEST_METHOD'] == "GET") {
-            $view->changePass();
+            if($_SESSION['utente'] instanceof EAcquirente){
+                $view->changePass(1,0);
+            }else if($_SESSION['utente'] instanceof EVenditore){
+                $view->changePass(0,1);
+            }
         } elseif ($_SERVER['REQUEST_METHOD'] == "POST") {
             $password_old = $_POST['password'];
             if (password_verify($password_old, $_SESSION['utente']->getPassword())) {
@@ -184,15 +195,31 @@ class CUtente {
                 if ($new_password != $password_old) {
                     if ($new_password == $confirm_password) {
                         FPersistentManager::getInstance()->updatePass($_SESSION['utente'], $new_password);
-                        $view->userDataSection(0, 1);
+                        if($_SESSION['utente'] instanceof EAcquirente){
+                            $view->userDataSection(0,1,1,0);
+                        }else if($_SESSION['utente'] instanceof EVenditore){
+                            $view->userDataSection(0,1,0,1);
+                        }
                     } else {
-                        $view->errorPassUpdate();
+                        if($_SESSION['utente'] instanceof EAcquirente){
+                            $view->errorPassUpdate(1,0);
+                        }else if($_SESSION['utente'] instanceof EVenditore){
+                            $view->errorPassUpdate(0,1);
+                        }
                     }
                 } elseif ($new_password == $password_old) {
-                    $view->equelPasswordError();
+                    if($_SESSION['utente'] instanceof EAcquirente){
+                        $view->equalPasswordError(1,0);
+                    }else if($_SESSION['utente'] instanceof EVenditore){
+                        $view->equalPasswordError(0,1);
+                    }
                 } 
             } else {
-                $view->errorOldPass();
+                if($_SESSION['utente'] instanceof EAcquirente){
+                    $view->errorOldPass(1,0);
+                }else if($_SESSION['utente'] instanceof EVenditore){
+                    $view->errorOldPass(0,1);
+                }
             }
         }
     }
@@ -202,7 +229,11 @@ class CUtente {
         session_start();
         $view = new VUtente();
         if ($_SERVER['REQUEST_METHOD'] == "GET") {
-            $view->userDataForm();
+            if($_SESSION['utente'] instanceof EAcquirente){
+                $view->userDataForm(1,0);
+            }else if($_SESSION['utente'] instanceof EVenditore){
+                $view->userDataForm(0,1);
+            }
         } elseif ($_SERVER['REQUEST_METHOD'] == "POST") {
             $postData = $_POST;
             foreach ($postData as $key => $value) {
@@ -213,7 +244,11 @@ class CUtente {
             //Aggiorno la sessione con i nuovi dati aggiornati
             $updated_cliente = FPersistentManager::getInstance()->findUtente($_SESSION['utente']);
             $_SESSION['utente'] = $updated_cliente[0];
-            $view->userDataSection(1, 0);
+            if($_SESSION['utente'] instanceof EAcquirente){
+                $view->userDataSection(1,0,1,0);
+            }else if($_SESSION['utente'] instanceof EVenditore){
+                $view->userDataSection(1,0,0,1);
+            }
         }
     }
 }

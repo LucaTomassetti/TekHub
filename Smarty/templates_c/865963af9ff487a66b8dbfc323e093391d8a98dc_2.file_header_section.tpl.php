@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-28 00:16:47
+/* Smarty version 5.3.0, created on 2024-06-28 12:35:37
   from 'file:header_section.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_667de4cf3027a1_09549879',
+  'unifunc' => 'content_667e91f9424de5_25461532',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '865963af9ff487a66b8dbfc323e093391d8a98dc' => 
     array (
       0 => 'header_section.tpl',
-      1 => 1719526604,
+      1 => 1719570934,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_667de4cf3027a1_09549879 (\Smarty\Template $_smarty_tpl) {
+function content_667e91f9424de5_25461532 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?><!-- HEADER -->
 <header>
@@ -62,17 +62,6 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
                 <div class="header-ctn">
                 <!-- My Account -->
                         <?php if ($_smarty_tpl->getValue('check_login') == 1) {?>
-                            <div class="dropdown">
-                                <a href="#" class="dropdown-toggle" id="accountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    <i class="fas fa-user" style="color: #ffffff;"></i>
-                                    <span>Il mio account</span>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="accountDropdown">
-                                        <i id="polygon" class="fas fa-caret-up" style="color: #FFF;"></i>
-                                        <a class="dropdown-item" href="/TekHub/utente/userDataSection"><i class="fas fa-info-circle" style="color: #2B2D42;"></i>  I miei dati personali</a>
-                                        <a class="dropdown-item" href="/TekHub/utente/userHistoryOrders"><i class="fas fa-history" style="color: #2B2D42;"></i>  Storico ordini</a>
-                                </div>
-                            </div>
                             <div>
                                 <a href="/TekHub/utente/logout">
                                     <i class="fas fa-sign-out-alt" style="color: #ffffff;"></i>
@@ -88,6 +77,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
                             </div>
                         <?php }?>
 
+                    <?php if ($_smarty_tpl->getValue('check_login_acquirente') == 1 || $_smarty_tpl->getValue('check_login') == 0) {?>
                     <!-- Cart -->
                     <div class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
@@ -132,7 +122,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
                         </div>
                     </div>
                     <!-- /Cart -->
-
+                    <?php }?>
                     <!-- Menu Toogle -->
                     <div class="menu-toggle">
                         <a href="#">
@@ -151,5 +141,39 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 </div>
 <!-- /MAIN HEADER -->
 </header>
-<!-- /HEADER --><?php }
+<!-- /HEADER -->
+
+<!-- NAVIGATION -->
+<nav id="navigation">
+<!-- container -->
+<div class="container">
+    <!-- responsive-nav -->
+    <div id="responsive-nav">
+        <!-- NAV -->
+        <?php if ($_smarty_tpl->getValue('check_login_acquirente') == 1) {?>
+        <ul class="main-nav nav navbar-nav">
+            <li><a href="/TekHub/utente/userDataSection">Profilo</a></li>
+            <li><a href="/TekHub/utente/userHistoryOrders">Stato ordini</a></li>
+            <li><a href="#">Recensioni</a></li>
+            <li><a href="#">Offerte effettuate</a></li>
+            <li><a href="#">Gestione resi</a></li>
+        </ul>
+        <?php } elseif ($_smarty_tpl->getValue('check_login_venditore') == 1) {?>
+        <ul class="main-nav nav navbar-nav">
+        <li><a href="/TekHub/utente/home">Profilo</a></li>
+            <li><a href="#">Gestione prodotti</a></li>
+            <li><a href="#">Ordini in attesa</a></li>
+            <li><a href="#">Stato ordini</a></li>
+            <li><a href="#">Gestione resi</a></li>
+            <li><a href="#">Storico ordini</a></li>
+            <li><a href="#">Recensioni</a></li>
+        </ul>
+        <?php }?>
+        <!-- /NAV -->
+    </div>
+    <!-- /responsive-nav -->
+</div>
+<!-- /container -->
+</nav>
+<!-- /NAVIGATION --><?php }
 }
