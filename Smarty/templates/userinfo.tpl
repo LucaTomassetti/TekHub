@@ -49,6 +49,8 @@
                 {include file='change-pass.tpl'}
             {elseif $userDataSection == 1}
                 {include file='userDataSection.tpl'}
+			{elseif $listaProdotti == 1}
+				{include file='listaProdotti.tpl'}
             {/if}
         </div>
     </main>

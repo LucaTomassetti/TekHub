@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-27 20:14:11
+/* Smarty version 5.3.0, created on 2024-06-28 13:23:54
   from 'file:userinfo.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_667dabf3964022_27938818',
+  'unifunc' => 'content_667e9d4a3cd230_31237029',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ea170b9416ffd88355818116817d4eab78b7165f' => 
     array (
       0 => 'userinfo.tpl',
-      1 => 1719511457,
+      1 => 1719573830,
       2 => 'file',
     ),
   ),
@@ -23,9 +23,10 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:userHistoryOrders.tpl' => 1,
     'file:change-pass.tpl' => 1,
     'file:userDataSection.tpl' => 1,
+    'file:listaProdotti.tpl' => 1,
   ),
 ))) {
-function content_667dabf3964022_27938818 (\Smarty\Template $_smarty_tpl) {
+function content_667e9d4a3cd230_31237029 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="en">
@@ -86,6 +87,9 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?>
             <?php } elseif ($_smarty_tpl->getValue('userDataSection') == 1) {?>
                 <?php $_smarty_tpl->renderSubTemplate('file:userDataSection.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
+			<?php } elseif ($_smarty_tpl->getValue('listaProdotti') == 1) {?>
+				<?php $_smarty_tpl->renderSubTemplate('file:listaProdotti.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
 ?>
             <?php }?>
         </div>

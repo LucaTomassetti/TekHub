@@ -258,7 +258,15 @@ class CUtente {
     public static function gestioneProdotti(){
         session_start();
         $view = new VUtente();
-        $view->listaProdotti();
+        if (static::isLogged()) {
+            if($_SESSION['utente'] instanceof EVenditore){
+                $view->listaProdotti();
+            }else {
+                header('Location: /TekHub/utente/login');
+            }
+        } else {
+            header('Location: /TekHub/utente/login');
+        }
     }
 }
 ?>

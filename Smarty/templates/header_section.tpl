@@ -137,7 +137,7 @@
         {elseif $check_login_venditore == 1}
         <ul class="main-nav nav navbar-nav">
         <li><a href="/TekHub/utente/home">Profilo</a></li>
-            <li><a href="#">Gestione prodotti</a></li>
+            <li><a href="/TekHub/utente/gestioneProdotti">Gestione prodotti</a></li>
             <li><a href="#">Ordini in attesa</a></li>
             <li><a href="/TekHub/utente/userHistoryOrders">Stato ordini</a></li>
             <li><a href="#">Gestione resi</a></li>
