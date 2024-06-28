@@ -22,11 +22,7 @@ class CUtente {
         $view = new VUtente();
         if($_SERVER['REQUEST_METHOD']=="GET"){
             if (static::isLogged()) {
-                if($_SESSION['utente'] instanceof EAcquirente){
-                    $view->loginSuccessAcquirente();
-                }else if($_SESSION['utente'] instanceof EVenditore){
-                    $view->loginSuccessVenditore();
-                }
+                header('Location: /TekHub/utente/home');
             } else {
                 $view->showLoginForm();
             }
@@ -190,6 +186,8 @@ class CUtente {
                 $view->changePass(1,0);
             }else if($_SESSION['utente'] instanceof EVenditore){
                 $view->changePass(0,1);
+            }else{
+                header('Location: /TekHub/utente/login');
             }
         } elseif ($_SERVER['REQUEST_METHOD'] == "POST") {
             $password_old = $_POST['password'];
@@ -237,6 +235,8 @@ class CUtente {
                 $view->userDataForm(1,0);
             }else if($_SESSION['utente'] instanceof EVenditore){
                 $view->userDataForm(0,1);
+            }else{
+                header('Location: /TekHub/utente/login');
             }
         } elseif ($_SERVER['REQUEST_METHOD'] == "POST") {
             $postData = $_POST;
@@ -262,7 +262,7 @@ class CUtente {
             if($_SESSION['utente'] instanceof EVenditore){
                 $view->listaProdotti();
             }else {
-                header('Location: /TekHub/utente/login');
+                header('Location: /TekHub/utente/home');
             }
         } else {
             header('Location: /TekHub/utente/login');
