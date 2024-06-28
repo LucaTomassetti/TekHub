@@ -255,5 +255,10 @@ class CUtente {
             }
         }
     }
+    public static function gestioneProdotti(){
+        session_start();
+        $view = new VUtente();
+        $view->listaProdotti();
+    }
 }
 ?>

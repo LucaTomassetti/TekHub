@@ -130,5 +130,8 @@ class VUtente{
         $this->smarty->assign('check_login', 1);
         $this->smarty->display('carrello.tpl');
     }
+    public function listaProdotti(){
+        $this->smarty->display('listaProdotti.tpl');
+    }
 }
 ?>
