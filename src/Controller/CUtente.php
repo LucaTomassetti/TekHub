@@ -155,7 +155,11 @@ class CUtente {
     {
         $view_utente = new VUtente();
         if (static::isLogged()) {
-            $view_utente->userHistoryOrders();
+            if($_SESSION['utente'] instanceof EAcquirente){
+                $view_utente->userHistoryOrders(1,0);
+            }else if($_SESSION['utente'] instanceof EVenditore){
+                $view_utente->userHistoryOrders(0,1);
+            }
         } else {
             header('Location: /TekHub/utente/login');
         }

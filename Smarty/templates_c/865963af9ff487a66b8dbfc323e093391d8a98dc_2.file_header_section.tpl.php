@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-28 12:35:37
+/* Smarty version 5.3.0, created on 2024-06-28 12:57:39
   from 'file:header_section.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_667e91f9424de5_25461532',
+  'unifunc' => 'content_667e97230ff3b4_15602085',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '865963af9ff487a66b8dbfc323e093391d8a98dc' => 
     array (
       0 => 'header_section.tpl',
-      1 => 1719570934,
+      1 => 1719572196,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_667e91f9424de5_25461532 (\Smarty\Template $_smarty_tpl) {
+function content_667e97230ff3b4_15602085 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?><!-- HEADER -->
 <header>
@@ -163,9 +163,8 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
         <li><a href="/TekHub/utente/home">Profilo</a></li>
             <li><a href="#">Gestione prodotti</a></li>
             <li><a href="#">Ordini in attesa</a></li>
-            <li><a href="#">Stato ordini</a></li>
+            <li><a href="/TekHub/utente/userHistoryOrders">Stato ordini</a></li>
             <li><a href="#">Gestione resi</a></li>
-            <li><a href="#">Storico ordini</a></li>
             <li><a href="#">Recensioni</a></li>
         </ul>
         <?php }?>

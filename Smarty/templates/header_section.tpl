@@ -139,9 +139,8 @@
         <li><a href="/TekHub/utente/home">Profilo</a></li>
             <li><a href="#">Gestione prodotti</a></li>
             <li><a href="#">Ordini in attesa</a></li>
-            <li><a href="#">Stato ordini</a></li>
+            <li><a href="/TekHub/utente/userHistoryOrders">Stato ordini</a></li>
             <li><a href="#">Gestione resi</a></li>
-            <li><a href="#">Storico ordini</a></li>
             <li><a href="#">Recensioni</a></li>
         </ul>
         {/if}

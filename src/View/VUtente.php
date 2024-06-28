@@ -87,7 +87,9 @@ class VUtente{
         $this->smarty->assign('userDataSection', 1);
         $this->smarty->display('userinfo.tpl');
     }
-    public function userHistoryOrders(){
+    public function userHistoryOrders($check_login_acquirente,$check_login_venditore){
+        $this->smarty->assign('check_login_acquirente', $check_login_acquirente);
+        $this->smarty->assign('check_login_venditore', $check_login_venditore);
         $this->smarty->assign('check_login', 1);
         $this->smarty->assign('userHistoryOrders', 1);
         $this->smarty->display('userinfo.tpl');
