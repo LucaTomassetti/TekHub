@@ -1,4 +1,4 @@
-<div class="container">
+
     <!-- row -->
     <div class="row">
                 <!-- product -->
@@ -58,4 +58,3 @@
                 </div>
                 <!-- /product -->
     </div>
-</div>

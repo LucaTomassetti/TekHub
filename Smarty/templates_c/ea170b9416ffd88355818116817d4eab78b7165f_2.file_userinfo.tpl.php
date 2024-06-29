@@ -1,24 +1,25 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-28 13:23:54
+/* Smarty version 5.3.0, created on 2024-06-29 12:37:48
   from 'file:userinfo.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_667e9d4a3cd230_31237029',
+  'unifunc' => 'content_667fe3fc035ed0_08404526',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ea170b9416ffd88355818116817d4eab78b7165f' => 
     array (
       0 => 'userinfo.tpl',
-      1 => 1719573830,
+      1 => 1719657464,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
     'file:header_section.tpl' => 1,
+    'file:filters-section.tpl' => 1,
     'file:userDataForm.tpl' => 1,
     'file:userHistoryOrders.tpl' => 1,
     'file:change-pass.tpl' => 1,
@@ -26,7 +27,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:listaProdotti.tpl' => 1,
   ),
 ))) {
-function content_667e9d4a3cd230_31237029 (\Smarty\Template $_smarty_tpl) {
+function content_667fe3fc035ed0_08404526 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="en">
@@ -75,24 +76,36 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?>
     <!-- Contenuto principale -->
     <main>
-        <div class="content-area">
-            <?php if ($_smarty_tpl->getValue('userDataForm') == 1) {?>
-                <?php $_smarty_tpl->renderSubTemplate('file:userDataForm.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+	<div class="container-fluid d-flex justify-content-center">
+			<?php if ($_smarty_tpl->getValue('listaProdotti') == 1) {?>
+			<div class="col-lg-2">
+				<?php $_smarty_tpl->renderSubTemplate('file:filters-section.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
 ?>
-            <?php } elseif ($_smarty_tpl->getValue('userHistoryOrders') == 1) {?>
-                <?php $_smarty_tpl->renderSubTemplate('file:userHistoryOrders.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+			</div>
+			<?php }?>
+				<?php if ($_smarty_tpl->getValue('userDataForm') == 1) {?>
+					<div class="col-12 content-area">
+					<?php $_smarty_tpl->renderSubTemplate('file:userDataForm.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
 ?>
-            <?php } elseif ($_smarty_tpl->getValue('changepass') == 1) {?>
-                <?php $_smarty_tpl->renderSubTemplate('file:change-pass.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+				<?php } elseif ($_smarty_tpl->getValue('userHistoryOrders') == 1) {?>
+					<div class="col-12 content-area">
+					<?php $_smarty_tpl->renderSubTemplate('file:userHistoryOrders.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
 ?>
-            <?php } elseif ($_smarty_tpl->getValue('userDataSection') == 1) {?>
-                <?php $_smarty_tpl->renderSubTemplate('file:userDataSection.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+				<?php } elseif ($_smarty_tpl->getValue('changepass') == 1) {?>
+					<div class="col-12 content-area">
+					<?php $_smarty_tpl->renderSubTemplate('file:change-pass.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
 ?>
-			<?php } elseif ($_smarty_tpl->getValue('listaProdotti') == 1) {?>
-				<?php $_smarty_tpl->renderSubTemplate('file:listaProdotti.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+				<?php } elseif ($_smarty_tpl->getValue('userDataSection') == 1) {?>
+					<div class="col-12 content-area">
+					<?php $_smarty_tpl->renderSubTemplate('file:userDataSection.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
 ?>
-            <?php }?>
-        </div>
+				<?php } elseif ($_smarty_tpl->getValue('listaProdotti') == 1) {?>
+					<div class="col-lg-9 content-area">
+					<?php $_smarty_tpl->renderSubTemplate('file:listaProdotti.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
+				<?php }?>
+			</div>
+	</div>
     </main>
 
 <?php echo '<script'; ?>

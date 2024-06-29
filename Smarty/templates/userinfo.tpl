@@ -40,19 +40,30 @@
 {include file='header_section.tpl'}
     <!-- Contenuto principale -->
     <main>
-        <div class="content-area">
-            {if $userDataForm == 1}
-                {include file='userDataForm.tpl'}
-            {elseif $userHistoryOrders == 1}
-                {include file='userHistoryOrders.tpl'}
-            {elseif $changepass == 1}
-                {include file='change-pass.tpl'}
-            {elseif $userDataSection == 1}
-                {include file='userDataSection.tpl'}
-			{elseif $listaProdotti == 1}
-				{include file='listaProdotti.tpl'}
-            {/if}
-        </div>
+	<div class="container-fluid d-flex justify-content-center">
+			{if $listaProdotti == 1}
+			<div class="col-lg-2">
+				{include file='filters-section.tpl'}
+			</div>
+			{/if}
+				{if $userDataForm == 1}
+					<div class="col-12 content-area">
+					{include file='userDataForm.tpl'}
+				{elseif $userHistoryOrders == 1}
+					<div class="col-12 content-area">
+					{include file='userHistoryOrders.tpl'}
+				{elseif $changepass == 1}
+					<div class="col-12 content-area">
+					{include file='change-pass.tpl'}
+				{elseif $userDataSection == 1}
+					<div class="col-12 content-area">
+					{include file='userDataSection.tpl'}
+				{elseif $listaProdotti == 1}
+					<div class="col-lg-9 content-area">
+					{include file='listaProdotti.tpl'}
+				{/if}
+			</div>
+	</div>
     </main>
 
 <script src="/TekHub/skin/electro-master/js/scripts-for-template.js"></script>
