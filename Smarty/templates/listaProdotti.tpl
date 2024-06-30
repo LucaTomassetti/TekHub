@@ -1,4 +1,13 @@
-
+<form class="container-fluid text-center"method="GET" action="/TekHub/utente/addProduct">
+    <button type="submit" class="btn btn-primary">Aggiungi un nuovo prodotto</button>
+</form>
+{if $addedProductSuccess == 1}
+    <div class="mt-5">
+        <div class="alert alert-success" role="alert">
+            Aggiunta del prodotto avvenuta con successo!
+        </div>
+    </div>
+{/if}
     <!-- row -->
     <div class="row">
                 <!-- product -->

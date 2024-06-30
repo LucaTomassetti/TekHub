@@ -206,10 +206,11 @@ class EVenditore{
     /**
      * Get the value of id_venditore
      */
-    public function getIdVenditore(): ?int
+    public function getIdVenditore()
     {
         return $this->id_venditore;
     }
+
 
     /**
      * Get the value of rimborsi
@@ -299,6 +300,14 @@ class EVenditore{
         $this->cellulare = $cellulare;
 
         return $this;
+    }
+
+    /**
+     * Set the value of id_venditore
+     */
+    public function setIdVenditore($id_venditore)
+    {
+        $this->id_venditore = $id_venditore;
     }
 }
 ?>

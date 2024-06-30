@@ -11,7 +11,6 @@ class EOrdine{
     #[ORM\Id]
     #[ORM\Column(type: 'integer')]
     #[ORM\GeneratedValue]
-    #[ORM\OneToMany(targetEntity:EIndirizzo::class, mappedBy:'ordini',cascade: ['ALL'])]
     private int|null $id_ordine = null;
 
     #[ORM\Column(type: 'datetime')]
@@ -30,7 +29,7 @@ class EOrdine{
     private Collection $indirizzi;
 
     #[ORM\ManyToOne(targetEntity: EAcquirente::class, inversedBy:'ordini')]
-    #[ORM\JoinColumn(name:'acquirente', referencedColumnName:'id_acquirente', nullable:false)]
+    #[ORM\JoinColumn(name:'acquirente', referencedColumnName:'id_acquirente', nullable:true)]
     private EAcquirente|null $acquirente = null;
 
     #[ORM\ManyToOne(targetEntity: ECartaDiCredito::class, inversedBy:'ordini')]

@@ -1,4 +1,7 @@
 <?php
+
+use Doctrine\Common\Collections\ArrayCollection;
+
 class CUtente {
     public static function home(){
         $view_home = new VUtente();
@@ -164,7 +167,7 @@ class CUtente {
     {
         session_start();
         $utente = $_SESSION['utente'];
-        FPersistentManager::getInstance()->deleteAcquirente($utente);
+        FPersistentManager::getInstance()->deleteUtente($utente);
         session_unset();
         session_destroy();
         header('Location: /TekHub/utente/home');
@@ -243,7 +246,7 @@ class CUtente {
             foreach ($postData as $key => $value) {
                 $array_data[$key] = $value;
             }
-            FPersistentManager::getInstance()->updateAcquirente($_SESSION['utente'], $array_data);
+            FPersistentManager::getInstance()->updateUtente($_SESSION['utente'], $array_data);
 
             //Aggiorno la sessione con i nuovi dati aggiornati
             $updated_cliente = FPersistentManager::getInstance()->findUtente($_SESSION['utente']);
@@ -260,12 +263,89 @@ class CUtente {
         $view = new VUtente();
         if (static::isLogged()) {
             if($_SESSION['utente'] instanceof EVenditore){
-                $view->listaProdotti();
+                $array_prodotti = FPersistentManager::getInstance()->getAllProducts();
+                $view->listaProdotti($array_prodotti);
             }else {
                 header('Location: /TekHub/utente/home');
             }
         } else {
             header('Location: /TekHub/utente/login');
+        }
+    }
+    public static function addProduct(){
+        session_start();
+        $view = new VUtente();
+        if ($_SERVER['REQUEST_METHOD'] == "GET") {
+            if($_SESSION['utente'] instanceof EVenditore){
+                $view->addProductForm();
+            }else{
+                header('Location: /TekHub/utente/login');
+            }
+        } elseif ($_SERVER['REQUEST_METHOD'] == "POST") {
+            $postData = $_POST;
+            foreach ($postData as $key => $value) {
+                $array_data[$key] = $value;
+            }
+            $allowed_types = array('image/jpeg', 'image/png');
+           
+            $prodotto = new EProdotto(null,null);
+            $last_id = FPersistentManager::getInstance()->findLastId();
+            if ($last_id !== null) {
+                $prodotto->setIdProdotto($last_id + 1);
+            }else{
+                $prodotto->setIdProdotto(1);
+            }
+            if(isset($_FILES['images'])){
+                //Controllo se le immagini inserite eccedono una dimensione di 1MB
+                foreach($_FILES['images']['size'] as $key => $value) {
+                    if($_FILES['images']['size'][$key] > 1000000){
+                        $view->errorImageUpload();
+                        exit;
+                    }
+                }
+                //Controllo il tipo di file caricati
+                foreach($_FILES['images']['type'] as $key => $value) {
+                    if(!(in_array($_FILES['images']['type'][$key], $allowed_types))){
+                        $view->errorImageUpload();
+                        exit;
+                    }
+                }
+                foreach($_FILES['images']['tmp_name'] as $key => $value) {
+                    $fileName = $_FILES['images']['name'][$key];
+                    $fileSize = $_FILES['images']['size'][$key];
+                    $fileType = $_FILES['images']['type'][$key];
+                    $content = file_get_contents($_FILES['images']['tmp_name'][$key]);
+                    $image = new EImmagine($fileName,$fileSize,$fileType,$content);
+                        
+                    $last_id_image = FPersistentManager::getInstance()->findLastIdImage();
+                    if ($last_id_image !== null) {
+                        $image->setIdImage($last_id_image + 1);
+                    }else{
+                        $image->setIdImage(1);
+                    }
+                    FPersistentManager::getInstance()->insertImmagine($image);
+                    if($array_data['productType'] == 'nuovo'){
+                        $prod = new ENuovo($prodotto->getIdProdotto(), $array_data['nome'], $array_data['descrizione'], $array_data['pricefornew'],$array_data['quantita_disp']);
+                        FPersistentManager::getInstance()->insertProdottoNuovo($prod);
+        
+                    }else{
+                        $prod = new EUsato($prodotto->getIdProdotto(),$prodotto->getNome(),$prodotto->getDescrizione(),$array_data['prezzo-asta']);
+                        FPersistentManager::getInstance()->insertProdottoUsato($prod);
+                    }
+                    $found_prodotto = FPersistentManager::getInstance()->find(EProdotto::class, $prod->getIdProdotto());
+                    $found_image = FPersistentManager::getInstance()->find(EImmagine::class, $image->getIdImage());
+                            
+                    FPersistentManager::getInstance()->updateImageProdotto($found_prodotto,$found_image);   
+                    
+                }
+            }
+            $found_categoria = FPersistentManager::getInstance()->find(ECategoria::class, $array_data['categoria']);
+            $found_venditore = FPersistentManager::getInstance()->find(EVenditore::class, $_SESSION['utente']->getIdVenditore());
+
+            FPersistentManager::getInstance()->updateVendCatProdotto($found_prodotto, $found_venditore, $found_categoria);
+        
+            $view->addedProductSuccess();
+            
         }
     }
 }

@@ -12,6 +12,21 @@ class FVenditore extends EntityRepository {
         $query->setMaxResults(1);
         return $query->getResult();
     }
+    public function findVenditoreById($id){
+        $entityManager = getEntityManager();
+        $dql = "SELECT venditore.id_venditore FROM EVenditore venditore WHERE venditore.id_venditore = :id";
+        
+        $query = $entityManager->createQuery($dql)
+                               ->setParameter('id', $id);
+
+        $result = $query->getOneOrNullResult();
+        
+        if ($result) {
+            return $result['id_venditore'];
+        }
+
+        return null;
+    }
     public function insertNewVenditore(EVenditore $cliente){
         $em = getEntityManager();
         $em->persist($cliente);
@@ -46,6 +61,7 @@ class FVenditore extends EntityRepository {
         $found_cliente->setCognome($array_data['cognome']);
         $found_cliente->setUsername($array_data['username']);
         $found_cliente->setCellulare($array_data['cellulare']);
+        $found_cliente->setIdVenditore($array_data['id_venditore']);
         $em->persist($found_cliente);
         $em->flush();
     }

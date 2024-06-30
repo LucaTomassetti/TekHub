@@ -2,14 +2,14 @@
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass:FUsato::class)]
 #[ORM\Table('p_usato')]
 class EUsato extends EProdotto{
     #[ORM\Column(type: 'integer', columnDefinition: "DOUBLE(5,2)")]
     private $floor_price;
     
     #[ORM\OneToOne(targetEntity: EAsta::class, inversedBy: 'usato')]
-    #[ORM\JoinColumn(name: 'asta_id', referencedColumnName: 'id_asta', nullable:false)]
+    #[ORM\JoinColumn(name: 'asta_id', referencedColumnName: 'id_asta', nullable:true)]
     private EAsta|null $asta = null;
 
     #[ORM\OneToMany(targetEntity:EOfferta::class, mappedBy:'p_usato_id')]
@@ -18,7 +18,7 @@ class EUsato extends EProdotto{
     public $discr = "p_usato";
 
     public function __construct($id_prodotto, $nome, $descrizione, $floor_price) {
-        parent::__construct($id_prodotto, $nome, $descrizione);
+        parent::__construct($nome, $descrizione);
         $this->floor_price = $floor_price;
         $this->offerte = new ArrayCollection();
     }
@@ -47,7 +47,7 @@ class EUsato extends EProdotto{
     /**
      * Get the value of asta
      */
-    public function getAsta(): ?EAsta
+    public function getAsta()
     {
         return $this->asta;
     }
@@ -55,11 +55,9 @@ class EUsato extends EProdotto{
     /**
      * Set the value of asta
      */
-    public function setAsta(?EAsta $asta): self
+    public function setAsta($asta)
     {
         $this->asta = $asta;
-
-        return $this;
     }
 
     /**
@@ -73,11 +71,9 @@ class EUsato extends EProdotto{
     /**
      * Set the value of offerte
      */
-    public function setOfferte(Collection $offerte): self
+    public function setOfferte(Collection $offerte)
     {
         $this->offerte = $offerte;
-
-        return $this;
     }
 }
 

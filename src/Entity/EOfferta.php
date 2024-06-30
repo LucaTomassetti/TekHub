@@ -18,11 +18,11 @@ class EOfferta{
     private $data;
 
     #[ORM\ManyToOne(targetEntity: EAcquirente::class, inversedBy:'offerte')]
-    #[ORM\JoinColumn(name:'acquirente', referencedColumnName:'id_acquirente', nullable:false)]
+    #[ORM\JoinColumn(name:'acquirente', referencedColumnName:'id_acquirente', nullable:true)]
     private EAcquirente|null $acquirente = null;
 
     #[ORM\ManyToOne(targetEntity: EUsato::class, inversedBy:'offerte')]
-    #[ORM\JoinColumn(name:'p_usato_id', referencedColumnName:'id_prodotto', nullable:false)]
+    #[ORM\JoinColumn(name:'p_usato_id', referencedColumnName:'id_prodotto', nullable:true)]
     private EUsato|null $p_usato_id = null;
 
     public function __construct($importo,$data) {

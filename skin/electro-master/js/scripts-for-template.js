@@ -6,6 +6,28 @@ function Aggiungi() {
     document.getElementById("numeroAcquisti").innerText = nuovoNumero;
 }
 */
+document.querySelectorAll('input[name="productType"]').forEach((elem) => {
+    elem.addEventListener("change", function(event) {
+      var prezzoasta = document.querySelector('.prezzo-asta');
+      var dataasta = document.querySelector('.data-asta');
+      var pricefornew = document.querySelector('.price-for-new');
+      if (event.target.value === 'usato') {
+        prezzoasta.style.display = 'block';
+        dataasta.style.display = 'block';
+        pricefornew.style.display = 'none';
+        document.getElementById('data-asta').required = true;
+        document.getElementById('prezzo-asta').required = true;
+        document.getElementById('pricefornew').required = false;
+      } else if((event.target.value === 'nuovo')){
+        prezzoasta.style.display = 'none';
+        dataasta.style.display = 'none';
+        pricefornew.style.display = 'block';
+        document.getElementById('data-asta').required = false;
+        document.getElementById('prezzo-asta').required = false;
+        document.getElementById('pricefornew').required = true;
+      }
+    });
+  });
 document.querySelectorAll('input[name="userType"]').forEach((elem) => {
     elem.addEventListener("change", function(event) {
       var sellerFields = document.querySelector('.seller-fields');

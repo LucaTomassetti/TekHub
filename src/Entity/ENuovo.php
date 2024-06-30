@@ -2,7 +2,7 @@
 
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass:FNuovo::class)]
 #[ORM\Table('p_nuovo')]
 class ENuovo extends EProdotto{
     #[ORM\Column(type: 'integer', columnDefinition: "DOUBLE(5,2)")]
@@ -14,7 +14,7 @@ class ENuovo extends EProdotto{
     public $discr = "p_nuovo";
 
     public function __construct($id_prodotto, $nome, $descrizione, $prezzo_fisso, $quantita_disp) {
-        parent::__construct($id_prodotto, $nome, $descrizione);
+        parent::__construct($nome, $descrizione);
         $this->prezzo_fisso = $prezzo_fisso;
         $this->quantita_disp = $quantita_disp;
     }

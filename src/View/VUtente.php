@@ -130,10 +130,31 @@ class VUtente{
         $this->smarty->assign('check_login', 1);
         $this->smarty->display('carrello.tpl');
     }
-    public function listaProdotti(){
+    public function listaProdotti($array_prodotti){
+        $this->smarty->assign('array_prodotti', $array_prodotti);
         $this->smarty->assign('check_login_venditore', 1);
         $this->smarty->assign('check_login', 1);
         $this->smarty->assign('listaProdotti', 1);
+        $this->smarty->display('userinfo.tpl');
+    }
+    public function addProductForm(){
+        $this->smarty->assign('check_login_venditore', 1);
+        $this->smarty->assign('check_login', 1);
+        $this->smarty->assign('addProductForm', 1);
+        $this->smarty->display('userinfo.tpl');
+    }
+    public function addedProductSuccess(){
+        $this->smarty->assign('check_login_venditore', 1);
+        $this->smarty->assign('check_login', 1);
+        $this->smarty->assign('listaProdotti', 1);
+        $this->smarty->assign('addedProductSuccess', 1);
+        $this->smarty->display('userinfo.tpl');
+    }
+    public function errorImageUpload(){
+        $this->smarty->assign('check_login_venditore', 1);
+        $this->smarty->assign('check_login', 1);
+        $this->smarty->assign('addProductForm', 1);
+        $this->smarty->assign('errorImageUpload', 1);
         $this->smarty->display('userinfo.tpl');
     }
 }

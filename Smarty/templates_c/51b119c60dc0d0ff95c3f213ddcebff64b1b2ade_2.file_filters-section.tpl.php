@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-29 13:01:52
+/* Smarty version 5.3.0, created on 2024-06-29 13:23:43
   from 'file:filters-section.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_667fe9a014d272_82167635',
+  'unifunc' => 'content_667feebf4a9bd1_09451901',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '51b119c60dc0d0ff95c3f213ddcebff64b1b2ade' => 
     array (
       0 => 'filters-section.tpl',
-      1 => 1719658908,
+      1 => 1719658986,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_667fe9a014d272_82167635 (\Smarty\Template $_smarty_tpl) {
+function content_667feebf4a9bd1_09451901 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?>
             <!-- Filter Section -->
@@ -63,7 +63,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
                         <div class="form-group">
                             <label for="categoryFilter">Categoria</label>
                             <select id="categoryFilter" class="form-control">
-                                <option value="1">Categoria 1</option>
+                                <option value="1">Indifferente</option>
                                 <option value="2">Categoria 2</option>
                                 <option value="3">Categoria 3</option>
                                 <option value="4">Categoria 4</option>
@@ -72,7 +72,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
                         <div class="form-group">
                             <label for="marcaFilter">Marca</label>
                             <select id="marcaFilter" class="form-control">
-                                <option value="1">Marca 1</option>
+                                <option value="1">Indifferente</option>
                                 <option value="2">Marca 2</option>
                                 <option value="3">Marca 3</option>
                                 <option value="4">Marca 4</option>

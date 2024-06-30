@@ -123,7 +123,9 @@ class FPersistentManager{
     {
         return $this->getRepository($entityClass)->findOneBy($criteria);
     }
-
+    public function refresh($entity){
+        getEntityManager()->refresh($entity);
+    }
     public function findUtente($utente){
         /** Se $cliente è un oggetto richiamerà findCliente($cliente->getEmail())
          * altrimenti se è una stringa (cioè se è una email) richiamerà findCliente($cliente)
@@ -154,6 +156,12 @@ class FPersistentManager{
             }       
         }
     }
+    public function findAcquirenteById($id){
+        return getEntityManager()->getRepository('EAcquirente')->findAcquirenteById($id);
+    }
+    public function findVenditoreById($id){
+        return getEntityManager()->getRepository('EVenditore')->findVenditoreById($id);
+    }
 
     public function insertNewUtente($new_utente){
         if($new_utente instanceof EAcquirente){
@@ -170,20 +178,55 @@ class FPersistentManager{
             getEntityManager()->getRepository('EVenditore')->updatePass($utente, $new_password);
         } 
     }
-    public function updateAcquirente($utente, $array_data){
+    public function updateUtente($utente, $array_data){
         if($utente instanceof EAcquirente){
             getEntityManager()->getRepository('EAcquirente')->updateAcquirente($utente, $array_data);
         }else if($utente instanceof EVenditore){
             getEntityManager()->getRepository('EVenditore')->updateVenditore($utente, $array_data);
         } 
     }
-    public function deleteAcquirente($utente){
+    public function deleteUtente($utente){
         if($utente instanceof EAcquirente){
             getEntityManager()->getRepository('EAcquirente')->deleteAcquirente($utente);
         }else if($utente instanceof EVenditore){
             getEntityManager()->getRepository('EVenditore')->deleteVenditore($utente);
         } 
     }
-
+    public function getAllProducts(){
+        return getEntityManager()->getRepository('EProdotto')->getAllProducts();
+    }
+    public function insertProdotto($prodotto){
+        getEntityManager()->getRepository('EProdotto')->insertProdotto($prodotto);
+    }
+    public function insertProdottoNuovo($prodotto){
+        getEntityManager()->getRepository('ENuovo')->insertProdottoNuovo($prodotto);
+    }
+    public function insertProdottoUsato($prodotto){
+        getEntityManager()->getRepository('EUsato')->insertProdottoUsato($prodotto);
+    }
+    public function insertImmagine($immagine){
+        getEntityManager()->getRepository('EImmagine')->insertImmagine($immagine);
+    }
+    public function findLastId(){
+        return getEntityManager()->getRepository('EProdotto')->findLastId();
+    }
+    public function findLastIdImage(){
+        return getEntityManager()->getRepository('EImmagine')->findLastIdImage();
+    }
+    public function findCategoria($categoria){
+        return getEntityManager()->getRepository('ECategoria')->findCategoria($categoria);
+    }
+    public function findImage($image){
+        return getEntityManager()->getRepository('EImmagine')->findImage($image);
+    }
+    public function updateVendCatProdotto($prodotto, $venditore, $categoria){
+        getEntityManager()->getRepository('EProdotto')->updateVendCatProdotto($prodotto, $venditore, $categoria);
+    }
+    public function updateImageProdotto($prodotto, $immagine){
+        getEntityManager()->getRepository('EProdotto')->updateImageProdotto($prodotto,$immagine);
+    }
+    public function deleteProdotto($prodotto){
+        getEntityManager()->getRepository('EProdotto')->deleteProdotto($prodotto);
+    }
 }
 ?>

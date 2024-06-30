@@ -17,11 +17,11 @@ class EIndirizzo{
     private $comune;
 
     #[ORM\ManyToOne(targetEntity: EAcquirente::class, inversedBy:'indirizzi')]
-    #[ORM\JoinColumn(name:'acquirente', referencedColumnName:'id_acquirente', nullable:false)]
+    #[ORM\JoinColumn(name:'acquirente', referencedColumnName:'id_acquirente', nullable:true)]
     private EAcquirente|null $acquirente = null;
 
     #[ORM\ManyToOne(targetEntity: EOrdine::class, inversedBy:'indirizzi')]
-    #[ORM\JoinColumn(name:'ordine', referencedColumnName:'id_ordine', nullable:false)]
+    #[ORM\JoinColumn(name:'ordine', referencedColumnName:'id_ordine', nullable:true)]
     private EOrdine|null $ordine = null;
 
     public function __construct($cap, $nome, $comune){

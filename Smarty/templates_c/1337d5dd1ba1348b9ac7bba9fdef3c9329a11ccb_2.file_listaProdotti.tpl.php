@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-29 12:27:40
+/* Smarty version 5.3.0, created on 2024-06-29 17:52:30
   from 'file:listaProdotti.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_667fe19c5e7456_84094009',
+  'unifunc' => 'content_66802dbe8a4673_19202310',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '1337d5dd1ba1348b9ac7bba9fdef3c9329a11ccb' => 
     array (
       0 => 'listaProdotti.tpl',
-      1 => 1719656856,
+      1 => 1719676175,
       2 => 'file',
     ),
   ),
@@ -20,9 +20,18 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_667fe19c5e7456_84094009 (\Smarty\Template $_smarty_tpl) {
+function content_66802dbe8a4673_19202310 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
-?>
+?><form class="container-fluid text-center"method="GET" action="/TekHub/utente/addProduct">
+    <button type="submit" class="btn btn-primary">Aggiungi un nuovo prodotto</button>
+</form>
+<?php if ($_smarty_tpl->getValue('addedProductSuccess') == 1) {?>
+    <div class="mt-5">
+        <div class="alert alert-success" role="alert">
+            Aggiunta del prodotto avvenuta con successo!
+        </div>
+    </div>
+<?php }?>
     <!-- row -->
     <div class="row">
                 <!-- product -->

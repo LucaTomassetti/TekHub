@@ -289,6 +289,53 @@ textarea.input {
 /*----------------------------*\
 	Stili personalizzati aggiunti
 \*----------------------------*/
+#registrationForm {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.left-column, .right-column {
+  width: 48%;
+}
+
+.left-column label, .right-column label {
+  display: block;
+  margin-top: 10px;
+}
+
+.left-column input[type="text"],
+.left-column input[type="number"],
+.left-column input[type="file"],
+.left-column textarea,
+.right-column input[type="text"],
+.right-column input[type="number"],
+.right-column input[type="radio"] + label {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+
+.right-column fieldset {
+  margin-top: 10px;
+  padding: 10px;
+}
+
+.right-column fieldset legend {
+  padding: 0 10px;
+}
+
+.right-column fieldset label {
+  display: inline-block;
+  margin-right: 10px;
+}
+.prezzo-asta, .data-asta{
+  display:none;
+}
+.price-for-new{
+  display:block;
+}
 .form-container{
   max-width: 500px;
   margin: 50px auto;
@@ -296,6 +343,9 @@ textarea.input {
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.width-90{
+  max-width: 90%;
 }
 /* Login form styles */
 .card-header {
@@ -466,7 +516,9 @@ border-color: black;
   display: flex;
   justify-content: center;
 }
-
+.inline-block{
+  display: inline-block;
+}
 /*----------------------------*\
 	Section
 \*----------------------------*/

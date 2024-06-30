@@ -21,15 +21,15 @@ class EProdotto{
     #[ORM\Column(type: 'string', columnDefinition: "TEXT")]
     private $descrizione;
 
-    #[ORM\Column(type:'blob')]
+    #[ORM\OneToMany(targetEntity:EImmagine::class, mappedBy:'prodotto')]
     private Collection $immagini;
 
     #[ORM\ManyToOne(targetEntity: ECategoria::class, inversedBy:'prodotti')]
-    #[ORM\JoinColumn(name:'category_name', referencedColumnName:'nome_categoria', nullable:false)]
+    #[ORM\JoinColumn(name:'category_name', referencedColumnName:'nome_categoria', nullable:true)]
     private ECategoria|null $category_name = null;
 
     #[ORM\ManyToOne(targetEntity: EVenditore::class, inversedBy:'prodotti')]
-    #[ORM\JoinColumn(name:'venditore', referencedColumnName:'id_venditore', nullable:false)]
+    #[ORM\JoinColumn(name:'venditore', referencedColumnName:'id_venditore', nullable:true)]
     private EVenditore|null $venditore = null;
 
     #[ORM\OneToMany(targetEntity:EReso::class, mappedBy:'prodotto')]
@@ -147,11 +147,9 @@ class EProdotto{
     /**
      * Set the value of resi
      */
-    public function setResi(Collection $resi): self
+    public function setResi(Collection $resi)
     {
         $this->resi = $resi;
-
-        return $this;
     }
 
     /**
@@ -162,12 +160,24 @@ class EProdotto{
         return $this->immagini;
     }
 
-    /**
-     * Set the value of immagini
-     */
-    public function setImmagini(Collection $immagini): self
+    public function addImage(EImmagine $image): self
     {
-        $this->immagini = $immagini;
+        if (!$this->immagini->contains($image)) {
+            $this->immagini[] = $image;
+            $image->setProdotto($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(EImmagine $image): self
+    {
+        if ($this->immagini->removeElement($image)) {
+            // Set the owning side to null (unless already changed)
+            if ($image->getProdotto() === $this) {
+                $image->setProdotto(null);
+            }
+        }
 
         return $this;
     }
@@ -183,11 +193,9 @@ class EProdotto{
     /**
      * Set the value of recensioni
      */
-    public function setRecensioni(Collection $recensioni): self
+    public function setRecensioni(Collection $recensioni)
     {
         $this->recensioni = $recensioni;
-
-        return $this;
     }
 
     /**
@@ -201,11 +209,9 @@ class EProdotto{
     /**
      * Set the value of q_prodotto_ordine
      */
-    public function setQProdottoOrdine(Collection $q_prodotto_ordine): self
+    public function setQProdottoOrdine(Collection $q_prodotto_ordine)
     {
         $this->q_prodotto_ordine = $q_prodotto_ordine;
-
-        return $this;
     }
 
     /**
@@ -219,17 +225,15 @@ class EProdotto{
     /**
      * Set the value of rimborsi
      */
-    public function setRimborsi(Collection $rimborsi): self
+    public function setRimborsi(Collection $rimborsi)
     {
         $this->rimborsi = $rimborsi;
-
-        return $this;
     }
 
     /**
      * Get the value of venditore
      */
-    public function getVenditore(): ?EVenditore
+    public function getVenditore()
     {
         return $this->venditore;
     }
@@ -237,11 +241,9 @@ class EProdotto{
     /**
      * Set the value of venditore
      */
-    public function setVenditore(?EVenditore $venditore): self
+    public function setVenditore($venditore)
     {
         $this->venditore = $venditore;
-
-        return $this;
     }
 }
 ?>

@@ -12,6 +12,13 @@ class FAcquirente extends EntityRepository {
         $query->setMaxResults(1);
         return $query->getResult();
     }
+    public function findAcquirenteById($id){
+        $dql = "SELECT acquirente FROM EAcquirente acquirente WHERE acquirente.id_acquirente = ?1";
+        $query = getEntityManager()->createQuery($dql);
+        $query->setParameter(1, $id);
+        $query->setMaxResults(1);
+        return $query->getResult();
+    }
     public function insertNewAcquirente(EAcquirente $cliente){
         $em = getEntityManager();
         $em->persist($cliente);
