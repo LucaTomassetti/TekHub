@@ -192,8 +192,8 @@ class FPersistentManager{
             getEntityManager()->getRepository('EVenditore')->deleteVenditore($utente);
         } 
     }
-    public function getAllProducts(){
-        return getEntityManager()->getRepository('EProdotto')->getAllProducts();
+    public function getAllProducts($venditore){
+        return getEntityManager()->getRepository('EProdotto')->getAllProducts($venditore);
     }
     public function insertProdotto($prodotto){
         getEntityManager()->getRepository('EProdotto')->insertProdotto($prodotto);
@@ -206,12 +206,6 @@ class FPersistentManager{
     }
     public function insertImmagine($immagine){
         getEntityManager()->getRepository('EImmagine')->insertImmagine($immagine);
-    }
-    public function findLastId(){
-        return getEntityManager()->getRepository('EProdotto')->findLastId();
-    }
-    public function findLastIdImage(){
-        return getEntityManager()->getRepository('EImmagine')->findLastIdImage();
     }
     public function findCategoria($categoria){
         return getEntityManager()->getRepository('ECategoria')->findCategoria($categoria);

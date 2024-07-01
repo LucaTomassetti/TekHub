@@ -263,7 +263,7 @@ class CUtente {
         $view = new VUtente();
         if (static::isLogged()) {
             if($_SESSION['utente'] instanceof EVenditore){
-                $array_prodotti = FPersistentManager::getInstance()->getAllProducts();
+                $array_prodotti = FPersistentManager::getInstance()->getAllProducts($_SESSION['utente']);
                 $view->listaProdotti($array_prodotti);
             }else {
                 header('Location: /TekHub/utente/home');
@@ -288,13 +288,6 @@ class CUtente {
             }
             $allowed_types = array('image/jpeg', 'image/png');
            
-            $prodotto = new EProdotto(null,null);
-            $last_id = FPersistentManager::getInstance()->findLastId();
-            if ($last_id !== null) {
-                $prodotto->setIdProdotto($last_id + 1);
-            }else{
-                $prodotto->setIdProdotto(1);
-            }
             if(isset($_FILES['images'])){
                 //Controllo se le immagini inserite eccedono una dimensione di 1MB
                 foreach($_FILES['images']['size'] as $key => $value) {
@@ -317,19 +310,13 @@ class CUtente {
                     $content = file_get_contents($_FILES['images']['tmp_name'][$key]);
                     $image = new EImmagine($fileName,$fileSize,$fileType,$content);
                         
-                    $last_id_image = FPersistentManager::getInstance()->findLastIdImage();
-                    if ($last_id_image !== null) {
-                        $image->setIdImage($last_id_image + 1);
-                    }else{
-                        $image->setIdImage(1);
-                    }
                     FPersistentManager::getInstance()->insertImmagine($image);
                     if($array_data['productType'] == 'nuovo'){
-                        $prod = new ENuovo($prodotto->getIdProdotto(), $array_data['nome'], $array_data['descrizione'], $array_data['pricefornew'],$array_data['quantita_disp']);
+                        $prod = new ENuovo(null, $array_data['nome'], $array_data['descrizione'], $array_data['pricefornew'],$array_data['quantita_disp']);
                         FPersistentManager::getInstance()->insertProdottoNuovo($prod);
         
                     }else{
-                        $prod = new EUsato($prodotto->getIdProdotto(),$prodotto->getNome(),$prodotto->getDescrizione(),$array_data['prezzo-asta']);
+                        $prod = new EUsato(null,$array_data['nome'],$array_data['descrizione'],$array_data['prezzo-asta']);
                         FPersistentManager::getInstance()->insertProdottoUsato($prod);
                     }
                     $found_prodotto = FPersistentManager::getInstance()->find(EProdotto::class, $prod->getIdProdotto());

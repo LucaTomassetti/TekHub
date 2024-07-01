@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-29 17:52:30
+/* Smarty version 5.3.0, created on 2024-07-01 11:05:10
   from 'file:listaProdotti.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66802dbe8a4673_19202310',
+  'unifunc' => 'content_668271464fdfd1_26550346',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '1337d5dd1ba1348b9ac7bba9fdef3c9329a11ccb' => 
     array (
       0 => 'listaProdotti.tpl',
-      1 => 1719676175,
+      1 => 1719790975,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66802dbe8a4673_19202310 (\Smarty\Template $_smarty_tpl) {
+function content_668271464fdfd1_26550346 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?><form class="container-fluid text-center"method="GET" action="/TekHub/utente/addProduct">
     <button type="submit" class="btn btn-primary">Aggiungi un nuovo prodotto</button>
