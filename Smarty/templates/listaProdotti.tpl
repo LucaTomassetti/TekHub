@@ -1,4 +1,4 @@
-<form class="container-fluid text-center"method="GET" action="/TekHub/utente/addProduct">
+<form class="container-fluid text-center" method="GET" action="/TekHub/gestioneProdotti/addProduct">
     <button type="submit" class="btn btn-primary">Aggiungi un nuovo prodotto</button>
 </form>
 {if $addedProductSuccess == 1}

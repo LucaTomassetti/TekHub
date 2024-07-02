@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-07-01 00:32:12
+/* Smarty version 5.3.0, created on 2024-07-02 18:11:42
   from 'file:addProductForm.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_6681dceccee370_89973194',
+  'unifunc' => 'content_668426be8db304_23424192',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'c26c95b6ba00dd5fe1d5ba294d59de269b0a1963' => 
     array (
       0 => 'addProductForm.tpl',
-      1 => 1719786701,
+      1 => 1719936564,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_6681dceccee370_89973194 (\Smarty\Template $_smarty_tpl) {
+function content_668426be8db304_23424192 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?>
     <?php if ($_smarty_tpl->getValue('errorImageUpload') == 1) {?>
@@ -33,7 +33,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 
 <div class="form-container width-90">
         <h2>Metti in vendita un prodotto</h2>
-        <form id="registrationForm" method="POST" action="/TekHub/utente/addProduct" enctype="multipart/form-data">
+        <form id="registrationForm" method="POST" action="/TekHub/gestioneProdotti/addProduct" enctype="multipart/form-data">
             <div class="left-column">
                 <div class="form-group">
                     <label>Titolo prodotto</label>

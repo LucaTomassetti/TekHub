@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-28 14:11:42
+/* Smarty version 5.3.0, created on 2024-07-02 18:00:48
   from 'file:header_section.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_667ea87ebb5395_68767821',
+  'unifunc' => 'content_66842430476ca6_82894622',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '865963af9ff487a66b8dbfc323e093391d8a98dc' => 
     array (
       0 => 'header_section.tpl',
-      1 => 1719576699,
+      1 => 1719936031,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_667ea87ebb5395_68767821 (\Smarty\Template $_smarty_tpl) {
+function content_66842430476ca6_82894622 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?><!-- HEADER -->
 <header>
@@ -161,7 +161,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
         <?php } elseif ($_smarty_tpl->getValue('check_login_venditore') == 1) {?>
         <ul class="main-nav nav navbar-nav">
         <li><a href="/TekHub/utente/home">Profilo</a></li>
-            <li><a href="/TekHub/utente/gestioneProdotti">Gestione prodotti</a></li>
+            <li><a href="/TekHub/gestioneProdotti/listaProdotti">Gestione prodotti</a></li>
             <li><a href="#">Ordini in attesa</a></li>
             <li><a href="/TekHub/utente/userHistoryOrders">Stato ordini</a></li>
             <li><a href="#">Gestione resi</a></li>

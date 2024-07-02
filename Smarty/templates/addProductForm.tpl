@@ -9,7 +9,7 @@
 
 <div class="form-container width-90">
         <h2>Metti in vendita un prodotto</h2>
-        <form id="registrationForm" method="POST" action="/TekHub/utente/addProduct" enctype="multipart/form-data">
+        <form id="registrationForm" method="POST" action="/TekHub/gestioneProdotti/addProduct" enctype="multipart/form-data">
             <div class="left-column">
                 <div class="form-group">
                     <label>Titolo prodotto</label>
