@@ -1,6 +1,5 @@
 <?php
 use Smarty\Smarty;
-
 class StartSmarty{
     public static function configuration(){
 

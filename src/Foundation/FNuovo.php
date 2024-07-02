@@ -9,5 +9,14 @@ class FNuovo extends EntityRepository {
         $em->persist($prodotto);
         $em->flush();
     }
+    public function getAllNewProducts(EVenditore $venditore){
+        $dql = "SELECT DISTINCT nuovo.id_prodotto, nuovo.nome, categoria.nome_categoria, nuovo.prezzo_fisso 
+            FROM ENuovo nuovo 
+            JOIN nuovo.category_name categoria
+            WHERE nuovo.venditore = ?1";
+        $query = getEntityManager()->createQuery($dql);
+        $query->setParameter(1, $venditore);
+        return $query->getResult();
+    }
 }
 ?>

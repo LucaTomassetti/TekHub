@@ -25,12 +25,6 @@ class FProdotto extends EntityRepository {
         $em->persist($found_prodotto);
         $em->flush();
     }
-    public function getAllProducts(EVenditore $venditore){
-        $dql = "SELECT prodotto FROM EProdotto prodotto WHERE prodotto.venditore = ?1";
-        $query = getEntityManager()->createQuery($dql);
-        $query->setParameter(1, $venditore);
-        return $query->getResult();
-    }
     public function updateImageProdotto(EProdotto $prodotto, EImmagine $immagine){
         $em = getEntityManager();
         $found_prodotto = $em->find(EProdotto::class, $prodotto->getIdProdotto());

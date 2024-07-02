@@ -16,5 +16,13 @@ class FImmagine extends EntityRepository {
         $query->setMaxResults(1);
         return $query->getResult();
     }
+    public function getAllImages(EProdotto $prodotto){
+        $dql = "SELECT immagine
+            FROM EImmagine immagine
+            WHERE immagine.prodotto = ?1";
+        $query = getEntityManager()->createQuery($dql);
+        $query->setParameter(1, $prodotto);
+        return $query->getArrayResult();
+    }
 
 }

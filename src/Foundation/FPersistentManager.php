@@ -192,8 +192,14 @@ class FPersistentManager{
             getEntityManager()->getRepository('EVenditore')->deleteVenditore($utente);
         } 
     }
-    public function getAllProducts($venditore){
-        return getEntityManager()->getRepository('EProdotto')->getAllProducts($venditore);
+    public function getAllNewProducts($venditore){
+        return getEntityManager()->getRepository('ENuovo')->getAllNewProducts($venditore);
+    }
+    public function getAllUsedProducts($venditore){
+        return getEntityManager()->getRepository('EUsato')->getAllUsedProducts($venditore);
+    }
+    public function getAllImages($prodotto){
+        return getEntityManager()->getRepository('EImmagine')->getAllImages($prodotto);
     }
     public function insertProdotto($prodotto){
         getEntityManager()->getRepository('EProdotto')->insertProdotto($prodotto);
