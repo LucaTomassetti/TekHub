@@ -133,18 +133,22 @@ class VUtente{
         $this->smarty->assign('check_login', 1);
         $this->smarty->display('carrello.tpl');
     }
-    public function listaProdotti($array_prodotti, $called_from_referer = false){
+    public function listaProdotti($array_prodotti){
         $this->smarty->assign('array_prodotti', $array_prodotti);
         $this->smarty->assign('check_login_venditore', 1);
         $this->smarty->assign('check_login', 1);
         $this->smarty->assign('listaProdotti', 1);
         $this->smarty->assign('addedProductSuccess', 0);
-        // Controlla se il metodo è stato chiamato da una header
-        if ($called_from_referer) {
-            // Esegui azioni specifiche per le chiamate dalla header
-            // Ad esempio, imposta una variabile di Smarty diversa o fai un log
+        // Verifica se il messaggio di successo è presente nella sessione
+        $product_added = isset($_SESSION['product_added']) && $_SESSION['product_added'];
+
+        // Rimuovi il messaggio di successo dalla sessione
+        unset($_SESSION['product_added']);
+        // Controlla se il metodo è stato chiamato dalla form per aggiungere un prodotto
+        if ($product_added) {
             $this->smarty->assign('addedProductSuccess', 1);
         }
+
         $this->smarty->display('userinfo.tpl');
     }
     public function addProductForm(){

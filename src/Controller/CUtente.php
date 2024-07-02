@@ -281,17 +281,7 @@ class CUtente {
                         $array_prodotti[$i]['images'] = $immagine;
                     }
                 } 
-                // Ottieni il referer della richiesta
-                $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
-
-                // Verifica se il referer corrisponde a un determinato valore
-                // Ad esempio, controlla se il referer contiene una specifica URL
-                if (strpos($referer, 'addProduct') !== false) {
-                    $called_from_referer = true;
-                } else {
-                    $called_from_referer = false;
-                }
-                $view->listaProdotti($array_prodotti, $called_from_referer);
+                $view->listaProdotti($array_prodotti);
             }else {
                 header('Location: /TekHub/utente/home');
             }
@@ -366,6 +356,7 @@ class CUtente {
             $found_venditore = FPersistentManager::getInstance()->find(EVenditore::class, $_SESSION['utente']->getIdVenditore());
     
             FPersistentManager::getInstance()->updateVendCatProdotto($found_prodotto, $found_venditore, $found_categoria);
+            $_SESSION['product_added'] = true;
             header('Location: /TekHub/utente/gestioneProdotti');
         }
     }
