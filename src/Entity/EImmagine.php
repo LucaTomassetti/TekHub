@@ -25,7 +25,7 @@ class EImmagine{
     private $imageData;
 
     #[ORM\ManyToOne(targetEntity: EProdotto::class, inversedBy:'immagini')]
-    #[ORM\JoinColumn(name:'id_prodotto', referencedColumnName:'id_prodotto', nullable:true)]
+    #[ORM\JoinColumn(name:'prodotto', referencedColumnName:'id_prodotto', nullable:true)]
     private EProdotto|null $prodotto = null;
 
     public function __construct($name, $size, $type, $imageData){

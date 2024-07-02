@@ -11,12 +11,12 @@ class EOrdineProdotto {
 
     #[ORM\Id]
     #[ORM\ManyToOne(targetEntity:EOrdine::class, inversedBy:'q_prodotto_ordine')]
-    #[ORM\JoinColumn(name:'id_ordine', referencedColumnName:'id_ordine')]
+    #[ORM\JoinColumn(name:'ordine_id', referencedColumnName:'id_ordine')]
     private EOrdine|null $ordine_id= null;
 
     #[ORM\Id]
     #[ORM\ManyToOne(targetEntity:EProdotto::class, inversedBy:'q_prodotto_ordine')]
-    #[ORM\JoinColumn(name:'id_prodotto', referencedColumnName:'id_prodotto')]
+    #[ORM\JoinColumn(name:'prodotto_id', referencedColumnName:'id_prodotto')]
     private EProdotto|null $prodotto_id= null;
 
     public function __construct($quantita_ordinata_prodotto) {

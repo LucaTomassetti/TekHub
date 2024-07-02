@@ -11,7 +11,7 @@ class EOfferta{
     #[ORM\GeneratedValue]
     private $id_offerta;
 
-    #[ORM\Column(type: 'integer', columnDefinition:'DOUBLE(5,2)')]
+    #[ORM\Column(type: 'integer', columnDefinition:'DOUBLE(7,2)')]
     private $importo;
 
     #[ORM\Column(type: 'datetime')]

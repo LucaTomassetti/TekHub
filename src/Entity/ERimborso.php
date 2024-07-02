@@ -10,14 +10,14 @@ class ERimborso{
     #[ORM\GeneratedValue]
     private int|null $id_rimborso = null;
 
-    #[ORM\Column(type: 'float', columnDefinition: 'DOUBLE(5,2)')]
+    #[ORM\Column(type: 'float', columnDefinition: 'DOUBLE(7,2)')]
     private $importo;
 
     #[ORM\Column(type: 'date')]
     private $data_erogazione;
 
     #[ORM\ManyToOne(targetEntity:EAcquirente::class, inversedBy:'rimborsi')]
-    #[ORM\JoinColumn(name:'id_cliente_rimborsato', referencedColumnName:'id_acquirente', nullable:true)]
+    #[ORM\JoinColumn(name:'cliente_rimborsato', referencedColumnName:'id_acquirente', nullable:true)]
     private EAcquirente|null $cliente_rimborsato = null;
 
     #[ORM\ManyToOne(targetEntity:EVenditore::class, inversedBy:'rimborsi')]

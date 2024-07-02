@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass:FNuovo::class)]
 #[ORM\Table('p_nuovo')]
 class ENuovo extends EProdotto{
-    #[ORM\Column(type: 'integer', columnDefinition: "DOUBLE(5,2)")]
+    #[ORM\Column(type: 'integer', columnDefinition: "DOUBLE(7,2)")]
     private $prezzo_fisso;
 
     #[ORM\Column(type: 'integer')]

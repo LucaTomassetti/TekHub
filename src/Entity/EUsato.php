@@ -5,11 +5,11 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass:FUsato::class)]
 #[ORM\Table('p_usato')]
 class EUsato extends EProdotto{
-    #[ORM\Column(type: 'integer', columnDefinition: "DOUBLE(5,2)")]
+    #[ORM\Column(type: 'integer', columnDefinition: "DOUBLE(7,2)")]
     private $floor_price;
     
     #[ORM\OneToOne(targetEntity: EAsta::class, inversedBy: 'usato')]
-    #[ORM\JoinColumn(name: 'asta_id', referencedColumnName: 'id_asta', nullable:true)]
+    #[ORM\JoinColumn(name: 'asta', referencedColumnName: 'id_asta', nullable:true)]
     private EAsta|null $asta = null;
 
     #[ORM\OneToMany(targetEntity:EOfferta::class, mappedBy:'p_usato_id')]

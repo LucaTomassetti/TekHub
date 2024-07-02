@@ -26,7 +26,7 @@ class ECartaDiCredito{
     private $gestore_carta;
 
     #[ORM\ManyToOne(targetEntity: EAcquirente::class, inversedBy:'carte_di_credito')]
-    #[ORM\JoinColumn(name:'id_proprietario', referencedColumnName:'id_acquirente', nullable:true)]
+    #[ORM\JoinColumn(name:'proprietario', referencedColumnName:'id_acquirente', nullable:true)]
     private EAcquirente|null $proprietario = null;
 
     #[ORM\OneToMany(targetEntity: EOrdine::class, mappedBy:'carta_ordine')]

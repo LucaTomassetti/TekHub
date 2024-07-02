@@ -21,11 +21,11 @@ class EReso {
     private $stato_reso;
 
     #[ORM\ManyToOne(targetEntity:EAcquirente::class, inversedBy:'resi')]
-    #[ORM\JoinColumn(name:'id_acquirente', referencedColumnName:'id_acquirente', nullable:true)]
+    #[ORM\JoinColumn(name:'acquirente', referencedColumnName:'id_acquirente', nullable:true)]
     private EAcquirente|null $acquirente = null;
 
     #[ORM\ManyToOne(targetEntity:EProdotto::class, inversedBy:'resi')]
-    #[ORM\JoinColumn(name:'id_prodotto', referencedColumnName:'id_prodotto', nullable:true)]
+    #[ORM\JoinColumn(name:'prodotto', referencedColumnName:'id_prodotto', nullable:true)]
     private EProdotto|null $prodotto = null;
 
     public function __construct($descrizione, $data_reso, $stato_reso) {
