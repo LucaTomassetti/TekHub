@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-07-02 12:15:40
+/* Smarty version 5.3.0, created on 2024-07-02 13:18:40
   from 'file:listaProdotti.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_6683d34c7b9ca1_27660772',
+  'unifunc' => 'content_6683e210c303e7_18733151',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '1337d5dd1ba1348b9ac7bba9fdef3c9329a11ccb' => 
     array (
       0 => 'listaProdotti.tpl',
-      1 => 1719915336,
+      1 => 1719919115,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_6683d34c7b9ca1_27660772 (\Smarty\Template $_smarty_tpl) {
+function content_6683e210c303e7_18733151 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?><form class="container-fluid text-center"method="GET" action="/TekHub/utente/addProduct">
     <button type="submit" class="btn btn-primary">Aggiungi un nuovo prodotto</button>
@@ -58,10 +58,10 @@ $foreach0DoElse = false;
                             <h3 class="product-name"><a href="#"><?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('prodotto')['nome']), ENT_QUOTES, 'UTF-8');?>
 </a></h3>
                                 <?php if ((null !== ($_smarty_tpl->getValue('prodotto')['floor_price'] ?? null))) {?>
-                                    <h4 class="product-price"><?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('prodotto')['floor_price']), ENT_QUOTES, 'UTF-8');?>
+                                    <h4 class="product-price">€<?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('prodotto')['floor_price']), ENT_QUOTES, 'UTF-8');?>
 </h4>
                                 <?php } elseif ((null !== ($_smarty_tpl->getValue('prodotto')['prezzo_fisso'] ?? null))) {?>
-                                    <h4 class="product-price"><?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('prodotto')['prezzo_fisso']), ENT_QUOTES, 'UTF-8');?>
+                                    <h4 class="product-price">€<?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('prodotto')['prezzo_fisso']), ENT_QUOTES, 'UTF-8');?>
 </h4>
                                 <?php }?>
                         </div>

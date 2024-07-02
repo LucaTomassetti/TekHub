@@ -1,4 +1,7 @@
 <?php
+
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
 class VUtente{
 
     private $smarty;
@@ -130,24 +133,24 @@ class VUtente{
         $this->smarty->assign('check_login', 1);
         $this->smarty->display('carrello.tpl');
     }
-    public function listaProdotti($array_prodotti){
+    public function listaProdotti($array_prodotti, $called_from_referer = false){
         $this->smarty->assign('array_prodotti', $array_prodotti);
         $this->smarty->assign('check_login_venditore', 1);
         $this->smarty->assign('check_login', 1);
         $this->smarty->assign('listaProdotti', 1);
+        $this->smarty->assign('addedProductSuccess', 0);
+        // Controlla se il metodo è stato chiamato da una header
+        if ($called_from_referer) {
+            // Esegui azioni specifiche per le chiamate dalla header
+            // Ad esempio, imposta una variabile di Smarty diversa o fai un log
+            $this->smarty->assign('addedProductSuccess', 1);
+        }
         $this->smarty->display('userinfo.tpl');
     }
     public function addProductForm(){
         $this->smarty->assign('check_login_venditore', 1);
         $this->smarty->assign('check_login', 1);
         $this->smarty->assign('addProductForm', 1);
-        $this->smarty->display('userinfo.tpl');
-    }
-    public function addedProductSuccess(){
-        $this->smarty->assign('check_login_venditore', 1);
-        $this->smarty->assign('check_login', 1);
-        $this->smarty->assign('listaProdotti', 1);
-        $this->smarty->assign('addedProductSuccess', 1);
         $this->smarty->display('userinfo.tpl');
     }
     public function errorImageUpload(){

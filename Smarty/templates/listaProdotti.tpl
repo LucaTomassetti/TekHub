@@ -25,9 +25,9 @@
                             <p class="product-category">{$prodotto.nome_categoria}</p>
                             <h3 class="product-name"><a href="#">{$prodotto.nome}</a></h3>
                                 {if isset($prodotto.floor_price)}
-                                    <h4 class="product-price">{$prodotto.floor_price}</h4>
+                                    <h4 class="product-price">€{$prodotto.floor_price}</h4>
                                 {elseif isset($prodotto.prezzo_fisso)}
-                                    <h4 class="product-price">{$prodotto.prezzo_fisso}</h4>
+                                    <h4 class="product-price">€{$prodotto.prezzo_fisso}</h4>
                                 {/if}
                         </div>
                         <div class="add-to-cart">
