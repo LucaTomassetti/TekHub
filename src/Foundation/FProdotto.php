@@ -9,20 +9,10 @@ class FProdotto extends EntityRepository {
         $em->persist($prodotto);
         $em->flush();
     }
-    public function deleteProdotto(EProdotto $prodotto) {
+    public function deleteProdotto($prodotto) {
         $em = getEntityManager();
-        $found_prodotto = $em->find(EProdotto::class, $prodotto->getIdProdotto());
+        $found_prodotto = $em->find(EProdotto::class, $prodotto);
         $em->remove($found_prodotto);
-        $em->flush();
-    }
-    public function updateProdotto(EProdotto $prodotto, $array_data){
-        $em = getEntityManager();
-        $found_prodotto = $em->find(EProdotto::class, $prodotto->getIdProdotto());
-        $found_prodotto->setTitolo($array_data['titolo']);
-        $found_prodotto->setNome($array_data['titolo']);
-        $found_prodotto->setDescrizione($array_data['descrizione']);
-        $found_prodotto->setImmagini($array_data['immagini']);
-        $em->persist($found_prodotto);
         $em->flush();
     }
     public function updateImageProdotto(EProdotto $prodotto, EImmagine $immagine){

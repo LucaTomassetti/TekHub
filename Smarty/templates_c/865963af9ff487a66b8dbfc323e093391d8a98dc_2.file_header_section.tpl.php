@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-07-02 18:00:48
+/* Smarty version 5.3.0, created on 2024-07-09 18:47:06
   from 'file:header_section.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66842430476ca6_82894622',
+  'unifunc' => 'content_668d698aab5956_89733562',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66842430476ca6_82894622 (\Smarty\Template $_smarty_tpl) {
+function content_668d698aab5956_89733562 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?><!-- HEADER -->
 <header>

@@ -1,6 +1,6 @@
 <?php
 use Doctrine\ORM\Mapping as ORM;
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass:FAsta::class)]
 #[ORM\Table('asta')]
 class EAsta{
 
@@ -9,11 +9,11 @@ class EAsta{
     #[ORM\GeneratedValue]
     private $id_asta;
 
-    #[ORM\Column(type: 'datetime')]
-    private $data_creazione;
+    #[ORM\Column(type: 'datetimetz_immutable')]
+    private DateTimeImmutable $data_creazione;
 
-    #[ORM\Column(type: 'datetime')]
-    private $data_fine;
+    #[ORM\Column(type: 'datetimetz_immutable')]
+    private DateTimeImmutable $data_fine;
 
     #[ORM\OneToOne(targetEntity: EUsato::class, mappedBy: 'asta')]
     private EUsato|null $usato = null;
@@ -44,7 +44,7 @@ class EAsta{
      */
     public function getDataCreazione()
     {
-        return $this->data_creazione;
+        return $this->data_creazione->format('Y-m-d H:i:s');
     }
 
     /**
@@ -64,7 +64,7 @@ class EAsta{
      */
     public function getDataFine()
     {
-        return $this->data_fine;
+        return $this->data_fine->format('Y-m-d H:i:s');
     }
 
     /**

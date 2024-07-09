@@ -24,5 +24,21 @@ class FImmagine extends EntityRepository {
         $query->setParameter(1, $prodotto);
         return $query->getArrayResult();
     }
-
+    public function getAllObjectImages(EProdotto $prodotto){
+        $dql = "SELECT immagine
+            FROM EImmagine immagine
+            WHERE immagine.prodotto = ?1";
+        $query = getEntityManager()->createQuery($dql);
+        $query->setParameter(1, $prodotto);
+        return $query->getResult();
+    }
+    public function deleteAllImages($productId){
+        $em = getEntityManager();
+        $found_prodotto = $em->find(EProdotto::class, $productId);
+        $found_images = self::getAllObjectImages($found_prodotto);
+        foreach($found_images as $image){
+            $em->remove($image);
+        }
+        $em->flush();
+    }
 }

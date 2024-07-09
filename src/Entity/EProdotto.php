@@ -21,6 +21,15 @@ class EProdotto{
     #[ORM\Column(type: 'string', columnDefinition: "TEXT")]
     private $descrizione;
 
+    #[ORM\Column(type: 'string', length:50, columnDefinition: 'VARCHAR(50)')]
+    private $marca;
+
+    #[ORM\Column(type: 'string', length:50, columnDefinition: 'VARCHAR(100)')]
+    private $modello;
+
+    #[ORM\Column(type: 'string', length:50, columnDefinition: 'VARCHAR(30)')]
+    private $colore;
+
     #[ORM\OneToMany(targetEntity:EImmagine::class, mappedBy:'prodotto')]
     private Collection $immagini;
 
@@ -46,9 +55,12 @@ class EProdotto{
 
     public $discr = "prodotto";
 
-    public function __construct($nome, $descrizione){
+    public function __construct($nome, $descrizione, $marca, $modello, $colore){
         $this->nome = $nome;
         $this->descrizione = $descrizione;
+        $this->marca = $marca;
+        $this->modello = $modello;
+        $this->colore = $colore;
         $this->immagini = new ArrayCollection();
         $this->resi = new ArrayCollection();
         $this->recensioni = new ArrayCollection();
@@ -244,6 +256,60 @@ class EProdotto{
     public function setVenditore($venditore)
     {
         $this->venditore = $venditore;
+    }
+
+    /**
+     * Get the value of marca
+     */
+    public function getMarca()
+    {
+        return $this->marca;
+    }
+
+    /**
+     * Set the value of marca
+     */
+    public function setMarca($marca): self
+    {
+        $this->marca = $marca;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of modello
+     */
+    public function getModello()
+    {
+        return $this->modello;
+    }
+
+    /**
+     * Set the value of modello
+     */
+    public function setModello($modello): self
+    {
+        $this->modello = $modello;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of colore
+     */
+    public function getColore()
+    {
+        return $this->colore;
+    }
+
+    /**
+     * Set the value of colore
+     */
+    public function setColore($colore): self
+    {
+        $this->colore = $colore;
+
+        return $this;
     }
 }
 ?>

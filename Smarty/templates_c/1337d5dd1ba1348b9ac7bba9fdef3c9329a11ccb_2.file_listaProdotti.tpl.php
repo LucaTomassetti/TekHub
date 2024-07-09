@@ -1,26 +1,27 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-07-02 18:11:35
+/* Smarty version 5.3.0, created on 2024-07-09 18:47:27
   from 'file:listaProdotti.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_668426b7ad3634_77314935',
+  'unifunc' => 'content_668d699f56ac69_82651033',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '1337d5dd1ba1348b9ac7bba9fdef3c9329a11ccb' => 
     array (
       0 => 'listaProdotti.tpl',
-      1 => 1719936657,
+      1 => 1720536345,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
+    'file:productDelete.tpl' => 1,
   ),
 ))) {
-function content_668426b7ad3634_77314935 (\Smarty\Template $_smarty_tpl) {
+function content_668d699f56ac69_82651033 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?><form class="container-fluid text-center" method="GET" action="/TekHub/gestioneProdotti/addProduct">
     <button type="submit" class="btn btn-primary">Aggiungi un nuovo prodotto</button>
@@ -29,6 +30,20 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
     <div class="mt-5">
         <div class="alert alert-success" role="alert">
             Aggiunta del prodotto avvenuta con successo!
+        </div>
+    </div>
+<?php }
+if ($_smarty_tpl->getValue('modifiedProductSuccess') == 1) {?>
+    <div class="mt-5">
+        <div class="alert alert-success" role="alert">
+            Modifica del prodotto avvenuta con successo!
+        </div>
+    </div>
+<?php }
+if ($_smarty_tpl->getValue('deletedProductSuccess') == 1) {?>
+    <div class="mt-5">
+        <div class="alert alert-success" role="alert">
+            Eliminazione del prodotto avvenuta con successo!
         </div>
     </div>
 <?php }?>
@@ -45,7 +60,7 @@ $foreach0DoElse = false;
                     <div class="product">
                         <div class="product-img">
                             <?php if ((null !== ($_smarty_tpl->getValue('prodotto')['images']['imageData'] ?? null)) && (null !== ($_smarty_tpl->getValue('prodotto')['images']['type'] ?? null))) {?>
-                                <img src="data:<?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('prodotto')['images']['type']), ENT_QUOTES, 'UTF-8');?>
+                                <img style="width:300px; height:300px;" src="data:<?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('prodotto')['images']['type']), ENT_QUOTES, 'UTF-8');?>
 ;base64,<?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('prodotto')['images']['imageData']), ENT_QUOTES, 'UTF-8');?>
 " alt="Immagine">
                             <?php } else { ?>
@@ -66,8 +81,12 @@ $foreach0DoElse = false;
                                 <?php }?>
                         </div>
                         <div class="add-to-cart">
-                            <button class="add-to-cart-btn"><i class="fas fa-table"></i> Modifica</button>
-                            <button class="add-to-cart-btn"><i class="fas fa-trash-alt"></i> Elimina</button>
+                            <form style="display:inline;" method="GET" action="/TekHub/gestioneProdotti/modificaProdotto/<?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('prodotto')['id_prodotto']), ENT_QUOTES, 'UTF-8');?>
+">
+                                <button class="add-to-cart-btn"><i class="fas fa-table"></i> Modifica</button>
+                            </form>
+                            <button id="<?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('prodotto')['id_prodotto']), ENT_QUOTES, 'UTF-8');?>
+" class="deleteProdBtns add-to-cart-btn"><i class="fas fa-trash-alt"></i> Elimina</button>
                         </div>
                     </div>
                     </div>
@@ -76,5 +95,6 @@ $foreach0DoElse = false;
 }
 $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
     </div>
-<?php }
+    <?php $_smarty_tpl->renderSubTemplate('file:productDelete.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+}
 }

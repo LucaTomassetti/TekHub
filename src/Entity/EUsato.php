@@ -8,7 +8,7 @@ class EUsato extends EProdotto{
     #[ORM\Column(type: 'integer', columnDefinition: "DOUBLE(7,2)")]
     private $floor_price;
     
-    #[ORM\OneToOne(targetEntity: EAsta::class, inversedBy: 'usato')]
+    #[ORM\OneToOne(targetEntity: EAsta::class, inversedBy: 'usato', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(name: 'asta', referencedColumnName: 'id_asta', nullable:true)]
     private EAsta|null $asta = null;
 
@@ -17,8 +17,8 @@ class EUsato extends EProdotto{
 
     public $discr = "p_usato";
 
-    public function __construct($id_prodotto, $nome, $descrizione, $floor_price) {
-        parent::__construct($nome, $descrizione);
+    public function __construct($id_prodotto, $nome, $descrizione, $marca, $modello, $colore, $floor_price) {
+        parent::__construct($nome, $descrizione,$marca, $modello, $colore);
         $this->floor_price = $floor_price;
         $this->offerte = new ArrayCollection();
     }

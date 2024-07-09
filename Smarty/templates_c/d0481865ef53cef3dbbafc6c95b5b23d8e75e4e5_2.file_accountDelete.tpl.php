@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-06-27 20:14:23
+/* Smarty version 5.3.0, created on 2024-07-09 18:47:23
   from 'file:accountDelete.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_667dabff6556a7_34261483',
+  'unifunc' => 'content_668d699b7c68e6_05823704',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_667dabff6556a7_34261483 (\Smarty\Template $_smarty_tpl) {
+function content_668d699b7c68e6_05823704 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?><div class="mt-4-c">
         <div class="form-group">

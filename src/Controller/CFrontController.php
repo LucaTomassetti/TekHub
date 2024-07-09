@@ -18,7 +18,7 @@ class CFrontController{
             // Check if the method exists in the controller
             if (method_exists($controllerClass, $methodName)) {
                 // Call the method
-                $params = array_slice($URL, 2); // Get optional parameters
+                $params = array_slice($URL, 3); // Get optional parameters
                 call_user_func_array([$controllerClass, $methodName], $params);
             }else {
                 // Method not found, handle appropriately (e.g., show 404 page)

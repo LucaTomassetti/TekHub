@@ -24,7 +24,7 @@
         </div>
     {/if}
 
-    <form id="registrationForm" method="POST" action="/TekHub/utente/changePass">
+    <form class="registrationForm" method="POST" action="/TekHub/utente/changePass">
         <div class="form-group">
             <input name="password" type="password" class="form-control" id="password" placeholder="Vecchia password..."
                 required>

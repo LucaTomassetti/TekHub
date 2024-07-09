@@ -13,8 +13,8 @@ class ENuovo extends EProdotto{
 
     public $discr = "p_nuovo";
 
-    public function __construct($id_prodotto, $nome, $descrizione, $prezzo_fisso, $quantita_disp) {
-        parent::__construct($nome, $descrizione);
+    public function __construct($id_prodotto, $nome, $descrizione, $marca, $modello, $colore, $prezzo_fisso, $quantita_disp) {
+        parent::__construct($nome, $descrizione,$marca, $modello, $colore);
         $this->prezzo_fisso = $prezzo_fisso;
         $this->quantita_disp = $quantita_disp;
     }

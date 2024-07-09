@@ -192,6 +192,13 @@ class FPersistentManager{
             getEntityManager()->getRepository('EVenditore')->deleteVenditore($utente);
         } 
     }
+    public function updateProdotto($prodotto, $array_data){
+        if($prodotto instanceof ENuovo){
+            getEntityManager()->getRepository('ENuovo')->updateProdottoNuovo($prodotto, $array_data);
+        }else if($prodotto instanceof EUsato){
+            getEntityManager()->getRepository('EUsato')->updateProdottoUsato($prodotto, $array_data);
+        } 
+    }
     public function getAllNewProducts($venditore){
         return getEntityManager()->getRepository('ENuovo')->getAllNewProducts($venditore);
     }
@@ -227,6 +234,12 @@ class FPersistentManager{
     }
     public function deleteProdotto($prodotto){
         getEntityManager()->getRepository('EProdotto')->deleteProdotto($prodotto);
+    }
+    public function deleteAllImages($productId){
+        getEntityManager()->getRepository('EImmagine')->deleteAllImages($productId);
+    }
+    public function updateVendAsta($prodotto, $venditore){
+        getEntityManager()->getRepository('EAsta')->updateVendAsta($prodotto, $venditore);
     }
 }
 ?>

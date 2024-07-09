@@ -64,6 +64,9 @@
 				{elseif $addProductForm == 1}
 					<div class="col-12 content-area">
 					{include file='addProductForm.tpl'}
+				{elseif $modifyProductForm == 1}
+					<div class="col-12 content-area">
+					{include file='modifyProductForm.tpl'}
 				{/if}
 			</div>
 	</div>

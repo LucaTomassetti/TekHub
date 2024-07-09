@@ -1,7 +1,7 @@
 <div class="form-container">
     <h2 class="text-center">I miei dati personali</h2>
 
-    <form id="registrationForm" method="POST" action="/TekHub/utente/changeUserData">
+    <form class="registrationForm" method="POST" action="/TekHub/utente/changeUserData">
         <div class="form-group">
             <label>Nome</label>
             <input name="nome" type="text" class="form-control" id="nome" placeholder="Nome..." value={$nome} required>
