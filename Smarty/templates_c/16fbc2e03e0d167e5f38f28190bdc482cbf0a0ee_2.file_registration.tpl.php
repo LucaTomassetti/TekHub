@@ -1,4 +1,28 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 5.3.0, created on 2024-07-12 11:05:30
+  from 'file:registration.tpl' */
+
+/* @var \Smarty\Template $_smarty_tpl */
+if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
+  'version' => '5.3.0',
+  'unifunc' => 'content_6690f1da69f163_38814269',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '16fbc2e03e0d167e5f38f28190bdc482cbf0a0ee' => 
+    array (
+      0 => 'registration.tpl',
+      1 => 1720775095,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+))) {
+function content_6690f1da69f163_38814269 (\Smarty\Template $_smarty_tpl) {
+$_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/TekHub/Smarty/templates';
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -26,28 +50,32 @@
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
-		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		  <?php echo '<script'; ?>
+ src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"><?php echo '</script'; ?>
+>
+		  <?php echo '<script'; ?>
+ src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"><?php echo '</script'; ?>
+>
 		<![endif]-->
 </head>
 <body>
 <div class="form-container">
 <h2 class="text-center">Registrazione</h2>
-{if $errore_r == 1}
+<?php if ($_smarty_tpl->getValue('errore_r') == 1) {?>
     <div class="mt-5">
     <div class="alert alert-danger" role="alert">
         Email già esistente! Registrati con un'altra email!
     </div>
 </div>
-{/if}
+<?php }?>
 
-{if $check_pass == 1}
+<?php if ($_smarty_tpl->getValue('check_pass') == 1) {?>
 <div class="mt-5">
     <div class="alert alert-danger" role="alert">
         Le password non coincidono! Riprovare
     </div>
 </div>
-{/if}
+<?php }?>
 <div class="card-body">
   <form method="POST" action="/TekHub/utente/signUp">
       <div class="form-group">
@@ -110,9 +138,17 @@
   </form>
   </div>
 </div>
-    <script src="/TekHub/skin/electro-master/js/scripts-for-template.js"></script>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
+    <?php echo '<script'; ?>
+ src="/TekHub/skin/electro-master/js/scripts-for-template.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="js/jquery.min.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
+>
     <!-- Include any other JS files needed -->
 </body>
 </html>
+<?php }
+}

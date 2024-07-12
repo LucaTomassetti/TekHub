@@ -205,6 +205,27 @@ class FPersistentManager{
     public function getAllUsedProducts($venditore){
         return getEntityManager()->getRepository('EUsato')->getAllUsedProducts($venditore);
     }
+    public function getAllProducts(){
+        $all_prodotti_nuovi = getEntityManager()->getRepository('ENuovo')->getAllProducts();
+        $all_prodotti_usati = getEntityManager()->getRepository('EUsato')->getAllProducts();
+        $all_prodotti = array_merge($all_prodotti_nuovi, $all_prodotti_usati);
+        for($i = 0; $i < sizeof($all_prodotti); $i++){
+            $prod_item = FPersistentManager::getInstance()->find(EProdotto::class,$all_prodotti[$i]['id_prodotto']);
+            $array_immagini = FPersistentManager::getInstance()->getAllImages($prod_item);
+            foreach($array_immagini as $immagine){
+                //Poiché $array_immagini[0]['imageData'] contiene l'id della Risorsa, uso
+                //la funzione stream_get_contents($array_immagini[0]['imageData']) per 
+                //riottenere la stringa base64 memorizzata nel database per poi
+                //assegnarla di nuovo all'array 
+                $immagine['imageData'] = stream_get_contents($immagine['imageData']);
+                $all_prodotti[$i]['images'] = $immagine;
+            }
+        } 
+        return $all_prodotti;
+    }
+    public function getAllCategories(){
+        return getEntityManager()->getRepository('ECategoria')->getAllCategories();
+    }
     public function getAllImages($prodotto){
         return getEntityManager()->getRepository('EImmagine')->getAllImages($prodotto);
     }

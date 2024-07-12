@@ -1,11 +1,35 @@
+<?php
+/* Smarty version 5.3.0, created on 2024-07-12 12:57:52
+  from 'file:addProductForm.tpl' */
 
-    {if $errorImageUpload == 1}
+/* @var \Smarty\Template $_smarty_tpl */
+if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
+  'version' => '5.3.0',
+  'unifunc' => 'content_66910c307aa270_38556549',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '41d47ad79d62d4f960c0191de9aa959546f49c2c' => 
+    array (
+      0 => 'addProductForm.tpl',
+      1 => 1720781638,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+))) {
+function content_66910c307aa270_38556549 (\Smarty\Template $_smarty_tpl) {
+$_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/TekHub/Smarty/templates';
+?>
+    <?php if ($_smarty_tpl->getValue('errorImageUpload') == 1) {?>
         <div class="mt-5">
             <div class="alert alert-danger" role="alert">
                 Errore nell'upload delle immagini! Size troppo grande o tipo del file diverso da jpeg/png !
             </div>
         </div>
-    {/if}
+    <?php }?>
 
 <div class="form-container width-90">
         <h2>Metti in vendita un prodotto</h2>
@@ -24,9 +48,18 @@
                 <div class="form-group">
                 <label>Categoria</label>
                 <select name="categoria" id="categoria" required>
-                {foreach from=$array_categorie item=categoria}
-                    <option value="{$categoria.nome_categoria}">{$categoria.nome_categoria}</option>
-                {/foreach}
+                <?php
+$_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('array_categorie'), 'categoria');
+$foreach0DoElse = true;
+foreach ($_from ?? [] as $_smarty_tpl->getVariable('categoria')->value) {
+$foreach0DoElse = false;
+?>
+                    <option value="<?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('categoria')['nome_categoria']), ENT_QUOTES, 'UTF-8');?>
+"><?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('categoria')['nome_categoria']), ENT_QUOTES, 'UTF-8');?>
+</option>
+                <?php
+}
+$_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                 </select>
                 </div>
 
@@ -97,7 +130,8 @@
 
         </form>
     </div>
-    <script>
+    <?php echo '<script'; ?>
+>
     const input = document.getElementById('images');
     const imagePreview = document.getElementById('imagePreview');
     let imageArray = [];
@@ -151,8 +185,10 @@
         updateImagePreview();
         updateInputFiles();
     }
-</script>
-<script>
+<?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+>
         // Ottieni la data attuale
         var now = new Date();
 
@@ -181,4 +217,6 @@
                 event.preventDefault(); // Blocca l'invio del form
             }
         });
-</script>
+<?php echo '</script'; ?>
+><?php }
+}

@@ -39,7 +39,8 @@ class CGestioneProdotti{
         $view = new VGestioneProdotti();
         if ($_SERVER['REQUEST_METHOD'] == "GET") {
             if($_SESSION['utente'] instanceof EVenditore){
-                $view->addProductForm();
+                $array_categorie = FPersistentManager::getInstance()->getAllCategories();
+                $view->addProductForm($array_categorie);
             }else{
                 header('Location: /TekHub/utente/login');
             }
@@ -182,7 +183,7 @@ class CGestioneProdotti{
         }
     }
     public static function eliminaProdotto($productId){
-        
+        session_start();
         //Elimino prima tutte le immagini legate all'id del prodotto
         //per non avere problemi con le chiavi esterne
         FPersistentManager::getInstance()->deleteAllImages($productId);

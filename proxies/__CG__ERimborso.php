@@ -7,7 +7,7 @@ namespace Proxies\__CG__;
  */
 class ERimborso extends \ERimborso implements \Doctrine\ORM\Proxy\InternalProxy
 {
-     use \Symfony\Component\VarExporter\LazyGhostTrait {
+    use \Symfony\Component\VarExporter\LazyGhostTrait {
         initializeLazyObject as __load;
         setLazyObjectAsInitialized as public __setInitialized;
         isLazyObjectInitialized as private;
@@ -28,7 +28,7 @@ class ERimborso extends \ERimborso implements \Doctrine\ORM\Proxy\InternalProxy
         'importo' => [parent::class, 'importo', null],
         'prodotto' => [parent::class, 'prodotto', null],
         'venditore' => [parent::class, 'venditore', null],
-    ];
+    ];
 
     public function __isInitialized(): bool
     {

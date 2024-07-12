@@ -42,7 +42,7 @@
     <main>
 	<div class="container-fluid d-flex justify-content-center">
 			{if $listaProdotti == 1}
-			<div class="col-lg-2">
+			<div class="col-lg-2 col-md-3 col-sm-4">
 				{include file='filters-section.tpl'}
 			</div>
 			{/if}
@@ -59,7 +59,7 @@
 					<div class="col-12 content-area">
 					{include file='userDataSection.tpl'}
 				{elseif $listaProdotti == 1}
-					<div class="col-lg-9 content-area">
+					<div class="col-lg-9 col-md-8 col-sm-7 col-xs-12 content-area">
 					{include file='listaProdotti.tpl'}
 				{elseif $addProductForm == 1}
 					<div class="col-12 content-area">

@@ -9,19 +9,15 @@ class VUtente{
         $this->smarty = StartSmarty::configuration();
 
     }
-    public function home(){
-        $this->smarty->display('homepage.tpl');
-    }
     public function showLoginForm(){
         $this->smarty->display('login.tpl');
     }
-    public function showRegisterForm(){
-        $this->smarty->display('registration.tpl');
-    }
-    public function loginSuccessAcquirente(){
+    public function loginSuccessAcquirente($array_prodotti, $array_categorie){
         $this->smarty->assign('errore_log', 0);
         $this->smarty->assign('check_login', 1);
         $this->smarty->assign('check_login_acquirente', 1);
+        $this->smarty->assign('array_categorie', $array_categorie);
+        $this->smarty->assign('array_prodotti', $array_prodotti);
         $this->smarty->display('homepage.tpl');
     }
     public function loginSuccessVenditore(){
@@ -40,8 +36,20 @@ class VUtente{
         $this->smarty->assign('errore_log', 1);
         $this->smarty->display('login.tpl');
     }
-    public function logout(){
+    public function logout($array_prodotti, $array_categorie){
         $this->smarty->assign('check_login', 0);
+        $this->smarty->assign('array_categorie', $array_categorie);
+        $this->smarty->assign('array_prodotti', $array_prodotti);
+        $this->smarty->assign('signUpSuccess', 0);
+        // Verifica se il messaggio di successo è presente nella sessione
+        $signUpSuccess = isset($_SESSION['signUpSuccess']) && $_SESSION['signUpSuccess'];
+
+        // Rimuovi il messaggio di successo dalla sessione
+        unset($_SESSION['signUpSuccess']);
+        // Controlla se il metodo è stato chiamato dalla form per aggiungere un prodotto
+        if ($signUpSuccess) {
+            $this->smarty->assign('signUpSuccess', 1);
+        }
         $this->smarty->display('homepage.tpl');
     }
     public function signUp(){
@@ -50,10 +58,6 @@ class VUtente{
     public function checkPassSignUp(){
         $this->smarty->assign('check_pass', 1);
         $this->smarty->display('registration.tpl');
-    }
-    public function signUpSuccess(){
-        $this->smarty->assign('errore_r', 0);
-        $this->smarty->display('homepage.tpl');
     }
     public function signUpError(){
         $this->smarty->assign('errore_r', 1);

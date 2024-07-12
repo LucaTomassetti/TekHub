@@ -18,6 +18,13 @@ class FNuovo extends EntityRepository {
         $query->setParameter(1, $venditore);
         return $query->getResult();
     }
+    public function getAllProducts(){
+        $dql = "SELECT nuovo.id_prodotto, nuovo.nome, nuovo.prezzo_fisso, categoria.nome_categoria
+                FROM ENuovo nuovo
+                JOIN nuovo.category_name categoria";
+        $query = getEntityManager()->createQuery($dql);
+        return $query->getResult();
+    }
     public function updateProdottoNuovo(ENuovo $prodotto, $array_data){
         $em = getEntityManager();
         $found_prodotto = $em->find(ENuovo::class, $prodotto->getIdProdotto());

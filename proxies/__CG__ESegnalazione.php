@@ -7,7 +7,7 @@ namespace Proxies\__CG__;
  */
 class ESegnalazione extends \ESegnalazione implements \Doctrine\ORM\Proxy\InternalProxy
 {
-     use \Symfony\Component\VarExporter\LazyGhostTrait {
+    use \Symfony\Component\VarExporter\LazyGhostTrait {
         initializeLazyObject as __load;
         setLazyObjectAsInitialized as public __setInitialized;
         isLazyObjectInitialized as private;
@@ -26,7 +26,7 @@ class ESegnalazione extends \ESegnalazione implements \Doctrine\ORM\Proxy\Intern
         'recensione' => [parent::class, 'recensione', null],
         'tipo' => [parent::class, 'tipo', null],
         'venditore' => [parent::class, 'venditore', null],
-    ];
+    ];
 
     public function __isInitialized(): bool
     {

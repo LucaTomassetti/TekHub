@@ -7,7 +7,7 @@ namespace Proxies\__CG__;
  */
 class EAsta extends \EAsta implements \Doctrine\ORM\Proxy\InternalProxy
 {
-     use \Symfony\Component\VarExporter\LazyGhostTrait {
+    use \Symfony\Component\VarExporter\LazyGhostTrait {
         initializeLazyObject as __load;
         setLazyObjectAsInitialized as public __setInitialized;
         isLazyObjectInitialized as private;
@@ -26,7 +26,7 @@ class EAsta extends \EAsta implements \Doctrine\ORM\Proxy\InternalProxy
         'id_asta' => [parent::class, 'id_asta', null],
         'usato' => [parent::class, 'usato', null],
         'venditore' => [parent::class, 'venditore', null],
-    ];
+    ];
 
     public function __isInitialized(): bool
     {

@@ -18,6 +18,13 @@ class FUsato extends EntityRepository {
         $query->setParameter(1, $venditore);
         return $query->getResult();
     }
+    public function getAllProducts(){
+        $dql = "SELECT usato.id_prodotto, usato.nome, usato.floor_price, categoria.nome_categoria
+                FROM EUsato usato
+                JOIN usato.category_name categoria";
+        $query = getEntityManager()->createQuery($dql);
+        return $query->getResult();
+    }
     public function updateProdottoUsato(EUsato $prodotto, $array_data){
         $em = getEntityManager();
         $found_prodotto = $em->find(EUsato::class, $prodotto->getIdProdotto());

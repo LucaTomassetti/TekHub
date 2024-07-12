@@ -7,7 +7,7 @@ class FCategoria extends EntityRepository {
     public function getAllCategories(){
         $dql = "SELECT categoria FROM ECategoria categoria";
         $query = getEntityManager()->createQuery($dql);
-        return $query->getResult();
+        return $query->getArrayResult();
     }
     public function findCategoria($categoria){
         $dql = "SELECT categoria FROM ECategoria categoria WHERE categoria.nome_categoria = ?1";

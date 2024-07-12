@@ -1,4 +1,28 @@
-<!-- HEADER -->
+<?php
+/* Smarty version 5.3.0, created on 2024-07-12 13:07:10
+  from 'file:header_section.tpl' */
+
+/* @var \Smarty\Template $_smarty_tpl */
+if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
+  'version' => '5.3.0',
+  'unifunc' => 'content_66910e5e2e3256_32227137',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '0755c6b563627bf7046df80f2157f907af5cd5ba' => 
+    array (
+      0 => 'header_section.tpl',
+      1 => 1720782407,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+))) {
+function content_66910e5e2e3256_32227137 (\Smarty\Template $_smarty_tpl) {
+$_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/TekHub/Smarty/templates';
+?><!-- HEADER -->
 <header>
 
 <!-- MAIN HEADER -->
@@ -22,9 +46,18 @@
                 <div class="header-search">
                     <form>
                         <select class="input-select">
-                        {foreach from=$array_categorie item=categoria}
-                            <option value="{$categoria.nome_categoria}">{$categoria.nome_categoria}</option>
-                        {/foreach}
+                        <?php
+$_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('array_categorie'), 'categoria');
+$foreach0DoElse = true;
+foreach ($_from ?? [] as $_smarty_tpl->getVariable('categoria')->value) {
+$foreach0DoElse = false;
+?>
+                            <option value="<?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('categoria')['nome_categoria']), ENT_QUOTES, 'UTF-8');?>
+"><?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('categoria')['nome_categoria']), ENT_QUOTES, 'UTF-8');?>
+</option>
+                        <?php
+}
+$_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                         </select>
                         <input class="input" placeholder="Cerca il prodotto...">
                         <button class="search-btn">Cerca</button>
@@ -37,23 +70,23 @@
             <div class="col-lg-4 col-md-3 col-sm-3 col-xs-4">
                 <div class="header-ctn">
                 <!-- My Account -->
-                        {if $check_login == 1}
+                        <?php if ($_smarty_tpl->getValue('check_login') == 1) {?>
                             <div>
                                 <a href="/TekHub/utente/logout">
                                     <i class="fas fa-sign-out-alt" style="color: #ffffff;"></i>
                                     <span>Logout</span>
                                 </a>
                             </div>
-                        {else}
+                        <?php } else { ?>
                             <div>
                                 <a href="/TekHub/utente/login">
                                     <i class="fas fa-sign-in-alt" style="color: #ffffff;"></i>
                                     <span>Accedi</span>
                                 </a>
                             </div>
-                        {/if}
+                        <?php }?>
 
-                    {if $check_login_acquirente == 1 || $check_login == 0}
+                    <?php if ($_smarty_tpl->getValue('check_login_acquirente') == 1 || $_smarty_tpl->getValue('check_login') == 0) {?>
                     <!-- Cart -->
                     <div class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
@@ -98,7 +131,7 @@
                         </div>
                     </div>
                     <!-- /Cart -->
-                    {/if}
+                    <?php }?>
                     <!-- Menu Toogle -->
                     <div class="menu-toggle">
                         <a href="#">
@@ -126,7 +159,7 @@
     <!-- responsive-nav -->
     <div id="responsive-nav">
         <!-- NAV -->
-        {if $check_login_acquirente == 1}
+        <?php if ($_smarty_tpl->getValue('check_login_acquirente') == 1) {?>
         <ul class="main-nav nav navbar-nav">
             <li><a href="/TekHub/utente/userDataSection">Profilo</a></li>
             <li><a href="/TekHub/utente/userHistoryOrders">Stato ordini</a></li>
@@ -134,7 +167,7 @@
             <li><a href="#">Offerte effettuate</a></li>
             <li><a href="#">Gestione resi</a></li>
         </ul>
-        {elseif $check_login_venditore == 1}
+        <?php } elseif ($_smarty_tpl->getValue('check_login_venditore') == 1) {?>
         <ul class="main-nav nav navbar-nav">
         <li><a href="/TekHub/utente/home">Profilo</a></li>
             <li><a href="/TekHub/gestioneProdotti/listaProdotti">Gestione prodotti</a></li>
@@ -143,11 +176,12 @@
             <li><a href="#">Gestione resi</a></li>
             <li><a href="#">Recensioni</a></li>
         </ul>
-        {/if}
+        <?php }?>
         <!-- /NAV -->
     </div>
     <!-- /responsive-nav -->
 </div>
 <!-- /container -->
 </nav>
-<!-- /NAVIGATION -->
+<!-- /NAVIGATION --><?php }
+}

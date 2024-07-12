@@ -1,4 +1,29 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 5.3.0, created on 2024-07-12 13:05:31
+  from 'file:homepage.tpl' */
+
+/* @var \Smarty\Template $_smarty_tpl */
+if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
+  'version' => '5.3.0',
+  'unifunc' => 'content_66910dfb818f16_65748411',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '242e9242ccf9d19734513c166288dc263cae48f6' => 
+    array (
+      0 => 'homepage.tpl',
+      1 => 1720782321,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+    'file:header_section.tpl' => 1,
+  ),
+))) {
+function content_66910dfb818f16_65748411 (\Smarty\Template $_smarty_tpl) {
+$_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/TekHub/Smarty/templates';
+?><!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
@@ -30,23 +55,28 @@
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
-		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		  <?php echo '<script'; ?>
+ src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"><?php echo '</script'; ?>
+>
+		  <?php echo '<script'; ?>
+ src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"><?php echo '</script'; ?>
+>
 		<![endif]-->
 
     </head>
 	<body>
-	{include file='header_section.tpl'}
+	<?php $_smarty_tpl->renderSubTemplate('file:header_section.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
 
-	{if $signUpSuccess == 1}
+	<?php if ($_smarty_tpl->getValue('signUpSuccess') == 1) {?>
 		<div class="mt-5">
 			<div class="alert alert-success" role="alert">
 				Registrazione avvenuta con successo! Ora puoi effettuare il login
 			</div>
 		</div>
-	{/if}
+	<?php }?>
 	
-	{if $check_login_acquirente == 1 || $check_login == 0}
+	<?php if ($_smarty_tpl->getValue('check_login_acquirente') == 1 || $_smarty_tpl->getValue('check_login') == 0) {?>
 		<!-- SECTION -->
 		<div class="section">
 			<!-- container -->
@@ -124,30 +154,44 @@
 								<div id="tab1" class="tab-pane active">
 									<div class="products-slick" data-nav="#slick-nav-1">
 										<!-- product -->
-										{foreach from=$array_prodotti item=prodotto}
+										<?php
+$_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('array_prodotti'), 'prodotto');
+$foreach0DoElse = true;
+foreach ($_from ?? [] as $_smarty_tpl->getVariable('prodotto')->value) {
+$foreach0DoElse = false;
+?>
 											<div class="product">
 												<div class="product-img">
-													{if isset($prodotto.images.imageData) && isset($prodotto.images.type)}
-														<img src="data:{$prodotto.images.type};base64,{$prodotto.images.imageData}" alt="Immagine">
-													{else}
+													<?php if ((null !== ($_smarty_tpl->getValue('prodotto')['images']['imageData'] ?? null)) && (null !== ($_smarty_tpl->getValue('prodotto')['images']['type'] ?? null))) {?>
+														<img src="data:<?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('prodotto')['images']['type']), ENT_QUOTES, 'UTF-8');?>
+;base64,<?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('prodotto')['images']['imageData']), ENT_QUOTES, 'UTF-8');?>
+" alt="Immagine">
+													<?php } else { ?>
 														<p>Immagine non trovata</p>
-													{/if}        
+													<?php }?>        
 												</div>
 												<div class="product-body">
-													<p class="product-category">{$prodotto.nome_categoria}</p>
-													<h3 class="product-name"><a href="#">{$prodotto.nome}</a></h3>
-														{if isset($prodotto.floor_price)}
-															<h4 class="product-price">€{$prodotto.floor_price}</h4>
-														{elseif isset($prodotto.prezzo_fisso)}
-															<h4 class="product-price">€{$prodotto.prezzo_fisso}</h4>
-														{/if}
+													<p class="product-category"><?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('prodotto')['nome_categoria']), ENT_QUOTES, 'UTF-8');?>
+</p>
+													<h3 class="product-name"><a href="#"><?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('prodotto')['nome']), ENT_QUOTES, 'UTF-8');?>
+</a></h3>
+														<?php if ((null !== ($_smarty_tpl->getValue('prodotto')['floor_price'] ?? null))) {?>
+															<h4 class="product-price">€<?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('prodotto')['floor_price']), ENT_QUOTES, 'UTF-8');?>
+</h4>
+														<?php } elseif ((null !== ($_smarty_tpl->getValue('prodotto')['prezzo_fisso'] ?? null))) {?>
+															<h4 class="product-price">€<?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('prodotto')['prezzo_fisso']), ENT_QUOTES, 'UTF-8');?>
+</h4>
+														<?php }?>
 												
-													<form class="product-btns" method="GET" action="/TekHub/gestioneAcquisto/vediProdotto/{$prodotto.id_prodotto}">											
+													<form class="product-btns" method="GET" action="/TekHub/gestioneAcquisto/vediProdotto/<?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('prodotto')['id_prodotto']), ENT_QUOTES, 'UTF-8');?>
+">											
 														<button type="submit" class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">vedi prodotto</span></button>
 													</form>
 												</div>
 											</div>
-										{/foreach}
+										<?php
+}
+$_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
 										<!-- /product -->
 
 										<!-- product example>
@@ -533,7 +577,7 @@
 			<!-- /container -->
 		</div>
 		<!-- /SECTION -->
-	{/if}
+	<?php }?>
 		<!-- FOOTER -->
 		<footer id="footer">
 			<!-- bottom footer -->
@@ -551,7 +595,9 @@
 							</ul>
 							<span class="copyright">
 								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-								Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+								Copyright &copy;<?php echo '<script'; ?>
+>document.write(new Date().getFullYear());<?php echo '</script'; ?>
+> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
 							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 							</span>
 						</div>
@@ -563,14 +609,30 @@
 			<!-- /bottom footer -->
 		</footer>
 		<!-- /FOOTER -->
-		<script src="/TekHub/skin/electro-master/js/scripts-for-template.js"></script>
+		<?php echo '<script'; ?>
+ src="/TekHub/skin/electro-master/js/scripts-for-template.js"><?php echo '</script'; ?>
+>
 		<!-- jQuery Plugins -->
-		<script src="/TekHub/skin/electro-master/js/jquery.min.js"></script>
-		<script src="/TekHub/skin/electro-master/js/bootstrap.min.js"></script>
-		<script src="/TekHub/skin/electro-master/js/slick.min.js"></script>
-		<script src="/TekHub/skin/electro-master/js/nouislider.min.js"></script>
-		<script src="/TekHub/skin/electro-master/js/jquery.zoom.min.js"></script>
-		<script src="/TekHub/skin/electro-master/js/main.js"></script>
+		<?php echo '<script'; ?>
+ src="/TekHub/skin/electro-master/js/jquery.min.js"><?php echo '</script'; ?>
+>
+		<?php echo '<script'; ?>
+ src="/TekHub/skin/electro-master/js/bootstrap.min.js"><?php echo '</script'; ?>
+>
+		<?php echo '<script'; ?>
+ src="/TekHub/skin/electro-master/js/slick.min.js"><?php echo '</script'; ?>
+>
+		<?php echo '<script'; ?>
+ src="/TekHub/skin/electro-master/js/nouislider.min.js"><?php echo '</script'; ?>
+>
+		<?php echo '<script'; ?>
+ src="/TekHub/skin/electro-master/js/jquery.zoom.min.js"><?php echo '</script'; ?>
+>
+		<?php echo '<script'; ?>
+ src="/TekHub/skin/electro-master/js/main.js"><?php echo '</script'; ?>
+>
 
 	</body>
 </html>
+<?php }
+}
