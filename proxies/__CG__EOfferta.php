@@ -7,7 +7,7 @@ namespace Proxies\__CG__;
  */
 class EOfferta extends \EOfferta implements \Doctrine\ORM\Proxy\InternalProxy
 {
-     use \Symfony\Component\VarExporter\LazyGhostTrait {
+    use \Symfony\Component\VarExporter\LazyGhostTrait {
         initializeLazyObject as __load;
         setLazyObjectAsInitialized as public __setInitialized;
         isLazyObjectInitialized as private;
@@ -26,7 +26,7 @@ class EOfferta extends \EOfferta implements \Doctrine\ORM\Proxy\InternalProxy
         'id_offerta' => [parent::class, 'id_offerta', null],
         'importo' => [parent::class, 'importo', null],
         'p_usato_id' => [parent::class, 'p_usato_id', null],
-    ];
+    ];
 
     public function __isInitialized(): bool
     {

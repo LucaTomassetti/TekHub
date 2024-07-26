@@ -39,10 +39,11 @@ class VGestioneProdotti{
 
         $this->smarty->display('userinfo.tpl');
     }
-    public function addProductForm(){
+    public function addProductForm($array_categorie){
         $this->smarty->assign('check_login_venditore', 1);
         $this->smarty->assign('check_login', 1);
         $this->smarty->assign('addProductForm', 1);
+        $this->smarty->assign('array_categorie', $array_categorie);
         $this->smarty->display('userinfo.tpl');
     }
     public function modifyProductForm($prodotto, $immagini){

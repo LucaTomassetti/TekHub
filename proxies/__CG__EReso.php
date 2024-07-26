@@ -7,7 +7,7 @@ namespace Proxies\__CG__;
  */
 class EReso extends \EReso implements \Doctrine\ORM\Proxy\InternalProxy
 {
-     use \Symfony\Component\VarExporter\LazyGhostTrait {
+    use \Symfony\Component\VarExporter\LazyGhostTrait {
         initializeLazyObject as __load;
         setLazyObjectAsInitialized as public __setInitialized;
         isLazyObjectInitialized as private;
@@ -28,7 +28,7 @@ class EReso extends \EReso implements \Doctrine\ORM\Proxy\InternalProxy
         'id_reso' => [parent::class, 'id_reso', null],
         'prodotto' => [parent::class, 'prodotto', null],
         'stato_reso' => [parent::class, 'stato_reso', null],
-    ];
+    ];
 
     public function __isInitialized(): bool
     {

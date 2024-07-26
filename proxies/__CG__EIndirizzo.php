@@ -7,7 +7,7 @@ namespace Proxies\__CG__;
  */
 class EIndirizzo extends \EIndirizzo implements \Doctrine\ORM\Proxy\InternalProxy
 {
-     use \Symfony\Component\VarExporter\LazyGhostTrait {
+    use \Symfony\Component\VarExporter\LazyGhostTrait {
         initializeLazyObject as __load;
         setLazyObjectAsInitialized as public __setInitialized;
         isLazyObjectInitialized as private;
@@ -26,7 +26,7 @@ class EIndirizzo extends \EIndirizzo implements \Doctrine\ORM\Proxy\InternalProx
         'comune' => [parent::class, 'comune', null],
         'nome' => [parent::class, 'nome', null],
         'ordine' => [parent::class, 'ordine', null],
-    ];
+    ];
 
     public function __isInitialized(): bool
     {

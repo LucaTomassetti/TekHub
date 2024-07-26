@@ -6,6 +6,8 @@ class CUtente {
     public static function home(){
         $view_home = new VUtente();
         session_start();
+        $array_prodotti = FPersistentManager::getInstance()->getAllProducts();
+        $array_categorie = FPersistentManager::getInstance()->getAllCategories();
         /* Per la gestione del carrello
         $array_prodotti = array('prodotto_1'=> new EProdotto('prova','prova',0,0),
                                 'prodotto_2'=> new EProdotto('prova','prova',0,0));
@@ -13,12 +15,12 @@ class CUtente {
         */
         if (static::isLogged()) {
             if($_SESSION['utente'] instanceof EAcquirente){
-                $view_home->loginSuccessAcquirente();
+                $view_home->loginSuccessAcquirente($array_prodotti, $array_categorie);
             }else if($_SESSION['utente'] instanceof EVenditore){
                 $view_home->loginSuccessVenditore();
             }
         } else {
-            $view_home->logout();
+            $view_home->logout($array_prodotti, $array_categorie);
         }
     }
     public static function login(){
@@ -117,8 +119,10 @@ class CUtente {
                 if ($array_data['password'] != $array_data['confirm-password']) {
                     $view_register->checkPassSignUp();
                 } else {
+                    session_start();
                     FPersistentManager::getInstance()->insertNewUtente($new_utente);
-                    $view_register->signUpSuccess();
+                    $_SESSION['signUpSuccess'] = true;
+                    header('Location: /TekHub/utente/home');
                 }
             }
             
