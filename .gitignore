@@ -1,2 +1,5 @@
-/vendor/
-/Smarty/templates_c
+# Ignora la cartella template_c di Smarty
+/Smarty/templates_c/
+
+# Ignora la cartella proxies
+/proxies/
