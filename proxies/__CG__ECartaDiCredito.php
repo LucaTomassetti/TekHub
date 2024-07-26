@@ -7,7 +7,7 @@ namespace Proxies\__CG__;
  */
 class ECartaDiCredito extends \ECartaDiCredito implements \Doctrine\ORM\Proxy\InternalProxy
 {
-    use \Symfony\Component\VarExporter\LazyGhostTrait {
+     use \Symfony\Component\VarExporter\LazyGhostTrait {
         initializeLazyObject as __load;
         setLazyObjectAsInitialized as public __setInitialized;
         isLazyObjectInitialized as private;
@@ -32,7 +32,7 @@ class ECartaDiCredito extends \ECartaDiCredito implements \Doctrine\ORM\Proxy\In
         'numero_carta' => [parent::class, 'numero_carta', null],
         'ordini' => [parent::class, 'ordini', null],
         'proprietario' => [parent::class, 'proprietario', null],
-    ];
+    ];
 
     public function __isInitialized(): bool
     {

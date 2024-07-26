@@ -7,7 +7,7 @@ namespace Proxies\__CG__;
  */
 class EImmagine extends \EImmagine implements \Doctrine\ORM\Proxy\InternalProxy
 {
-    use \Symfony\Component\VarExporter\LazyGhostTrait {
+     use \Symfony\Component\VarExporter\LazyGhostTrait {
         initializeLazyObject as __load;
         setLazyObjectAsInitialized as public __setInitialized;
         isLazyObjectInitialized as private;
@@ -28,7 +28,7 @@ class EImmagine extends \EImmagine implements \Doctrine\ORM\Proxy\InternalProxy
         'prodotto' => [parent::class, 'prodotto', null],
         'size' => [parent::class, 'size', null],
         'type' => [parent::class, 'type', null],
-    ];
+    ];
 
     public function __isInitialized(): bool
     {

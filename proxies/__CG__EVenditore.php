@@ -7,7 +7,7 @@ namespace Proxies\__CG__;
  */
 class EVenditore extends \EVenditore implements \Doctrine\ORM\Proxy\InternalProxy
 {
-    use \Symfony\Component\VarExporter\LazyGhostTrait {
+     use \Symfony\Component\VarExporter\LazyGhostTrait {
         initializeLazyObject as __load;
         setLazyObjectAsInitialized as public __setInitialized;
         isLazyObjectInitialized as private;
@@ -42,7 +42,7 @@ class EVenditore extends \EVenditore implements \Doctrine\ORM\Proxy\InternalProx
         'segnalazioni' => [parent::class, 'segnalazioni', null],
         'societa' => [parent::class, 'societa', null],
         'username' => [parent::class, 'username', null],
-    ];
+    ];
 
     public function __isInitialized(): bool
     {

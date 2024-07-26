@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-07-09 18:47:27
+/* Smarty version 5.3.0, created on 2024-07-26 12:13:21
   from 'file:listaProdotti.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_668d699f56ac69_82651033',
+  'unifunc' => 'content_66a376c1de40a1_69662438',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '1337d5dd1ba1348b9ac7bba9fdef3c9329a11ccb' => 
     array (
       0 => 'listaProdotti.tpl',
-      1 => 1720536345,
+      1 => 1721980396,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:productDelete.tpl' => 1,
   ),
 ))) {
-function content_668d699f56ac69_82651033 (\Smarty\Template $_smarty_tpl) {
+function content_66a376c1de40a1_69662438 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?><form class="container-fluid text-center" method="GET" action="/TekHub/gestioneProdotti/addProduct">
     <button type="submit" class="btn btn-primary">Aggiungi un nuovo prodotto</button>
@@ -56,7 +56,7 @@ foreach ($_from ?? [] as $_smarty_tpl->getVariable('prodotto')->value) {
 $foreach0DoElse = false;
 ?>
                     <!-- product -->
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <div class="product">
                         <div class="product-img">
                             <?php if ((null !== ($_smarty_tpl->getValue('prodotto')['images']['imageData'] ?? null)) && (null !== ($_smarty_tpl->getValue('prodotto')['images']['type'] ?? null))) {?>

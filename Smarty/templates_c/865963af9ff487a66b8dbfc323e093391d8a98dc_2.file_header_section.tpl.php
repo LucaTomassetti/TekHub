@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-07-09 18:47:06
+/* Smarty version 5.3.0, created on 2024-07-26 10:11:53
   from 'file:header_section.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_668d698aab5956_89733562',
+  'unifunc' => 'content_66a35a496e6e22_36237524',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '865963af9ff487a66b8dbfc323e093391d8a98dc' => 
     array (
       0 => 'header_section.tpl',
-      1 => 1719936031,
+      1 => 1721980396,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_668d698aab5956_89733562 (\Smarty\Template $_smarty_tpl) {
+function content_66a35a496e6e22_36237524 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?><!-- HEADER -->
 <header>
@@ -46,9 +46,18 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
                 <div class="header-search">
                     <form>
                         <select class="input-select">
-                            <option value="0">Categorie</option>
-                            <option value="1">Categoria 01</option>
-                            <option value="1">Categoria 02</option>
+                        <?php
+$_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('array_categorie'), 'categoria');
+$foreach1DoElse = true;
+foreach ($_from ?? [] as $_smarty_tpl->getVariable('categoria')->value) {
+$foreach1DoElse = false;
+?>
+                            <option value="<?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('categoria')['nome_categoria']), ENT_QUOTES, 'UTF-8');?>
+"><?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('categoria')['nome_categoria']), ENT_QUOTES, 'UTF-8');?>
+</option>
+                        <?php
+}
+$_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                         </select>
                         <input class="input" placeholder="Cerca il prodotto...">
                         <button class="search-btn">Cerca</button>

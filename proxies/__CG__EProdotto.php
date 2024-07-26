@@ -7,7 +7,7 @@ namespace Proxies\__CG__;
  */
 class EProdotto extends \EProdotto implements \Doctrine\ORM\Proxy\InternalProxy
 {
-    use \Symfony\Component\VarExporter\LazyGhostTrait {
+     use \Symfony\Component\VarExporter\LazyGhostTrait {
         initializeLazyObject as __load;
         setLazyObjectAsInitialized as public __setInitialized;
         isLazyObjectInitialized as private;
@@ -43,7 +43,7 @@ class EProdotto extends \EProdotto implements \Doctrine\ORM\Proxy\InternalProxy
         'resi' => [parent::class, 'resi', null],
         'rimborsi' => [parent::class, 'rimborsi', null],
         'venditore' => [parent::class, 'venditore', null],
-    ];
+    ];
 
     public function __isInitialized(): bool
     {

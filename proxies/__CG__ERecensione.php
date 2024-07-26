@@ -7,7 +7,7 @@ namespace Proxies\__CG__;
  */
 class ERecensione extends \ERecensione implements \Doctrine\ORM\Proxy\InternalProxy
 {
-    use \Symfony\Component\VarExporter\LazyGhostTrait {
+     use \Symfony\Component\VarExporter\LazyGhostTrait {
         initializeLazyObject as __load;
         setLazyObjectAsInitialized as public __setInitialized;
         isLazyObjectInitialized as private;
@@ -28,7 +28,7 @@ class ERecensione extends \ERecensione implements \Doctrine\ORM\Proxy\InternalPr
         'segnalazione' => [parent::class, 'segnalazione', null],
         'testo' => [parent::class, 'testo', null],
         'valutazione' => [parent::class, 'valutazione', null],
-    ];
+    ];
 
     public function __isInitialized(): bool
     {

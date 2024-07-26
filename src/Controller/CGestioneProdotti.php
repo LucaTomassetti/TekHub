@@ -4,7 +4,7 @@ use Doctrine\DBAL\Types\DateTimeTzImmutableType;
 
 class CGestioneProdotti{
     public static function listaProdotti(){
-        session_start();
+        
         $view = new VGestioneProdotti();
         if (CUtente::isLogged()) {
             if($_SESSION['utente'] instanceof EVenditore){
@@ -35,7 +35,7 @@ class CGestioneProdotti{
         }
     }
     public static function addProduct(){
-        session_start();
+        
         $view = new VGestioneProdotti();
         if ($_SERVER['REQUEST_METHOD'] == "GET") {
             if($_SESSION['utente'] instanceof EVenditore){
@@ -111,7 +111,7 @@ class CGestioneProdotti{
         }
     }
     public static function modificaProdotto($productId){
-        session_start();
+        
         $view = new VGestioneProdotti();
         $prodotto_da_modificare = FPersistentManager::getInstance()->find(EProdotto::class, $productId);
         if ($_SERVER['REQUEST_METHOD'] == "GET") {
@@ -183,7 +183,7 @@ class CGestioneProdotti{
         }
     }
     public static function eliminaProdotto($productId){
-        session_start();
+        
         //Elimino prima tutte le immagini legate all'id del prodotto
         //per non avere problemi con le chiavi esterne
         FPersistentManager::getInstance()->deleteAllImages($productId);

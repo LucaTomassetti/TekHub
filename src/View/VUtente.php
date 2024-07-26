@@ -9,6 +9,9 @@ class VUtente{
         $this->smarty = StartSmarty::configuration();
 
     }
+    public function accessUnAuthorized(){
+        $this->smarty->display('accessUnAuthorized.tpl');
+    }
     public function showLoginForm(){
         $this->smarty->display('login.tpl');
     }

@@ -1,11 +1,8 @@
 <?php
 
-use Doctrine\Common\Collections\ArrayCollection;
-
 class CUtente {
     public static function home(){
         $view_home = new VUtente();
-        session_start();
         $array_prodotti = FPersistentManager::getInstance()->getAllProducts();
         $array_categorie = FPersistentManager::getInstance()->getAllCategories();
         /* Per la gestione del carrello
@@ -38,18 +35,25 @@ class CUtente {
             if($utente == null){
                 $view->loginError();
             } else if (password_verify($password, $utente[0]->getPassword())) {
-                if (session_status() == PHP_SESSION_NONE) {
-                    session_start();
-                    $_SESSION['utente'] = $utente[0];
 
-                    if (isset($_COOKIE['auth'])) {
-                        header('Location: /TekHub/utente/home');
-                    } else {
-                        setcookie('auth', base64_encode($utente[0]->getEmail()), time() + (86400 * 30), "/"); // 30 giorni
-                        header('Location: /TekHub/utente/home');
-                    }
+                $_SESSION['utente'] = $utente[0];
+
+                // Salvo il ruolo dell'utente nella sessione in base al tipo di instanza della classe
+                // per poi fare il controllo dei permessi nel CFrontController
+                if($_SESSION['utente'] instanceof EAcquirente){
+                    $_SESSION['role'] = 'acquirente';
+                }else if($_SESSION['utente'] instanceof EVenditore){
+                    $_SESSION['role'] = 'venditore';
+                }
+
+                if (isset($_COOKIE['auth'])) {
+                    header('Location: /TekHub/utente/home');
+                } else {
+                    setcookie('auth', base64_encode($utente[0]->getEmail()), time() + (86400 * 30), "/"); // 30 giorni
+                    header('Location: /TekHub/utente/home');
                 }
                 header('Location: /TekHub/utente/home');
+
             } else {
                 $view->loginError();
             }
@@ -75,7 +79,6 @@ class CUtente {
     }
     
     public static function logout(){
-        session_start();
         session_unset();
         session_destroy();
         header('Location: /TekHub/utente/home');
@@ -119,7 +122,6 @@ class CUtente {
                 if ($array_data['password'] != $array_data['confirm-password']) {
                     $view_register->checkPassSignUp();
                 } else {
-                    session_start();
                     FPersistentManager::getInstance()->insertNewUtente($new_utente);
                     $_SESSION['signUpSuccess'] = true;
                     header('Location: /TekHub/utente/home');
@@ -169,7 +171,6 @@ class CUtente {
     }
     public static function deleteAccount()
     {
-        session_start();
         $utente = $_SESSION['utente'];
         FPersistentManager::getInstance()->deleteUtente($utente);
         session_unset();
@@ -186,7 +187,6 @@ class CUtente {
         }
     }
     public static function changePass() {
-        session_start();
         $view = new VUtente();
         if ($_SERVER['REQUEST_METHOD'] == "GET") {
             if($_SESSION['utente'] instanceof EAcquirente){
@@ -235,7 +235,6 @@ class CUtente {
 
     public static function changeUserData()
     {
-        session_start();
         $view = new VUtente();
         if ($_SERVER['REQUEST_METHOD'] == "GET") {
             if($_SESSION['utente'] instanceof EAcquirente){

@@ -7,7 +7,7 @@ namespace Proxies\__CG__;
  */
 class EOrdine extends \EOrdine implements \Doctrine\ORM\Proxy\InternalProxy
 {
-    use \Symfony\Component\VarExporter\LazyGhostTrait {
+     use \Symfony\Component\VarExporter\LazyGhostTrait {
         initializeLazyObject as __load;
         setLazyObjectAsInitialized as public __setInitialized;
         isLazyObjectInitialized as private;
@@ -34,7 +34,7 @@ class EOrdine extends \EOrdine implements \Doctrine\ORM\Proxy\InternalProxy
         'q_prodotto_ordine' => [parent::class, 'q_prodotto_ordine', null],
         'quantita_prodotto' => [parent::class, 'quantita_prodotto', null],
         'stato' => [parent::class, 'stato', null],
-    ];
+    ];
 
     public function __isInitialized(): bool
     {

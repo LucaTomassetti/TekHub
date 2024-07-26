@@ -7,7 +7,7 @@ namespace Proxies\__CG__;
  */
 class EAcquirente extends \EAcquirente implements \Doctrine\ORM\Proxy\InternalProxy
 {
-    use \Symfony\Component\VarExporter\LazyGhostTrait {
+     use \Symfony\Component\VarExporter\LazyGhostTrait {
         initializeLazyObject as __load;
         setLazyObjectAsInitialized as public __setInitialized;
         isLazyObjectInitialized as private;
@@ -44,7 +44,7 @@ class EAcquirente extends \EAcquirente implements \Doctrine\ORM\Proxy\InternalPr
         'resi' => [parent::class, 'resi', null],
         'rimborsi' => [parent::class, 'rimborsi', null],
         'username' => [parent::class, 'username', null],
-    ];
+    ];
 
     public function __isInitialized(): bool
     {

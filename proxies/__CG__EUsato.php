@@ -7,7 +7,7 @@ namespace Proxies\__CG__;
  */
 class EUsato extends \EUsato implements \Doctrine\ORM\Proxy\InternalProxy
 {
-    use \Symfony\Component\VarExporter\LazyGhostTrait {
+     use \Symfony\Component\VarExporter\LazyGhostTrait {
         initializeLazyObject as __load;
         setLazyObjectAsInitialized as public __setInitialized;
         isLazyObjectInitialized as private;
@@ -49,7 +49,7 @@ class EUsato extends \EUsato implements \Doctrine\ORM\Proxy\InternalProxy
         'resi' => ['EProdotto', 'resi', null],
         'rimborsi' => ['EProdotto', 'rimborsi', null],
         'venditore' => ['EProdotto', 'venditore', null],
-    ];
+    ];
 
     public function __isInitialized(): bool
     {
