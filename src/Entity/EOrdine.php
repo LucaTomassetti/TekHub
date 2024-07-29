@@ -16,6 +16,9 @@ class EOrdine{
     #[ORM\Column(type: 'datetime')]
     private $data;
 
+    #[ORM\Column(type: 'boolean')]
+    private $is_preso_in_carico;
+
     #[ORM\Column(type: 'string', length:50, columnDefinition: 'VARCHAR(50)')]
     private $stato;
 
@@ -189,11 +192,9 @@ class EOrdine{
     /**
      * Set the value of carta_ordine
      */
-    public function setCartaOrdine(?ECartaDiCredito $carta_ordine): self
+    public function setCartaOrdine(?ECartaDiCredito $carta_ordine)
     {
         $this->carta_ordine = $carta_ordine;
-
-        return $this;
     }
 
     /**
@@ -207,11 +208,25 @@ class EOrdine{
     /**
      * Set the value of q_prodotto_ordine
      */
-    public function setQProdottoOrdine(Collection $q_prodotto_ordine): self
+    public function setQProdottoOrdine(Collection $q_prodotto_ordine)
     {
         $this->q_prodotto_ordine = $q_prodotto_ordine;
+    }
 
-        return $this;
+    /**
+     * Get the value of is_preso_in_carico
+     */
+    public function getIsPresoInCarico()
+    {
+        return $this->is_preso_in_carico;
+    }
+
+    /**
+     * Set the value of is_preso_in_carico
+     */
+    public function setIsPresoInCarico($is_preso_in_carico)
+    {
+        $this->is_preso_in_carico = $is_preso_in_carico;
     }
 }
 ?>
