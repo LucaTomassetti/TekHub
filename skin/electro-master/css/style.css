@@ -1141,10 +1141,11 @@ border-color: black;
 }
 
 .product .product-img>img {
-  padding:5px;
-  width: 265px;
-  height: 265px;
-  object-fit: cover;
+  padding:10px;
+  width: 350px;
+  height: 350px;
+  object-fit:scale-down;
+  overflow: hidden;
 }
 
 .product .product-img .product-label {
