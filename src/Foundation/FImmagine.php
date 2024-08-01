@@ -22,7 +22,16 @@ class FImmagine extends EntityRepository {
             WHERE immagine.prodotto = ?1";
         $query = getEntityManager()->createQuery($dql);
         $query->setParameter(1, $prodotto);
-        return $query->getArrayResult();
+        $tmp_immagini = $query->getArrayResult();
+        foreach($tmp_immagini as $immagine){
+            //Poiché $array_immagini[0]['imageData'] contiene l'id della Risorsa, uso
+            //la funzione stream_get_contents($array_immagini[0]['imageData']) per 
+            //riottenere la stringa base64 memorizzata nel database per poi
+            //assegnarla di nuovo all'array 
+            $immagine['imageData'] = stream_get_contents($immagine['imageData']);
+            $array_immagini[] = $immagine;
+        }
+        return $array_immagini;
     }
     public function getAllObjectImages(EProdotto $prodotto){
         $dql = "SELECT immagine

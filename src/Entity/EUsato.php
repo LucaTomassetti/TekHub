@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass:FUsato::class)]
 #[ORM\Table('p_usato')]
 class EUsato extends EProdotto{
-    #[ORM\Column(type: 'integer', columnDefinition: "DOUBLE(7,2)")]
+    #[ORM\Column(type: 'float', columnDefinition: "DOUBLE(7,2)")]
     private $floor_price;
     
     #[ORM\OneToOne(targetEntity: EAsta::class, inversedBy: 'usato', cascade: ['persist', 'remove'])]

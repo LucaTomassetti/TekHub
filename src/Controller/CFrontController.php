@@ -50,7 +50,8 @@ class CFrontController{
     private function isPublic($controller, $method) {
         // Define your public routes here
         $publicRoutes = [
-            'utente' => ['home', 'login', 'signUp', 'carrello']
+            'utente' => ['home', 'login', 'logout', 'signUp', 'carrello'],
+            'gestioneAcquisto' => ['vediProdotto']
             // Add more public controllers and methods as needed
         ];
 

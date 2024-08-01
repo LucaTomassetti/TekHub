@@ -31,7 +31,7 @@
                 </div>
 
                 <div class="form-group">
-                <label for="images">Aggiungi un massimo di 10 immagini:</label>
+                <label for="images">Aggiungi un massimo di 5 immagini:</label>
                     <input id="images" name="images[]" type="file" multiple required>
                 </div>
 
@@ -40,7 +40,7 @@
 
                 <div class="form-group price-for-new">
                     <label for="price">Prezzo</label>
-                    <input type="text" name="prezzo-nuovo" id="pricefornew" min="1" step="0.01" placeholder="€####">
+                    <input type="number" name="prezzo-nuovo" id="pricefornew" min="1" step="0.01" placeholder="€####">
                 </div>
             </div>
 
@@ -104,7 +104,13 @@
 
     input.addEventListener('change', () => {
         const files = Array.from(input.files);
-        imageArray = files;
+        if (files.length + imageArray.length > 5) {
+            alert('Puoi caricare un massimo di 5 immagini.');
+            input.value = ''; // Resetta il campo file input
+            return;
+        }
+
+        imageArray = imageArray.concat(files);
 
         updateImagePreview();
         updateInputFiles();

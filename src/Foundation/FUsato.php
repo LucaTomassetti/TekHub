@@ -1,6 +1,6 @@
 <?php
 use Doctrine\ORM\EntityRepository;
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\ORM\Query\Parameter;
 
 class FUsato extends EntityRepository {
@@ -9,21 +9,26 @@ class FUsato extends EntityRepository {
         $em->persist($prodotto);
         $em->flush();
     }
-    public function getAllUsedProducts(EVenditore $venditore){
-        $dql = "SELECT DISTINCT usato.id_prodotto, usato.nome, categoria.nome_categoria, usato.floor_price 
-            FROM EUsato usato 
-            JOIN usato.category_name categoria
-            WHERE usato.venditore = ?1";
-        $query = getEntityManager()->createQuery($dql);
-        $query->setParameter(1, $venditore);
-        return $query->getResult();
-    }
-    public function getAllProducts(){
-        $dql = "SELECT usato.id_prodotto, usato.nome, usato.floor_price, categoria.nome_categoria
+    
+    public function getAllUsedSameCatProd($categoria, $currentPage = 1, $pageSize = 4){
+        $dql = "SELECT usato
                 FROM EUsato usato
-                JOIN usato.category_name categoria";
-        $query = getEntityManager()->createQuery($dql);
-        return $query->getResult();
+                JOIN usato.category_name categoria
+                WHERE usato.category_name = ?1";
+        $query = getEntityManager()->createQuery($dql)
+        ->setParameter(1, $categoria)
+        ->setFirstResult(($currentPage - 1) * $pageSize)
+        ->setMaxResults($pageSize);
+
+        $paginator = new Paginator($query, fetchJoinCollection: true);
+
+        return [
+        'prodotti' => iterator_to_array($paginator),
+        'n_prodotti' => count($paginator),
+        'currentPage' => $currentPage,
+        'pageSize' => $pageSize,
+        'totalPages' => ceil(count($paginator) / $pageSize)
+        ];
     }
     public function updateProdottoUsato(EUsato $prodotto, $array_data){
         $em = getEntityManager();

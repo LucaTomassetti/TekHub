@@ -17,6 +17,7 @@ class VUtente{
     }
     public function loginSuccessAcquirente($array_prodotti, $array_categorie){
         $this->smarty->assign('errore_log', 0);
+        $this->smarty->assign('search_bar', 1);
         $this->smarty->assign('check_login', 1);
         $this->smarty->assign('check_login_acquirente', 1);
         $this->smarty->assign('array_categorie', $array_categorie);
@@ -41,6 +42,7 @@ class VUtente{
     }
     public function logout($array_prodotti, $array_categorie){
         $this->smarty->assign('check_login', 0);
+        $this->smarty->assign('search_bar', 1);
         $this->smarty->assign('array_categorie', $array_categorie);
         $this->smarty->assign('array_prodotti', $array_prodotti);
         $this->smarty->assign('signUpSuccess', 0);

@@ -29,7 +29,7 @@
             </div>
 
             <div class="form-group">
-                <label for="images">Aggiungi al massimo 10 immagini (le immagini attuali saranno eliminate) :</label>
+                <label for="images">Aggiungi al massimo 5 immagini (le immagini attuali saranno eliminate) :</label>
                     <input id="images" name="images[]" type="file" multiple>
             </div>
 
@@ -56,7 +56,7 @@
 
                 {if $isProdottoNuovo == 1}
                 <label for="quantity">Quantità</label>
-                <input type="number" name="quantita_disp" value={$quantita_disp} min="1" step="1" id="quantita_disp" required>
+                <input type="number" name="quantita_disp" value={$quantita_disp} min="0" step="1" id="quantita_disp" required>
                 {/if}
                 <label for="color">Colore</label>
                 <input type="text" name="colore" id="color" value="{$colore}" required>
@@ -70,7 +70,7 @@
             {elseif $isProdottoNuovo == 0}
                 <div class="form-group">
                     <label for="starting_price">Prezzo di partenza</label>
-                    <input type="text" id="prezzo-asta" value={$floor_price} min="1" step="0.01" disabled>
+                    <input type="number" id="prezzo-asta" value={$floor_price} min="1" step="0.01" disabled>
                 </div>
                 <div class="form-group">
                     <label for="auction_date">Data inizio asta</label>
@@ -94,7 +94,13 @@ let imageArray = [];
 
 input.addEventListener('change', () => {
     const files = Array.from(input.files);
-    imageArray = files;
+    if (files.length + imageArray.length > 5) {
+            alert('Puoi caricare un massimo di 5 immagini.');
+            input.value = ''; // Resetta il campo file input
+            return;
+        }
+
+    imageArray = imageArray.concat(files);
 
     updateImagePreview();
     updateInputFiles();

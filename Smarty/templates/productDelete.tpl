@@ -1,4 +1,4 @@
-<form id="formProd" method="POST" action="/TekHub/gestioneProdotti/eliminaProdotto/{$prodotto.id_prodotto}">
+<form id="formProd" method="POST" action="/TekHub/gestioneProdotti/eliminaProdotto/{$prodotto->getIdProdotto()}">
     <div id="confirmationProdPopup" class="popup">
         <div class="popup-content">
             <h2>Conferma eliminazione prodotto</h2>

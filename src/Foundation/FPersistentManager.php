@@ -199,29 +199,54 @@ class FPersistentManager{
             getEntityManager()->getRepository('EUsato')->updateProdottoUsato($prodotto, $array_data);
         } 
     }
-    public function getAllNewProducts($venditore){
-        return getEntityManager()->getRepository('ENuovo')->getAllNewProducts($venditore);
+    public function getAllProducts($venditore, $currentPage){
+        return getEntityManager()->getRepository('EProdotto')->getAllProducts($venditore, $currentPage);
     }
-    public function getAllUsedProducts($venditore){
-        return getEntityManager()->getRepository('EUsato')->getAllUsedProducts($venditore);
+    public function getAllNewSameCatProd($categoria, $currentPage){
+        return getEntityManager()->getRepository('ENuovo')->getAllNewSameCatProd($categoria, $currentPage);
     }
-    public function getAllProducts(){
-        $all_prodotti_nuovi = getEntityManager()->getRepository('ENuovo')->getAllProducts();
-        $all_prodotti_usati = getEntityManager()->getRepository('EUsato')->getAllProducts();
-        $all_prodotti = array_merge($all_prodotti_nuovi, $all_prodotti_usati);
-        for($i = 0; $i < sizeof($all_prodotti); $i++){
-            $prod_item = FPersistentManager::getInstance()->find(EProdotto::class,$all_prodotti[$i]['id_prodotto']);
-            $array_immagini = FPersistentManager::getInstance()->getAllImages($prod_item);
-            foreach($array_immagini as $immagine){
-                //Poiché $array_immagini[0]['imageData'] contiene l'id della Risorsa, uso
-                //la funzione stream_get_contents($array_immagini[0]['imageData']) per 
-                //riottenere la stringa base64 memorizzata nel database per poi
-                //assegnarla di nuovo all'array 
-                $immagine['imageData'] = stream_get_contents($immagine['imageData']);
-                $all_prodotti[$i]['images'] = $immagine;
+    public function getAllUsedSameCatProd($categoria, $currentPage){
+        return getEntityManager()->getRepository('EUsato')->getAllUsedSameCatProd($categoria, $currentPage);
+    }
+    public function getAllSameCatProducts($categoria, $id_prodotto, $currentPage){
+        $prod = FPersistentManager::getInstance()->find(EProdotto::class, $id_prodotto);
+        if($prod instanceof ENuovo){
+            $all_prodotti_nuovi = FPersistentManager::getInstance()->getAllNewSameCatProd($categoria, $currentPage);
+            foreach($all_prodotti_nuovi['prodotti'] as $key => $prodotto_nuovo){
+                if($prodotto_nuovo->getIdProdotto() == $id_prodotto){
+                    unset($all_prodotti_nuovi['prodotti'][$key]);
+                }
             }
-        } 
-        return $all_prodotti;
+            // Riorganizzo l'array visto che ho un buco in quello originale
+            $all_prodotti_nuovi['prodotti'] = array_values($all_prodotti_nuovi['prodotti']);
+            return $all_prodotti_nuovi;
+        } else if ($prod instanceof EUSato){
+            $all_prodotti_usati = FPersistentManager::getInstance()->getAllUsedSameCatProd($categoria, $currentPage);
+            foreach($all_prodotti_usati['prodotti'] as $key => $prodotto_usato){
+                if($prodotto_usato->getIdProdotto() == $id_prodotto){
+                    unset($all_prodotti_usati['prodotti'][$key]);
+                }
+            }
+            // Riorganizzo l'array visto che ho un buco in quello originale
+            $all_prodotti_usati['prodotti'] = array_values($all_prodotti_usati['prodotti']);
+            return $all_prodotti_usati;
+        }
+    }
+    public function getLatestNewProducts(){
+        return getEntityManager()->getRepository('ENuovo')->getLatestNewProducts();
+    }
+    public function getLatestProductsHome(){
+
+        $array_prodotti = FPersistentManager::getInstance()->getLatestNewProducts();
+    
+        for($i = 0; $i < sizeof($array_prodotti); $i++){
+            $prod_item = FPersistentManager::getInstance()->find(EProdotto::class,$array_prodotti[$i]['id_prodotto']);
+            $array_immagini = FPersistentManager::getInstance()->getAllImages($prod_item);
+            foreach($array_immagini as $immagine) {
+                $array_prodotti[$i]['images'] = $immagine;
+            }
+        }
+        return $array_prodotti;
     }
     public function getAllCategories(){
         return getEntityManager()->getRepository('ECategoria')->getAllCategories();

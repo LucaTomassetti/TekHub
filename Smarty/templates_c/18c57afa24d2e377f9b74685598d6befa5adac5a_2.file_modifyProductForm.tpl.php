@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-07-09 18:47:33
+/* Smarty version 5.3.0, created on 2024-08-01 20:39:21
   from 'file:modifyProductForm.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_668d69a536f632_60280854',
+  'unifunc' => 'content_66abd6599f4de8_73845982',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '18c57afa24d2e377f9b74685598d6befa5adac5a' => 
     array (
       0 => 'modifyProductForm.tpl',
-      1 => 1720543330,
+      1 => 1722533763,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_668d69a536f632_60280854 (\Smarty\Template $_smarty_tpl) {
+function content_66abd6599f4de8_73845982 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 if ($_smarty_tpl->getValue('errorImageUpload') == 1) {?>
     <div class="mt-5">
@@ -57,7 +57,7 @@ if ($_smarty_tpl->getValue('errorImageUpload') == 1) {?>
             </div>
 
             <div class="form-group">
-                <label for="images">Aggiungi al massimo 10 immagini (le immagini attuali saranno eliminate) :</label>
+                <label for="images">Aggiungi al massimo 5 immagini (le immagini attuali saranno eliminate) :</label>
                     <input id="images" name="images[]" type="file" multiple>
             </div>
 
@@ -96,7 +96,7 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                 <?php if ($_smarty_tpl->getValue('isProdottoNuovo') == 1) {?>
                 <label for="quantity">Quantità</label>
                 <input type="number" name="quantita_disp" value=<?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('quantita_disp')), ENT_QUOTES, 'UTF-8');?>
- min="1" step="1" id="quantita_disp" required>
+ min="0" step="1" id="quantita_disp" required>
                 <?php }?>
                 <label for="color">Colore</label>
                 <input type="text" name="colore" id="color" value="<?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('colore')), ENT_QUOTES, 'UTF-8');?>
@@ -112,7 +112,7 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
             <?php } elseif ($_smarty_tpl->getValue('isProdottoNuovo') == 0) {?>
                 <div class="form-group">
                     <label for="starting_price">Prezzo di partenza</label>
-                    <input type="text" id="prezzo-asta" value=<?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('floor_price')), ENT_QUOTES, 'UTF-8');?>
+                    <input type="number" id="prezzo-asta" value=<?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('floor_price')), ENT_QUOTES, 'UTF-8');?>
  min="1" step="0.01" disabled>
                 </div>
                 <div class="form-group">
@@ -140,7 +140,13 @@ let imageArray = [];
 
 input.addEventListener('change', () => {
     const files = Array.from(input.files);
-    imageArray = files;
+    if (files.length + imageArray.length > 5) {
+            alert('Puoi caricare un massimo di 5 immagini.');
+            input.value = ''; // Resetta il campo file input
+            return;
+        }
+
+    imageArray = imageArray.concat(files);
 
     updateImagePreview();
     updateInputFiles();

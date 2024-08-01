@@ -17,8 +17,10 @@
             </div>
             <!-- /LOGO -->
 
+            
             <!-- SEARCH BAR -->
             <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+            {if $search_bar == 1}
                 <div class="header-search">
                     <form>
                         <select class="input-select">
@@ -30,6 +32,7 @@
                         <button class="search-btn">Cerca</button>
                     </form>
                 </div>
+            {/if}
             </div>
             <!-- /SEARCH BAR -->
 

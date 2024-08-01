@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-07-09 18:47:23
+/* Smarty version 5.3.0, created on 2024-08-01 20:39:13
   from 'file:userDataSection.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_668d699b70d0a2_35165788',
+  'unifunc' => 'content_66abd651c7dca4_52096767',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -21,7 +21,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:accountDelete.tpl' => 1,
   ),
 ))) {
-function content_668d699b70d0a2_35165788 (\Smarty\Template $_smarty_tpl) {
+function content_66abd651c7dca4_52096767 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 if ($_smarty_tpl->getValue('changepasswordsucces') == 1) {?>
     <div class="mt-5">

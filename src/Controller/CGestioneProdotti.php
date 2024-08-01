@@ -6,26 +6,17 @@ class CGestioneProdotti{
     public static function listaProdotti(){
         
         $view = new VGestioneProdotti();
+        if (!isset($_GET['page'])) {
+            // Redirect to the same URL with ?page=1
+            $url = $_SERVER['REQUEST_URI'];
+            $url = rtrim('?', $url);
+            $url .= '?page=1';
+            header("Location: $url");
+        }
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         if (CUtente::isLogged()) {
             if($_SESSION['utente'] instanceof EVenditore){
-                $array_prodotti_nuovi = FPersistentManager::getInstance()->getAllNewProducts($_SESSION['utente']);
-                $array_prodotti_usati = FPersistentManager::getInstance()->getAllUsedProducts($_SESSION['utente']);
-                $array_prodotti = array_merge($array_prodotti_nuovi, $array_prodotti_usati);
-                unset($array_prodotti_nuovi);
-                unset($array_prodotti_usati);
-
-                for($i = 0; $i < sizeof($array_prodotti); $i++){
-                    $prod_item = FPersistentManager::getInstance()->find(EProdotto::class,$array_prodotti[$i]['id_prodotto']);
-                    $array_immagini = FPersistentManager::getInstance()->getAllImages($prod_item);
-                    foreach($array_immagini as $immagine){
-                        //Poiché $array_immagini[0]['imageData'] contiene l'id della Risorsa, uso
-                        //la funzione stream_get_contents($array_immagini[0]['imageData']) per 
-                        //riottenere la stringa base64 memorizzata nel database per poi
-                        //assegnarla di nuovo all'array 
-                        $immagine['imageData'] = stream_get_contents($immagine['imageData']);
-                        $array_prodotti[$i]['images'] = $immagine;
-                    }
-                } 
+                $array_prodotti = FPersistentManager::getInstance()->getAllProducts($_SESSION['utente'], $page);
                 $view->listaProdotti($array_prodotti);
             }else {
                 header('Location: /TekHub/utente/home');
@@ -118,11 +109,6 @@ class CGestioneProdotti{
             if($_SESSION['utente'] instanceof EVenditore){
                 $tmp_immagini = FPersistentManager::getInstance()->getAllImages($prodotto_da_modificare);
                 foreach($tmp_immagini as $immagine){
-                    //Poiché $array_immagini[0]['imageData'] contiene l'id della Risorsa, uso
-                    //la funzione stream_get_contents($array_immagini[0]['imageData']) per 
-                    //riottenere la stringa base64 memorizzata nel database per poi
-                    //assegnarla di nuovo all'array 
-                    $immagine['imageData'] = stream_get_contents($immagine['imageData']);
                     $array_immagini[] = $immagine;
                 }
                 $view->modifyProductForm($prodotto_da_modificare, $array_immagini);

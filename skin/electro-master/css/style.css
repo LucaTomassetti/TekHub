@@ -294,6 +294,9 @@ textarea.input {
   flex-wrap: wrap;
   justify-content: space-between;
 }
+.margin-bottom-20{
+  margin-bottom: 20px;
+}
 
 .left-column, .right-column {
   width: 48%;
@@ -393,6 +396,18 @@ textarea.input {
 .alert-success {
   display:block;
   text-align: center;
+}
+.alert-w {
+  padding: 20px;
+  margin: 10px 70px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.alert-warning {
+  color: #856404;
+  background-color: #fff3cd;
+  border-color: #ffeeba;
 }
 .mt-4-c {
   margin-top: 75px;
@@ -1126,7 +1141,10 @@ border-color: black;
 }
 
 .product .product-img>img {
-  width: 100%;
+  padding:5px;
+  width: 265px;
+  height: 265px;
+  object-fit: cover;
 }
 
 .product .product-img .product-label {
@@ -1684,8 +1702,9 @@ border-color: black;
   border: 1px solid #E4E7ED;
 }
 
-#product-imgs .product-preview.slick-current {
+#product-imgs .product-preview.slick-current, #product-imgs .product-preview:hover{
   border-color: #D10024;
+  transition: border-color 1s ease;
 }
 
 #product-imgs .slick-prev {
@@ -1714,6 +1733,30 @@ border-color: black;
 
 .product-preview img {
   width: 100%;
+}
+.product-preview{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.padding-top-20{
+  margin-top: 20px;
+}
+#immagine-principale{
+  padding-right: 40px;
+}
+.thumbnail-image, #immagine-principale {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+#product-main-img {
+  width: 500px;
+  height: 500px;
+}
+.thumbnail-image-container {
+  width: 100px;
+  height: 100px;
 }
 
 /*----------------------------*\
@@ -2035,14 +2078,16 @@ border-color: black;
 
 .reviews-pagination li:hover {
   background-color: #E4E7ED;
-  color: #D10024;
+  color: #FFF;
 }
 
 .reviews-pagination li.active {
   background-color: #D10024;
-  border-color: #D10024;
+  border-color: #E4E7ED;
   color: #FFF;
-  cursor: default;
+}
+.reviews-pagination li.active a:hover {
+  color: #FFF;
 }
 
 .reviews-pagination li a {
@@ -2425,8 +2470,7 @@ border-color: black;
     margin-top: 5px;
   }
   .header-logo {
-    float: none;
-    text-align: center;
+    width: 500px;
   }
   .header-logo .logo {
     display: inline-block;

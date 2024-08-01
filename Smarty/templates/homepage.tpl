@@ -111,7 +111,7 @@
 					<!-- section title -->
 					<div class="col-md-12">
 						<div class="section-title">
-							<h3 class="title">New Products</h3>
+							<h3 class="title">Nuovi prodotti recenti</h3>
 						</div>
 					</div>
 					<!-- /section title -->

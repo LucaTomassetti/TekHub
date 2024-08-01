@@ -38,9 +38,9 @@ class EImmagine{
     public function getEncodedData(){
         if(is_resource($this->imageData)){
             $data = stream_get_contents($this->imageData);
-            return base64_encode($data);
+            return $data;
         }else{
-            return base64_encode($this->imageData);
+            return $this->imageData;
         }
         
     }

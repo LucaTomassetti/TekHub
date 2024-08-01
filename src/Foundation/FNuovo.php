@@ -1,6 +1,6 @@
 <?php
 use Doctrine\ORM\EntityRepository;
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\ORM\Query\Parameter;
 
 class FNuovo extends EntityRepository {
@@ -9,20 +9,33 @@ class FNuovo extends EntityRepository {
         $em->persist($prodotto);
         $em->flush();
     }
-    public function getAllNewProducts(EVenditore $venditore){
-        $dql = "SELECT DISTINCT nuovo.id_prodotto, nuovo.nome, categoria.nome_categoria, nuovo.prezzo_fisso 
-            FROM ENuovo nuovo 
-            JOIN nuovo.category_name categoria
-            WHERE nuovo.venditore = ?1";
-        $query = getEntityManager()->createQuery($dql);
-        $query->setParameter(1, $venditore);
-        return $query->getResult();
+    public function getAllNewSameCatProd($categoria, $currentPage = 1, $pageSize = 4){
+        $dql = "SELECT nuovo
+                FROM ENuovo nuovo
+                JOIN nuovo.category_name categoria
+                WHERE nuovo.category_name = ?1";
+        $query = getEntityManager()->createQuery($dql)
+        ->setParameter(1, $categoria)
+        ->setFirstResult(($currentPage - 1) * $pageSize)
+        ->setMaxResults($pageSize);
+
+        $paginator = new Paginator($query, fetchJoinCollection: true);
+
+        return [
+        'prodotti' => iterator_to_array($paginator),
+        'n_prodotti' => count($paginator),
+        'currentPage' => $currentPage,
+        'pageSize' => $pageSize,
+        'totalPages' => ceil(count($paginator) / $pageSize)
+        ];
     }
-    public function getAllProducts(){
+    public function getLatestNewProducts(){
         $dql = "SELECT nuovo.id_prodotto, nuovo.nome, nuovo.prezzo_fisso, categoria.nome_categoria
                 FROM ENuovo nuovo
-                JOIN nuovo.category_name categoria";
-        $query = getEntityManager()->createQuery($dql);
+                JOIN nuovo.category_name categoria
+                ORDER BY nuovo.id_prodotto DESC";
+        $query = getEntityManager()->createQuery($dql)
+        ->setMaxResults(4);
         return $query->getResult();
     }
     public function updateProdottoNuovo(ENuovo $prodotto, $array_data){

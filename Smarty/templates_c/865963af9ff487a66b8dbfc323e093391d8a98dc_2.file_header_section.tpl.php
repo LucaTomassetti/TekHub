@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-07-26 10:11:53
+/* Smarty version 5.3.0, created on 2024-08-01 20:39:13
   from 'file:header_section.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66a35a496e6e22_36237524',
+  'unifunc' => 'content_66abd651b889b2_98253042',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '865963af9ff487a66b8dbfc323e093391d8a98dc' => 
     array (
       0 => 'header_section.tpl',
-      1 => 1721980396,
+      1 => 1722524614,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66a35a496e6e22_36237524 (\Smarty\Template $_smarty_tpl) {
+function content_66abd651b889b2_98253042 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?><!-- HEADER -->
 <header>
@@ -41,16 +41,18 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
             </div>
             <!-- /LOGO -->
 
+            
             <!-- SEARCH BAR -->
             <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+            <?php if ($_smarty_tpl->getValue('search_bar') == 1) {?>
                 <div class="header-search">
                     <form>
                         <select class="input-select">
                         <?php
 $_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('array_categorie'), 'categoria');
-$foreach1DoElse = true;
+$foreach0DoElse = true;
 foreach ($_from ?? [] as $_smarty_tpl->getVariable('categoria')->value) {
-$foreach1DoElse = false;
+$foreach0DoElse = false;
 ?>
                             <option value="<?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('categoria')['nome_categoria']), ENT_QUOTES, 'UTF-8');?>
 "><?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('categoria')['nome_categoria']), ENT_QUOTES, 'UTF-8');?>
@@ -63,6 +65,7 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                         <button class="search-btn">Cerca</button>
                     </form>
                 </div>
+            <?php }?>
             </div>
             <!-- /SEARCH BAR -->
 
