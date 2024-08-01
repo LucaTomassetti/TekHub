@@ -9,7 +9,7 @@ class VGestioneProdotti{
         $this->smarty = StartSmarty::configuration();
 
     }
-    public function listaProdotti($array_prodotti){
+    public function listaProdotti($array_prodotti, $product_added, $product_modified, $product_deleted){
         $this->smarty->assign('array_prodotti', $array_prodotti);
         $this->smarty->assign('check_login_venditore', 1);
         $this->smarty->assign('check_login', 1);
@@ -17,15 +17,7 @@ class VGestioneProdotti{
         $this->smarty->assign('addedProductSuccess', 0);
         $this->smarty->assign('modifiedProductSuccess', 0);
         $this->smarty->assign('deletedProductSuccess', 0);
-        // Verifica se il messaggio di successo è presente nella sessione
-        $product_added = isset($_SESSION['product_added']) && $_SESSION['product_added'];
-        $product_modified = isset($_SESSION['product_modified']) && $_SESSION['product_modified'];
-        $product_deleted = isset($_SESSION['product_deleted']) && $_SESSION['product_deleted'];
 
-        // Rimuovi il messaggio di successo dalla sessione
-        unset($_SESSION['product_added']);
-        unset($_SESSION['product_modified']);
-        unset($_SESSION['product_deleted']);
         // Controlla se il metodo è stato chiamato dalla form per aggiungere un prodotto
         if ($product_added) {
             $this->smarty->assign('addedProductSuccess', 1);

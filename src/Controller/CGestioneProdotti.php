@@ -6,6 +6,16 @@ class CGestioneProdotti{
     public static function listaProdotti(){
         
         $view = new VGestioneProdotti();
+        // Verifica se ci sono messaggi di successo nella sessione
+        $product_added = isset($_SESSION['product_added']) && $_SESSION['product_added'];
+        $product_modified = isset($_SESSION['product_modified']) && $_SESSION['product_modified'];
+        $product_deleted = isset($_SESSION['product_deleted']) && $_SESSION['product_deleted'];
+        
+        // Rimuovi i messaggi di successo dalla sessione
+        unset($_SESSION['product_added']);
+        unset($_SESSION['product_modified']);
+        unset($_SESSION['product_deleted']);
+
         if (!isset($_GET['page'])) {
             // Redirect to the same URL with ?page=1
             $url = $_SERVER['REQUEST_URI'];
@@ -17,7 +27,7 @@ class CGestioneProdotti{
         if (CUtente::isLogged()) {
             if($_SESSION['utente'] instanceof EVenditore){
                 $array_prodotti = FPersistentManager::getInstance()->getAllProducts($_SESSION['utente'], $page);
-                $view->listaProdotti($array_prodotti);
+                $view->listaProdotti($array_prodotti, $product_added, $product_modified, $product_deleted);
             }else {
                 header('Location: /TekHub/utente/home');
             }
@@ -98,7 +108,7 @@ class CGestioneProdotti{
                 FPersistentManager::getInstance()->updateVendAsta($found_prodotto, $found_venditore);
             }
             $_SESSION['product_added'] = true;
-            header('Location: /TekHub/gestioneProdotti/listaProdotti');
+            header('Location: /TekHub/gestioneProdotti/listaProdotti?page=1');
         }
     }
     public static function modificaProdotto($productId){
@@ -165,7 +175,7 @@ class CGestioneProdotti{
             }
 
             $_SESSION['product_modified'] = true;
-            header('Location: /TekHub/gestioneProdotti/listaProdotti');
+            header('Location: /TekHub/gestioneProdotti/listaProdotti?page=1');
         }
     }
     public static function eliminaProdotto($productId){
@@ -175,7 +185,7 @@ class CGestioneProdotti{
         FPersistentManager::getInstance()->deleteAllImages($productId);
         FPersistentManager::getInstance()->deleteProdotto($productId);
         $_SESSION['product_deleted'] = true;
-        header('Location: /TekHub/gestioneProdotti/listaProdotti');
+        header('Location: /TekHub/gestioneProdotti/listaProdotti?page=1');
     }
     
 }

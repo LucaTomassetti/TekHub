@@ -1,20 +1,20 @@
 {if $addedProductSuccess == 1}
     <div class="mt-5">
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-success">
             Aggiunta del prodotto avvenuta con successo!
         </div>
     </div>
 {/if}
 {if $modifiedProductSuccess == 1}
     <div class="mt-5">
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-success">
             Modifica del prodotto avvenuta con successo!
         </div>
     </div>
 {/if}
 {if $deletedProductSuccess == 1}
     <div class="mt-5">
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-success">
             Eliminazione del prodotto avvenuta con successo!
         </div>
     </div>

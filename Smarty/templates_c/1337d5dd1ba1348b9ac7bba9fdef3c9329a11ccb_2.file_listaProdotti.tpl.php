@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-08-01 20:39:16
+/* Smarty version 5.3.0, created on 2024-08-01 22:56:05
   from 'file:listaProdotti.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66abd654943178_70335375',
+  'unifunc' => 'content_66abf6653abc67_14808141',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '1337d5dd1ba1348b9ac7bba9fdef3c9329a11ccb' => 
     array (
       0 => 'listaProdotti.tpl',
-      1 => 1722537513,
+      1 => 1722545758,
       2 => 'file',
     ),
   ),
@@ -21,25 +21,25 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:productDelete.tpl' => 1,
   ),
 ))) {
-function content_66abd654943178_70335375 (\Smarty\Template $_smarty_tpl) {
+function content_66abf6653abc67_14808141 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 if ($_smarty_tpl->getValue('addedProductSuccess') == 1) {?>
     <div class="mt-5">
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-success">
             Aggiunta del prodotto avvenuta con successo!
         </div>
     </div>
 <?php }
 if ($_smarty_tpl->getValue('modifiedProductSuccess') == 1) {?>
     <div class="mt-5">
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-success">
             Modifica del prodotto avvenuta con successo!
         </div>
     </div>
 <?php }
 if ($_smarty_tpl->getValue('deletedProductSuccess') == 1) {?>
     <div class="mt-5">
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-success">
             Eliminazione del prodotto avvenuta con successo!
         </div>
     </div>
