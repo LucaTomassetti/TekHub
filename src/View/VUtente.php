@@ -22,6 +22,10 @@ class VUtente{
         }
         return $cont;
     }
+    public function accessDenied()
+    {
+        $this->smarty->display('accessDenied.tpl');
+    }
     public function accessUnAuthorized(){
         $this->smarty->display('accessUnAuthorized.tpl');
     }

@@ -9,14 +9,18 @@ class CUtente {
         if (!isset($_COOKIE['cart'])) {
             setcookie('cart', json_encode([]), time() + (86400 * 30), "/"); // 30 giorni
         }
-        if (static::isLogged()) {
-            if($_SESSION['utente'] instanceof EAcquirente){
-                $view_home->loginSuccessAcquirente($array_prodotti, $array_categorie);
-            }else if($_SESSION['utente'] instanceof EVenditore){
-                $view_home->loginSuccessVenditore();
+        if(isset($_SESSION['role']) && $_SESSION['role'] == "utente_bloccato"){
+            $view_home->accessDenied();
+        }else{
+            if (static::isLogged()) {
+                if($_SESSION['utente'] instanceof EAcquirente){
+                    $view_home->loginSuccessAcquirente($array_prodotti, $array_categorie);
+                }else if($_SESSION['utente'] instanceof EVenditore){
+                    $view_home->loginSuccessVenditore();
+                }
+            } else {
+                $view_home->logout($array_prodotti, $array_categorie);
             }
-        } else {
-            $view_home->logout($array_prodotti, $array_categorie);
         }
     }
     public static function login(){
@@ -41,6 +45,7 @@ class CUtente {
                 // per poi fare il controllo dei permessi nel CFrontController
                 if($_SESSION['utente'] instanceof EAcquirente){
                     $_SESSION['role'] = 'acquirente';
+                    // Per testare gli utenti bloccati dall'admin : $_SESSION['role'] = 'utente_bloccato';
                 }else if($_SESSION['utente'] instanceof EVenditore){
                     $_SESSION['role'] = 'venditore';
                 }

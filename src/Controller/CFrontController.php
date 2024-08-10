@@ -26,7 +26,11 @@ class CFrontController{
                         // L'utente loggato non ha i permessi per accedere a questo metodo
                         http_response_code(403); //codice per accesso non autorizzato
                         $view = new VUtente();
-                        $view->accessUnAuthorized();
+                        if($_SESSION['role'] == "utente_bloccato"){
+                            $view->accessDenied();
+                        }else{
+                            $view->accessUnAuthorized();
+                        }
                         exit;
                     }
                 }
@@ -54,6 +58,11 @@ class CFrontController{
             'gestioneAcquisto' => ['vediProdotto', 'aggiungiAlCarrello']
             // Add more public controllers and methods as needed
         ];
+        if(isset($_SESSION['role']) && $_SESSION['role'] == "utente_bloccato"){
+            $publicRoutes = [
+                'utente' => ['home', 'login', 'logout'],
+            ];
+        }
 
         return isset($publicRoutes[$controller]) && in_array($method, $publicRoutes[$controller]);
     }
@@ -72,6 +81,10 @@ class CFrontController{
             'venditore' => [
                 'utente' => ['logout', 'userDataForm', 'userDataSection', 'deleteAccount', 'changePass', 'changeUserData'],
                 'gestioneProdotti' => ['listaProdotti', 'addProduct', 'modificaProdotto', 'eliminaProdotto'],
+                // Add more controllers and methods for venditore
+            ],
+            'utente_bloccato' => [
+                'utente' => ['home', 'login', 'logout'],
                 // Add more controllers and methods for venditore
             ],
             // Add more roles as needed
