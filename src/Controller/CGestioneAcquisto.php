@@ -17,5 +17,33 @@ class CGestioneAcquisto{
         $immagini = FPersistentManager::getInstance()->getAllImages($prod);
         $view->vediProdotto($prod, $immagini, $same_cat_products);
     }
+    public static function aggiungiAlCarrello($idProdotto)
+    {
+        if (!(isset($_COOKIE['cart']))) {
+            setcookie('cart', 0, time() + (86400 * 30), "/"); // 30 giorni
+        }
+        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+            $quantita = 1;
+        } else {
+            $quantita = $_POST['quantity'];
+        }
+        $carrello = json_decode($_COOKIE['cart'], true);
+        if (!(empty($carrello)) || array_key_exists($idProdotto, $carrello)) {
+            $carrello[$idProdotto] += $quantita;
+        } else {
+            $carrello[$idProdotto] = $quantita;
+        }
+        $found_prodotto = FPersistentManager::getInstance()->find(EProdotto::class, $idProdotto);
+        $quantita_massima = $found_prodotto->getQuantitaDisp();
+        if($carrello[$idProdotto] > $quantita_massima) {
+            $carrello[$idProdotto] = $quantita_massima;
+            $_SESSION['q_max_raggiunta'] = true;
+        }
+        json_encode($carrello);
+        setcookie('cart', json_encode($carrello), time() + (86400 * 30), "/");
+
+        $_SESSION['added_to_cart'] = isset($_SESSION['q_max_raggiunta']) && $_SESSION['q_max_raggiunta'] ? false : true;
+        header('Location: /TekHub/utente/home');
+    }
 
 }

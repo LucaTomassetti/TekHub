@@ -51,7 +51,7 @@ class CFrontController{
         // Define your public routes here
         $publicRoutes = [
             'utente' => ['home', 'login', 'logout', 'signUp', 'carrello'],
-            'gestioneAcquisto' => ['vediProdotto']
+            'gestioneAcquisto' => ['vediProdotto', 'aggiungiAlCarrello']
             // Add more public controllers and methods as needed
         ];
 

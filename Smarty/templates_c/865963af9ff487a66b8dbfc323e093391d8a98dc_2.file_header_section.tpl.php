@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-08-01 20:39:13
+/* Smarty version 5.3.0, created on 2024-08-10 22:08:44
   from 'file:header_section.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66abd651b889b2_98253042',
+  'unifunc' => 'content_66b7c8cc28c0b4_46384039',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '865963af9ff487a66b8dbfc323e093391d8a98dc' => 
     array (
       0 => 'header_section.tpl',
-      1 => 1722524614,
+      1 => 1723320399,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66abd651b889b2_98253042 (\Smarty\Template $_smarty_tpl) {
+function content_66b7c8cc28c0b4_46384039 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?><!-- HEADER -->
 <header>
@@ -95,9 +95,8 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                         <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                             <i class="fas fa-shopping-cart" style="color: #ffffff;"></i>
                             <span>Carrello</span>
-                            <!-- Per visualizzare la quantità
-                            <div class="qty">3</div>
-                            -->
+                            <div class="qty"><?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('cart_quantity')), ENT_QUOTES, 'UTF-8');?>
+</div>
                         </a>
                         <div class="cart-dropdown">
                             <div class="cart-list">

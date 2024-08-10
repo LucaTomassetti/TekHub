@@ -5,11 +5,10 @@ class CUtente {
         $view_home = new VUtente();
         $array_prodotti = FPersistentManager::getInstance()->getLatestProductsHome();
         $array_categorie = FPersistentManager::getInstance()->getAllCategories();
-        /* Per la gestione del carrello
-        $array_prodotti = array('prodotto_1'=> new EProdotto('prova','prova',0,0),
-                                'prodotto_2'=> new EProdotto('prova','prova',0,0));
-         $_SESSION['cart'] = $array_prodotti;
-        */
+        
+        if (!isset($_COOKIE['cart'])) {
+            setcookie('cart', json_encode([]), time() + (86400 * 30), "/"); // 30 giorni
+        }
         if (static::isLogged()) {
             if($_SESSION['utente'] instanceof EAcquirente){
                 $view_home->loginSuccessAcquirente($array_prodotti, $array_categorie);

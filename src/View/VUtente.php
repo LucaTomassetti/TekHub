@@ -7,7 +7,20 @@ class VUtente{
     public function __construct(){
 
         $this->smarty = StartSmarty::configuration();
+        $this->smarty->assign('cart_quantity', self::countItemCart());
 
+    }
+    public function countItemCart()
+    {
+        if (!(isset($_COOKIE['cart']))) {
+            return 0;
+        }
+        $carrello = json_decode($_COOKIE['cart']);
+        $cont = 0;
+        foreach ($carrello as $id => $quantity) {
+            $cont += $quantity;
+        }
+        return $cont;
     }
     public function accessUnAuthorized(){
         $this->smarty->display('accessUnAuthorized.tpl');
@@ -16,6 +29,18 @@ class VUtente{
         $this->smarty->display('login.tpl');
     }
     public function loginSuccessAcquirente($array_prodotti, $array_categorie){
+        $this->smarty->assign('added_to_cart', 0);
+        $added_to_cart = isset($_SESSION['added_to_cart']) && $_SESSION['added_to_cart'];
+        unset($_SESSION['added_to_cart']);
+        if ($added_to_cart) {
+            $this->smarty->assign('added_to_cart', 1);
+        }
+        $this->smarty->assign('q_max_raggiunta', 0);
+        $q_max_raggiunta = isset($_SESSION['q_max_raggiunta']) && $_SESSION['q_max_raggiunta'];
+        unset($_SESSION['q_max_raggiunta']);
+        if ($q_max_raggiunta) {
+            $this->smarty->assign('q_max_raggiunta', 1);
+        }
         $this->smarty->assign('errore_log', 0);
         $this->smarty->assign('search_bar', 1);
         $this->smarty->assign('check_login', 1);
@@ -41,6 +66,18 @@ class VUtente{
         $this->smarty->display('login.tpl');
     }
     public function logout($array_prodotti, $array_categorie){
+        $this->smarty->assign('added_to_cart', 0);
+        $added_to_cart = isset($_SESSION['added_to_cart']) && $_SESSION['added_to_cart'];
+        unset($_SESSION['added_to_cart']);
+        if ($added_to_cart) {
+            $this->smarty->assign('added_to_cart', 1);
+        }
+        $this->smarty->assign('q_max_raggiunta', 0);
+        $q_max_raggiunta = isset($_SESSION['q_max_raggiunta']) && $_SESSION['q_max_raggiunta'];
+        unset($_SESSION['q_max_raggiunta']);
+        if ($q_max_raggiunta) {
+            $this->smarty->assign('q_max_raggiunta', 1);
+        }
         $this->smarty->assign('check_login', 0);
         $this->smarty->assign('search_bar', 1);
         $this->smarty->assign('array_categorie', $array_categorie);

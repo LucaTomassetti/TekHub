@@ -7,6 +7,7 @@ class VGestioneAcquisto{
     public function __construct(){
 
         $this->smarty = StartSmarty::configuration();
+        $this->smarty->assign('cart_quantity', (new VUtente)->countItemCart());
 
     }
     public function vediProdotto($prodotto, $immagini, $same_cat_products){

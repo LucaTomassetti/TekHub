@@ -46,6 +46,22 @@
 		</div>
 	{/if}
 	
+	{if $added_to_cart == 1}
+        <div class="mt-5">
+            <div class="alert alert-success" role="alert">
+                Prodotto aggiunto nel carrello!
+            </div>
+        </div>
+    {/if}
+
+    {if $q_max_raggiunta == 1}
+        <div class="mt-5">
+            <div class="alert alert-warning" role="alert">
+                Non puoi superare la quantità massima disponibile per ciascun prodotto
+            </div>
+        </div>
+    {/if}
+	
 	{if $check_login_acquirente == 1 || $check_login == 0}
 		<!-- SECTION -->
 		<div class="section">
