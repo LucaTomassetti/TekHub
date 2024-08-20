@@ -6,9 +6,9 @@
     <!-- container -->
     <div class="container-fluid text-center">
         <!-- row -->
-        <div class="row justify-content-evenly">
+        <div class="row">
             <!-- LOGO -->
-            <div class="col-lg-4 col-md-3 col-sm-3 col-xs-2">
+            <div class="col-lg-4 col-md-3">
                 <div class="header-logo">
                     <a href="/TekHub/utente/home" class="logo">
                         <img src="/TekHub/skin/electro-master/img/Logo_TekHub.png" alt="">
@@ -19,7 +19,7 @@
 
             
             <!-- SEARCH BAR -->
-            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+            <div class="col-lg-4 col-md-6 col-sm-9 col-xs-9">
             {if $search_bar == 1}
                 <div class="header-search">
                     <form>
@@ -29,7 +29,7 @@
                         {/foreach}
                         </select>
                         <input class="input" placeholder="Cerca il prodotto...">
-                        <button class="search-btn">Cerca</button>
+                        <button class="search-btn"><i class="fas fa-search"></i></button>
                     </form>
                 </div>
             {/if}
@@ -37,7 +37,7 @@
             <!-- /SEARCH BAR -->
 
             <!-- ACCOUNT -->
-            <div class="col-lg-4 col-md-3 col-sm-3 col-xs-4">
+            <div class="col-lg-4 col-md-3 col-sm-2 col-xs-2">
                 <div class="header-ctn">
                 <!-- My Account -->
                         {if $check_login == 1}

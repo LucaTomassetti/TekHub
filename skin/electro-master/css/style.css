@@ -744,7 +744,7 @@ border-color: black;
 
 .header-search form .search-btn {
   height: 40px;
-  width: 100px;
+  width: 10%;
   background: #D10024;
   color: #FFF;
   font-weight: 700;
@@ -1053,6 +1053,9 @@ border-color: black;
 ===========================================================*/
 
 #hot-deal.section {
+  display: flex;
+  align-items: center;
+  height: 400px;
   padding: 60px 0px;
   margin: 30px 0px;
   background-color: #E4E7ED;
@@ -2446,22 +2449,18 @@ border-color: black;
   margin-left: 0px;
 }
 .header-search form .input {
-  width: calc(100% - 160px);
+  width: 50%;
 }
 
 .header-search form .search-btn {
-  width: 80px;
+  width: 15%;
 }
 .header-search form .input-select {
-  width: 40px;
+  width: 35%;
 }
 }
 
 @media only screen and (max-width: 991px) {
-  .header-search{
-    position: absolute;
-    margin-left: 75px;
-  }
   #top-header .header-links.pull-left {
     float: none !important;
   }
@@ -2470,10 +2469,7 @@ border-color: black;
     margin-top: 5px;
   }
   .header-logo {
-    width: 500px;
-  }
-  .header-logo .logo {
-    display: inline-block;
+    display: none;
   }
   #product-imgs {
     margin-bottom: 60px;
@@ -2496,13 +2492,13 @@ border-color: black;
   .section-tab-nav li {
     margin-top: 10px;
   }
-  .header-search{
+  .header-logo {
     display: none;
   }
 }
 
 @media only screen and (max-width: 480px) {
-  .header-search{
+  .header-logo {
     display: none;
   }
   .store-grid {
