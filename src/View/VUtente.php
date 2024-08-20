@@ -32,7 +32,21 @@ class VUtente{
     public function showLoginForm(){
         $this->smarty->display('login.tpl');
     }
-    public function loginSuccessAcquirente($array_prodotti, $array_categorie){
+    public function loginSuccessAcquirente($array_prodotti, $array_categorie, $array_carrello){
+        $this->smarty->assign('prodotti_carrello', $array_carrello ? $array_carrello : 0);
+        $subtotal = 0;
+        if(!empty($array_carrello)){
+            foreach($array_carrello as $item){
+                $subtotal += $item['prodotto']->getPrezzoFisso() * $item['quantita'];
+            }
+        }
+        $this->smarty->assign('subtotal', $subtotal);
+        $this->smarty->assign('removed_from_cart', 0);
+        $removed_from_cart = isset($_SESSION['removed_from_cart']) && $_SESSION['removed_from_cart'];
+        unset($_SESSION['removed_from_cart']);
+        if ($removed_from_cart) {
+            $this->smarty->assign('removed_from_cart', 1);
+        }
         $this->smarty->assign('added_to_cart', 0);
         $added_to_cart = isset($_SESSION['added_to_cart']) && $_SESSION['added_to_cart'];
         unset($_SESSION['added_to_cart']);
@@ -69,7 +83,21 @@ class VUtente{
         $this->smarty->assign('errore_log', 1);
         $this->smarty->display('login.tpl');
     }
-    public function logout($array_prodotti, $array_categorie){
+    public function logout($array_prodotti, $array_categorie, $array_carrello){
+        $this->smarty->assign('prodotti_carrello', $array_carrello ? $array_carrello : 0);
+        $subtotal = 0;
+        if(!empty($array_carrello)){
+            foreach($array_carrello as $item){
+                $subtotal += $item['prodotto']->getPrezzoFisso() * $item['quantita'];
+            }
+        }
+        $this->smarty->assign('subtotal', $subtotal);
+        $this->smarty->assign('removed_from_cart', 0);
+        $removed_from_cart = isset($_SESSION['removed_from_cart']) && $_SESSION['removed_from_cart'];
+        unset($_SESSION['removed_from_cart']);
+        if ($removed_from_cart) {
+            $this->smarty->assign('removed_from_cart', 1);
+        }
         $this->smarty->assign('added_to_cart', 0);
         $added_to_cart = isset($_SESSION['added_to_cart']) && $_SESSION['added_to_cart'];
         unset($_SESSION['added_to_cart']);

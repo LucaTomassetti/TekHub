@@ -45,5 +45,19 @@ class CGestioneAcquisto{
         $_SESSION['added_to_cart'] = isset($_SESSION['q_max_raggiunta']) && $_SESSION['q_max_raggiunta'] ? false : true;
         header('Location: /TekHub/utente/home');
     }
+    public static function rimuoviDalCarrello($idProdotto){
+        $carrello = json_decode($_COOKIE['cart'], true);
+        unset($carrello[$idProdotto]);
+        json_encode($carrello);
+        setcookie('cart', json_encode($carrello), time() + (86400 * 30), "/");
+        $_SESSION['removed_from_cart'] = true;
+        header('Location: /TekHub/utente/home');
+    }
+    public static function vediCarrello(){
+
+    }
+    public static function effettuaCheckout(){
+
+    }
 
 }

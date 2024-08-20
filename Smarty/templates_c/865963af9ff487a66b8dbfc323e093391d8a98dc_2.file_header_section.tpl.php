@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-08-10 22:08:44
+/* Smarty version 5.3.0, created on 2024-08-20 14:16:26
   from 'file:header_section.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66b7c8cc28c0b4_46384039',
+  'unifunc' => 'content_66c4891a621b55_26234191',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '865963af9ff487a66b8dbfc323e093391d8a98dc' => 
     array (
       0 => 'header_section.tpl',
-      1 => 1723320399,
+      1 => 1724156183,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66b7c8cc28c0b4_46384039 (\Smarty\Template $_smarty_tpl) {
+function content_66c4891a621b55_26234191 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?><!-- HEADER -->
 <header>
@@ -100,35 +100,53 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                         </a>
                         <div class="cart-dropdown">
                             <div class="cart-list">
+                            <?php if ($_smarty_tpl->getValue('prodotti_carrello') != 0) {?>
+                                <?php
+$_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('prodotti_carrello'), 'prodotto');
+$foreach1DoElse = true;
+foreach ($_from ?? [] as $_smarty_tpl->getVariable('prodotto')->value) {
+$foreach1DoElse = false;
+?>
                                 <div class="product-widget">
                                     <div class="product-img">
-                                        <img src="/TekHub/skin/electro-master/img/product01.png" alt="">
+                                        <?php if ((null !== ($_smarty_tpl->getValue('prodotto')['prodotto']->getImmagini()->last()->getImageData() ?? null)) && (null !== ($_smarty_tpl->getValue('prodotto')['prodotto']->getImmagini()->last()->getType() ?? null))) {?>
+                                            <img src="data:<?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('prodotto')['prodotto']->getImmagini()->last()->getType()), ENT_QUOTES, 'UTF-8');?>
+;base64,<?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('prodotto')['prodotto']->getImmagini()->last()->getEncodedData()), ENT_QUOTES, 'UTF-8');?>
+" alt="Immagine">
+                                        <?php } else { ?>
+                                            <p>Immagine non trovata</p>
+                                        <?php }?>  
                                     </div>
                                     <div class="product-body">
-                                        <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                        <h4 class="product-price"><span class="qty">1x</span>€980.00</h4>
+                                        <h3 class="product-name"><?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('prodotto')['prodotto']->getNome()), ENT_QUOTES, 'UTF-8');?>
+</h3>
+                                        <h4 class="product-price"><span class="qty"><?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('prodotto')['quantita']), ENT_QUOTES, 'UTF-8');?>
+x</span>€<?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('prodotto')['prodotto']->getPrezzoFisso()), ENT_QUOTES, 'UTF-8');?>
+</h4>
                                     </div>
-                                    <button class="delete"><i class="fa fa-close"></i></button>
+                                    <form action="/TekHub/gestioneAcquisto/rimuoviDalCarrello/<?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('prodotto')['prodotto']->getIdProdotto()), ENT_QUOTES, 'UTF-8');?>
+">
+                                        <button class="delete"><i class="fas fa-times-circle"></i></button>
+                                    </form>
                                 </div>
-
+                                <?php
+}
+$_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
+                            <?php } else { ?>
                                 <div class="product-widget">
-                                    <div class="product-img">
-                                        <img src="/TekHub/skin/electro-master/img/product02.png" alt="">
-                                    </div>
-                                    <div class="product-body">
-                                        <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                        <h4 class="product-price"><span class="qty">3x</span>€980.00</h4>
-                                    </div>
-                                    <button class="delete"><i class="fa fa-close"></i></button>
+                                    <h5>Non ci sono prodotti nel carrello!</h5>
                                 </div>
+                            <?php }?>
                             </div>
                             <div class="cart-summary">
-                                <small>3 Item(s) selected</small>
-                                <h5>SUBTOTAL: €2940.00</h5>
+                                <small><?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('cart_quantity')), ENT_QUOTES, 'UTF-8');?>
+ prodotti/o selezionati</small>
+                                <h5>SUBTOTAL: €<?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('subtotal')), ENT_QUOTES, 'UTF-8');?>
+</h5>
                             </div>
                             <div class="cart-btns">
-                                <a href="#">Vai al carrello</a>
-                                <a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
+                                <a href="/TekHub/gestioneAcquisto/vediCarrello">Vai al carrello</a>
+                                <a href="/TekHub/gestioneAcquisto/effettuaCheckout">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                     </div>

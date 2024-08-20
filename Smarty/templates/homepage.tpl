@@ -54,6 +54,14 @@
         </div>
     {/if}
 
+	{if $removed_from_cart == 1}
+        <div class="mt-5">
+            <div class="alert alert-success" role="alert">
+                Prodotto rimosso dal carrello!
+            </div>
+        </div>
+    {/if}
+
     {if $q_max_raggiunta == 1}
         <div class="mt-5">
             <div class="alert alert-warning" role="alert">

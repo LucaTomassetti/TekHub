@@ -5,21 +5,29 @@ class CUtente {
         $view_home = new VUtente();
         $array_prodotti = FPersistentManager::getInstance()->getLatestProductsHome();
         $array_categorie = FPersistentManager::getInstance()->getAllCategories();
-        
+        $array_carrello = [];
         if (!isset($_COOKIE['cart'])) {
             setcookie('cart', json_encode([]), time() + (86400 * 30), "/"); // 30 giorni
+        }
+        $carrello = json_decode($_COOKIE['cart'], true);
+        foreach($carrello as $id => $qty){
+            $prod = FPersistentManager::getInstance()->find(ENuovo::class, $id);
+            $array_carrello[] = [
+                'prodotto' => $prod,
+                'quantita' => $qty
+            ];
         }
         if(isset($_SESSION['role']) && $_SESSION['role'] == "utente_bloccato"){
             $view_home->accessDenied();
         }else{
             if (static::isLogged()) {
                 if($_SESSION['utente'] instanceof EAcquirente){
-                    $view_home->loginSuccessAcquirente($array_prodotti, $array_categorie);
+                    $view_home->loginSuccessAcquirente($array_prodotti, $array_categorie, $array_carrello);
                 }else if($_SESSION['utente'] instanceof EVenditore){
                     $view_home->loginSuccessVenditore();
                 }
             } else {
-                $view_home->logout($array_prodotti, $array_categorie);
+                $view_home->logout($array_prodotti, $array_categorie, $array_carrello);
             }
         }
     }
@@ -180,15 +188,6 @@ class CUtente {
         session_unset();
         session_destroy();
         header('Location: /TekHub/utente/home');
-    }
-    public static function carrello()
-    {
-        $view_utente = new VUtente();
-        if (static::isLogged()) {
-            $view_utente->carrello();
-        } else {
-            header('Location: /TekHub/utente/login');
-        }
     }
     public static function changePass() {
         $view = new VUtente();

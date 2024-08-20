@@ -66,35 +66,38 @@
                         </a>
                         <div class="cart-dropdown">
                             <div class="cart-list">
+                            {if $prodotti_carrello != 0}
+                                {foreach from=$prodotti_carrello item=prodotto}
                                 <div class="product-widget">
                                     <div class="product-img">
-                                        <img src="/TekHub/skin/electro-master/img/product01.png" alt="">
+                                        {if isset($prodotto['prodotto']->getImmagini()->last()->getImageData()) && isset($prodotto['prodotto']->getImmagini()->last()->getType())}
+                                            <img src="data:{$prodotto['prodotto']->getImmagini()->last()->getType()};base64,{$prodotto['prodotto']->getImmagini()->last()->getEncodedData()}" alt="Immagine">
+                                        {else}
+                                            <p>Immagine non trovata</p>
+                                        {/if}  
                                     </div>
                                     <div class="product-body">
-                                        <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                        <h4 class="product-price"><span class="qty">1x</span>€980.00</h4>
+                                        <h3 class="product-name">{$prodotto['prodotto']->getNome()}</h3>
+                                        <h4 class="product-price"><span class="qty">{$prodotto.quantita}x</span>€{$prodotto['prodotto']->getPrezzoFisso()}</h4>
                                     </div>
-                                    <button class="delete"><i class="fa fa-close"></i></button>
+                                    <form action="/TekHub/gestioneAcquisto/rimuoviDalCarrello/{$prodotto['prodotto']->getIdProdotto()}">
+                                        <button class="delete"><i class="fas fa-times-circle"></i></button>
+                                    </form>
                                 </div>
-
+                                {/foreach}
+                            {else}
                                 <div class="product-widget">
-                                    <div class="product-img">
-                                        <img src="/TekHub/skin/electro-master/img/product02.png" alt="">
-                                    </div>
-                                    <div class="product-body">
-                                        <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                        <h4 class="product-price"><span class="qty">3x</span>€980.00</h4>
-                                    </div>
-                                    <button class="delete"><i class="fa fa-close"></i></button>
+                                    <h5>Non ci sono prodotti nel carrello!</h5>
                                 </div>
+                            {/if}
                             </div>
                             <div class="cart-summary">
-                                <small>3 Item(s) selected</small>
-                                <h5>SUBTOTAL: €2940.00</h5>
+                                <small>{$cart_quantity} prodotti/o selezionati</small>
+                                <h5>SUBTOTAL: €{$subtotal}</h5>
                             </div>
                             <div class="cart-btns">
-                                <a href="#">Vai al carrello</a>
-                                <a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
+                                <a href="/TekHub/gestioneAcquisto/vediCarrello">Vai al carrello</a>
+                                <a href="/TekHub/gestioneAcquisto/effettuaCheckout">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                     </div>
