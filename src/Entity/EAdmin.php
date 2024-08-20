@@ -8,7 +8,7 @@ class EAdmin{
     #[ORM\Id]
     #[ORM\Column(type: 'integer')]
     #[ORM\GeneratedValue]
-    private int|null $id_acquirente = null;
+    private int|null $id_admin = null;
 
     #[ORM\Column(type: 'string', length:50, columnDefinition: 'VARCHAR(50)')]
     private $nome;
@@ -77,7 +77,7 @@ class EAdmin{
      */
     public function getId()
     {
-        return $this->id_acquirente;
+        return $this->id_admin;
     }
 
     /**
