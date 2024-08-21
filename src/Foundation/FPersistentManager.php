@@ -159,6 +159,8 @@ class FPersistentManager{
                 return getEntityManager()->getRepository('EAcquirente')->findAcquirente($utente);
             }else if(getEntityManager()->getRepository('EVenditore')->findVenditore($utente) != null){
                 return getEntityManager()->getRepository('EVenditore')->findVenditore($utente);
+            }else if(getEntityManager()->getRepository('EAdmin')->findAdmin($utente)!= null){
+                return getEntityManager()->getRepository('EAdmin')->findAdmin($utente);
             }else{
                 return null;
             }       
