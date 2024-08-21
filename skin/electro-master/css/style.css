@@ -901,6 +901,11 @@ border-color: black;
   padding: 20px 0px;
 }
 
+.main-nav>li {
+  display: block;
+  float: left;
+}
+
 .main-nav>li>a:hover, .main-nav>li>a:focus, .main-nav>li.active>a {
   color: #D10024;
   background-color: transparent;
@@ -926,14 +931,14 @@ border-color: black;
 
 /*----------------------------*\
 	responsive nav
-\*----------------------------*/
+\*----------------------------*/ 
 
 @media only screen and (max-width: 991px) {
-  .header-ctn > div {
+.header-ctn > div {
     display: none; /* Nascondi tutti i div */
 }
 .header-ctn > .menu-toggle {
-    display: inline-block; /* Mostra solo il div con la classe .menu-toggle */
+    display: block; /* Mostra solo il div con la classe .menu-toggle */
 }
   #responsive-nav {
     position: fixed;
@@ -941,7 +946,7 @@ border-color: black;
     top: 0;
     background: #15161D;
     height: 100vh;
-    max-width: 250px;
+    max-width: 200px;
     width: 0%;
     overflow: hidden;
     z-index: 22;
@@ -962,8 +967,8 @@ border-color: black;
     margin: 0px;
     float: none;
   }
-  .main-nav>li {
-    display: block;
+  .main-nav>li{
+    display:block;
     float: none;
   }
   .main-nav>li+li {
@@ -2438,12 +2443,6 @@ border-color: black;
 	13 -> RESPONSIVE
 ===========================================================*/
 @media only screen and (max-width: 1342px) {
-  .header-ctn > div {
-    display: none; /* Nascondi tutti i div */
-}
-.header-ctn > .menu-toggle {
-    display: inline-block; /* Mostra solo il div con la classe .menu-toggle */
-}
 .header-search{
   position: relative;
   margin-left: 0px;

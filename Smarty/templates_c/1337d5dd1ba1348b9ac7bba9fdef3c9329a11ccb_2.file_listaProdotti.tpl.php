@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-08-01 22:56:05
+/* Smarty version 5.3.0, created on 2024-08-21 02:21:10
   from 'file:listaProdotti.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66abf6653abc67_14808141',
+  'unifunc' => 'content_66c532f6729732_22505938',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '1337d5dd1ba1348b9ac7bba9fdef3c9329a11ccb' => 
     array (
       0 => 'listaProdotti.tpl',
-      1 => 1722545758,
+      1 => 1724199662,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:productDelete.tpl' => 1,
   ),
 ))) {
-function content_66abf6653abc67_14808141 (\Smarty\Template $_smarty_tpl) {
+function content_66c532f6729732_22505938 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 if ($_smarty_tpl->getValue('addedProductSuccess') == 1) {?>
     <div class="mt-5">
@@ -130,6 +130,8 @@ $foreach0DoElse = false;
 }
 $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
     </div>
+<?php if ($_smarty_tpl->getValue('array_prodotti')['n_prodotti'] != 0) {?>
     <?php $_smarty_tpl->renderSubTemplate('file:productDelete.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+}
 }
 }

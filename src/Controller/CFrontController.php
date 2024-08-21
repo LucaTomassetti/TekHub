@@ -55,7 +55,7 @@ class CFrontController{
         // Define your public routes here
         $publicRoutes = [
             'utente' => ['home', 'login', 'logout', 'signUp'],
-            'gestioneAcquisto' => ['vediProdotto', 'aggiungiAlCarrello', 'vediCarrello', 'rimuoviDalCarrello']
+            'gestioneAcquisto' => ['vediProdotto', 'aggiungiAlCarrello', 'vediCarrello', 'rimuoviDalCarrello', 'shop']
             // Add more public controllers and methods as needed
         ];
         if(isset($_SESSION['role']) && $_SESSION['role'] == "utente_bloccato"){

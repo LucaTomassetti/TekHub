@@ -26,7 +26,7 @@ class CGestioneProdotti{
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         if (CUtente::isLogged()) {
             if($_SESSION['utente'] instanceof EVenditore){
-                $array_prodotti = FPersistentManager::getInstance()->getAllProducts($_SESSION['utente'], $page);
+                $array_prodotti = FPersistentManager::getInstance()->getAllProductsByVend($_SESSION['utente'], $page);
                 $view->listaProdotti($array_prodotti, $product_added, $product_modified, $product_deleted);
             }else {
                 header('Location: /TekHub/utente/home');

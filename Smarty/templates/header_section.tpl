@@ -40,7 +40,7 @@
             <div class="col-lg-4 col-md-3 col-sm-2 col-xs-2">
                 <div class="header-ctn">
                 <!-- My Account -->
-                        {if $check_login == 1}
+                        {if $utente_non_loggato == 0}
                             <div>
                                 <a href="/TekHub/utente/logout">
                                     <i class="fas fa-sign-out-alt" style="color: #ffffff;"></i>
@@ -56,7 +56,7 @@
                             </div>
                         {/if}
 
-                    {if $check_login_acquirente == 1 || $check_login == 0}
+                    {if $check_login_acquirente == 1 || $utente_non_loggato == 1}
                     <!-- Cart -->
                     <div class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
@@ -130,24 +130,30 @@
     <!-- responsive-nav -->
     <div id="responsive-nav">
         <!-- NAV -->
-        {if $check_login_acquirente == 1}
         <ul class="main-nav nav navbar-nav">
+        {if $check_login_acquirente == 1}
             <li><a href="/TekHub/utente/userDataSection">Profilo</a></li>
             <li><a href="/TekHub/utente/userHistoryOrders">Stato ordini</a></li>
             <li><a href="#">Recensioni</a></li>
             <li><a href="#">Offerte effettuate</a></li>
             <li><a href="#">Gestione resi</a></li>
-        </ul>
         {elseif $check_login_venditore == 1}
-        <ul class="main-nav nav navbar-nav">
         <li><a href="/TekHub/utente/home">Profilo</a></li>
             <li><a href="/TekHub/gestioneProdotti/listaProdotti">Gestione prodotti</a></li>
             <li><a href="#">Ordini in attesa</a></li>
             <li><a href="/TekHub/utente/userHistoryOrders">Stato ordini</a></li>
             <li><a href="#">Gestione resi</a></li>
             <li><a href="#">Recensioni</a></li>
-        </ul>
         {/if}
+
+        {if $utente_non_loggato == 1}
+            <li><a href="/TekHub/utente/login"><i class="fas fa-sign-in-alt"></i><span> Accedi</span></a></li>
+            <li><a href="/TekHub/gestioneAcquisto/vediCarrello"><span> Carrello</span></a></li>  
+        {else if $utente_non_loggato == 0 && $check_login_acquirente == 1}
+            <li><a href="/TekHub/gestioneAcquisto/vediCarrello"><span> Carrello</span></a></li>  
+            <li><a href="/TekHub/utente/logout"><i class="fas fa-sign-out-alt"></i><span> Logout</span></a></li>   
+        {/if}
+        </ul>
         <!-- /NAV -->
     </div>
     <!-- /responsive-nav -->

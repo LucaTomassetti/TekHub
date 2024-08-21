@@ -81,7 +81,7 @@
 						<div class="hot-deal">
 							<h2 class="text-uppercase">scopri tutti i nostri prodotti</h2>
 							<p>Esplora le categorie che ti interessano</p>
-							<a class="primary-btn cta-btn" href="#">Vai allo shop</a>
+							<a class="primary-btn cta-btn" href="/TekHub/gestioneAcquisto/shop">Vai allo shop</a>
 						</div>
 					</div>
 				</div>
@@ -106,7 +106,7 @@
 							</div>
 							<div class="shop-body">
 								<h3>{$categoria.nome_categoria}</h3>
-								<a href="#" class="cta-btn">Vai allo shop <i class="fa fa-arrow-circle-right"></i></a>
+								<a href="/TekHub/gestioneAcquisto/shop" class="cta-btn">Vai allo shop <i class="fa fa-arrow-circle-right"></i></a>
 							</div>
 						</div>
 					</div>

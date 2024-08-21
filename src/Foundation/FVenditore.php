@@ -51,6 +51,8 @@ class FVenditore extends EntityRepository {
         $em = getEntityManager();
         $found_cliente = $em->find(EVenditore::class, $cliente->getIdVenditore());
         $found_cliente->setPassword(password_hash($new_password, PASSWORD_DEFAULT));
+        //Aggiorno la sessione
+        $_SESSION['utente']->setPassword(password_hash($new_password, PASSWORD_DEFAULT));
         $em->persist($found_cliente);
         $em->flush();
     }
@@ -62,6 +64,11 @@ class FVenditore extends EntityRepository {
         $found_cliente->setUsername($array_data['username']);
         $found_cliente->setCellulare($array_data['cellulare']);
         $found_cliente->setIdVenditore($array_data['id_venditore']);
+        //Aggiorno la sessione
+        $_SESSION['utente']->setNome($array_data['nome']);
+        $_SESSION['utente']->setCognome($array_data['cognome']);
+        $_SESSION['utente']->setUsername($array_data['username']);
+        $_SESSION['utente']->setCellulare($array_data['cellulare']);
         $em->persist($found_cliente);
         $em->flush();
     }

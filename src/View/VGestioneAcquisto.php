@@ -10,6 +10,13 @@ class VGestioneAcquisto{
         $this->smarty->assign('cart_quantity', (new VUtente)->countItemCart());
 
     }
+    public function shop($array, $categorie)
+    {
+        $this->smarty->assign('array_prodotti', $array);
+        $this->smarty->assign('array_categorie', $categorie);
+        $this->smarty->assign('shop', 1);
+        $this->smarty->display('userinfo.tpl');
+    }
     public function vediProdotto($prodotto, $immagini, $same_cat_products){
         $this->smarty->assign('same_cat_products', $same_cat_products);
         $this->smarty->assign('nomeProdotto', $prodotto->getNome());

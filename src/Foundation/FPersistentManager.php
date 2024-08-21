@@ -199,8 +199,11 @@ class FPersistentManager{
             getEntityManager()->getRepository('EUsato')->updateProdottoUsato($prodotto, $array_data);
         } 
     }
-    public function getAllProducts($venditore, $currentPage){
-        return getEntityManager()->getRepository('EProdotto')->getAllProducts($venditore, $currentPage);
+    public function getAllProducts($currentPage){
+        return getEntityManager()->getRepository('EProdotto')->getAllProducts($currentPage);
+    }
+    public function getAllProductsByVend($venditore, $currentPage){
+        return getEntityManager()->getRepository('EProdotto')->getAllProductsByVend($venditore, $currentPage);
     }
     public function getAllNewSameCatProd($categoria, $currentPage){
         return getEntityManager()->getRepository('ENuovo')->getAllNewSameCatProd($categoria, $currentPage);

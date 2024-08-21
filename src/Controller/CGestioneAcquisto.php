@@ -1,6 +1,20 @@
 <?php
 
 class CGestioneAcquisto{
+    public static function shop()
+    {
+        $view_acquisto = new VGestioneAcquisto();
+        if (!isset($_GET['page'])) {
+            // Redirect to the same URL with ?page=1
+            $url = $_SERVER['REQUEST_URI'];
+            $url .= '?page=1';
+            header("Location: $url");
+        }
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $array_negozio = FPersistentManager::getInstance()->getAllProducts($page);
+        $array_categoria = FPersistentManager::getInstance()->getAllCategories();
+        $view_acquisto->shop($array_negozio, $array_categoria);
+    }
     public static function vediProdotto($prodotto_id){
 
         $view = new VGestioneAcquisto();

@@ -38,11 +38,11 @@
                         </div>
                         <div class="form-group">
                             <label for="categoryFilter">Categoria</label>
+                            
                             <select id="categoryFilter" class="form-control">
-                                <option value="1">Indifferente</option>
-                                <option value="2">Categoria 2</option>
-                                <option value="3">Categoria 3</option>
-                                <option value="4">Categoria 4</option>
+                            {foreach from=$array_categorie item=categoria}
+                                <option value="{$categoria.nome_categoria}">{$categoria.nome_categoria}</option>
+                            {/foreach}
                             </select>
                         </div>
                         <div class="form-group">
