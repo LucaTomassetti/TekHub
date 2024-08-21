@@ -67,6 +67,9 @@
 				{elseif $modifyProductForm == 1}
 					<div class="col-12 content-area">
 					{include file='modifyProductForm.tpl'}
+				{elseif $admin_dashboard == 1}
+					<div class="col-12 content-area">
+					{include file='admin_dashboard.tpl'}
 				{elseif $shop == 1}
 					<div class="col-lg-9 col-md-8 col-sm-7 col-xs-12 content-area">
 					{include file='shop.tpl'}

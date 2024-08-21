@@ -138,12 +138,17 @@
             <li><a href="#">Offerte effettuate</a></li>
             <li><a href="#">Gestione resi</a></li>
         {elseif $check_login_venditore == 1}
-        <li><a href="/TekHub/utente/home">Profilo</a></li>
+        <li><a href="/TekHub/utente/userDataSection">Profilo</a></li>
             <li><a href="/TekHub/gestioneProdotti/listaProdotti">Gestione prodotti</a></li>
             <li><a href="#">Ordini in attesa</a></li>
             <li><a href="/TekHub/utente/userHistoryOrders">Stato ordini</a></li>
             <li><a href="#">Gestione resi</a></li>
             <li><a href="#">Recensioni</a></li>
+        {elseif $check_login_admin == 1}
+            <li><a href="/TekHub/utente/userDataSection">Profilo</a></li>
+                <li><a href="#">Gestione prodotti</a></li>
+                <li><a href="#">Gestione utenti registrati</a></li>
+                <li><a href="#">Segnalazioni</a></li>
         {/if}
 
         {if $utente_non_loggato == 1}

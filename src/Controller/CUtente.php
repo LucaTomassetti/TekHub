@@ -200,25 +200,13 @@ class CUtente {
                         $_SESSION['changepasswordsucces'] = true;
                         header('Location: /TekHub/utente/userDataSection');
                     } else {
-                        if($_SESSION['utente'] instanceof EAcquirente){
-                            $view->errorPassUpdate(1,0);
-                        }else if($_SESSION['utente'] instanceof EVenditore){
-                            $view->errorPassUpdate(0,1);
-                        }
+                        $view->errorPassUpdate();
                     }
                 } elseif ($new_password == $password_old) {
-                    if($_SESSION['utente'] instanceof EAcquirente){
-                        $view->equalPasswordError(1,0);
-                    }else if($_SESSION['utente'] instanceof EVenditore){
-                        $view->equalPasswordError(0,1);
-                    }
+                    $view->equalPasswordError();
                 } 
             } else {
-                if($_SESSION['utente'] instanceof EAcquirente){
-                    $view->errorOldPass(1,0);
-                }else if($_SESSION['utente'] instanceof EVenditore){
-                    $view->errorOldPass(0,1);
-                }
+                $view->errorOldPass(1,0);
             }
         }
     }

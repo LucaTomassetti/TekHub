@@ -105,7 +105,12 @@ class VUtente{
         $this->smarty->display('userinfo.tpl');
     }
     public function loginSuccessAdmin(){
-        $this->smarty->display('admin_dashboard.tpl');
+        $loginVariables = self::checkLogin();
+        foreach ($loginVariables as $key => $value) {
+            $this->smarty->assign($key, $value);
+        }
+        $this->smarty->assign('admin_dashboard', 1);
+        $this->smarty->display('userinfo.tpl');
     }
 
     public function loginError(){
@@ -169,9 +174,6 @@ class VUtente{
         $this->smarty->assign('errore_r', 1);
         $this->smarty->display('registration.tpl');
     }
-    public function showAdminDashboard(){
-        $this->smarty->display('admin_dashboard.tpl');
-    }
     public function userDataForm(){
         $loginVariables = self::checkLogin();
         foreach ($loginVariables as $key => $value) {
@@ -208,8 +210,10 @@ class VUtente{
         }
         $this->smarty->assign('nome', $_SESSION['utente']->getNome());
         $this->smarty->assign('cognome', $_SESSION['utente']->getCognome());
-        $this->smarty->assign('username', $_SESSION['utente']->getUsername());
-        $this->smarty->assign('cellulare', $_SESSION['utente']->getCellulare());
+        if(!($_SESSION['utente'] instanceof EAdmin)){
+            $this->smarty->assign('username', $_SESSION['utente']->getUsername());
+            $this->smarty->assign('cellulare', $_SESSION['utente']->getCellulare());
+        }
         $this->smarty->assign('email', $_SESSION['utente']->getEmail());
         $this->smarty->assign('userDataSection', 1);
         $this->smarty->display('userinfo.tpl');
@@ -230,27 +234,30 @@ class VUtente{
         $this->smarty->assign('changepass', 1);
         $this->smarty->display('userinfo.tpl');
     }
-    public function errorPassUpdate($check_login_acquirente,$check_login_venditore){
-        $this->smarty->assign('check_login_acquirente', $check_login_acquirente);
-        $this->smarty->assign('check_login_venditore', $check_login_venditore);
-        $this->smarty->assign('check_login', 1);
+    public function errorPassUpdate(){
+        $loginVariables = self::checkLogin();
+        foreach ($loginVariables as $key => $value) {
+            $this->smarty->assign($key, $value);
+        }
         $this->smarty->assign('changepass', 1);
         $this->smarty->assign('errorpassupdate', 1);
         $this->smarty->display('userinfo.tpl');
     }
-    public function errorOldPass($check_login_acquirente,$check_login_venditore){
-        $this->smarty->assign('check_login_acquirente', $check_login_acquirente);
-        $this->smarty->assign('check_login_venditore', $check_login_venditore);
-        $this->smarty->assign('check_login', 1);
+    public function errorOldPass(){
+        $loginVariables = self::checkLogin();
+        foreach ($loginVariables as $key => $value) {
+            $this->smarty->assign($key, $value);
+        }
         $this->smarty->assign('changepass', 1);
         $this->smarty->assign('erroroldpass', 1);
         $this->smarty->display('userinfo.tpl');
     }
 
-    public function equalPasswordError($check_login_acquirente,$check_login_venditore) {
-        $this->smarty->assign('check_login_acquirente', $check_login_acquirente);
-        $this->smarty->assign('check_login_venditore', $check_login_venditore);
-        $this->smarty->assign('check_login', 1);
+    public function equalPasswordError() {
+        $loginVariables = self::checkLogin();
+        foreach ($loginVariables as $key => $value) {
+            $this->smarty->assign($key, $value);
+        }
         $this->smarty->assign('changepass', 1);
         $this->smarty->assign('equalpassworderr', 1);
         $this->smarty->display('userinfo.tpl');

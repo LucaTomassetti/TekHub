@@ -71,16 +71,16 @@ class CFrontController{
         // Define your user roles and permissions here
         $rolePermissions = [
             'admin' => [
-                'gestioneProdotti' => ['listaProdotti', 'addProduct', 'modificaProdotto', 'eliminaProdotto'],
+                'utente' => ['userDataForm', 'userDataSection', 'deleteAccount', 'changePass', 'changeUserData'],
                 // Add more controllers and methods for admin
             ],
             'acquirente' => [
-                'utente' => ['logout', 'userDataForm', 'userDataSection', 'userHistoryOrders', 'deleteAccount', 'changePass', 'changeUserData'],
+                'utente' => ['userDataForm', 'userDataSection', 'userHistoryOrders', 'deleteAccount', 'changePass', 'changeUserData'],
                 'gestioneAcquisto' => ['effettuaCheckout']
                 // Add more controllers and methods for acquirente
             ],
             'venditore' => [
-                'utente' => ['logout', 'userDataForm', 'userDataSection', 'deleteAccount', 'changePass', 'changeUserData'],
+                'utente' => ['userDataForm', 'userDataSection', 'deleteAccount', 'changePass', 'changeUserData'],
                 'gestioneProdotti' => ['listaProdotti', 'addProduct', 'modificaProdotto', 'eliminaProdotto'],
                 // Add more controllers and methods for venditore
             ],

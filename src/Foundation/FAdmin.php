@@ -19,5 +19,20 @@ class FAdmin extends EntityRepository{
         $query->setMaxResults(1);
         return $query->getResult();
     }
+    public function updatePass(EAdmin $admin, $new_password){
+        $em = getEntityManager();
+        $found_admin = $em->find(EAdmin::class, $admin->getId());
+        $found_admin->setPassword(password_hash($new_password, PASSWORD_DEFAULT));
+         //Aggiorno la sessione
+         $_SESSION['utente']->setPassword(password_hash($new_password, PASSWORD_DEFAULT));
+        $em->persist($found_admin);
+        $em->flush();
+    }
+    public function deleteAdmin(EAdmin $admin) {
+        $em = getEntityManager();
+        $found_admin = $em->find(EAdmin::class, $admin->getId());
+        $em->remove($found_admin);
+        $em->flush();
+    }
 
 }

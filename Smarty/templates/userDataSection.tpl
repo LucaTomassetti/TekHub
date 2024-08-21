@@ -23,6 +23,7 @@
         <label>Cognome: </label><span id="summary-name">{$cognome}</span>
     </div>
     <br>
+    {if check_login_admin == 0}
     <div class="summary-item">
         <label>Username: </label><span id="summary-name">{$username}</span>
     </div>
@@ -30,11 +31,16 @@
     <div class="summary-item">
         <label>Numero di telefono: </label><span id="summary-name">{$cellulare}</span>
     </div>
+    {/if}
     <br>
     <div class="summary-item">
         <label>E-mail: </label><span id="summary-name">{$email}</span>
     </div>
+    {if check_login_admin == 0}
     <a href="/TekHub/utente/userDataForm" class="btn btn-primary btn-block">Modifica</a>
+    {else}
+    <a href="/TekHub/utente/changePass" class="btn btn-primary btn-block">Modifica password</a>
+    {/if}
 
     {include file = 'accountDelete.tpl'}
 </div>

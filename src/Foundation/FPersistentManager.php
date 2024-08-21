@@ -189,6 +189,8 @@ class FPersistentManager{
             getEntityManager()->getRepository('EAcquirente')->updatePass($utente, $new_password);
         }else if($utente instanceof EVenditore){
             getEntityManager()->getRepository('EVenditore')->updatePass($utente, $new_password);
+        }else if($utente instanceof EAdmin){
+            getEntityManager()->getRepository('EAdmin')->updatePass($utente, $new_password);
         } 
     }
     public function updateUtente($utente, $array_data){
@@ -203,6 +205,8 @@ class FPersistentManager{
             getEntityManager()->getRepository('EAcquirente')->deleteAcquirente($utente);
         }else if($utente instanceof EVenditore){
             getEntityManager()->getRepository('EVenditore')->deleteVenditore($utente);
+        }else if($utente instanceof EAdmin){
+            getEntityManager()->getRepository('EAdmin')->deleteAdmin($utente);
         } 
     }
     public function updateProdotto($prodotto, $array_data){
