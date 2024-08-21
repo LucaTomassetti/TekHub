@@ -65,6 +65,10 @@ class VUtente{
         $this->smarty->assign('check_login_venditore', 1);
         $this->smarty->display('userinfo.tpl');
     }
+    public function loginSuccessAdmin(){
+        $this->smarty->display('admin_dashboard.tpl');
+    }
+
     public function loginError(){
         $this->smarty->assign('errore_log', 1);
         $this->smarty->display('login.tpl');

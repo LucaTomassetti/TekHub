@@ -17,6 +17,8 @@ class CUtente {
                     $view_home->loginSuccessAcquirente($array_prodotti, $array_categorie);
                 }else if($_SESSION['utente'] instanceof EVenditore){
                     $view_home->loginSuccessVenditore();
+                }else if($_SESSION['utente'] instanceof EAdmin){
+                    $view_home->loginSuccessAdmin();
                 }
             } else {
                 $view_home->logout($array_prodotti, $array_categorie);
@@ -48,6 +50,8 @@ class CUtente {
                     // Per testare gli utenti bloccati dall'admin : $_SESSION['role'] = 'utente_bloccato';
                 }else if($_SESSION['utente'] instanceof EVenditore){
                     $_SESSION['role'] = 'venditore';
+                }elseif($_SESSION['utente']instanceof EAdmin){
+                    $_SESSION['role'] = 'admin';
                 }
 
                 if (isset($_COOKIE['auth'])) {

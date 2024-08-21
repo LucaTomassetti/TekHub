@@ -146,7 +146,15 @@ class FPersistentManager{
             }else{
                 return null;
             }
-        } else if(is_string($utente)){
+        } elseif($utente instanceof EAdmin){
+            if(is_object($utente)){
+                return getEntityManager()->getRepository('EAdmin')->findAdmin($utente->getEmail());
+            }else if(is_string($utente)){
+                return getEntityManager()->getRepository('EAdmin')->findAdmin($utente);
+            }else{
+                return null;
+            }    
+        }else if(is_string($utente)){
             if(getEntityManager()->getRepository('EAcquirente')->findAcquirente($utente) != null){
                 return getEntityManager()->getRepository('EAcquirente')->findAcquirente($utente);
             }else if(getEntityManager()->getRepository('EVenditore')->findVenditore($utente) != null){
@@ -161,6 +169,9 @@ class FPersistentManager{
     }
     public function findVenditoreById($id){
         return getEntityManager()->getRepository('EVenditore')->findVenditoreById($id);
+    }
+    public function findAdminById($id){
+        return getEntityManager()->getRepository('EAdmin')->findAdminById($id);
     }
 
     public function insertNewUtente($new_utente){
