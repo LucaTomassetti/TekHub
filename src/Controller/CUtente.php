@@ -5,23 +5,31 @@ class CUtente {
         $view_home = new VUtente();
         $array_prodotti = FPersistentManager::getInstance()->getLatestProductsHome();
         $array_categorie = FPersistentManager::getInstance()->getAllCategories();
-        
+        $array_carrello = [];
         if (!isset($_COOKIE['cart'])) {
             setcookie('cart', json_encode([]), time() + (86400 * 30), "/"); // 30 giorni
+        }
+        $carrello = json_decode($_COOKIE['cart'], true);
+        foreach($carrello as $id => $qty){
+            $prod = FPersistentManager::getInstance()->find(ENuovo::class, $id);
+            $array_carrello[] = [
+                'prodotto' => $prod,
+                'quantita' => $qty
+            ];
         }
         if(isset($_SESSION['role']) && $_SESSION['role'] == "utente_bloccato"){
             $view_home->accessDenied();
         }else{
             if (static::isLogged()) {
                 if($_SESSION['utente'] instanceof EAcquirente){
-                    $view_home->loginSuccessAcquirente($array_prodotti, $array_categorie);
+                    $view_home->loginSuccessAcquirente($array_prodotti, $array_categorie, $array_carrello);
                 }else if($_SESSION['utente'] instanceof EVenditore){
                     $view_home->loginSuccessVenditore();
                 }else if($_SESSION['utente'] instanceof EAdmin){
                     $view_home->loginSuccessAdmin();
                 }
             } else {
-                $view_home->logout($array_prodotti, $array_categorie);
+                $view_home->logout($array_prodotti, $array_categorie, $array_carrello);
             }
         }
     }
@@ -142,11 +150,7 @@ class CUtente {
     {
         $view_utente = new VUtente();
         if (static::isLogged()) {
-            if($_SESSION['utente'] instanceof EAcquirente){
-                $view_utente->userDataForm(1,0);
-            }else if($_SESSION['utente'] instanceof EVenditore){
-                $view_utente->userDataForm(0,1);
-            }
+            $view_utente->userDataForm();
         } else {
             header('Location: /TekHub/utente/login');
         }
@@ -155,11 +159,7 @@ class CUtente {
     {
         $view_utente = new VUtente();
         if (static::isLogged()) {
-            if($_SESSION['utente'] instanceof EAcquirente){
-                $view_utente->userDataSection(0,0,1,0);
-            }else if($_SESSION['utente'] instanceof EVenditore){
-                $view_utente->userDataSection(0,0,0,1);
-            }
+            $view_utente->userDataSection();
         } else {
             header('Location: /TekHub/utente/login');
         }
@@ -168,11 +168,7 @@ class CUtente {
     {
         $view_utente = new VUtente();
         if (static::isLogged()) {
-            if($_SESSION['utente'] instanceof EAcquirente){
-                $view_utente->userHistoryOrders(1,0);
-            }else if($_SESSION['utente'] instanceof EVenditore){
-                $view_utente->userHistoryOrders(0,1);
-            }
+            $view_utente->userHistoryOrders();
         } else {
             header('Location: /TekHub/utente/login');
         }
@@ -185,22 +181,11 @@ class CUtente {
         session_destroy();
         header('Location: /TekHub/utente/home');
     }
-    public static function carrello()
-    {
-        $view_utente = new VUtente();
-        if (static::isLogged()) {
-            $view_utente->carrello();
-        } else {
-            header('Location: /TekHub/utente/login');
-        }
-    }
     public static function changePass() {
         $view = new VUtente();
         if ($_SERVER['REQUEST_METHOD'] == "GET") {
-            if($_SESSION['utente'] instanceof EAcquirente){
-                $view->changePass(1,0);
-            }else if($_SESSION['utente'] instanceof EVenditore){
-                $view->changePass(0,1);
+            if(isset($_SESSION['utente'])){
+                $view->changePass();
             }else{
                 header('Location: /TekHub/utente/login');
             }
@@ -212,11 +197,8 @@ class CUtente {
                 if ($new_password != $password_old) {
                     if ($new_password == $confirm_password) {
                         FPersistentManager::getInstance()->updatePass($_SESSION['utente'], $new_password);
-                        if($_SESSION['utente'] instanceof EAcquirente){
-                            $view->userDataSection(0,1,1,0);
-                        }else if($_SESSION['utente'] instanceof EVenditore){
-                            $view->userDataSection(0,1,0,1);
-                        }
+                        $_SESSION['changepasswordsucces'] = true;
+                        header('Location: /TekHub/utente/userDataSection');
                     } else {
                         if($_SESSION['utente'] instanceof EAcquirente){
                             $view->errorPassUpdate(1,0);
@@ -245,10 +227,8 @@ class CUtente {
     {
         $view = new VUtente();
         if ($_SERVER['REQUEST_METHOD'] == "GET") {
-            if($_SESSION['utente'] instanceof EAcquirente){
-                $view->userDataForm(1,0);
-            }else if($_SESSION['utente'] instanceof EVenditore){
-                $view->userDataForm(0,1);
+            if(isset($_SESSION['utente'])){
+                $view->userDataForm();
             }else{
                 header('Location: /TekHub/utente/login');
             }
@@ -262,11 +242,8 @@ class CUtente {
             //Aggiorno la sessione con i nuovi dati aggiornati
             $updated_cliente = FPersistentManager::getInstance()->findUtente($_SESSION['utente']);
             $_SESSION['utente'] = $updated_cliente[0];
-            if($_SESSION['utente'] instanceof EAcquirente){
-                $view->userDataSection(1,0,1,0);
-            }else if($_SESSION['utente'] instanceof EVenditore){
-                $view->userDataSection(1,0,0,1);
-            }
+            $_SESSION['changeuserdatasucces'] = true;
+            header('Location: /TekHub/utente/userDataSection');
         }
     }
 }

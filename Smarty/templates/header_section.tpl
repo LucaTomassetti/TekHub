@@ -6,9 +6,9 @@
     <!-- container -->
     <div class="container-fluid text-center">
         <!-- row -->
-        <div class="row justify-content-evenly">
+        <div class="row">
             <!-- LOGO -->
-            <div class="col-lg-4 col-md-3 col-sm-3 col-xs-2">
+            <div class="col-lg-4 col-md-3">
                 <div class="header-logo">
                     <a href="/TekHub/utente/home" class="logo">
                         <img src="/TekHub/skin/electro-master/img/Logo_TekHub.png" alt="">
@@ -19,7 +19,7 @@
 
             
             <!-- SEARCH BAR -->
-            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+            <div class="col-lg-4 col-md-6 col-sm-9 col-xs-9">
             {if $search_bar == 1}
                 <div class="header-search">
                     <form>
@@ -29,7 +29,7 @@
                         {/foreach}
                         </select>
                         <input class="input" placeholder="Cerca il prodotto...">
-                        <button class="search-btn">Cerca</button>
+                        <button class="search-btn"><i class="fas fa-search"></i></button>
                     </form>
                 </div>
             {/if}
@@ -37,10 +37,10 @@
             <!-- /SEARCH BAR -->
 
             <!-- ACCOUNT -->
-            <div class="col-lg-4 col-md-3 col-sm-3 col-xs-4">
+            <div class="col-lg-4 col-md-3 col-sm-2 col-xs-2">
                 <div class="header-ctn">
                 <!-- My Account -->
-                        {if $check_login == 1}
+                        {if $utente_non_loggato == 0}
                             <div>
                                 <a href="/TekHub/utente/logout">
                                     <i class="fas fa-sign-out-alt" style="color: #ffffff;"></i>
@@ -56,7 +56,7 @@
                             </div>
                         {/if}
 
-                    {if $check_login_acquirente == 1 || $check_login == 0}
+                    {if $check_login_acquirente == 1 || $utente_non_loggato == 1}
                     <!-- Cart -->
                     <div class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
@@ -66,35 +66,38 @@
                         </a>
                         <div class="cart-dropdown">
                             <div class="cart-list">
+                            {if $prodotti_carrello != 0}
+                                {foreach from=$prodotti_carrello item=prodotto}
                                 <div class="product-widget">
                                     <div class="product-img">
-                                        <img src="/TekHub/skin/electro-master/img/product01.png" alt="">
+                                        {if isset($prodotto['prodotto']->getImmagini()->last()->getImageData()) && isset($prodotto['prodotto']->getImmagini()->last()->getType())}
+                                            <img src="data:{$prodotto['prodotto']->getImmagini()->last()->getType()};base64,{$prodotto['prodotto']->getImmagini()->last()->getEncodedData()}" alt="Immagine">
+                                        {else}
+                                            <p>Immagine non trovata</p>
+                                        {/if}  
                                     </div>
                                     <div class="product-body">
-                                        <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                        <h4 class="product-price"><span class="qty">1x</span>€980.00</h4>
+                                        <h3 class="product-name">{$prodotto['prodotto']->getNome()}</h3>
+                                        <h4 class="product-price"><span class="qty">{$prodotto.quantita}x</span>€{$prodotto['prodotto']->getPrezzoFisso()}</h4>
                                     </div>
-                                    <button class="delete"><i class="fa fa-close"></i></button>
+                                    <form action="/TekHub/gestioneAcquisto/rimuoviDalCarrello/{$prodotto['prodotto']->getIdProdotto()}">
+                                        <button class="delete"><i class="fas fa-times-circle"></i></button>
+                                    </form>
                                 </div>
-
+                                {/foreach}
+                            {else}
                                 <div class="product-widget">
-                                    <div class="product-img">
-                                        <img src="/TekHub/skin/electro-master/img/product02.png" alt="">
-                                    </div>
-                                    <div class="product-body">
-                                        <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                        <h4 class="product-price"><span class="qty">3x</span>€980.00</h4>
-                                    </div>
-                                    <button class="delete"><i class="fa fa-close"></i></button>
+                                    <h5>Non ci sono prodotti nel carrello!</h5>
                                 </div>
+                            {/if}
                             </div>
                             <div class="cart-summary">
-                                <small>3 Item(s) selected</small>
-                                <h5>SUBTOTAL: €2940.00</h5>
+                                <small>{$cart_quantity} prodotti/o selezionati</small>
+                                <h5>SUBTOTAL: €{$subtotal}</h5>
                             </div>
                             <div class="cart-btns">
-                                <a href="#">Vai al carrello</a>
-                                <a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
+                                <a href="/TekHub/gestioneAcquisto/vediCarrello">Vai al carrello</a>
+                                <a href="/TekHub/gestioneAcquisto/effettuaCheckout">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -127,24 +130,30 @@
     <!-- responsive-nav -->
     <div id="responsive-nav">
         <!-- NAV -->
-        {if $check_login_acquirente == 1}
         <ul class="main-nav nav navbar-nav">
+        {if $check_login_acquirente == 1}
             <li><a href="/TekHub/utente/userDataSection">Profilo</a></li>
             <li><a href="/TekHub/utente/userHistoryOrders">Stato ordini</a></li>
             <li><a href="#">Recensioni</a></li>
             <li><a href="#">Offerte effettuate</a></li>
             <li><a href="#">Gestione resi</a></li>
-        </ul>
         {elseif $check_login_venditore == 1}
-        <ul class="main-nav nav navbar-nav">
         <li><a href="/TekHub/utente/home">Profilo</a></li>
             <li><a href="/TekHub/gestioneProdotti/listaProdotti">Gestione prodotti</a></li>
             <li><a href="#">Ordini in attesa</a></li>
             <li><a href="/TekHub/utente/userHistoryOrders">Stato ordini</a></li>
             <li><a href="#">Gestione resi</a></li>
             <li><a href="#">Recensioni</a></li>
-        </ul>
         {/if}
+
+        {if $utente_non_loggato == 1}
+            <li><a href="/TekHub/utente/login"><i class="fas fa-sign-in-alt"></i><span> Accedi</span></a></li>
+            <li><a href="/TekHub/gestioneAcquisto/vediCarrello"><span> Carrello</span></a></li>  
+        {else if $utente_non_loggato == 0 && $check_login_acquirente == 1}
+            <li><a href="/TekHub/gestioneAcquisto/vediCarrello"><span> Carrello</span></a></li>  
+            <li><a href="/TekHub/utente/logout"><i class="fas fa-sign-out-alt"></i><span> Logout</span></a></li>   
+        {/if}
+        </ul>
         <!-- /NAV -->
     </div>
     <!-- /responsive-nav -->

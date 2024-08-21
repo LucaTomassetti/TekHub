@@ -80,4 +80,6 @@
                     <!-- /product -->
                 {/foreach}
     </div>
+{if $array_prodotti['n_prodotti'] != 0}
     {include file = 'productDelete.tpl'}
+{/if}

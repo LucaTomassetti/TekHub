@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-08-01 20:39:16
+/* Smarty version 5.3.0, created on 2024-08-21 01:30:14
   from 'file:filters-section.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66abd6548d36d7_32015827',
+  'unifunc' => 'content_66c52706c21761_98448069',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '51b119c60dc0d0ff95c3f213ddcebff64b1b2ade' => 
     array (
       0 => 'filters-section.tpl',
-      1 => 1719658986,
+      1 => 1724196608,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66abd6548d36d7_32015827 (\Smarty\Template $_smarty_tpl) {
+function content_66c52706c21761_98448069 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?>
             <!-- Filter Section -->
@@ -62,11 +62,20 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
                         </div>
                         <div class="form-group">
                             <label for="categoryFilter">Categoria</label>
+                            
                             <select id="categoryFilter" class="form-control">
-                                <option value="1">Indifferente</option>
-                                <option value="2">Categoria 2</option>
-                                <option value="3">Categoria 3</option>
-                                <option value="4">Categoria 4</option>
+                            <?php
+$_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('array_categorie'), 'categoria');
+$foreach0DoElse = true;
+foreach ($_from ?? [] as $_smarty_tpl->getVariable('categoria')->value) {
+$foreach0DoElse = false;
+?>
+                                <option value="<?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('categoria')['nome_categoria']), ENT_QUOTES, 'UTF-8');?>
+"><?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('categoria')['nome_categoria']), ENT_QUOTES, 'UTF-8');?>
+</option>
+                            <?php
+}
+$_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                             </select>
                         </div>
                         <div class="form-group">

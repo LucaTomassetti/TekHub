@@ -1,6 +1,20 @@
 <?php
 
 class CGestioneAcquisto{
+    public static function shop()
+    {
+        $view_acquisto = new VGestioneAcquisto();
+        if (!isset($_GET['page'])) {
+            // Redirect to the same URL with ?page=1
+            $url = $_SERVER['REQUEST_URI'];
+            $url .= '?page=1';
+            header("Location: $url");
+        }
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $array_negozio = FPersistentManager::getInstance()->getAllProducts($page);
+        $array_categoria = FPersistentManager::getInstance()->getAllCategories();
+        $view_acquisto->shop($array_negozio, $array_categoria);
+    }
     public static function vediProdotto($prodotto_id){
 
         $view = new VGestioneAcquisto();
@@ -44,6 +58,20 @@ class CGestioneAcquisto{
 
         $_SESSION['added_to_cart'] = isset($_SESSION['q_max_raggiunta']) && $_SESSION['q_max_raggiunta'] ? false : true;
         header('Location: /TekHub/utente/home');
+    }
+    public static function rimuoviDalCarrello($idProdotto){
+        $carrello = json_decode($_COOKIE['cart'], true);
+        unset($carrello[$idProdotto]);
+        json_encode($carrello);
+        setcookie('cart', json_encode($carrello), time() + (86400 * 30), "/");
+        $_SESSION['removed_from_cart'] = true;
+        header('Location: /TekHub/utente/home');
+    }
+    public static function vediCarrello(){
+
+    }
+    public static function effettuaCheckout(){
+
     }
 
 }

@@ -43,6 +43,8 @@ class FAcquirente extends EntityRepository {
         $em = getEntityManager();
         $found_cliente = $em->find(EAcquirente::class, $cliente->getId());
         $found_cliente->setPassword(password_hash($new_password, PASSWORD_DEFAULT));
+         //Aggiorno la sessione
+         $_SESSION['utente']->setPassword(password_hash($new_password, PASSWORD_DEFAULT));
         $em->persist($found_cliente);
         $em->flush();
     }
@@ -53,6 +55,11 @@ class FAcquirente extends EntityRepository {
         $found_cliente->setCognome($array_data['cognome']);
         $found_cliente->setUsername($array_data['username']);
         $found_cliente->setCellulare($array_data['cellulare']);
+        //Aggiorno la sessione
+        $_SESSION['utente']->setNome($array_data['nome']);
+        $_SESSION['utente']->setCognome($array_data['cognome']);
+        $_SESSION['utente']->setUsername($array_data['username']);
+        $_SESSION['utente']->setCellulare($array_data['cellulare']);
         $em->persist($found_cliente);
         $em->flush();
     }

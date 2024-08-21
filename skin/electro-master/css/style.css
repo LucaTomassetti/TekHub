@@ -744,7 +744,7 @@ border-color: black;
 
 .header-search form .search-btn {
   height: 40px;
-  width: 100px;
+  width: 10%;
   background: #D10024;
   color: #FFF;
   font-weight: 700;
@@ -901,6 +901,11 @@ border-color: black;
   padding: 20px 0px;
 }
 
+.main-nav>li {
+  display: block;
+  float: left;
+}
+
 .main-nav>li>a:hover, .main-nav>li>a:focus, .main-nav>li.active>a {
   color: #D10024;
   background-color: transparent;
@@ -926,14 +931,14 @@ border-color: black;
 
 /*----------------------------*\
 	responsive nav
-\*----------------------------*/
+\*----------------------------*/ 
 
 @media only screen and (max-width: 991px) {
-  .header-ctn > div {
+.header-ctn > div {
     display: none; /* Nascondi tutti i div */
 }
 .header-ctn > .menu-toggle {
-    display: inline-block; /* Mostra solo il div con la classe .menu-toggle */
+    display: block; /* Mostra solo il div con la classe .menu-toggle */
 }
   #responsive-nav {
     position: fixed;
@@ -941,7 +946,7 @@ border-color: black;
     top: 0;
     background: #15161D;
     height: 100vh;
-    max-width: 250px;
+    max-width: 200px;
     width: 0%;
     overflow: hidden;
     z-index: 22;
@@ -962,8 +967,8 @@ border-color: black;
     margin: 0px;
     float: none;
   }
-  .main-nav>li {
-    display: block;
+  .main-nav>li{
+    display:block;
     float: none;
   }
   .main-nav>li+li {
@@ -1053,6 +1058,9 @@ border-color: black;
 ===========================================================*/
 
 #hot-deal.section {
+  display: flex;
+  align-items: center;
+  height: 400px;
   padding: 60px 0px;
   margin: 30px 0px;
   background-color: #E4E7ED;
@@ -1415,14 +1423,13 @@ border-color: black;
   position: absolute;
   top: 0;
   left: 0;
-  height: 14px;
-  width: 14px;
+  height: 20px;
+  width: 20px;
   text-align: center;
-  font-size: 10px;
+  font-size: 20px;
   padding: 0;
-  background: #1e1f29;
   border: none;
-  color: #FFF;
+  color: black;
 }
 
 /*----------------------------*\
@@ -2436,33 +2443,23 @@ border-color: black;
 	13 -> RESPONSIVE
 ===========================================================*/
 @media only screen and (max-width: 1342px) {
-  .header-ctn > div {
-    display: none; /* Nascondi tutti i div */
-}
-.header-ctn > .menu-toggle {
-    display: inline-block; /* Mostra solo il div con la classe .menu-toggle */
-}
 .header-search{
   position: relative;
   margin-left: 0px;
 }
 .header-search form .input {
-  width: calc(100% - 160px);
+  width: 50%;
 }
 
 .header-search form .search-btn {
-  width: 80px;
+  width: 15%;
 }
 .header-search form .input-select {
-  width: 40px;
+  width: 35%;
 }
 }
 
 @media only screen and (max-width: 991px) {
-  .header-search{
-    position: absolute;
-    margin-left: 75px;
-  }
   #top-header .header-links.pull-left {
     float: none !important;
   }
@@ -2471,10 +2468,7 @@ border-color: black;
     margin-top: 5px;
   }
   .header-logo {
-    width: 500px;
-  }
-  .header-logo .logo {
-    display: inline-block;
+    display: none;
   }
   #product-imgs {
     margin-bottom: 60px;
@@ -2497,13 +2491,13 @@ border-color: black;
   .section-tab-nav li {
     margin-top: 10px;
   }
-  .header-search{
+  .header-logo {
     display: none;
   }
 }
 
 @media only screen and (max-width: 480px) {
-  .header-search{
+  .header-logo {
     display: none;
   }
   .store-grid {

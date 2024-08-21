@@ -33,13 +33,30 @@ class FProdotto extends EntityRepository {
         $em->persist($found_prodotto);
         $em->flush();
     }
-    public function getAllProducts(EVenditore $venditore, $currentPage = 1, $pageSize = 4){
+    public function getAllProductsByVend(EVenditore $venditore, $currentPage = 1, $pageSize = 4){
         $dql = "SELECT prodotto
             FROM EProdotto prodotto
             WHERE prodotto.venditore = ?1";
         $query = getEntityManager()->createQuery($dql);
         $query->setParameter(1, $venditore)
         ->setFirstResult(($currentPage - 1) * $pageSize)
+        ->setMaxResults($pageSize);
+
+        $paginator = new Paginator($query, fetchJoinCollection: true);
+
+        return [
+        'prodotti' => iterator_to_array($paginator),
+        'n_prodotti' => count($paginator),
+        'currentPage' => $currentPage,
+        'pageSize' => $pageSize,
+        'totalPages' => ceil(count($paginator) / $pageSize)
+        ];
+    }
+    public function getAllProducts($currentPage = 1, $pageSize = 4){
+        $dql = "SELECT prodotto
+            FROM EProdotto prodotto";
+        $query = getEntityManager()->createQuery($dql);
+        $query->setFirstResult(($currentPage - 1) * $pageSize)
         ->setMaxResults($pageSize);
 
         $paginator = new Paginator($query, fetchJoinCollection: true);
