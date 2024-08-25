@@ -22,14 +22,15 @@
             <div class="col-lg-4 col-md-6 col-sm-9 col-xs-9">
             {if $search_bar == 1}
                 <div class="header-search">
-                    <form>
-                        <select class="input-select">
-                        {foreach from=$array_categorie item=categoria}
-                            <option value="{$categoria.nome_categoria}">{$categoria.nome_categoria}</option>
-                        {/foreach}
+                    <form action="/TekHub/gestioneAcquisto/shop" method="GET">
+                        <select class="input-select" name="categoria">
+                            <option value="">Tutte le categorie</option>
+                            {foreach from=$array_categorie item=categoria}
+                                <option value="{$categoria.nome_categoria}">{$categoria.nome_categoria}</option>
+                            {/foreach}
                         </select>
-                        <input class="input" placeholder="Cerca il prodotto...">
-                        <button class="search-btn"><i class="fas fa-search"></i></button>
+                        <input class="input" name="query" id="searchInput" placeholder="Cerca il prodotto...">
+                        <button class="search-btn" type="submit"><i class="fas fa-search"></i></button>
                     </form>
                 </div>
             {/if}

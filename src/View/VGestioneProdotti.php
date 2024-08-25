@@ -9,28 +9,19 @@ class VGestioneProdotti{
         $this->smarty = StartSmarty::configuration();
 
     }
-    public function listaProdotti($array_prodotti, $product_added, $product_modified, $product_deleted){
+    public function listaProdotti($array_prodotti, $categorie, $marche, $filtri_applicati, $product_added, $product_modified, $product_deleted){
         $loginVariables = (new VUtente)->checkLogin();
         foreach ($loginVariables as $key => $value) {
             $this->smarty->assign($key, $value);
         }
         $this->smarty->assign('array_prodotti', $array_prodotti);
+        $this->smarty->assign('array_categorie', $categorie);
+        $this->smarty->assign('marche', $marche);
+        $this->smarty->assign('filtri_applicati', $filtri_applicati);
         $this->smarty->assign('listaProdotti', 1);
-        $this->smarty->assign('addedProductSuccess', 0);
-        $this->smarty->assign('modifiedProductSuccess', 0);
-        $this->smarty->assign('deletedProductSuccess', 0);
-
-        // Controlla se il metodo è stato chiamato dalla form per aggiungere un prodotto
-        if ($product_added) {
-            $this->smarty->assign('addedProductSuccess', 1);
-        }
-        if ($product_modified) {
-            $this->smarty->assign('modifiedProductSuccess', 1);
-        }
-        if ($product_deleted) {
-            $this->smarty->assign('deletedProductSuccess', 1);
-        }
-
+        $this->smarty->assign('addedProductSuccess', $product_added);
+        $this->smarty->assign('modifiedProductSuccess', $product_modified);
+        $this->smarty->assign('deletedProductSuccess', $product_deleted);
         $this->smarty->display('userinfo.tpl');
     }
     public function addProductForm($array_categorie){

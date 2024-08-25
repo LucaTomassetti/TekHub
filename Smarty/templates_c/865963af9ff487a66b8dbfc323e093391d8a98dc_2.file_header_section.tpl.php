@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-08-25 12:15:18
+/* Smarty version 5.3.0, created on 2024-08-25 18:48:05
   from 'file:header_section.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66cb0436061d23_25406476',
+  'unifunc' => 'content_66cb6045cd2838_86112812',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '865963af9ff487a66b8dbfc323e093391d8a98dc' => 
     array (
       0 => 'header_section.tpl',
-      1 => 1724232183,
+      1 => 1724604482,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66cb0436061d23_25406476 (\Smarty\Template $_smarty_tpl) {
+function content_66cb6045cd2838_86112812 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?><!-- HEADER -->
 <header>
@@ -46,23 +46,24 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
             <div class="col-lg-4 col-md-6 col-sm-9 col-xs-9">
             <?php if ($_smarty_tpl->getValue('search_bar') == 1) {?>
                 <div class="header-search">
-                    <form>
-                        <select class="input-select">
-                        <?php
+                    <form action="/TekHub/gestioneAcquisto/shop" method="GET">
+                        <select class="input-select" name="categoria">
+                            <option value="">Tutte le categorie</option>
+                            <?php
 $_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('array_categorie'), 'categoria');
-$foreach2DoElse = true;
+$foreach0DoElse = true;
 foreach ($_from ?? [] as $_smarty_tpl->getVariable('categoria')->value) {
-$foreach2DoElse = false;
+$foreach0DoElse = false;
 ?>
-                            <option value="<?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('categoria')['nome_categoria']), ENT_QUOTES, 'UTF-8');?>
+                                <option value="<?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('categoria')['nome_categoria']), ENT_QUOTES, 'UTF-8');?>
 "><?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('categoria')['nome_categoria']), ENT_QUOTES, 'UTF-8');?>
 </option>
-                        <?php
+                            <?php
 }
 $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                         </select>
-                        <input class="input" placeholder="Cerca il prodotto...">
-                        <button class="search-btn"><i class="fas fa-search"></i></button>
+                        <input class="input" name="query" id="searchInput" placeholder="Cerca il prodotto...">
+                        <button class="search-btn" type="submit"><i class="fas fa-search"></i></button>
                     </form>
                 </div>
             <?php }?>
@@ -103,9 +104,9 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                             <?php if ($_smarty_tpl->getValue('prodotti_carrello') != 0) {?>
                                 <?php
 $_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('prodotti_carrello'), 'prodotto');
-$foreach3DoElse = true;
+$foreach1DoElse = true;
 foreach ($_from ?? [] as $_smarty_tpl->getVariable('prodotto')->value) {
-$foreach3DoElse = false;
+$foreach1DoElse = false;
 ?>
                                 <div class="product-widget">
                                     <div class="product-img">

@@ -32,7 +32,7 @@
     </div>
     <br>
     <div class="row d-flex justify-content-center">
-        {if $check_login_admin == 0 && $check_login_chef == 0}
+        {if $check_login_admin == 0 && $check_login_venditore == 0}
             <div class="col-md-4">
                 <a href="/TekHub/utente/userDataForm" class="btn btn-primary btn-block">Modifica dati personali</a>
             </div>
@@ -43,7 +43,7 @@
                 <a href="/TekHub/utente/carteCredito" class="btn btn-primary btn-block">Le mie carte di credito</a>
             </div>
         {else}
-            <div class="col-md-4">
+            <div class="col">
                 <a href="/TekHub/utente/userDataForm" class="btn btn-primary btn-block">Modifica dati personali</a>
             </div>
         {/if}

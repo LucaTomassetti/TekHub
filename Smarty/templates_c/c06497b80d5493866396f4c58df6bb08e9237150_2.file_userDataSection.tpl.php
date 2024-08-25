@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-08-25 16:22:13
+/* Smarty version 5.3.0, created on 2024-08-25 18:50:26
   from 'file:userDataSection.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66cb3e158bbf54_93587392',
+  'unifunc' => 'content_66cb60d20f8b77_60164036',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'c06497b80d5493866396f4c58df6bb08e9237150' => 
     array (
       0 => 'userDataSection.tpl',
-      1 => 1724595731,
+      1 => 1724604623,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:accountDelete.tpl' => 1,
   ),
 ))) {
-function content_66cb3e158bbf54_93587392 (\Smarty\Template $_smarty_tpl) {
+function content_66cb60d20f8b77_60164036 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 if ($_smarty_tpl->getValue('changepasswordsucces') == 1) {?>
     <div class="mt-5">
@@ -61,7 +61,7 @@ if ($_smarty_tpl->getValue('changeuserdatasucces') == 1) {?>
     </div>
     <br>
     <div class="row d-flex justify-content-center">
-        <?php if ($_smarty_tpl->getValue('check_login_admin') == 0 && $_smarty_tpl->getValue('check_login_chef') == 0) {?>
+        <?php if ($_smarty_tpl->getValue('check_login_admin') == 0 && $_smarty_tpl->getValue('check_login_venditore') == 0) {?>
             <div class="col-md-4">
                 <a href="/TekHub/utente/userDataForm" class="btn btn-primary btn-block">Modifica dati personali</a>
             </div>
@@ -72,7 +72,7 @@ if ($_smarty_tpl->getValue('changeuserdatasucces') == 1) {?>
                 <a href="/TekHub/utente/carteCredito" class="btn btn-primary btn-block">Le mie carte di credito</a>
             </div>
         <?php } else { ?>
-            <div class="col-md-4">
+            <div class="col">
                 <a href="/TekHub/utente/userDataForm" class="btn btn-primary btn-block">Modifica dati personali</a>
             </div>
         <?php }?>

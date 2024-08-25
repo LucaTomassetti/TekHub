@@ -1,76 +1,44 @@
 
             <!-- Filter Section -->
                 <div class="form-container">
-                    <form method="POST" action="">
-                    <h2>Sezione filtri</h2>
-                        <button type="submit" class="btn btn-primary btn-block">Applica filtri</button>
-                        <div class="form-group">
-                        <label for="userType" class="form-label">Seleziona il tipo di id da cercare</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="userType" id="acquirente" value="acquirente" required>
-                            <label class="form-check-label" for="acquirente">
-                                Acquirente
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="userType" id="venditore" value="venditore" required>
-                            <label class="form-check-label" for="venditore">
-                                Ordine
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="userType" id="venditore" value="venditore" required>
-                            <label class="form-check-label" for="venditore">
-                                Prodotto
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="userType" id="venditore" value="venditore" required>
-                            <label class="form-check-label" for="venditore">
-                                Recensione
-                            </label>
-                        </div>
-                        </div>
-
-                        <div class="form-group">
-                            
-                            <input name="id" type="text" class="form-control" id="id" placeholder="ID..." required>
-                        </div>
-                        <div class="form-group">
-                            <label for="categoryFilter">Categoria</label>
-                            
-                            <select id="categoryFilter" class="form-control">
-                            {foreach from=$array_categorie item=categoria}
-                                <option value="{$categoria.nome_categoria}">{$categoria.nome_categoria}</option>
-                            {/foreach}
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="marcaFilter">Marca</label>
-                            <select id="marcaFilter" class="form-control">
-                                <option value="1">Indifferente</option>
-                                <option value="2">Marca 2</option>
-                                <option value="3">Marca 3</option>
-                                <option value="4">Marca 4</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="priceRange">Prezzo: <span id="priceValue">0</span></label>
-                            <input type="range" class="form-control-range" id="priceRange" min="0" max="5000" value="0" oninput="updatePriceValue(this.value)">
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="filter1">
-                            <label class="form-check-label" for="filter1">
-                                Filtri Opzione 1
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="filter2">
-                            <label class="form-check-label" for="filter2">
-                                 Filtri Opzione 2
-                            </label>
-                        </div>
-                    </form>
+                <form method="GET" action="/TekHub/{if $check_login_venditore == 1 || $check_login_admin}gestioneProdotti{else}gestioneAcquisto{/if}/{if $check_login_venditore == 1 || $check_login_admin}listaProdotti{else}shop{/if}" id="filterForm">
+                    <input type="hidden" name="query" id="hiddenQuery" value="{$filtri_applicati.query}">
+                <h2>Sezione filtri</h2>
+                <div class="form-group">
+                    <label for="categoryFilter">Categoria</label>
+                    <select id="categoryFilter" name="categoria" class="form-control">
+                        <option value="">Tutte le categorie</option>
+                        {foreach from=$array_categorie item=categoria}
+                        <option value="{$categoria.nome_categoria}" {if $filtri_applicati.categoria == $categoria.nome_categoria}selected{/if}>{$categoria.nome_categoria}</option>
+                        {/foreach}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="marcaFilter">Marca</label>
+                    <select id="marcaFilter" name="marca" class="form-control">
+                        <option value="">Tutte le marche</option>
+                        {foreach from=$marche item=marca}
+                        <option value="{$marca}" {if $filtri_applicati.marca == $marca}selected{/if}>{$marca}</option>
+                        {/foreach}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="priceRange">Prezzo massimo: <span id="priceValue">€{if isset($smarty.get.prezzo_max)}{$smarty.get.prezzo_max}{else}5000{/if}</span></label>
+                    <input type="range" class="form-control-range" id="priceRange" name="prezzo_max" min="0" max="5000" value="{if isset($smarty.get.prezzo_max)}{$smarty.get.prezzo_max}{else}5000{/if}" oninput="updatePriceValue(this.value)">
+                </div>
+                <div class="form-group">
+                    <label>Condizione</label>
+                    <div class="form-check">
+                        <input type="checkbox" name="condizione[]" value="nuovo" {if in_array('nuovo', $filtri_applicati.condizione)}checked{/if}>
+                        <label class="form-check-label" for="nuovoCheck">Nuovo</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" name="condizione[]" value="usato" {if in_array('usato', $filtri_applicati.condizione)}checked{/if}>
+                        <label class="form-check-label" for="usatoCheck">Usato (in asta)</label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Applica filtri</button>
+            </form>
                 </div>
             <script>
                 function updatePriceValue(value) {
@@ -80,4 +48,22 @@
                         priceValue.textContent = value+"€ e più";
                     }
                 }
+            </script>
+            <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Trova l'input di ricerca nella barra di navigazione
+                var searchInput = document.querySelector('input[name="query"]');
+                var hiddenQuery = document.getElementById('hiddenQuery');
+                var filterForm = document.getElementById('filterForm');
+            
+                // Aggiorna il valore nascosto quando l'utente digita nella barra di ricerca
+                searchInput.addEventListener('input', function() {
+                    hiddenQuery.value = this.value;
+                });
+            
+                // Aggiorna il valore nascosto prima dell'invio del form
+                filterForm.addEventListener('submit', function() {
+                    hiddenQuery.value = searchInput.value;
+                });
+            });
             </script>

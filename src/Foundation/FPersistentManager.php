@@ -1,5 +1,6 @@
 <?php
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class FPersistentManager{
 
@@ -219,8 +220,8 @@ class FPersistentManager{
     public function getAllProducts($currentPage){
         return getEntityManager()->getRepository('EProdotto')->getAllProducts($currentPage);
     }
-    public function getAllProductsByVend($venditore, $currentPage){
-        return getEntityManager()->getRepository('EProdotto')->getAllProductsByVend($venditore, $currentPage);
+    public function getAllProductsByVend(EVenditore $venditore, $page, $filtri){
+        return getEntityManager()->getRepository('EProdotto')->getAllProductsByVend($venditore, $page, $filtri);
     }
     public function getAllNewSameCatProd($categoria, $currentPage){
         return getEntityManager()->getRepository('ENuovo')->getAllNewSameCatProd($categoria, $currentPage);
@@ -382,6 +383,83 @@ class FPersistentManager{
     public function riattivaCarta(ECartaDiCredito $carta) {
         $carta->setDeleted(false);
         getEntityManager()->flush();
+    }
+    public function cercaProdotti($query, $categoria) {
+        $dql = "SELECT p FROM EProdotto p WHERE p.nome LIKE :query";
+        if ($categoria) {
+            $dql .= " AND p.category_name = :categoria";
+        }
+        $query = getEntityManager()->createQuery($dql)
+            ->setParameter('query', '%' . $query . '%');
+        if ($categoria) {
+            $query->setParameter('categoria', $categoria);
+        }
+        return $query->getResult();
+    }
+    
+    public function getProdottiFiltrati($filtri, $page = 1, $pageSize = 4) {
+        $qb = getEntityManager()->createQueryBuilder();
+        $qb->select('p')
+           ->from('EProdotto', 'p')
+           ->where('1 = 1');
+    
+        if ($filtri['query']) {
+            $qb->andWhere('p.nome LIKE :query OR p.descrizione LIKE :query')
+               ->setParameter('query', '%' . $filtri['query'] . '%');
+        }
+        if ($filtri['categoria']) {
+            $qb->andWhere('p.category_name = :categoria')
+               ->setParameter('categoria', $filtri['categoria']);
+        }
+        if ($filtri['marca']) {
+            $qb->andWhere('p.marca = :marca')
+               ->setParameter('marca', $filtri['marca']);
+        }
+    
+        // Rimuovi il filtro del prezzo dalla query principale
+    
+        if (in_array('nuovo', $filtri['condizione'])) {
+            $qb->andWhere('p INSTANCE OF ENuovo');
+        }
+        if (in_array('usato', $filtri['condizione'])) {
+            $qb->andWhere('p INSTANCE OF EUsato');
+        }
+    
+        $query = $qb->getQuery();
+    
+        $paginator = new Paginator($query, $fetchJoinCollection = true);
+    
+        $risultati = iterator_to_array($paginator);
+    
+        // Filtra i risultati per prezzo in PHP
+        if ($filtri['prezzo_max']) {
+            $risultati = array_filter($risultati, function($prodotto) use ($filtri) {
+                if ($prodotto instanceof ENuovo) {
+                    return $prodotto->getPrezzoFisso() <= $filtri['prezzo_max'];
+                } elseif ($prodotto instanceof EUsato) {
+                    return $prodotto->getFloorPrice() <= $filtri['prezzo_max'];
+                }
+                return false;
+            });
+        }
+    
+        $totalItems = count($risultati);
+        $risultati = array_slice($risultati, ($page - 1) * $pageSize, $pageSize);
+    
+        return [
+            'prodotti' => $risultati,
+            'n_prodotti' => $totalItems,
+            'currentPage' => $page,
+            'itemsPerPage' => $pageSize,
+            'totalPages' => ceil($totalItems / $pageSize),
+        ];
+    }
+    
+    public function getAllBrands() {
+        $dql = "SELECT DISTINCT p.marca FROM EProdotto p";
+        $query = getEntityManager()->createQuery($dql);
+        $results = $query->getResult();
+        return array_column($results, 'marca');
     }
 }
 ?>

@@ -33,23 +33,65 @@ class FProdotto extends EntityRepository {
         $em->persist($found_prodotto);
         $em->flush();
     }
-    public function getAllProductsByVend(EVenditore $venditore, $currentPage = 1, $pageSize = 4){
-        $dql = "SELECT prodotto
-            FROM EProdotto prodotto
-            WHERE prodotto.venditore = ?1";
-        $query = getEntityManager()->createQuery($dql);
-        $query->setParameter(1, $venditore)
-        ->setFirstResult(($currentPage - 1) * $pageSize)
-        ->setMaxResults($pageSize);
-
-        $paginator = new Paginator($query, fetchJoinCollection: true);
-
+    public function getAllProductsByVend(EVenditore $venditore, $page = 1, $filtri = [], $pageSize = 4) {
+        $qb = getEntityManager()->createQueryBuilder();
+        $qb->select('p')
+           ->from('EProdotto', 'p')
+           ->where('p.venditore = :venditore')
+           ->setParameter('venditore', $venditore);
+    
+        if (!empty($filtri['query'])) {
+            $qb->andWhere('p.nome LIKE :query OR p.descrizione LIKE :query')
+               ->setParameter('query', '%' . $filtri['query'] . '%');
+        }
+        if (!empty($filtri['categoria'])) {
+            $qb->andWhere('p.category_name = :categoria')
+               ->setParameter('categoria', $filtri['categoria']);
+        }
+        if (!empty($filtri['marca'])) {
+            $qb->andWhere('p.marca = :marca')
+               ->setParameter('marca', $filtri['marca']);
+        }
+        if (!empty($filtri['condizione'])) {
+            $conditions = [];
+            foreach ($filtri['condizione'] as $condition) {
+                if ($condition === 'nuovo') {
+                    $conditions[] = 'p INSTANCE OF ENuovo';
+                } elseif ($condition === 'usato') {
+                    $conditions[] = 'p INSTANCE OF EUsato';
+                }
+            }
+            if (!empty($conditions)) {
+                $qb->andWhere(implode(' OR ', $conditions));
+            }
+        }
+    
+        $query = $qb->getQuery()
+                    ->setFirstResult(($page - 1) * $pageSize)
+                    ->setMaxResults($pageSize);
+    
+        $paginator = new Paginator($query, $fetchJoinCollection = true);
+    
+        $risultati = iterator_to_array($paginator);
+    
+        // Filtra i risultati per prezzo in PHP
+        if (!empty($filtri['prezzo_max'])) {
+            $risultati = array_filter($risultati, function($prodotto) use ($filtri) {
+                if ($prodotto instanceof ENuovo) {
+                    return $prodotto->getPrezzoFisso() <= $filtri['prezzo_max'];
+                } elseif ($prodotto instanceof EUsato) {
+                    return $prodotto->getFloorPrice() <= $filtri['prezzo_max'];
+                }
+                return false;
+            });
+        }
+    
         return [
-        'prodotti' => iterator_to_array($paginator),
-        'n_prodotti' => count($paginator),
-        'currentPage' => $currentPage,
-        'pageSize' => $pageSize,
-        'totalPages' => ceil(count($paginator) / $pageSize)
+            'prodotti' => $risultati,
+            'totalItems' => count($paginator),
+            'currentPage' => $page,
+            'itemsPerPage' => $pageSize,
+            'totalPages' => ceil(count($paginator) / $pageSize)
         ];
     }
     public function getAllProducts($currentPage = 1, $pageSize = 4){

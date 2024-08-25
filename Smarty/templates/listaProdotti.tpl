@@ -24,32 +24,31 @@
 </form>
     <!-- row -->
     <div class="row">
-        {if $array_prodotti['n_prodotti'] == 0}
+        {if $array_prodotti.totalPages == 0}
             <div class="alert alert-warning">
-                Non ci sono prodotti! Aggiungi i prodotti dal tasto in alto
+                Non ci sono prodotti!
             </div>
         {/if}
 
-        {if $array_prodotti['n_prodotti'] > 0} 
-            <!-- Pagination -->
+        <!-- Pagination -->
+        {if $array_prodotti.totalPages > 1}
             <ul class="reviews-pagination">
-            {if $array_prodotti['currentPage'] > 1}
-                <li><a href="?page={$array_prodotti['currentPage']-1}"><i class="fa fa-angle-left"></i></a></li>
-            {/if}
+                {if $array_prodotti.currentPage > 1}
+                    <li><a href="?page={$array_prodotti.currentPage-1}&query={$filtri_applicati.query}&categoria={$filtri_applicati.categoria}"><i class="fa fa-angle-left"></i></a></li>
+                {/if}
 
-            {for $page=1 to $array_prodotti['totalPages']}
-            <li {if $page == $array_prodotti['currentPage']}class="active"{/if}><a href="?page={$page}">
-                {$page}
-            </a></li>
-            {/for}
+                {for $page=1 to $array_prodotti.totalPages}
+                    <li {if $page == $array_prodotti.currentPage}class="active"{/if}>
+                        <a href="?page={$page}&query={$filtri_applicati.query}&categoria={$filtri_applicati.categoria}">{$page}</a>
+                    </li>
+                {/for}
 
-            {if $array_prodotti['currentPage'] < $array_prodotti['totalPages']}
-                <li><a href="?page={$array_prodotti['currentPage']+1}"><i class="fa fa-angle-right"></i></a></li>
-            {/if}
+                {if $array_prodotti.currentPage < $array_prodotti.totalPages}
+                    <li><a href="?page={$array_prodotti.currentPage+1}&query={$filtri_applicati.query}&categoria={$filtri_applicati.categoria}"><i class="fa fa-angle-right"></i></a></li>
+                {/if}
             </ul>
-            <!-- /Pagination -->
         {/if} 
-                {foreach from=$array_prodotti['prodotti'] item=prodotto}
+                {foreach from=$array_prodotti.prodotti item=prodotto}
                     <!-- product -->
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <div class="product">
@@ -80,6 +79,6 @@
                     <!-- /product -->
                 {/foreach}
     </div>
-{if $array_prodotti['n_prodotti'] != 0}
+{if $array_prodotti.totalPages != 0}
     {include file = 'productDelete.tpl'}
 {/if}

@@ -4,8 +4,18 @@ use Doctrine\DBAL\Types\DateTimeTzImmutableType;
 
 class CGestioneProdotti{
     public static function listaProdotti(){
-        
         $view = new VGestioneProdotti();
+        
+        $filtri = [
+            'query' => isset($_GET['query']) ? $_GET['query'] : '',
+            'categoria' => isset($_GET['categoria']) ? $_GET['categoria'] : '',
+            'marca' => isset($_GET['marca']) ? $_GET['marca'] : '',
+            'prezzo_max' => isset($_GET['prezzo_max']) ? (int)$_GET['prezzo_max'] : 5000,
+            'condizione' => isset($_GET['condizione']) ? $_GET['condizione'] : [],
+        ];
+        
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        
         // Verifica se ci sono messaggi di successo nella sessione
         $product_added = isset($_SESSION['product_added']) && $_SESSION['product_added'];
         $product_modified = isset($_SESSION['product_modified']) && $_SESSION['product_modified'];
@@ -15,20 +25,14 @@ class CGestioneProdotti{
         unset($_SESSION['product_added']);
         unset($_SESSION['product_modified']);
         unset($_SESSION['product_deleted']);
-
-        if (!isset($_GET['page'])) {
-            // Redirect to the same URL with ?page=1
-            $url = $_SERVER['REQUEST_URI'];
-            $url = rtrim('?', $url);
-            $url .= '?page=1';
-            header("Location: $url");
-        }
-        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+    
         if (CUtente::isLogged()) {
             if($_SESSION['utente'] instanceof EVenditore){
-                $array_prodotti = FPersistentManager::getInstance()->getAllProductsByVend($_SESSION['utente'], $page);
-                $view->listaProdotti($array_prodotti, $product_added, $product_modified, $product_deleted);
-            }else {
+                $array_prodotti = FPersistentManager::getInstance()->getAllProductsByVend($_SESSION['utente'], $page, $filtri);
+                $categorie = FPersistentManager::getInstance()->getAllCategories();
+                $marche = FPersistentManager::getInstance()->getAllBrands();
+                $view->listaProdotti($array_prodotti, $categorie, $marche, $filtri, $product_added, $product_modified, $product_deleted);
+            } else {
                 header('Location: /TekHub/utente/home');
             }
         } else {

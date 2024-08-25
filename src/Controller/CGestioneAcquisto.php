@@ -1,19 +1,27 @@
 <?php
 
 class CGestioneAcquisto{
-    public static function shop()
-    {
-        $view_acquisto = new VGestioneAcquisto();
-        if (!isset($_GET['page'])) {
-            // Redirect to the same URL with ?page=1
-            $url = $_SERVER['REQUEST_URI'];
-            $url .= '?page=1';
-            header("Location: $url");
-        }
+    public static function shop() {
+        $view = new VGestioneAcquisto();
+        
+        $filtri = [
+            'query' => isset($_GET['query']) ? $_GET['query'] : '',
+            'categoria' => isset($_GET['categoria']) ? $_GET['categoria'] : '',
+            'marca' => isset($_GET['marca']) ? $_GET['marca'] : '',
+            'prezzo_max' => isset($_GET['prezzo_max']) ? (int)$_GET['prezzo_max'] : 5000,
+            'condizione' => isset($_GET['condizione']) ? $_GET['condizione'] : [],
+        ];
+        
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-        $array_negozio = FPersistentManager::getInstance()->getAllProducts($page);
-        $array_categoria = FPersistentManager::getInstance()->getAllCategories();
-        $view_acquisto->shop($array_negozio, $array_categoria);
+        if(isset($_GET['query']) || isset($_GET['categoria']) || isset($_GET['marca']) || isset($_GET['prezzo_max']) || isset($_GET['condizione'])){
+            $prodotti = FPersistentManager::getInstance()->getProdottiFiltrati($filtri, $page);
+        }else{
+            $prodotti = FPersistentManager::getInstance()->getAllProducts($page);
+        }
+        $categorie = FPersistentManager::getInstance()->getAllCategories();
+        $marche = FPersistentManager::getInstance()->getAllBrands();
+        
+        $view->shop($prodotti, $categorie, $marche, $filtri);
     }
     public static function vediProdotto($prodotto_id){
 
