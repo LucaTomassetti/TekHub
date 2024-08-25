@@ -36,9 +36,6 @@ class EVenditore{
     #[ORM\Column(type: 'string', length:10, columnDefinition: 'VARCHAR(10)')]
     private $cellulare;
 
-    #[ORM\OneToMany(targetEntity:ERimborso::class, mappedBy:'venditore')]
-    private Collection $rimborsi;
-
     #[ORM\OneToMany(targetEntity:EProdotto::class, mappedBy:'venditore')]
     private Collection $prodotti;
 
@@ -57,7 +54,6 @@ class EVenditore{
         $this->password=$password;
         $this->username=$username;
         $this->cellulare = $cellulare;
-        $this->rimborsi = new ArrayCollection();
         $this->prodotti = new ArrayCollection();
         $this->segnalazioni = new ArrayCollection();
         $this->aste = new ArrayCollection();
@@ -209,25 +205,6 @@ class EVenditore{
     public function getIdVenditore()
     {
         return $this->id_venditore;
-    }
-
-
-    /**
-     * Get the value of rimborsi
-     */
-    public function getRimborsi(): Collection
-    {
-        return $this->rimborsi;
-    }
-
-    /**
-     * Set the value of rimborsi
-     */
-    public function setRimborsi(Collection $rimborsi): self
-    {
-        $this->rimborsi = $rimborsi;
-
-        return $this;
     }
 
     /**

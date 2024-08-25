@@ -41,17 +41,11 @@ class EProdotto{
     #[ORM\JoinColumn(name:'venditore', referencedColumnName:'id_venditore', nullable:true)]
     private EVenditore|null $venditore = null;
 
-    #[ORM\OneToMany(targetEntity:EReso::class, mappedBy:'prodotto')]
-    private Collection $resi;
-
     #[ORM\OneToMany(targetEntity:ERecensione::class, mappedBy:'prodotto')]
     private Collection $recensioni;
 
     #[ORM\OneToMany(targetEntity: EOrdineProdotto::class, mappedBy: 'prodotto_id')]
     private Collection $q_prodotto_ordine;
-
-    #[ORM\OneToMany(targetEntity:ERimborso::class, mappedBy:'prodotto')]
-    private Collection $rimborsi;
 
     public $discr = "prodotto";
 
@@ -62,10 +56,8 @@ class EProdotto{
         $this->modello = $modello;
         $this->colore = $colore;
         $this->immagini = new ArrayCollection();
-        $this->resi = new ArrayCollection();
         $this->recensioni = new ArrayCollection();
         $this->q_prodotto_ordine = new ArrayCollection();
-        $this->rimborsi = new ArrayCollection();
     }
 
     /**
@@ -149,22 +141,6 @@ class EProdotto{
     }
 
     /**
-     * Get the value of resi
-     */
-    public function getResi(): Collection
-    {
-        return $this->resi;
-    }
-
-    /**
-     * Set the value of resi
-     */
-    public function setResi(Collection $resi)
-    {
-        $this->resi = $resi;
-    }
-
-    /**
      * Get the value of immagini
      */
     public function getImmagini(): Collection
@@ -224,22 +200,6 @@ class EProdotto{
     public function setQProdottoOrdine(Collection $q_prodotto_ordine)
     {
         $this->q_prodotto_ordine = $q_prodotto_ordine;
-    }
-
-    /**
-     * Get the value of rimborsi
-     */
-    public function getRimborsi(): Collection
-    {
-        return $this->rimborsi;
-    }
-
-    /**
-     * Set the value of rimborsi
-     */
-    public function setRimborsi(Collection $rimborsi)
-    {
-        $this->rimborsi = $rimborsi;
     }
 
     /**

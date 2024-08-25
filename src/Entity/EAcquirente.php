@@ -39,17 +39,11 @@ class EAcquirente{
     #[ORM\OneToMany(targetEntity:EOrdine::class, mappedBy:'acquirente')]
     private Collection $ordini;
 
-    #[ORM\OneToMany(targetEntity:EReso::class, mappedBy:'acquirente')]
-    private Collection $resi;
-
     #[ORM\OneToMany(targetEntity:ERecensione::class, mappedBy:'acquirente')]
     private Collection $recensioni;
 
     #[ORM\OneToMany(targetEntity:ECartaDiCredito::class, mappedBy:'proprietario')]
     private Collection $carte_di_credito;
-
-    #[ORM\OneToMany(targetEntity:ERimborso::class, mappedBy:'cliente_rimborsato')]
-    private Collection $rimborsi;
 
     public function __construct($nome,$cognome,$username,$password,$email,$cellulare){
        $this->nome = $nome;
@@ -61,10 +55,8 @@ class EAcquirente{
        $this->indirizzi = new ArrayCollection();
        $this->offerte = new ArrayCollection();
        $this->ordini = new ArrayCollection();
-       $this->resi = new ArrayCollection();
        $this->recensioni = new ArrayCollection();
        $this->carte_di_credito = new ArrayCollection();
-       $this->rimborsi = new ArrayCollection();
     }
     
     /**
@@ -248,24 +240,6 @@ class EAcquirente{
     }
 
     /**
-     * Get the value of resi
-     */
-    public function getResi(): Collection
-    {
-        return $this->resi;
-    }
-
-    /**
-     * Set the value of resi
-     */
-    public function setResi(Collection $resi): self
-    {
-        $this->resi = $resi;
-
-        return $this;
-    }
-
-    /**
      * Get the value of recensioni
      */
     public function getRecensioni(): Collection
@@ -297,24 +271,6 @@ class EAcquirente{
     public function setCarteDiCredito(Collection $carte_di_credito): self
     {
         $this->carte_di_credito = $carte_di_credito;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of rimborsi
-     */
-    public function getRimborsi(): Collection
-    {
-        return $this->rimborsi;
-    }
-
-    /**
-     * Set the value of rimborsi
-     */
-    public function setRimborsi(Collection $rimborsi): self
-    {
-        $this->rimborsi = $rimborsi;
 
         return $this;
     }
