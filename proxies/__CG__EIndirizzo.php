@@ -16,16 +16,16 @@ class EIndirizzo extends \EIndirizzo implements \Doctrine\ORM\Proxy\InternalProx
     }
 
     private const LAZY_OBJECT_PROPERTY_SCOPES = [
-        "\0".parent::class."\0".'acquirente' => [parent::class, 'acquirente', null],
         "\0".parent::class."\0".'cap' => [parent::class, 'cap', null],
-        "\0".parent::class."\0".'comune' => [parent::class, 'comune', null],
-        "\0".parent::class."\0".'nome' => [parent::class, 'nome', null],
-        "\0".parent::class."\0".'ordine' => [parent::class, 'ordine', null],
-        'acquirente' => [parent::class, 'acquirente', null],
+        "\0".parent::class."\0".'cliente_residente' => [parent::class, 'cliente_residente', null],
+        "\0".parent::class."\0".'indirizzo' => [parent::class, 'indirizzo', null],
+        "\0".parent::class."\0".'is_deleted' => [parent::class, 'is_deleted', null],
+        "\0".parent::class."\0".'ordini' => [parent::class, 'ordini', null],
         'cap' => [parent::class, 'cap', null],
-        'comune' => [parent::class, 'comune', null],
-        'nome' => [parent::class, 'nome', null],
-        'ordine' => [parent::class, 'ordine', null],
+        'cliente_residente' => [parent::class, 'cliente_residente', null],
+        'indirizzo' => [parent::class, 'indirizzo', null],
+        'is_deleted' => [parent::class, 'is_deleted', null],
+        'ordini' => [parent::class, 'ordini', null],
     ];
 
     public function __isInitialized(): bool

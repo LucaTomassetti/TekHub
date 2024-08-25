@@ -10,9 +10,11 @@ class VGestioneProdotti{
 
     }
     public function listaProdotti($array_prodotti, $product_added, $product_modified, $product_deleted){
+        $loginVariables = (new VUtente)->checkLogin();
+        foreach ($loginVariables as $key => $value) {
+            $this->smarty->assign($key, $value);
+        }
         $this->smarty->assign('array_prodotti', $array_prodotti);
-        $this->smarty->assign('check_login_venditore', 1);
-        $this->smarty->assign('check_login', 1);
         $this->smarty->assign('listaProdotti', 1);
         $this->smarty->assign('addedProductSuccess', 0);
         $this->smarty->assign('modifiedProductSuccess', 0);
@@ -32,15 +34,19 @@ class VGestioneProdotti{
         $this->smarty->display('userinfo.tpl');
     }
     public function addProductForm($array_categorie){
-        $this->smarty->assign('check_login_venditore', 1);
-        $this->smarty->assign('check_login', 1);
+        $loginVariables = (new VUtente)->checkLogin();
+        foreach ($loginVariables as $key => $value) {
+            $this->smarty->assign($key, $value);
+        }
         $this->smarty->assign('addProductForm', 1);
         $this->smarty->assign('array_categorie', $array_categorie);
         $this->smarty->display('userinfo.tpl');
     }
     public function modifyProductForm($prodotto, $immagini){
-        $this->smarty->assign('check_login_venditore', 1);
-        $this->smarty->assign('check_login', 1);
+        $loginVariables = (new VUtente)->checkLogin();
+        foreach ($loginVariables as $key => $value) {
+            $this->smarty->assign($key, $value);
+        }
         $this->smarty->assign('nomeProdotto', $prodotto->getNome());
         $this->smarty->assign('descrizione', $prodotto->getDescrizione());
         $this->smarty->assign('marca', $prodotto->getMarca());
@@ -63,8 +69,10 @@ class VGestioneProdotti{
         $this->smarty->display('userinfo.tpl');
     }
     public function errorImageUpload(){
-        $this->smarty->assign('check_login_venditore', 1);
-        $this->smarty->assign('check_login', 1);
+        $loginVariables = (new VUtente)->checkLogin();
+        foreach ($loginVariables as $key => $value) {
+            $this->smarty->assign($key, $value);
+        }
         $this->smarty->assign('addProductForm', 1);
         $this->smarty->assign('errorImageUpload', 1);
         $this->smarty->display('userinfo.tpl');

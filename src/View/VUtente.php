@@ -8,7 +8,39 @@ class VUtente{
 
         $this->smarty = StartSmarty::configuration();
         $this->smarty->assign('cart_quantity', self::countItemCart());
-
+        $data = self::cart_header();
+        $this->smarty->assign('prodotti_carrello', $data['array_carrello']);
+        $this->smarty->assign('subtotal', $data['subtotal']);
+        $this->smarty->assign('carrello', $data['carrello']);
+        $this->smarty->assign('is_cart_empty', !isset($_COOKIE['cart']) || empty($data['carrello']) ? 1 : 0);
+    }
+    public function cart_header(){
+        if (!isset($_COOKIE['cart'])) {
+            setcookie('cart', json_encode([]), time() + (86400 * 30), "/"); // 30 giorni
+        }
+        $array_carrello = [];
+        $carrello = isset($_COOKIE['cart']) ? json_decode($_COOKIE['cart'], true) : [];
+        if($carrello){
+            foreach($carrello as $id => $qty){
+                $prod = FPersistentManager::getInstance()->find(ENuovo::class, $id);
+                $array_carrello[] = [
+                    'prodotto' => $prod,
+                    'quantita' => $qty
+                ];
+            } 
+        }
+        $subtotal = 0;
+        if(!empty($array_carrello)){
+            foreach($array_carrello as $item){
+                $subtotal += $item['prodotto']->getPrezzoFisso() * $item['quantita'];
+            }
+        }
+        return [
+            'array_carrello' => $array_carrello ? $array_carrello : [],
+            'subtotal' => $subtotal,
+            'carrello' => $carrello
+        ];
+        
     }
     public function countItemCart()
     {
@@ -53,19 +85,17 @@ class VUtente{
     public function showLoginForm(){
         $this->smarty->display('login.tpl');
     }
-    public function loginSuccessAcquirente($array_prodotti, $array_categorie, $array_carrello){
+    public function loginSuccessAcquirente($array_prodotti, $array_categorie){
         $loginVariables = self::checkLogin();
         foreach ($loginVariables as $key => $value) {
             $this->smarty->assign($key, $value);
         }
-        $this->smarty->assign('prodotti_carrello', $array_carrello ? $array_carrello : 0);
-        $subtotal = 0;
-        if(!empty($array_carrello)){
-            foreach($array_carrello as $item){
-                $subtotal += $item['prodotto']->getPrezzoFisso() * $item['quantita'];
-            }
+        $this->smarty->assign('carrello_svuotato', 0);
+        $carrello_svuotato = isset($_SESSION['carrello_svuotato']) && $_SESSION['carrello_svuotato'];
+        unset($_SESSION['carrello_svuotato']);
+        if ($carrello_svuotato) {
+            $this->smarty->assign('carrello_svuotato', 1);
         }
-        $this->smarty->assign('subtotal', $subtotal);
         $this->smarty->assign('removed_from_cart', 0);
         $removed_from_cart = isset($_SESSION['removed_from_cart']) && $_SESSION['removed_from_cart'];
         unset($_SESSION['removed_from_cart']);
@@ -117,19 +147,17 @@ class VUtente{
         $this->smarty->assign('errore_log', 1);
         $this->smarty->display('login.tpl');
     }
-    public function logout($array_prodotti, $array_categorie, $array_carrello){
+    public function logout($array_prodotti, $array_categorie){
         $loginVariables = self::checkLogin();
         foreach ($loginVariables as $key => $value) {
             $this->smarty->assign($key, $value);
         }
-        $this->smarty->assign('prodotti_carrello', $array_carrello ? $array_carrello : 0);
-        $subtotal = 0;
-        if(!empty($array_carrello)){
-            foreach($array_carrello as $item){
-                $subtotal += $item['prodotto']->getPrezzoFisso() * $item['quantita'];
-            }
+        $this->smarty->assign('carrello_svuotato', 0);
+        $carrello_svuotato = isset($_SESSION['carrello_svuotato']) && $_SESSION['carrello_svuotato'];
+        unset($_SESSION['carrello_svuotato']);
+        if ($carrello_svuotato) {
+            $this->smarty->assign('carrello_svuotato', 1);
         }
-        $this->smarty->assign('subtotal', $subtotal);
         $this->smarty->assign('removed_from_cart', 0);
         $removed_from_cart = isset($_SESSION['removed_from_cart']) && $_SESSION['removed_from_cart'];
         unset($_SESSION['removed_from_cart']);
@@ -218,11 +246,12 @@ class VUtente{
         $this->smarty->assign('userDataSection', 1);
         $this->smarty->display('userinfo.tpl');
     }
-    public function userHistoryOrders(){
+    public function userHistoryOrders($ordini){
         $loginVariables = self::checkLogin();
         foreach ($loginVariables as $key => $value) {
             $this->smarty->assign($key, $value);
         }
+        $this->smarty->assign('ordini', $ordini);
         $this->smarty->assign('userHistoryOrders', 1);
         $this->smarty->display('userinfo.tpl');
     }
@@ -260,6 +289,74 @@ class VUtente{
         }
         $this->smarty->assign('changepass', 1);
         $this->smarty->assign('equalpassworderr', 1);
+        $this->smarty->display('userinfo.tpl');
+    }
+    public function indirizzi($array_indirizzi, $messages = []) {
+        $loginVariables = self::checkLogin();
+        foreach ($loginVariables as $key => $value) {
+            $this->smarty->assign($key, $value);
+        }
+        $this->smarty->assign('array_indirizzi', $array_indirizzi);
+        $this->smarty->assign('messages', $messages);
+        $this->smarty->assign('indirizzi', 1);
+        $this->smarty->display('userinfo.tpl');
+    }
+    public function carteCredito($carte_credito, $messages = []) {
+        $loginVariables = self::checkLogin();
+        foreach ($loginVariables as $key => $value) {
+            $this->smarty->assign($key, $value);
+        }
+        $this->smarty->assign('carte_credito', $carte_credito);
+        $this->smarty->assign('messages', $messages);
+        $this->smarty->assign('carteCredito', 1);
+        $this->smarty->display('userinfo.tpl');
+    }
+    public function aggiungiIndirizzi(){
+        $loginVariables = self::checkLogin();
+        foreach ($loginVariables as $key => $value) {
+            $this->smarty->assign($key, $value);
+        }
+        $this->smarty->assign('aggiungiIndirizzi', 1);
+        $this->smarty->display('userinfo.tpl');
+    }
+    public function aggiungiIndirizziConErrori($errors) {
+        $loginVariables = self::checkLogin();
+        foreach ($loginVariables as $key => $value) {
+            $this->smarty->assign($key, $value);
+        }
+        $this->smarty->assign('aggiungiIndirizzi', 1);
+        $this->smarty->assign('errors', $errors);
+        $this->smarty->display('userinfo.tpl');
+    }
+    public function errorEliminaIndirizzi() {
+        $loginVariables = self::checkLogin();
+        foreach ($loginVariables as $key => $value) {
+            $this->smarty->assign($key, $value);
+        }
+        $this->smarty->assign('indirizzi', 1);
+        $this->smarty->assign('errorEliminaIndirizzi', 1);
+        $this->smarty->display('userinfo.tpl');
+    }
+    public function errorEliminaCarta(){
+        $loginVariables = self::checkLogin();
+        foreach ($loginVariables as $key => $value) {
+            $this->smarty->assign($key, $value);
+        }
+        $this->smarty->assign('errorEliminaCarta', true);
+        $this->smarty->assign('carteCredito', true);
+        $this->smarty->display('userinfo.tpl');
+    }
+    public function aggiungiCarte(){
+        $loginVariables = self::checkLogin();
+        foreach ($loginVariables as $key => $value) {
+            $this->smarty->assign($key, $value);
+        }
+        $this->smarty->assign('aggiungiCarte', 1);
+        $this->smarty->display('userinfo.tpl');
+    }
+    public function aggiungiCarteConErrori($errors) {
+        $this->smarty->assign('errors', $errors);
+        $this->smarty->assign('aggiungiCarte', 1);
         $this->smarty->display('userinfo.tpl');
     }
 }

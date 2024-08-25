@@ -37,7 +37,11 @@ class CFrontController{
 
                 // Call the method
                 $params = array_slice($URL, 3); // Get optional parameters
-                call_user_func_array([new $controllerClass, $methodName], $params);
+                
+                // Riformatto i parametri url nel caso abbiano spazi non codificati
+                $decodedParams = array_map('urldecode', $params);
+                
+                call_user_func_array([$controllerClass, $methodName], $decodedParams);
             
             } else {
                 // Method not found, handle appropriately (e.g., show 404 page)
@@ -55,7 +59,7 @@ class CFrontController{
         // Define your public routes here
         $publicRoutes = [
             'utente' => ['home', 'login', 'logout', 'signUp'],
-            'gestioneAcquisto' => ['vediProdotto', 'aggiungiAlCarrello', 'vediCarrello', 'rimuoviDalCarrello', 'shop']
+            'gestioneAcquisto' => ['vediProdotto', 'aggiungiAlCarrello', 'vediCarrello', 'rimuoviDalCarrello', 'shop', 'svuotaCarrello', 'aggiornaQuantita']
             // Add more public controllers and methods as needed
         ];
         if(isset($_SESSION['role']) && $_SESSION['role'] == "utente_bloccato"){
@@ -75,8 +79,9 @@ class CFrontController{
                 // Add more controllers and methods for admin
             ],
             'acquirente' => [
-                'utente' => ['userDataForm', 'userDataSection', 'userHistoryOrders', 'deleteAccount', 'changePass', 'changeUserData'],
-                'gestioneAcquisto' => ['effettuaCheckout']
+                'utente' => ['userDataForm', 'userDataSection', 'userHistoryOrders', 'deleteAccount', 'changePass', 'changeUserData', 'indirizzi', 'carteCredito',
+                             'indirizzi','aggiungiIndirizzi', 'eliminaIndirizzo', 'carteCredito', 'aggiungiCarte', 'eliminaCarta', 'riattivaCarta', 'riattivaIndirizzo'],
+                'gestioneAcquisto' => ['effettuaCheckout', 'completaOrdine', 'erroreOrdine', 'dettaglioOrdine']
                 // Add more controllers and methods for acquirente
             ],
             'venditore' => [

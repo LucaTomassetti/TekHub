@@ -73,6 +73,21 @@
 				{elseif $shop == 1}
 					<div class="col-lg-9 col-md-8 col-sm-7 col-xs-12 content-area">
 					{include file='shop.tpl'}
+				{elseif $indirizzi == 1}
+					<div class="col-12 content-area">
+					{include file='indirizzi.tpl'}
+				{elseif $carteCredito == 1}
+					<div class="col-12 content-area">
+					{include file='carteCredito.tpl'}
+				{elseif $aggiungiIndirizzi == 1}
+					<div class="col-12 content-area">
+					{include file='aggiungiIndirizzi.tpl'}
+				{elseif $aggiungiCarte == 1}
+					<div class="col-12 content-area">
+					{include file='aggiungiCarte.tpl'}
+				{elseif $dettaglioOrdine == 1}
+					<div class="col-12 content-area">
+					{include file='dettaglioOrdine.tpl'}
 				{/if}
 			</div>
 	</div>

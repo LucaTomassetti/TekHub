@@ -41,7 +41,7 @@
                                 <p class="product-category">{$prodotto->getCategoryName()->getNomeCategoria()}</p>
                                 <h3 class="product-name">{$prodotto->getNome()}</h3>
                                     {if $prodotto instanceof EUsato}
-                                        <h4 class="product-price">€{$prodotto->getFloorPrice()}</h4>
+                                        <h4 class="product-price">In asta: €{$prodotto->getFloorPrice()}</h4>
                                     {elseif $prodotto instanceof ENuovo}
                                         <h4 class="product-price">€{$prodotto->getPrezzoFisso()}</h4>
                                     {/if}

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-08-21 11:12:58
+/* Smarty version 5.3.0, created on 2024-08-25 17:15:59
   from 'file:userinfo.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66c5af9a9dd5c1_12244593',
+  'unifunc' => 'content_66cb4aaf6af0c3_82181739',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ea170b9416ffd88355818116817d4eab78b7165f' => 
     array (
       0 => 'userinfo.tpl',
-      1 => 1724231366,
+      1 => 1724598952,
       2 => 'file',
     ),
   ),
@@ -29,9 +29,14 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:modifyProductForm.tpl' => 1,
     'file:admin_dashboard.tpl' => 1,
     'file:shop.tpl' => 1,
+    'file:indirizzi.tpl' => 1,
+    'file:carteCredito.tpl' => 1,
+    'file:aggiungiIndirizzi.tpl' => 1,
+    'file:aggiungiCarte.tpl' => 1,
+    'file:dettaglioOrdine.tpl' => 1,
   ),
 ))) {
-function content_66c5af9a9dd5c1_12244593 (\Smarty\Template $_smarty_tpl) {
+function content_66cb4aaf6af0c3_82181739 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="en">
@@ -122,6 +127,26 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 				<?php } elseif ($_smarty_tpl->getValue('shop') == 1) {?>
 					<div class="col-lg-9 col-md-8 col-sm-7 col-xs-12 content-area">
 					<?php $_smarty_tpl->renderSubTemplate('file:shop.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
+				<?php } elseif ($_smarty_tpl->getValue('indirizzi') == 1) {?>
+					<div class="col-12 content-area">
+					<?php $_smarty_tpl->renderSubTemplate('file:indirizzi.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
+				<?php } elseif ($_smarty_tpl->getValue('carteCredito') == 1) {?>
+					<div class="col-12 content-area">
+					<?php $_smarty_tpl->renderSubTemplate('file:carteCredito.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
+				<?php } elseif ($_smarty_tpl->getValue('aggiungiIndirizzi') == 1) {?>
+					<div class="col-12 content-area">
+					<?php $_smarty_tpl->renderSubTemplate('file:aggiungiIndirizzi.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
+				<?php } elseif ($_smarty_tpl->getValue('aggiungiCarte') == 1) {?>
+					<div class="col-12 content-area">
+					<?php $_smarty_tpl->renderSubTemplate('file:aggiungiCarte.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
+				<?php } elseif ($_smarty_tpl->getValue('dettaglioOrdine') == 1) {?>
+					<div class="col-12 content-area">
+					<?php $_smarty_tpl->renderSubTemplate('file:dettaglioOrdine.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
 ?>
 				<?php }?>
 			</div>

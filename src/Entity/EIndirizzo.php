@@ -1,59 +1,93 @@
 <?php
-
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass:FIndirizzo::class)]
 #[ORM\Table('indirizzo')]
 class EIndirizzo{
     #[ORM\Id]
-    #[ORM\Column(type: 'integer', columnDefinition:'INT(5)')]
-    private $cap;
+    #[ORM\Column(type: 'string', length:40, columnDefinition:'VARCHAR(40)')]
+    private string|null $indirizzo = null;
 
     #[ORM\Id]
-    #[ORM\Column(type: 'string', length:150, columnDefinition: 'VARCHAR(150)')]
-    private $nome;
+    #[ORM\Column(type: 'string', length: 5, columnDefinition: 'VARCHAR(5)')]
+    private string|null $cap = null;
 
-    #[ORM\Column(type: 'string', length:70, columnDefinition: 'VARCHAR(70)')]
-    private $comune;
+    #[ORM\Column(type: 'boolean')]
+    private $is_deleted = false;
 
     #[ORM\ManyToOne(targetEntity: EAcquirente::class, inversedBy:'indirizzi')]
-    #[ORM\JoinColumn(name:'acquirente', referencedColumnName:'id_acquirente', nullable:true)]
-    private EAcquirente|null $acquirente = null;
+    #[ORM\JoinColumn(name:'cliente_residente', referencedColumnName:'id_acquirente', nullable:true)]
+    private EAcquirente|null $cliente_residente = null;
 
-    #[ORM\ManyToOne(targetEntity: EOrdine::class, inversedBy:'indirizzi')]
-    #[ORM\JoinColumn(name:'ordine', referencedColumnName:'id_ordine', nullable:true)]
-    private EOrdine|null $ordine = null;
+    #[ORM\OneToMany(targetEntity:EOrdine::class, mappedBy:'indirizzo_spedizione')]
+    private Collection $ordini;
 
-    public function __construct($cap, $nome, $comune){
-      $this->nome = $nome;
-      $this->cap = $cap;
-      $this->comune = $comune;
+    public function __construct($indirizzo, $cap){
+        $this->indirizzo = $indirizzo;
+        $this->cap = $cap;
+        $this->ordini = new ArrayCollection();
+    }
+
+    public function isDeleted(): bool
+    {
+        return $this->is_deleted;
+    }
+
+    public function setDeleted(bool $deleted): self
+    {
+        $this->is_deleted = $deleted;
+        return $this;
+    }
+    /**
+     * Get the value of indirizzo
+     */ 
+    public function getIndirizzo()
+    {
+        return $this->indirizzo;
     }
 
     /**
-     * Get the value of nome
-     *
-     * @return $nome
+     * Set the value of indirizzo
      */
-    public function getNome()
+    public function setIndirizzo(?string $indirizzo)
     {
-        return $this->nome;
+        $this->indirizzo = $indirizzo;
+    }
+    public function getClienteResidente(): ?EAcquirente
+    {
+        return $this->cliente_residente;
+    }
+
+    public function setClienteResidente(?EAcquirente $cliente_residente): self
+    {
+        $this->cliente_residente = $cliente_residente;
+        return $this;
     }
 
     /**
-     * Set the value of nome
-     *
-     * @param $nome
-     */
-    public function setNome($nome)
+     * Get the value of ordini
+     */ 
+    public function getOrdini()
     {
-        $this->nome = $nome;
+        return $this->ordini;
+    }
+
+    /**
+     * Set the value of ordini
+     *
+     * @return  self
+     */ 
+    public function setOrdini($ordini)
+    {
+        $this->ordini = $ordini;
+
+        return $this;
     }
 
     /**
      * Get the value of cap
-     *
-     * @return $cap
      */
     public function getCap()
     {
@@ -62,72 +96,10 @@ class EIndirizzo{
 
     /**
      * Set the value of cap
-     *
-     * @param $cap
      */
     public function setCap($cap)
     {
         $this->cap = $cap;
-    }
-
-    /**
-     * Get the value of comune
-     *
-     * @return $comune
-     */
-    public function getComune()
-    {
-        return $this->comune;
-    }
-
-    /**
-     * Set the value of comune
-     *
-     * @param $comune
-     */
-    public function setComune($comune)
-    {
-        $this->comune = $comune;
-    }
-
-    /**
-     * Get the value of acquirente
-     *
-     * @return $acquirente
-     */
-    public function getAcquirente()
-    {
-        return $this->acquirente;
-    }
-
-    /**
-     * Set the value of acquirente
-     *
-     * @param $acquirente
-     */
-    public function setAcquirente($acquirente)
-    {
-        $this->acquirente = $acquirente;
-    }
-
-    /**
-     * Get the value of ordine
-     *
-     * @return $ordine
-     */
-    public function getOrdine()
-    {
-        return $this->ordine;
-    }
-
-    /**
-     * Set the value of ordine
-     *
-     * @param $ordine
-     */
-    public function setOrdine($ordine)
-    {
-        $this->ordine = $ordine;
     }
 }
 ?>

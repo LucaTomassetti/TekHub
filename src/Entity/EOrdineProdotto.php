@@ -3,7 +3,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass:FOrdineProdotto::class)]
 #[ORM\Table('ordine_prodotto')]
 class EOrdineProdotto {
     #[ORM\Column(type:'integer')]
@@ -19,8 +19,8 @@ class EOrdineProdotto {
     #[ORM\JoinColumn(name:'prodotto_id', referencedColumnName:'id_prodotto')]
     private EProdotto|null $prodotto_id= null;
 
-    public function __construct($quantita_ordinata_prodotto) {
-        $this->quantita_ordinata_prodotto = $quantita_ordinata_prodotto;
+    public function __construct() {
+        $this->quantita_ordinata_prodotto = 0;
     }
 
     /**

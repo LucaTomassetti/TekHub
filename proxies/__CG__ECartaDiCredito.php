@@ -16,18 +16,20 @@ class ECartaDiCredito extends \ECartaDiCredito implements \Doctrine\ORM\Proxy\In
     }
 
     private const LAZY_OBJECT_PROPERTY_SCOPES = [
+        "\0".parent::class."\0".'ccv' => [parent::class, 'ccv', null],
         "\0".parent::class."\0".'cognome_titolare' => [parent::class, 'cognome_titolare', null],
-        "\0".parent::class."\0".'cvv' => [parent::class, 'cvv', null],
         "\0".parent::class."\0".'data_scadenza' => [parent::class, 'data_scadenza', null],
         "\0".parent::class."\0".'gestore_carta' => [parent::class, 'gestore_carta', null],
+        "\0".parent::class."\0".'is_deleted' => [parent::class, 'is_deleted', null],
         "\0".parent::class."\0".'nome_titolare' => [parent::class, 'nome_titolare', null],
         "\0".parent::class."\0".'numero_carta' => [parent::class, 'numero_carta', null],
         "\0".parent::class."\0".'ordini' => [parent::class, 'ordini', null],
         "\0".parent::class."\0".'proprietario' => [parent::class, 'proprietario', null],
+        'ccv' => [parent::class, 'ccv', null],
         'cognome_titolare' => [parent::class, 'cognome_titolare', null],
-        'cvv' => [parent::class, 'cvv', null],
         'data_scadenza' => [parent::class, 'data_scadenza', null],
         'gestore_carta' => [parent::class, 'gestore_carta', null],
+        'is_deleted' => [parent::class, 'is_deleted', null],
         'nome_titolare' => [parent::class, 'nome_titolare', null],
         'numero_carta' => [parent::class, 'numero_carta', null],
         'ordini' => [parent::class, 'ordini', null],

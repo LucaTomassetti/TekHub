@@ -307,5 +307,81 @@ class FPersistentManager{
     public function updateVendAsta($prodotto, $venditore){
         getEntityManager()->getRepository('EAsta')->updateVendAsta($prodotto, $venditore);
     }
+
+    public function creaOrdine($indirizzo, $cap, $carta_id, $carrello) {
+        return getEntityManager()->getRepository('EOrdine')->creaOrdine($indirizzo, $cap, $carta_id, $carrello);
+    }
+
+    public function aggiungiProdottoOrdine(EOrdine $ordine, EProdotto $prodotto, $quantita) {
+        return getEntityManager()->getRepository('EOrdineProdotto')->aggiungiProdottoOrdine($ordine, $prodotto, $quantita);
+    }
+    public function getAllIndirizziUtente(EAcquirente $acquirente) {
+        return getEntityManager()->getRepository('EIndirizzo')->getAllIndirizziUtente($acquirente->getId());
+    }
+
+    public function getAllCarteUtente(EAcquirente $acquirente) {
+        return getEntityManager()->getRepository('ECartaDiCredito')->getAllCarteUtente($acquirente->getId());
+    }
+
+    public function findIndirizzo($indirizzo, $cap) {
+        return getEntityManager()->getRepository('EIndirizzo')->findIndirizzo($indirizzo, $cap);
+    }
+
+    public function findCarta($numeroCarta) {
+        return getEntityManager()->getRepository('ECartaDiCredito')->findCarta($numeroCarta);
+    }
+    public function insertIndirizzo($array_data){
+        getEntityManager()->getRepository('EIndirizzo')->insertIndirizzo($array_data);
+    }
+    public function deleteIndirizzo($indirizzo){
+        getEntityManager()->getRepository('EIndirizzo')->deleteIndirizzo($indirizzo);
+    }
+    public function insertCartaDiCredito($array_data) {
+        getEntityManager()->getRepository('ECartaDiCredito')->insertCarta($array_data);
+    }
+
+    public function deleteCartaDiCredito($numeroCarta) {
+        getEntityManager()->getRepository('ECartaDiCredito')->deleteCarta($numeroCarta);
+    }
+    public function getOrdiniUtente(){
+        return getEntityManager()->getRepository('EOrdine')->findOrdiniUtente($_SESSION['utente']->getId());
+    }
+    public function findCartaDiCredito($numero_carta){
+        return getEntityManager()->getRepository('ECartaDiCredito')->findCarta($numero_carta);
+    }
+    public function findAllActiveIndirizzi() {
+        return getEntityManager()->getRepository('EIndirizzo')->findAllActive();
+    }
+
+    public function softDeleteIndirizzo(EIndirizzo $indirizzo) {
+        $indirizzo->setDeleted(true);
+        getEntityManager()->flush();
+    }
+
+    public function canIndirizzoBeHardDeleted($indirizzo, $cap): bool {
+        return getEntityManager()->getRepository('EIndirizzo')->canBeHardDeleted($indirizzo, $cap);
+    }
+
+    public function findAllActiveCarteDiCredito() {
+        return getEntityManager()->getRepository('ECartaDiCredito')->findAllActive();
+    }
+
+    public function softDeleteCartaDiCredito(ECartaDiCredito $carta) {
+        $carta->setDeleted(true);
+        getEntityManager()->flush();
+    }
+
+    public function canCartaDiCreditoBeHardDeleted($numeroCarta): bool {
+        return getEntityManager()->getRepository('ECartaDiCredito')->canBeHardDeleted($numeroCarta);
+    }
+    public function riattivaIndirizzo(EIndirizzo $indirizzo) {
+        $indirizzo->setDeleted(false);
+        getEntityManager()->flush();
+    }
+
+    public function riattivaCarta(ECartaDiCredito $carta) {
+        $carta->setDeleted(false);
+        getEntityManager()->flush();
+    }
 }
 ?>

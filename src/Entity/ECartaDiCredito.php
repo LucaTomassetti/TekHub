@@ -3,27 +3,30 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass:FCartaDiCredito::class)]
 #[ORM\Table('carta_di_credito')]
 class ECartaDiCredito{
     #[ORM\Id]
-    #[ORM\Column(type: 'bigint', columnDefinition:'BIGINT(16)')]
+    #[ORM\Column(type: 'string', length: 16, columnDefinition: 'VARCHAR(16)')]
     private $numero_carta;
 
-    #[ORM\Column(type: 'string', length:50, columnDefinition:'VARCHAR(50)')]
+    #[ORM\Column(type: 'string', length: 50, columnDefinition: 'VARCHAR(50)')]
     private $nome_titolare;
 
-    #[ORM\Column(type: 'string', length:70, columnDefinition:'VARCHAR(70)')]
+    #[ORM\Column(type: 'string', length: 70, columnDefinition: 'VARCHAR(70)')]
     private $cognome_titolare;
 
-    #[ORM\Column(type: 'date')]
+    #[ORM\Column(type: 'string', length: 5, columnDefinition: 'VARCHAR(5)')]  // Cambiato da 'date' a 'string'
     private $data_scadenza;
 
     #[ORM\Column(type: 'integer', columnDefinition: 'INT(3)')]
-    private $cvv;
+    private $ccv;
 
     #[ORM\Column(type: 'string', length:70, columnDefinition: 'VARCHAR(70)')]
     private $gestore_carta;
+
+    #[ORM\Column(type: 'boolean')]
+    private $is_deleted = false;
 
     #[ORM\ManyToOne(targetEntity: EAcquirente::class, inversedBy:'carte_di_credito')]
     #[ORM\JoinColumn(name:'proprietario', referencedColumnName:'id_acquirente', nullable:true)]
@@ -32,23 +35,32 @@ class ECartaDiCredito{
     #[ORM\OneToMany(targetEntity: EOrdine::class, mappedBy:'carta_ordine')]
     private Collection $ordini;
 
-    public function __construct($nome_titolare, $cognome_titolare, $data_scadenza, $numero_carta, $cvv, $gestore_carta){
-        
-        $this->nome_titolare = $nome_titolare;
-        $this->cognome_titolare = $cognome_titolare;
-        $this->data_scadenza = $data_scadenza;
-        $this->cvv = $cvv;
-        $this->gestore_carta = $gestore_carta;
-        $this->ordini = new ArrayCollection();
+    public function __construct($nome_titolare = null, $cognome_titolare = null, $data_scadenza = null, $numero_carta = null, $ccv = null, $gestore_carta = null){
+        if ($nome_titolare !== null) {
+            $this->nome_titolare = $nome_titolare;
+            $this->cognome_titolare = $cognome_titolare;
+            $this->setData_scadenza($data_scadenza);
+            $this->numero_carta = $numero_carta;
+            $this->ccv = $ccv;
+            $this->gestore_carta = $gestore_carta;
+        }
     
     }
 
+    public function isDeleted(): bool
+    {
+        return $this->is_deleted;
+    }
+
+    public function setDeleted(bool $deleted): self
+    {
+        $this->is_deleted = $deleted;
+        return $this;
+    }
     /**
      * Get the value of nome_titolare
-     *
-     * @return $nome_titolare
-     */
-    public function getNomeTitolare()
+     */ 
+    public function getNome_titolare()
     {
         return $this->nome_titolare;
     }
@@ -56,19 +68,19 @@ class ECartaDiCredito{
     /**
      * Set the value of nome_titolare
      *
-     * @param $nome_titolare
-     */
-    public function setNomeTitolare($nome_titolare)
+     * @return  self
+     */ 
+    public function setNome_titolare($nome_titolare)
     {
         $this->nome_titolare = $nome_titolare;
+
+        return $this;
     }
 
     /**
      * Get the value of cognome_titolare
-     *
-     * @return $cognome_titolare
-     */
-    public function getCognomeTitolare()
+     */ 
+    public function getCognome_titolare()
     {
         return $this->cognome_titolare;
     }
@@ -76,39 +88,34 @@ class ECartaDiCredito{
     /**
      * Set the value of cognome_titolare
      *
-     * @param $cognome_titolare
-     */
-    public function setCognomeTitolare($cognome_titolare)
+     * @return  self
+     */ 
+    public function setCognome_titolare($cognome_titolare)
     {
         $this->cognome_titolare = $cognome_titolare;
+
+        return $this;
     }
 
-    /**
-     * Get the value of data_scadenza
-     *
-     * @return $data_scadenza
-     */
-    public function getDataScadenza()
+    public function setData_scadenza($data_scadenza)
+    {
+        // Assicuriamoci che la data sia nel formato MM/YY
+        if (preg_match('/^(0[1-9]|1[0-2])\/\d{2}$/', $data_scadenza)) {
+            $this->data_scadenza = $data_scadenza;
+        } else {
+            throw new \InvalidArgumentException('Il formato della data di scadenza deve essere MM/YY');
+        }
+    }
+
+    public function getData_scadenza()
     {
         return $this->data_scadenza;
     }
 
     /**
-     * Set the value of data_scadenza
-     *
-     * @param $data_scadenza
-     */
-    public function setDataScadenza($data_scadenza)
-    {
-        $this->data_scadenza = $data_scadenza;
-    }
-
-    /**
      * Get the value of numero_carta
-     *
-     * @return $numero_carta
-     */
-    public function getNumeroCarta()
+     */ 
+    public function getNumero_carta()
     {
         return $this->numero_carta;
     }
@@ -116,39 +123,19 @@ class ECartaDiCredito{
     /**
      * Set the value of numero_carta
      *
-     * @param $numero_carta
-     */
-    public function setNumeroCarta($numero_carta)
+     * @return  self
+     */ 
+    public function setNumero_carta($numero_carta)
     {
         $this->numero_carta = $numero_carta;
-    }
 
-    /**
-     * Get the value of cvv
-     *
-     * @return $cvv
-     */
-    public function getCvv()
-    {
-        return $this->cvv;
-    }
-
-    /**
-     * Set the value of cvv
-     *
-     * @param $cvv
-     */
-    public function setCvv($cvv)
-    {
-        $this->cvv = $cvv;
+        return $this;
     }
 
     /**
      * Get the value of gestore_carta
-     *
-     * @return $gestore_carta
-     */
-    public function getGestoreCarta()
+     */ 
+    public function getGestore_carta()
     {
         return $this->gestore_carta;
     }
@@ -156,45 +143,71 @@ class ECartaDiCredito{
     /**
      * Set the value of gestore_carta
      *
-     * @param $gestore_carta
-     */
-    public function setGestoreCarta($gestore_carta)
+     * @return  self
+     */ 
+    public function setGestore_carta($gestore_carta)
     {
         $this->gestore_carta = $gestore_carta;
+
+        return $this;
     }
 
     /**
-     * Get the value of ordini
-     */
-    public function getOrdini(): Collection
+     * Get the value of ccv
+     */ 
+    public function getCcv()
     {
-        return $this->ordini;
+        return $this->ccv;
     }
 
     /**
-     * Set the value of ordini
-     */
-    public function setOrdini(Collection $ordini): self
+     * Set the value of ccv
+     *
+     * @return  self
+     */ 
+    public function setCcv($ccv)
     {
-        $this->ordini = $ordini;
+        $this->ccv = $ccv;
 
         return $this;
     }
 
     /**
      * Get the value of proprietario
-     */
-    public function getProprietario(): ?EAcquirente
+     */ 
+    public function getProprietario()
     {
         return $this->proprietario;
     }
 
     /**
      * Set the value of proprietario
-     */
-    public function setProprietario(?EAcquirente $proprietario): self
+     *
+     * @return  self
+     */ 
+    public function setProprietario($proprietario)
     {
         $this->proprietario = $proprietario;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of ordini
+     */ 
+    public function getOrdini()
+    {
+        return $this->ordini;
+    }
+
+    /**
+     * Set the value of ordini
+     *
+     * @return  self
+     */ 
+    public function setOrdini($ordini)
+    {
+        $this->ordini = $ordini;
 
         return $this;
     }

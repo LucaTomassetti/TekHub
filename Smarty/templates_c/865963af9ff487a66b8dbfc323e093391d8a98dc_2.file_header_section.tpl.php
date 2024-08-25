@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-08-21 11:23:07
+/* Smarty version 5.3.0, created on 2024-08-25 12:15:18
   from 'file:header_section.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66c5b1fb825955_68850353',
+  'unifunc' => 'content_66cb0436061d23_25406476',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66c5b1fb825955_68850353 (\Smarty\Template $_smarty_tpl) {
+function content_66cb0436061d23_25406476 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?><!-- HEADER -->
 <header>
@@ -50,9 +50,9 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
                         <select class="input-select">
                         <?php
 $_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('array_categorie'), 'categoria');
-$foreach0DoElse = true;
+$foreach2DoElse = true;
 foreach ($_from ?? [] as $_smarty_tpl->getVariable('categoria')->value) {
-$foreach0DoElse = false;
+$foreach2DoElse = false;
 ?>
                             <option value="<?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('categoria')['nome_categoria']), ENT_QUOTES, 'UTF-8');?>
 "><?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('categoria')['nome_categoria']), ENT_QUOTES, 'UTF-8');?>
@@ -103,9 +103,9 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                             <?php if ($_smarty_tpl->getValue('prodotti_carrello') != 0) {?>
                                 <?php
 $_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('prodotti_carrello'), 'prodotto');
-$foreach1DoElse = true;
+$foreach3DoElse = true;
 foreach ($_from ?? [] as $_smarty_tpl->getVariable('prodotto')->value) {
-$foreach1DoElse = false;
+$foreach3DoElse = false;
 ?>
                                 <div class="product-widget">
                                     <div class="product-img">

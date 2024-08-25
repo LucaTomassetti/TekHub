@@ -5,31 +5,22 @@ class CUtente {
         $view_home = new VUtente();
         $array_prodotti = FPersistentManager::getInstance()->getLatestProductsHome();
         $array_categorie = FPersistentManager::getInstance()->getAllCategories();
-        $array_carrello = [];
         if (!isset($_COOKIE['cart'])) {
             setcookie('cart', json_encode([]), time() + (86400 * 30), "/"); // 30 giorni
-        }
-        $carrello = json_decode($_COOKIE['cart'], true);
-        foreach($carrello as $id => $qty){
-            $prod = FPersistentManager::getInstance()->find(ENuovo::class, $id);
-            $array_carrello[] = [
-                'prodotto' => $prod,
-                'quantita' => $qty
-            ];
         }
         if(isset($_SESSION['role']) && $_SESSION['role'] == "utente_bloccato"){
             $view_home->accessDenied();
         }else{
             if (static::isLogged()) {
                 if($_SESSION['utente'] instanceof EAcquirente){
-                    $view_home->loginSuccessAcquirente($array_prodotti, $array_categorie, $array_carrello);
+                    $view_home->loginSuccessAcquirente($array_prodotti, $array_categorie);
                 }else if($_SESSION['utente'] instanceof EVenditore){
                     $view_home->loginSuccessVenditore();
                 }else if($_SESSION['utente'] instanceof EAdmin){
                     $view_home->loginSuccessAdmin();
                 }
             } else {
-                $view_home->logout($array_prodotti, $array_categorie, $array_carrello);
+                $view_home->logout($array_prodotti, $array_categorie);
             }
         }
     }
@@ -167,11 +158,8 @@ class CUtente {
     public static function userHistoryOrders()
     {
         $view_utente = new VUtente();
-        if (static::isLogged()) {
-            $view_utente->userHistoryOrders();
-        } else {
-            header('Location: /TekHub/utente/login');
-        }
+        $ordini = FPersistentManager::getInstance()->getOrdiniUtente();
+        $view_utente->userHistoryOrders($ordini);
     }
     public static function deleteAccount()
     {
@@ -233,6 +221,223 @@ class CUtente {
             $_SESSION['changeuserdatasucces'] = true;
             header('Location: /TekHub/utente/userDataSection');
         }
+    }
+    public static function indirizzi() {
+        $view_utente = new VUtente();
+        $array_indirizzi = FPersistentManager::getInstance()->getAllIndirizziUtente($_SESSION['utente']);
+        
+        $messages = [];
+        if (isset($_SESSION['address_deleted'])) {
+            $messages['success'] = "L'indirizzo è stato eliminato con successo.";
+            unset($_SESSION['address_deleted']);
+        }
+        if (isset($_SESSION['address_added'])) {
+            $messages['success'] = "L'indirizzo è stato eliminato con successo.";
+            unset($_SESSION['address_added']);
+        }
+        if (isset($_SESSION['address_reactivated'])) {
+            $messages['success'] = "L'indirizzo è stato riattivato con successo.";
+            unset($_SESSION['address_reactivated']);
+        }
+        if (isset($_SESSION['address_soft_deleted'])) {
+            $messages['info'] = "L'indirizzo è stato nascosto ma non completamente eliminato poiché è associato a ordini esistenti.";
+            unset($_SESSION['address_soft_deleted']);
+        }
+        if (isset($_SESSION['address_error'])) {
+            $messages['error'] = $_SESSION['address_error'];
+            unset($_SESSION['address_error']);
+        }
+        
+        $view_utente->indirizzi($array_indirizzi, $messages);
+    }
+
+    public static function aggiungiIndirizzi(){
+        $view = new VUtente();
+        if ($_SERVER['REQUEST_METHOD'] == "GET") {
+            $view->aggiungiIndirizzi();
+        } elseif ($_SERVER['REQUEST_METHOD'] == "POST") {
+            $postData = $_POST;
+            $errors = [];
+
+            // Validazione del campo "via"
+            if (!preg_match('/^Via\s+[A-Za-z\s]+\s+\d+$/', $postData['via'])) {
+                $errors[] = "L'indirizzo deve essere nel formato 'Via Nome strada n_civico'";
+            }
+
+            // Validazione del campo "cap"
+            if (!preg_match('/^\d{5}$/', $postData['cap'])) {
+                $errors[] = "Il CAP deve essere composto da esattamente 5 cifre";
+            }
+
+            if (empty($errors)) {
+                // Se non ci sono errori, procedi con l'inserimento
+                foreach ($postData as $key => $value) {
+                    $array_data[$key] = $value;
+                }
+                //Si assume per semplicità che gli indirizzi siano univoci, 
+                //cioè che non ci sono più famiglie che abitano nella stesso indirizzo,
+                // nello stesso numero civico e nello stesso cap
+                FPersistentManager::getInstance()->insertIndirizzo($array_data);
+                $_SESSION['address_added'] = true;
+                header('Location: /TekHub/utente/indirizzi');
+            } else {
+                // Se ci sono errori, mostra nuovamente il form con i messaggi di errore
+                $view->aggiungiIndirizziConErrori($errors);
+            }
+        }
+    }
+    public static function riattivaIndirizzo($indirizzo, $cap) {
+        $found_indirizzo = FPersistentManager::getInstance()->findIndirizzo($indirizzo, $cap);
+        
+        if ($found_indirizzo) {
+            FPersistentManager::getInstance()->riattivaIndirizzo($found_indirizzo[0]);
+            $_SESSION['address_reactivated'] = true;
+        } else {
+            $_SESSION['address_error'] = "Errore: l'indirizzo non è stato trovato.";
+        }
+        
+        header('Location: /TekHub/utente/indirizzi');
+        exit();
+    }
+    public static function eliminaIndirizzo($indirizzo, $cap) {
+        $found_indirizzo = FPersistentManager::getInstance()->findIndirizzo($indirizzo, $cap);
+        
+        if ($found_indirizzo) {
+            if (FPersistentManager::getInstance()->canIndirizzoBeHardDeleted($indirizzo, $cap)) {
+                FPersistentManager::getInstance()->deleteIndirizzo($found_indirizzo[0]);
+                $_SESSION['address_deleted'] = true;
+            } else {
+                FPersistentManager::getInstance()->softDeleteIndirizzo($found_indirizzo[0]);
+                $_SESSION['address_soft_deleted'] = true;
+            }
+        } else {
+            $_SESSION['address_error'] = "Errore: l'indirizzo non è stato trovato.";
+        }
+        
+        header('Location: /TekHub/utente/indirizzi');
+        exit();
+    }
+    public static function aggiungiCarte() {
+        $view = new VUtente();
+        if ($_SERVER['REQUEST_METHOD'] == "GET") {
+            $view->aggiungiCarte();
+        } elseif ($_SERVER['REQUEST_METHOD'] == "POST") {
+            $postData = $_POST;
+            $errors = self::validateCreditCardData($postData);
+            
+            if (empty($errors)) {
+                try {
+                    FPersistentManager::getInstance()->insertCartaDiCredito($postData);
+                    $_SESSION['credit_card_added'] = true;
+                    header('Location: /TekHub/utente/carteCredito');
+                    exit;
+                } catch (Exception $e) {
+                    $errors[] = "Errore durante l'inserimento della carta: " . $e->getMessage();
+                }
+            }
+            
+            if (!empty($errors)) {
+                $view->aggiungiCarteConErrori($errors);
+            }
+        }
+    }
+
+    private static function validateCreditCardData($data) {
+        $errors = [];
+
+        // Validazione nome e cognome
+        if (!preg_match("/^[a-zA-Z\s]+$/", $data['nome']) || !preg_match("/^[a-zA-Z\s]+$/", $data['cognome'])) {
+            $errors[] = "Il nome e il cognome devono contenere solo lettere e spazi.";
+        }
+
+        // Validazione numero carta
+        if (!preg_match("/^\d{16}$/", $data['numeroCarta'])) {
+            $errors[] = "Il numero della carta deve essere composto da 16 cifre.";
+        }
+
+        // Validazione scadenza
+        if (!preg_match("/^(0[1-9]|1[0-2])\/\d{2}$/", $data['scadenza'])) {
+            $errors[] = "La data di scadenza deve essere nel formato MM/YY.";
+        } else {
+            $expiration = \DateTime::createFromFormat('m/y', $data['scadenza']);
+            $now = new \DateTime();
+            if ($expiration < $now) {
+                $errors[] = "La carta di credito è scaduta.";
+            }
+        }
+
+        // Validazione CCV
+        if (!preg_match("/^\d{3}$/", $data['ccv'])) {
+            $errors[] = "Il CCV deve essere composto da 3 cifre.";
+        }
+
+        // Validazione gestore
+        if (!preg_match("/^[a-zA-Z\s]+$/", $data['gestore'])) {
+            $errors[] = "Il nome del gestore deve contenere solo lettere e spazi.";
+        }
+
+        return $errors;
+    }
+
+    public static function carteCredito() {
+        $view_utente = new VUtente();
+        $carte = FPersistentManager::getInstance()->getAllCarteUtente($_SESSION['utente']);
+        
+        $messages = [];
+        if (isset($_SESSION['card_added'])) {
+            $messages['success'] = "La carta di credito è stato aggiunta con successo.";
+            unset($_SESSION['card_added']);
+        }
+        if (isset($_SESSION['card_deleted'])) {
+            $messages['success'] = "La carta di credito è stata eliminata con successo.";
+            unset($_SESSION['card_deleted']);
+        }
+        if (isset($_SESSION['card_reactivated'])) {
+            $messages['success'] = "La carta di credito è stata riattivata con successo.";
+            unset($_SESSION['card_reactivated']);
+        }
+        if (isset($_SESSION['card_soft_deleted'])) {
+            $messages['info'] = "La carta di credito è stata nascosta ma non completamente eliminata poiché è associata a ordini esistenti.";
+            unset($_SESSION['card_soft_deleted']);
+        }
+        if (isset($_SESSION['card_error'])) {
+            $messages['error'] = $_SESSION['card_error'];
+            unset($_SESSION['card_error']);
+        }
+        
+        $view_utente->carteCredito($carte, $messages);
+    }
+
+    public static function eliminaCarta($numeroCarta) {
+        $found_carta = FPersistentManager::getInstance()->findCartaDiCredito($numeroCarta);
+        
+        if ($found_carta) {
+            if (FPersistentManager::getInstance()->canCartaDiCreditoBeHardDeleted($numeroCarta)) {
+                FPersistentManager::getInstance()->deleteCartaDiCredito($found_carta[0]);
+                $_SESSION['card_deleted'] = true;
+            } else {
+                FPersistentManager::getInstance()->softDeleteCartaDiCredito($found_carta[0]);
+                $_SESSION['card_soft_deleted'] = true;
+            }
+        } else {
+            $_SESSION['card_error'] = "Errore: la carta di credito non è stata trovata.";
+        }
+        
+        header('Location: /TekHub/utente/carteCredito');
+        exit();
+    }
+    public static function riattivaCarta($numeroCarta) {
+        $found_carta = FPersistentManager::getInstance()->findCartaDiCredito($numeroCarta);
+        
+        if ($found_carta) {
+            FPersistentManager::getInstance()->riattivaCarta($found_carta[0]);
+            $_SESSION['card_reactivated'] = true;
+        } else {
+            $_SESSION['card_error'] = "Errore: la carta di credito non è stata trovata.";
+        }
+        
+        header('Location: /TekHub/utente/carteCredito');
+        exit();
     }
 }
 ?>

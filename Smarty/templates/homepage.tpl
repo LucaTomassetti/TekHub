@@ -54,6 +54,14 @@
         </div>
     {/if}
 
+	{if $carrello_svuotato == 1}
+        <div class="mt-5 d-flex justify-content-center">
+            <div class="alert alert-success" role="alert">
+                Il carrello è stato svuotato
+            </div>
+        </div>
+    {/if}
+	
 	{if $removed_from_cart == 1}
         <div class="mt-5">
             <div class="alert alert-success" role="alert">

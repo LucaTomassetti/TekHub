@@ -350,6 +350,21 @@ textarea.input {
 .width-90{
   max-width: 90%;
 }
+.section-indirizzi-carte {
+  max-width: 1000px;
+  max-height: 1000px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.row-hidden {
+  background-color: #f8d7da !important;  /* Colore di sfondo più scuro per le righe nascoste */
+}
+.row-hidden td {
+  color: #721c24 !important;  /* Colore del testo per le righe nascoste */
+}
 /* Login form styles */
 .card-header {
   max-width: 100%;
