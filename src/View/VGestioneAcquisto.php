@@ -15,6 +15,10 @@ class VGestioneAcquisto{
         $this->smarty->assign('is_cart_empty', !isset($_COOKIE['cart']) || empty($data['carrello']) ? 1 : 0);
     }
     public function shop($prodotti, $categorie, $marche, $filtri_applicati) {
+        $loginVariables = (new VUtente)->checkLogin();
+        foreach ($loginVariables as $key => $value) {
+            $this->smarty->assign($key, $value);
+        }
         $this->smarty->assign('array_prodotti', $prodotti);
         $this->smarty->assign('array_categorie', $categorie);
         $this->smarty->assign('marche', $marche);

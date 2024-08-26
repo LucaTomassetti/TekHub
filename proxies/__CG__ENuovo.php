@@ -28,8 +28,6 @@ class ENuovo extends \ENuovo implements \Doctrine\ORM\Proxy\InternalProxy
         "\0".'EProdotto'."\0".'nome' => ['EProdotto', 'nome', null],
         "\0".'EProdotto'."\0".'q_prodotto_ordine' => ['EProdotto', 'q_prodotto_ordine', null],
         "\0".'EProdotto'."\0".'recensioni' => ['EProdotto', 'recensioni', null],
-        "\0".'EProdotto'."\0".'resi' => ['EProdotto', 'resi', null],
-        "\0".'EProdotto'."\0".'rimborsi' => ['EProdotto', 'rimborsi', null],
         "\0".'EProdotto'."\0".'venditore' => ['EProdotto', 'venditore', null],
         'category_name' => ['EProdotto', 'category_name', null],
         'colore' => ['EProdotto', 'colore', null],
@@ -44,8 +42,6 @@ class ENuovo extends \ENuovo implements \Doctrine\ORM\Proxy\InternalProxy
         'q_prodotto_ordine' => ['EProdotto', 'q_prodotto_ordine', null],
         'quantita_disp' => [parent::class, 'quantita_disp', null],
         'recensioni' => ['EProdotto', 'recensioni', null],
-        'resi' => ['EProdotto', 'resi', null],
-        'rimborsi' => ['EProdotto', 'rimborsi', null],
         'venditore' => ['EProdotto', 'venditore', null],
     ];
 

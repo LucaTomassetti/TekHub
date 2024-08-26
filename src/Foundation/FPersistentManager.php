@@ -416,8 +416,6 @@ class FPersistentManager{
                ->setParameter('marca', $filtri['marca']);
         }
     
-        // Rimuovi il filtro del prezzo dalla query principale
-    
         if (in_array('nuovo', $filtri['condizione'])) {
             $qb->andWhere('p INSTANCE OF ENuovo');
         }
