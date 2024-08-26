@@ -262,5 +262,6 @@ class VUtente{
         $this->smarty->assign('equalpassworderr', 1);
         $this->smarty->display('userinfo.tpl');
     }
+    
 }
 ?>

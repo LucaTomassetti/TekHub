@@ -140,7 +140,7 @@
         {elseif $check_login_venditore == 1}
         <li><a href="/TekHub/utente/userDataSection">Profilo</a></li>
             <li><a href="/TekHub/gestioneProdotti/listaProdotti">Gestione prodotti</a></li>
-            <li><a href="#">Ordini in attesa</a></li>
+            <li><a href="/TekHub/gestioneOrdiniInAttesa/ordiniInAttesa?orderpage=1">Ordini in attesa</a></li>
             <li><a href="/TekHub/utente/userHistoryOrders">Stato ordini</a></li>
             <li><a href="#">Gestione resi</a></li>
             <li><a href="#">Recensioni</a></li>
