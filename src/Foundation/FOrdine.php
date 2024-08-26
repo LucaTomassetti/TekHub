@@ -2,6 +2,7 @@
 use Doctrine\ORM\EntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query\Parameter;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class FOrdine extends EntityRepository {
     public function findOrdiniUtente($idCliente)
@@ -27,7 +28,6 @@ class FOrdine extends EntityRepository {
             $ordine->setAcquirente($cliente);
             $ordine->setIndirizzo_spedizione($indirizzoObj[0]);
             $ordine->setCarta_ordine($cartaObj[0]);
-            $ordine->setIsPresoInCarico(false);
 
             $totale = 0;
             $quantitaTotale = 0;
@@ -38,7 +38,6 @@ class FOrdine extends EntityRepository {
                 $ordineProdotto->setOrdineId($ordine);
                 $ordineProdotto->setProdottoId($prodotto);
                 $ordineProdotto->setQuantitaOrdinataProdotto($quantita);
-                $ordineProdotto->setIsPresoInCarico(false);
                 $em->persist($ordineProdotto);
 
                 $ordine->addQProdottoOrdine($ordineProdotto);
@@ -61,6 +60,30 @@ class FOrdine extends EntityRepository {
             $em->rollback();
             throw $e;
         }
+    }
+    public function getOrdiniConProdottiVenditore(EVenditore $venditore, $currentPage = 1, $pageSize = 10) {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('DISTINCT o')
+           ->from('EOrdine', 'o')
+           ->join('o.q_prodotto_ordine', 'op')
+           ->join('op.prodotto_id', 'p')
+           ->where('p.venditore = :venditore')
+           ->setParameter('venditore', $venditore)
+           ->orderBy('o.data_ordine', 'DESC');
+
+        $query = $qb->getQuery()
+                    ->setFirstResult(($currentPage - 1) * $pageSize)
+                    ->setMaxResults($pageSize);
+
+        $paginator = new Paginator($query, $fetchJoinCollection = true);
+
+        return [
+            'ordini' => $paginator,
+            'n_ordini' => count($paginator),
+            'currentPage' => $currentPage,
+            'pageSize' => $pageSize,
+            'totalPages' => ceil(count($paginator) / $pageSize)
+        ];
     }
 }
 ?>

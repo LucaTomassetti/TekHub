@@ -19,26 +19,40 @@ class FOrdineProdotto extends EntityRepository {
     }
 
     public function getAllOrdini($venditore, $currentPage = 1, $pageSize = 4){
-        $dql = "SELECT ordine.acquirente.id_acquirente, ordine.indirizzo_spedizione, ordine.cap_spedizione, OP.quantita_ordinata_prodotto, ordine.data_ordine, prodotto.id_prodotto 
-                FROM EOrdineProdotto OP 
-                JOIN OP.prodotto_id prodotto ON OP.prodotto_id = prodotto.id_prodotto
-                JOIN OP.ordine_id ordine ON OP.ordine_id = ordine.id_ordine
-                WHERE prodotto.venditore = ?1";
-        $query = getEntityManager()->createQuery($dql)
-        ->setParameter(1, $venditore)
-        ->setFirstResult(($currentPage - 1) * $pageSize)
-        ->setMaxResults($pageSize);
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('DISTINCT o')
+        ->from('EOrdine', 'o')
+        ->join('o.q_prodotto_ordine', 'op')
+        ->join('op.prodotto_id', 'p')
+        ->where('p.venditore = :venditore')
+        ->setParameter('venditore', $venditore)
+        ->orderBy('o.data_ordine', 'DESC');
 
-        $paginator = new Paginator($query, fetchJoinCollection: true);
+        $query = $qb->getQuery();
+
+        // Calcola il numero totale di risultati
+        $totalItems = count($query->getResult());
+
+        // Applica la paginazione
+        $query->setFirstResult(($currentPage - 1) * $pageSize)
+            ->setMaxResults($pageSize);
+
+        // Esegui la query
+        $results = $query->getResult();
 
         return [
-        'ordini' => iterator_to_array($paginator),
-        'n_ordini' => count($paginator),
-        'currentPage' => $currentPage,
-        'pageSize' => $pageSize,
-        'totalPages' => ceil(count($paginator) / $pageSize)
-    
-    ];    
+            'ordini' => $results,
+            'n_ordini' => $totalItems,
+            'currentPage' => $currentPage,
+            'pageSize' => $pageSize,
+            'totalPages' => ceil($totalItems / $pageSize)
+        ];
+    }
+    public function findOrdineProdotto($ordineId, $prodottoId) {
+        return $this->findOneBy([
+            'ordine_id' => $ordineId,
+            'prodotto_id' => $prodottoId
+        ]);
     }
 
 }

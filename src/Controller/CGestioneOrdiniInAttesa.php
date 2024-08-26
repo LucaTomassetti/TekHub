@@ -28,4 +28,38 @@ class CGestioneOrdiniInAttesa {
             exit();
         }
     }
+    public static function prendiInCarico($ordineId, $prodottoId) {
+        $ordine = FPersistentManager::getInstance()->find(EOrdine::class, $ordineId);
+        $ordineProdotto = FPersistentManager::getInstance()->findOrdineProdotto($ordineId, $prodottoId);
+        
+        if (!$ordineProdotto) {
+            // Gestisci l'errore
+            $_SESSION['error'] = "Prodotto non trovato nell'ordine.";
+            header('Location: /TekHub/gestioneOrdiniInAttesa/ordiniInAttesa');
+            exit();
+        }
+
+        // Aggiorna lo stato del prodotto specifico
+        $ordineProdotto->setStato_ordine('In spedizione');
+        FPersistentManager::getInstance()->update($ordineProdotto);
+        
+        // Controlla se tutti i prodotti dell'ordine sono in spedizione
+        $tuttiInSpedizione = true;
+        foreach ($ordine->getQProdottoOrdine() as $op) {
+            if ($op->getStato_ordine() != 'In spedizione') {
+                $tuttiInSpedizione = false;
+                break;
+            }
+        }
+        
+        // Se tutti i prodotti sono in spedizione, aggiorna lo stato dell'ordine
+        if ($tuttiInSpedizione) {
+            $ordine->setStato_ordine('In spedizione');
+            FPersistentManager::getInstance()->update($ordine);
+        }
+        
+        $_SESSION['success'] = "Prodotto preso in carico con successo.";
+        header('Location: /TekHub/gestioneOrdiniInAttesa/ordiniInAttesa');
+        exit();
+    }
 }

@@ -16,9 +16,6 @@ class EOrdine{
     #[ORM\Column(type: 'date')]
     private $data_ordine;
 
-    #[ORM\Column(type: 'boolean')]
-    private $is_preso_in_carico;
-
     #[ORM\Column(type: 'string', length:50, columnDefinition: 'VARCHAR(50)')]
     private $stato_ordine;
 
@@ -105,26 +102,6 @@ class EOrdine{
         $this->data_ordine = $data_ordine;
 
         return $this;
-    }
-
-    /**
-     * Get the value of stato
-     *
-     * @return $stato
-     */
-    public function getStato_ordine()
-    {
-        return $this->stato_ordine;
-    }
-
-    /**
-     * Set the value of stato
-     *
-     * @param $stato
-     */
-    public function setStato_ordine($stato_ordine)
-    {
-        $this->stato_ordine = $stato_ordine;
     }
 
     /**
@@ -239,20 +216,16 @@ class EOrdine{
         $this->q_prodotto_ordine = $q_prodotto_ordine;
     }
 
-    /**
-     * Get the value of is_preso_in_carico
-     */
-    public function getIsPresoInCarico()
-    {
-        return $this->is_preso_in_carico;
+    public function getStato_ordine() {
+        return $this->stato_ordine;
     }
 
-    /**
-     * Set the value of is_preso_in_carico
-     */
-    public function setIsPresoInCarico($is_preso_in_carico)
-    {
-        $this->is_preso_in_carico = $is_preso_in_carico;
+    public function setStato_ordine($stato_ordine) {
+        $this->stato_ordine = $stato_ordine;
+    }
+
+    public function isPresoInCarico() {
+        return $this->stato_ordine != 'In elaborazione';
     }
 }
 ?>

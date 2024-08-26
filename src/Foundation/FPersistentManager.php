@@ -464,5 +464,24 @@ class FPersistentManager{
         $results = $query->getResult();
         return array_column($results, 'marca');
     }
+    public function getOrdiniConProdottiVenditore(EVenditore $venditore, $currentPage = 1, $pageSize = 10) {
+        return getEntityManager()->getRepository('EOrdine')->getOrdiniConProdottiVenditore($venditore, $currentPage, $pageSize);
+    }
+
+    public function findOrdineProdotto($ordineId, $prodottoId) {
+        return getEntityManager()->getRepository('EOrdineProdotto')->findOrdineProdotto($ordineId, $prodottoId);
+    }
+
+    public function update($entity) {
+        try {
+            getEntityManager()->persist($entity);
+            getEntityManager()->flush();
+            return true;
+        } catch (Exception $e) {
+            // Log dell'errore
+            error_log("Errore durante l'aggiornamento dell'entità: " . $e->getMessage());
+            return false;
+        }
+    }
 }
 ?>
