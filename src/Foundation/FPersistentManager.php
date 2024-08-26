@@ -308,6 +308,11 @@ class FPersistentManager{
     public function updateVendAsta($prodotto, $venditore){
         getEntityManager()->getRepository('EAsta')->updateVendAsta($prodotto, $venditore);
     }
+    
+    //aggiunto per gestione Ordini in attesa
+    public function getAllOrdini($venditore, $page){
+        return getEntityManager()->getRepository('EOrdine')->getAllOrdini($venditore, $page);
+    }
 
     public function creaOrdine($indirizzo, $cap, $carta_id, $carrello) {
         return getEntityManager()->getRepository('EOrdine')->creaOrdine($indirizzo, $cap, $carta_id, $carrello);
