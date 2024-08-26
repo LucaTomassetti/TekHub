@@ -311,7 +311,7 @@ class FPersistentManager{
     
     //aggiunto per gestione Ordini in attesa
     public function getAllOrdini($venditore, $page){
-        return getEntityManager()->getRepository('EOrdine')->getAllOrdini($venditore, $page);
+        return getEntityManager()->getRepository('EOrdineProdotto')->getAllOrdini($venditore, $page);
     }
 
     public function creaOrdine($indirizzo, $cap, $carta_id, $carrello) {

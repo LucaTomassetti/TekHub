@@ -19,8 +19,15 @@ class EOrdineProdotto {
     #[ORM\JoinColumn(name:'prodotto_id', referencedColumnName:'id_prodotto')]
     private EProdotto|null $prodotto_id= null;
 
+    #[ORM\Column(type: 'boolean')]
+    private $is_preso_in_carico;
+
+    #[ORM\Column(type: 'string', length:50, columnDefinition: 'VARCHAR(50)')]
+    private $stato_ordine;
+
     public function __construct() {
         $this->quantita_ordinata_prodotto = 0;
+        $this->stato_ordine = 'In elaborazione';
     }
 
     /**
@@ -76,5 +83,44 @@ class EOrdineProdotto {
 
         return $this;
     }
+
+    /**
+     * Get the value of is_preso_in_carico
+     */
+    public function getIsPresoInCarico()
+    {
+        return $this->is_preso_in_carico;
+    }
+
+    /**
+     * Set the value of is_preso_in_carico
+     */
+    public function setIsPresoInCarico($is_preso_in_carico)
+    {
+        $this->is_preso_in_carico = $is_preso_in_carico;
+    }
+
+    /**
+     * Get the value of stato
+     *
+     * @return $stato
+     */
+    public function getStato_ordine()
+    {
+        return $this->stato_ordine;
+    }
+
+    /**
+     * Set the value of stato
+     *
+     * @param $stato
+     */
+    public function setStato_ordine($stato_ordine)
+    {
+        $this->stato_ordine = $stato_ordine;
+    }
+
+
+
 }
 ?>

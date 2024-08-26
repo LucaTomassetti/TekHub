@@ -38,6 +38,7 @@ class FOrdine extends EntityRepository {
                 $ordineProdotto->setOrdineId($ordine);
                 $ordineProdotto->setProdottoId($prodotto);
                 $ordineProdotto->setQuantitaOrdinataProdotto($quantita);
+                $ordineProdotto->setIsPresoInCarico(false);
                 $em->persist($ordineProdotto);
 
                 $ordine->addQProdottoOrdine($ordineProdotto);
