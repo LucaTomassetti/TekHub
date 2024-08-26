@@ -39,6 +39,7 @@
 	{include file='header_section.tpl'}
 
     <div class="container mt-5">
+    <br>
     <h2>Ordini in Attesa</h2>
 
     {if isset($success)}
@@ -101,7 +102,7 @@
                                         <form method="POST" action="/TekHub/gestioneOrdiniInAttesa/prendiInCarico/{$ordine->getId_ordine()}/{$ordineProdotto->getProdottoId()->getIdProdotto()}">
                                             <button type="submit" class="btn btn-primary">Prendi in Carico</button>
                                         </form>
-                                    {elseif $ordineProdotto->getStato_ordine() == 'In spedizione'}
+                                    {elseif $ordineProdotto->getStato_ordine() == 'Preso in carico'}
                                         <button type="submit" class="btn btn-success" disabled>Preso in Carico</button>
                                     {/if}
                                 </div>

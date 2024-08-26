@@ -101,6 +101,7 @@
                     </div>
                 </div>
             {/foreach}
+            <br>
             <div class="row mt-4 d-flex">
                 <div class="col-md-6">
                     <a href="/TekHub/gestioneAcquisto/svuotaCarrello" class="btn btn-warning">Svuota carrello</a>

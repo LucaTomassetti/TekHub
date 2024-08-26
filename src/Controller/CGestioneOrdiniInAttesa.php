@@ -40,21 +40,21 @@ class CGestioneOrdiniInAttesa {
         }
 
         // Aggiorna lo stato del prodotto specifico
-        $ordineProdotto->setStato_ordine('In spedizione');
+        $ordineProdotto->setStato_ordine('Preso in carico');
         FPersistentManager::getInstance()->update($ordineProdotto);
         
-        // Controlla se tutti i prodotti dell'ordine sono in spedizione
+        // Controlla se tutti i prodotti dell'ordine sono presi in carico
         $tuttiInSpedizione = true;
         foreach ($ordine->getQProdottoOrdine() as $op) {
-            if ($op->getStato_ordine() != 'In spedizione') {
+            if ($op->getStato_ordine() != 'Preso in carico') {
                 $tuttiInSpedizione = false;
                 break;
             }
         }
         
-        // Se tutti i prodotti sono in spedizione, aggiorna lo stato dell'ordine
+        // Se tutti i prodotti sono presi in carico, aggiorna lo stato dell'ordine
         if ($tuttiInSpedizione) {
-            $ordine->setStato_ordine('In spedizione');
+            $ordine->setStato_ordine('Preso in carico');
             FPersistentManager::getInstance()->update($ordine);
         }
         
