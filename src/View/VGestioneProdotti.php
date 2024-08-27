@@ -52,8 +52,8 @@ class VGestioneProdotti{
             $this->smarty->assign('prezzo_fisso', $prodotto->getPrezzoFisso());
         }else if($prodotto instanceof EUsato){
             $this->smarty->assign('isProdottoNuovo', 0);
-            $this->smarty->assign('data_inizio_asta', $prodotto->getAsta()->getDataCreazione());
-            $this->smarty->assign('data_fine_asta', $prodotto->getAsta()->getDataFine());
+            $this->smarty->assign('data_inizio_asta', $prodotto->getAsta()->getDataCreazione()->format('Y-m-d H:i:s'));
+            $this->smarty->assign('data_fine_asta', $prodotto->getAsta()->getDataFine()->format('Y-m-d H:i:s'));
             $this->smarty->assign('floor_price', $prodotto->getFloorPrice());
         }
         $this->smarty->assign('modifyProductForm', 1);

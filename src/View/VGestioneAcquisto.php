@@ -27,10 +27,16 @@ class VGestioneAcquisto{
         $this->smarty->assign('shop', 1);
         $this->smarty->display('userinfo.tpl');
     }
-    public function vediProdotto($prodotto, $immagini, $same_cat_products){
+    public function vediProdotto($prodotto, $immagini, $same_cat_products, $offerta_attuale = 0, $stato_asta = '') {
         $loginVariables = (new VUtente)->checkLogin();
         foreach ($loginVariables as $key => $value) {
             $this->smarty->assign($key, $value);
+        }
+        $this->smarty->assign('offerta_effettuata', 0);
+        $offerta_effettuata = isset($_SESSION['offerta_effettuata']) && $_SESSION['offerta_effettuata'];
+        unset($_SESSION['offerta_effettuata']);
+        if($offerta_effettuata) {
+            $this->smarty->assign('offerta_effettuata', 1);
         }
         $this->smarty->assign('same_cat_products', $same_cat_products);
         $this->smarty->assign('nomeProdotto', $prodotto->getNome());
@@ -45,11 +51,13 @@ class VGestioneAcquisto{
             $this->smarty->assign('isProdottoNuovo', 1);
             $this->smarty->assign('quantita_disp', $prodotto->getQuantitaDisp());
             $this->smarty->assign('prezzo_fisso', $prodotto->getPrezzoFisso());
-        }else if($prodotto instanceof EUsato){
+        } else if($prodotto instanceof EUsato){
             $this->smarty->assign('isProdottoNuovo', 0);
-            $this->smarty->assign('data_inizio_asta', $prodotto->getAsta()->getDataCreazione());
-            $this->smarty->assign('data_fine_asta', $prodotto->getAsta()->getDataFine());
+            $this->smarty->assign('data_inizio_asta', $prodotto->getAsta()->getDataCreazione()->format('Y-m-d H:i:s'));
+            $this->smarty->assign('data_fine_asta', $prodotto->getAsta()->getDataFine()->format('Y-m-d H:i:s'));
             $this->smarty->assign('floor_price', $prodotto->getFloorPrice());
+            $this->smarty->assign('offerta_attuale', $offerta_attuale);
+            $this->smarty->assign('stato_asta', $stato_asta);
         }
         $this->smarty->display('infoProdotto.tpl');
     }

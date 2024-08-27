@@ -3,6 +3,7 @@
     <div class="row">
         <div class="col-md-6">
             <h4>Informazioni Ordine</h4>
+            <p><strong>Asta:</strong> Aggiudicata</p>
             <p><strong>Data:</strong> {$ordine->getData_ordine()->format('d/m/Y')}</p>
             <p><strong>Stato:</strong> {$ordine->getStato_ordine()}</p>
             <p><strong>Importo totale:</strong> €{$ordine->getImporto_tot()|string_format:"%.2f"}</p>
@@ -13,6 +14,7 @@
             <p>{$ordine->getIndirizzo_spedizione()->getCap()}</p>
         </div>
     </div>
+    <br>
     <div class="row mt-4">
         <div class="col-md-6">
             <h4>Metodo di Pagamento</h4>
@@ -36,8 +38,8 @@
                 <tr>
                     <td>{$ordineProdotto->getProdottoId()->getNome()}</td>
                     <td>{$ordineProdotto->getQuantitaOrdinataProdotto()}</td>
-                    <td>€{$ordineProdotto->getProdottoId()->getPrezzoFisso()|string_format:"%.2f"}</td>
-                    <td>€{($ordineProdotto->getQuantitaOrdinataProdotto() * $ordineProdotto->getProdottoId()->getPrezzoFisso())|string_format:"%.2f"}</td>
+                    <td>€{if $ordineProdotto->getProdottoId() instanceof ENuovo}{$ordineProdotto->getProdottoId()->getPrezzoFisso()|string_format:"%.2f"}{else}{$ordineProdotto->getOrdineId()->getImporto_tot()|string_format:"%.2f"}{/if}</td>
+                    <td>€{if $ordineProdotto->getProdottoId() instanceof ENuovo}{($ordineProdotto->getQuantitaOrdinataProdotto() * $ordineProdotto->getProdottoId()->getPrezzoFisso())|string_format:"%.2f"}{else}{$ordineProdotto->getOrdineId()->getImporto_tot()|string_format:"%.2f"}{/if}</td>
                 </tr>
             {/foreach}
         </tbody>

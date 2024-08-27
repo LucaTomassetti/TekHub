@@ -483,5 +483,26 @@ class FPersistentManager{
             return false;
         }
     }
+    public function insertOfferta(EUsato $prodotto, $importo, $acquirenteId) {
+        return getEntityManager()->getRepository(EOfferta::class)->insertOfferta($prodotto, $importo, $acquirenteId);
+    }
+    
+    public function getUltimaOffertaValida(EUsato $prodotto) {
+        return getEntityManager()->getRepository(EOfferta::class)->getUltimaOffertaValida($prodotto);
+    }
+    
+    public function getOfferteUtente(EAcquirente $acquirente) {
+        return getEntityManager()->getRepository(EOfferta::class)->getOfferteUtente($acquirente);
+    }
+    
+    public function aggiornaStatoOfferte(EUsato $prodotto) {
+        getEntityManager()->getRepository(EOfferta::class)->aggiornaStatoOfferte($prodotto);
+    }
+    public function getOffertaUtentePerAsta(EUsato $prodotto, $acquirenteId){
+        return getEntityManager()->getRepository(EOfferta::class)->getOffertaUtentePerAsta($prodotto, $acquirenteId);
+    }
+    public function aggiornaOfferta(EOfferta $offerta, $nuovoImporto){
+        return getEntityManager()->getRepository(EOfferta::class)->aggiornaOfferta($offerta, $nuovoImporto);
+    }
 }
 ?>

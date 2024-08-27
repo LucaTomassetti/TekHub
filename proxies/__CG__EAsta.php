@@ -19,11 +19,13 @@ class EAsta extends \EAsta implements \Doctrine\ORM\Proxy\InternalProxy
         "\0".parent::class."\0".'data_creazione' => [parent::class, 'data_creazione', null],
         "\0".parent::class."\0".'data_fine' => [parent::class, 'data_fine', null],
         "\0".parent::class."\0".'id_asta' => [parent::class, 'id_asta', null],
+        "\0".parent::class."\0".'stato_asta' => [parent::class, 'stato_asta', null],
         "\0".parent::class."\0".'usato' => [parent::class, 'usato', null],
         "\0".parent::class."\0".'venditore' => [parent::class, 'venditore', null],
         'data_creazione' => [parent::class, 'data_creazione', null],
         'data_fine' => [parent::class, 'data_fine', null],
         'id_asta' => [parent::class, 'id_asta', null],
+        'stato_asta' => [parent::class, 'stato_asta', null],
         'usato' => [parent::class, 'usato', null],
         'venditore' => [parent::class, 'venditore', null],
     ];
