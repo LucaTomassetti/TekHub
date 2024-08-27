@@ -19,8 +19,12 @@ class EOrdineProdotto {
     #[ORM\JoinColumn(name:'prodotto_id', referencedColumnName:'id_prodotto')]
     private EProdotto|null $prodotto_id= null;
 
+    #[ORM\Column(type: 'string', length:50, columnDefinition: 'VARCHAR(50)')]
+    private $stato_ordine_prodotto;
+
     public function __construct() {
         $this->quantita_ordinata_prodotto = 0;
+        $this->stato_ordine_prodotto = 'In elaborazione';
     }
 
     /**
@@ -76,5 +80,18 @@ class EOrdineProdotto {
 
         return $this;
     }
+
+    public function getStato_ordine() {
+        return $this->stato_ordine_prodotto;
+    }
+
+    public function setStato_ordine($stato_ordine_prodotto) {
+        $this->stato_ordine_prodotto = $stato_ordine_prodotto;
+    }
+
+    public function isPresoInCarico() {
+        return $this->stato_ordine_prodotto != 'In elaborazione';
+    }
+
 }
 ?>

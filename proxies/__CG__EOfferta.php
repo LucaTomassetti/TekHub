@@ -20,12 +20,14 @@ class EOfferta extends \EOfferta implements \Doctrine\ORM\Proxy\InternalProxy
         "\0".parent::class."\0".'data' => [parent::class, 'data', null],
         "\0".parent::class."\0".'id_offerta' => [parent::class, 'id_offerta', null],
         "\0".parent::class."\0".'importo' => [parent::class, 'importo', null],
-        "\0".parent::class."\0".'p_usato_id' => [parent::class, 'p_usato_id', null],
+        "\0".parent::class."\0".'prodotto' => [parent::class, 'prodotto', null],
+        "\0".parent::class."\0".'stato' => [parent::class, 'stato', null],
         'acquirente' => [parent::class, 'acquirente', null],
         'data' => [parent::class, 'data', null],
         'id_offerta' => [parent::class, 'id_offerta', null],
         'importo' => [parent::class, 'importo', null],
-        'p_usato_id' => [parent::class, 'p_usato_id', null],
+        'prodotto' => [parent::class, 'prodotto', null],
+        'stato' => [parent::class, 'stato', null],
     ];
 
     public function __isInitialized(): bool

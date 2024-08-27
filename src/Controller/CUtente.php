@@ -232,7 +232,7 @@ class CUtente {
             unset($_SESSION['address_deleted']);
         }
         if (isset($_SESSION['address_added'])) {
-            $messages['success'] = "L'indirizzo è stato eliminato con successo.";
+            $messages['success'] = "L'indirizzo è stato aggiunto con successo.";
             unset($_SESSION['address_added']);
         }
         if (isset($_SESSION['address_reactivated'])) {

@@ -27,8 +27,6 @@ class EAcquirente extends \EAcquirente implements \Doctrine\ORM\Proxy\InternalPr
         "\0".parent::class."\0".'ordini' => [parent::class, 'ordini', null],
         "\0".parent::class."\0".'password' => [parent::class, 'password', null],
         "\0".parent::class."\0".'recensioni' => [parent::class, 'recensioni', null],
-        "\0".parent::class."\0".'resi' => [parent::class, 'resi', null],
-        "\0".parent::class."\0".'rimborsi' => [parent::class, 'rimborsi', null],
         "\0".parent::class."\0".'username' => [parent::class, 'username', null],
         'carte_di_credito' => [parent::class, 'carte_di_credito', null],
         'cellulare' => [parent::class, 'cellulare', null],
@@ -41,8 +39,6 @@ class EAcquirente extends \EAcquirente implements \Doctrine\ORM\Proxy\InternalPr
         'ordini' => [parent::class, 'ordini', null],
         'password' => [parent::class, 'password', null],
         'recensioni' => [parent::class, 'recensioni', null],
-        'resi' => [parent::class, 'resi', null],
-        'rimborsi' => [parent::class, 'rimborsi', null],
         'username' => [parent::class, 'username', null],
     ];
 

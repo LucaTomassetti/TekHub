@@ -1,7 +1,5 @@
 <?php
 
-use Doctrine\DBAL\Types\DateTimeTzImmutableType;
-
 class CGestioneProdotti{
     public static function listaProdotti(){
         $view = new VGestioneProdotti();
@@ -78,7 +76,7 @@ class CGestioneProdotti{
                     FPersistentManager::getInstance()->insertProdottoNuovo($prod);
                 } else {
                     $prod = new EUsato(null, $array_data['nome'], $array_data['descrizione'], $array_data['marca'],$array_data['modello'],$array_data['colore'],$array_data['prezzo-asta']);
-                    $asta = new EAsta(new DateTimeImmutable($array_data['data-inizio-asta']), new DateTimeImmutable($array_data['data-fine-asta']));
+                    $asta = new EAsta(new DateTime($array_data['data-inizio-asta']), new DateTime($array_data['data-fine-asta']));
                     $prod->setAsta($asta);
                     FPersistentManager::getInstance()->insertProdottoUsato($prod);
                 }

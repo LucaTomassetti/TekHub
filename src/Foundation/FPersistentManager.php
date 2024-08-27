@@ -308,6 +308,11 @@ class FPersistentManager{
     public function updateVendAsta($prodotto, $venditore){
         getEntityManager()->getRepository('EAsta')->updateVendAsta($prodotto, $venditore);
     }
+    
+    //aggiunto per gestione Ordini in attesa
+    public function getAllOrdini($venditore, $page){
+        return getEntityManager()->getRepository('EOrdineProdotto')->getAllOrdini($venditore, $page);
+    }
 
     public function creaOrdine($indirizzo, $cap, $carta_id, $carrello) {
         return getEntityManager()->getRepository('EOrdine')->creaOrdine($indirizzo, $cap, $carta_id, $carrello);
@@ -416,8 +421,6 @@ class FPersistentManager{
                ->setParameter('marca', $filtri['marca']);
         }
     
-        // Rimuovi il filtro del prezzo dalla query principale
-    
         if (in_array('nuovo', $filtri['condizione'])) {
             $qb->andWhere('p INSTANCE OF ENuovo');
         }
@@ -460,6 +463,46 @@ class FPersistentManager{
         $query = getEntityManager()->createQuery($dql);
         $results = $query->getResult();
         return array_column($results, 'marca');
+    }
+    public function getOrdiniConProdottiVenditore(EVenditore $venditore, $currentPage = 1, $pageSize = 10) {
+        return getEntityManager()->getRepository('EOrdine')->getOrdiniConProdottiVenditore($venditore, $currentPage, $pageSize);
+    }
+
+    public function findOrdineProdotto($ordineId, $prodottoId) {
+        return getEntityManager()->getRepository('EOrdineProdotto')->findOrdineProdotto($ordineId, $prodottoId);
+    }
+
+    public function update($entity) {
+        try {
+            getEntityManager()->persist($entity);
+            getEntityManager()->flush();
+            return true;
+        } catch (Exception $e) {
+            // Log dell'errore
+            error_log("Errore durante l'aggiornamento dell'entità: " . $e->getMessage());
+            return false;
+        }
+    }
+    public function insertOfferta(EUsato $prodotto, $importo, $acquirenteId) {
+        return getEntityManager()->getRepository(EOfferta::class)->insertOfferta($prodotto, $importo, $acquirenteId);
+    }
+    
+    public function getUltimaOffertaValida(EUsato $prodotto) {
+        return getEntityManager()->getRepository(EOfferta::class)->getUltimaOffertaValida($prodotto);
+    }
+    
+    public function getOfferteUtente(EAcquirente $acquirente) {
+        return getEntityManager()->getRepository(EOfferta::class)->getOfferteUtente($acquirente);
+    }
+    
+    public function aggiornaStatoOfferte(EUsato $prodotto) {
+        getEntityManager()->getRepository(EOfferta::class)->aggiornaStatoOfferte($prodotto);
+    }
+    public function getOffertaUtentePerAsta(EUsato $prodotto, $acquirenteId){
+        return getEntityManager()->getRepository(EOfferta::class)->getOffertaUtentePerAsta($prodotto, $acquirenteId);
+    }
+    public function aggiornaOfferta(EOfferta $offerta, $nuovoImporto){
+        return getEntityManager()->getRepository(EOfferta::class)->aggiornaOfferta($offerta, $nuovoImporto);
     }
 }
 ?>

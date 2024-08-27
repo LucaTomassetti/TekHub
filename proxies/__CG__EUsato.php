@@ -26,8 +26,6 @@ class EUsato extends \EUsato implements \Doctrine\ORM\Proxy\InternalProxy
         "\0".'EProdotto'."\0".'nome' => ['EProdotto', 'nome', null],
         "\0".'EProdotto'."\0".'q_prodotto_ordine' => ['EProdotto', 'q_prodotto_ordine', null],
         "\0".'EProdotto'."\0".'recensioni' => ['EProdotto', 'recensioni', null],
-        "\0".'EProdotto'."\0".'resi' => ['EProdotto', 'resi', null],
-        "\0".'EProdotto'."\0".'rimborsi' => ['EProdotto', 'rimborsi', null],
         "\0".'EProdotto'."\0".'venditore' => ['EProdotto', 'venditore', null],
         "\0".parent::class."\0".'asta' => [parent::class, 'asta', null],
         "\0".parent::class."\0".'floor_price' => [parent::class, 'floor_price', null],
@@ -46,8 +44,6 @@ class EUsato extends \EUsato implements \Doctrine\ORM\Proxy\InternalProxy
         'offerte' => [parent::class, 'offerte', null],
         'q_prodotto_ordine' => ['EProdotto', 'q_prodotto_ordine', null],
         'recensioni' => ['EProdotto', 'recensioni', null],
-        'resi' => ['EProdotto', 'resi', null],
-        'rimborsi' => ['EProdotto', 'rimborsi', null],
         'venditore' => ['EProdotto', 'venditore', null],
     ];
 

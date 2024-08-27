@@ -46,9 +46,9 @@ class FUsato extends EntityRepository {
         //(se non esiste significa che mi trovo nella form di modifica altrimenti mi trovo
         //nella form di aggiunta dei prodotti e quindi devo settare la data di inizio)
         if(isset($array_data['data-inizio-asta'])){
-            $found_prodotto->getAsta()->setDataCreazione(new DateTimeImmutable($array_data['data-inizio-asta']));
+            $found_prodotto->getAsta()->setDataCreazione(new DateTime($array_data['data-inizio-asta']));
         }
-        $found_prodotto->getAsta()->setDataFine(new DateTimeImmutable($array_data['data-fine-asta']));
+        $found_prodotto->getAsta()->setDataFine(new DateTime($array_data['data-fine-asta']));
         $em->persist($found_prodotto);
         $em->flush();
     }

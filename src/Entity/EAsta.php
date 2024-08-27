@@ -9,11 +9,11 @@ class EAsta{
     #[ORM\GeneratedValue]
     private $id_asta;
 
-    #[ORM\Column(type: 'datetimetz_immutable')]
-    private DateTimeImmutable $data_creazione;
+    #[ORM\Column(type: 'datetime')]
+    private $data_creazione;
 
-    #[ORM\Column(type: 'datetimetz_immutable')]
-    private DateTimeImmutable $data_fine;
+    #[ORM\Column(type: 'datetime')]
+    private $data_fine;
 
     #[ORM\OneToOne(targetEntity: EUsato::class, mappedBy: 'asta')]
     private EUsato|null $usato = null;
@@ -22,9 +22,22 @@ class EAsta{
     #[ORM\JoinColumn(name:'venditore', referencedColumnName:'id_venditore', nullable:true)]
     private EVenditore|null $venditore = null;
 
-    public function __construct($data_creazione,$data_fine){
-        $this->data_creazione=$data_creazione;
-        $this->data_fine=$data_fine;
+    #[ORM\Column(type: 'string', length: 20)]
+    private $stato_asta;
+
+    public function __construct($data_creazione, $data_fine) {
+        $this->data_creazione = $data_creazione;
+        $this->data_fine = $data_fine;
+        $this->stato_asta = 'In corso';
+    }
+
+    public function getStatoAsta(): string {
+        return $this->stato_asta;
+    }
+
+    public function setStatoAsta(string $stato_asta): self {
+        $this->stato_asta = $stato_asta;
+        return $this;
     }
 
     /**
@@ -42,9 +55,8 @@ class EAsta{
      *
      * @return $data_creazione
      */
-    public function getDataCreazione()
-    {
-        return $this->data_creazione->format('Y-m-d H:i:s');
+    public function getDataCreazione(): \DateTime {
+        return $this->data_creazione;
     }
 
     /**
@@ -62,9 +74,8 @@ class EAsta{
      *
      * @return $data_fine
      */
-    public function getDataFine()
-    {
-        return $this->data_fine->format('Y-m-d H:i:s');
+    public function getDataFine(): \DateTime {
+        return $this->data_fine;
     }
 
     /**

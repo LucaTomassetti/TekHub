@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-08-25 18:48:05
+/* Smarty version 5.3.0, created on 2024-08-27 12:15:06
   from 'file:header_section.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66cb6045cd2838_86112812',
+  'unifunc' => 'content_66cda72a028ec8_58248586',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '865963af9ff487a66b8dbfc323e093391d8a98dc' => 
     array (
       0 => 'header_section.tpl',
-      1 => 1724604482,
+      1 => 1724753701,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66cb6045cd2838_86112812 (\Smarty\Template $_smarty_tpl) {
+function content_66cda72a028ec8_58248586 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?><!-- HEADER -->
 <header>
@@ -185,14 +185,12 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
             <li><a href="/TekHub/utente/userDataSection">Profilo</a></li>
             <li><a href="/TekHub/utente/userHistoryOrders">Stato ordini</a></li>
             <li><a href="#">Recensioni</a></li>
-            <li><a href="#">Offerte effettuate</a></li>
-            <li><a href="#">Gestione resi</a></li>
+            <li><a href="/TekHub/asta/visualizzaOfferteEffettuate">Offerte effettuate</a></li>
         <?php } elseif ($_smarty_tpl->getValue('check_login_venditore') == 1) {?>
         <li><a href="/TekHub/utente/userDataSection">Profilo</a></li>
             <li><a href="/TekHub/gestioneProdotti/listaProdotti">Gestione prodotti</a></li>
-            <li><a href="#">Ordini in attesa</a></li>
-            <li><a href="/TekHub/utente/userHistoryOrders">Stato ordini</a></li>
-            <li><a href="#">Gestione resi</a></li>
+            <li><a href="/TekHub/gestioneOrdiniInAttesa/ordiniInAttesa?orderpage=1">Ordini in attesa</a></li>
+            <li><a href="/TekHub/gestioneOrdiniInAttesa/statoOrdini?orderpage=1">Stato ordini</a></li>
             <li><a href="#">Recensioni</a></li>
         <?php } elseif ($_smarty_tpl->getValue('check_login_admin') == 1) {?>
             <li><a href="/TekHub/utente/userDataSection">Profilo</a></li>

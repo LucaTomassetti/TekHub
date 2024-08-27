@@ -26,8 +26,6 @@ class EProdotto extends \EProdotto implements \Doctrine\ORM\Proxy\InternalProxy
         "\0".parent::class."\0".'nome' => [parent::class, 'nome', null],
         "\0".parent::class."\0".'q_prodotto_ordine' => [parent::class, 'q_prodotto_ordine', null],
         "\0".parent::class."\0".'recensioni' => [parent::class, 'recensioni', null],
-        "\0".parent::class."\0".'resi' => [parent::class, 'resi', null],
-        "\0".parent::class."\0".'rimborsi' => [parent::class, 'rimborsi', null],
         "\0".parent::class."\0".'venditore' => [parent::class, 'venditore', null],
         'category_name' => [parent::class, 'category_name', null],
         'colore' => [parent::class, 'colore', null],
@@ -40,8 +38,6 @@ class EProdotto extends \EProdotto implements \Doctrine\ORM\Proxy\InternalProxy
         'nome' => [parent::class, 'nome', null],
         'q_prodotto_ordine' => [parent::class, 'q_prodotto_ordine', null],
         'recensioni' => [parent::class, 'recensioni', null],
-        'resi' => [parent::class, 'resi', null],
-        'rimborsi' => [parent::class, 'rimborsi', null],
         'venditore' => [parent::class, 'venditore', null],
     ];
 
