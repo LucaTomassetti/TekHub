@@ -3,7 +3,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass:FOfferta::class)]
 #[ORM\Table('offerta')]
 class EOfferta{
     #[ORM\Id]
@@ -17,20 +17,31 @@ class EOfferta{
     #[ORM\Column(type: 'datetime')]
     private $data;
 
+    #[ORM\Column(type: 'string', length: 20)]
+    private $stato;
+
     #[ORM\ManyToOne(targetEntity: EAcquirente::class, inversedBy:'offerte')]
     #[ORM\JoinColumn(name:'acquirente', referencedColumnName:'id_acquirente', nullable:true)]
     private EAcquirente|null $acquirente = null;
 
     #[ORM\ManyToOne(targetEntity: EUsato::class, inversedBy:'offerte')]
-    #[ORM\JoinColumn(name:'p_usato_id', referencedColumnName:'id_prodotto', nullable:true)]
-    private EUsato|null $p_usato_id = null;
+    #[ORM\JoinColumn(name:'prodotto', referencedColumnName:'id_prodotto', nullable:true)]
+    private EUsato|null $prodotto = null;
 
-    public function __construct($importo,$data) {
-        $this->importo=$importo;
-        $this->data=$data;
-
+    public function __construct($importo, \DateTime $data) {
+        $this->importo = $importo;
+        $this->data = $data;
+        $this->stato = 'In attesa';
     }
 
+    public function getStato(): string {
+        return $this->stato;
+    }
+
+    public function setStato(string $stato): self {
+        $this->stato = $stato;
+        return $this;
+    }
     /**
      * Get the value of id_offerta
      *
@@ -73,25 +84,12 @@ class EOfferta{
 
     }
 
-    /**
-     * Get the value of data
-     *
-     * @return $data
-     */
-    public function getData()
-    {
-        return $this->data;
+    public function setData(\DateTime $data){
+        $this->data = $data;
     }
 
-    /**
-    * Set the value of data
-    *
-    * @param $data
-    */   
-    public function setData($data)
-    {
-        $this->data = $data;
-
+    public function getData(): \DateTime {
+        return $this->data;
     }
 
     /**
@@ -115,20 +113,18 @@ class EOfferta{
     }
 
     /**
-     * Get the value of p_usato_id
+     * Get the value of prodotto
      */
-    public function getPUsatoId(): ?EUsato
+    public function getProdotto(): ?EUsato
     {
-        return $this->p_usato_id;
+        return $this->prodotto;
     }
 
     /**
-     * Set the value of p_usato_id
+     * Set the value of prodotto
      */
-    public function setPUsatoId(?EUsato $p_usato_id): self
+    public function setProdotto(?EUsato $prodotto)
     {
-        $this->p_usato_id = $p_usato_id;
-
-        return $this;
+        $this->prodotto = $prodotto;
     }
 }

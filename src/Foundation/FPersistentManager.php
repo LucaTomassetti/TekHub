@@ -199,6 +199,8 @@ class FPersistentManager{
             getEntityManager()->getRepository('EAcquirente')->updateAcquirente($utente, $array_data);
         }else if($utente instanceof EVenditore){
             getEntityManager()->getRepository('EVenditore')->updateVenditore($utente, $array_data);
+        }else if($utente instanceof EAdmin){
+            getEntityManager()->getRepository('EAdmin')->updateAdmin($utente, $array_data);
         } 
     }
     public function deleteUtente($utente){
@@ -406,7 +408,7 @@ class FPersistentManager{
         $qb = getEntityManager()->createQueryBuilder();
         $qb->select('p')
            ->from('EProdotto', 'p')
-           ->where('1 = 1');
+           ->where('p.is_deleted = false');
     
         if ($filtri['query']) {
             $qb->andWhere('p.nome LIKE :query OR p.descrizione LIKE :query')
@@ -482,6 +484,37 @@ class FPersistentManager{
             error_log("Errore durante l'aggiornamento dell'entità: " . $e->getMessage());
             return false;
         }
+    }
+    public function insertOfferta(EUsato $prodotto, $importo, $acquirenteId) {
+        return getEntityManager()->getRepository(EOfferta::class)->insertOfferta($prodotto, $importo, $acquirenteId);
+    }
+    
+    public function getUltimaOffertaValida(EUsato $prodotto) {
+        return getEntityManager()->getRepository(EOfferta::class)->getUltimaOffertaValida($prodotto);
+    }
+    
+    public function getOfferteUtente(EAcquirente $acquirente) {
+        return getEntityManager()->getRepository(EOfferta::class)->getOfferteUtente($acquirente);
+    }
+    
+    public function aggiornaStatoOfferte(EUsato $prodotto) {
+        getEntityManager()->getRepository(EOfferta::class)->aggiornaStatoOfferte($prodotto);
+    }
+    public function getOffertaUtentePerAsta(EUsato $prodotto, $acquirenteId){
+        return getEntityManager()->getRepository(EOfferta::class)->getOffertaUtentePerAsta($prodotto, $acquirenteId);
+    }
+    public function aggiornaOfferta(EOfferta $offerta, $nuovoImporto){
+        return getEntityManager()->getRepository(EOfferta::class)->aggiornaOfferta($offerta, $nuovoImporto);
+    }
+
+    public function getProductById($id){
+        return getEntityManager()->getRepository(EProdotto::class)->getProductById($id);
+    }
+    public function findSegnalazione($id){
+        return getEntityManager()->getRepository(ESegnalazione::class)->findSegnalazione($id);
+    }
+    public function deleteSegnalazione($id){
+        return getEntityManager()->getRepository(ESegnalazione::class)->deleteSegnalazione($id);
     }
 
     public function getAllPresiInCarico($venditore, $currentPage){

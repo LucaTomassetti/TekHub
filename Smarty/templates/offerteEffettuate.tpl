@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-		<title>Area utente</title>
+		<title>Offerte effettuate</title>
 
 		<!-- Google font -->
 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
@@ -38,61 +38,48 @@
 <body>
     
 {include file='header_section.tpl'}
-    <!-- Contenuto principale -->
-    <main>
-	<div class="container-fluid d-flex justify-content-center">
-			{if $listaProdotti == 1 || $shop == 1}
-			<div class="col-lg-2 col-md-3 col-sm-4">
-				{include file='filters-section.tpl'}
-			</div>
-			{/if}
-				{if $userDataForm == 1}
-					<div class="col-12 content-area">
-					{include file='userDataForm.tpl'}
-				{elseif $userHistoryOrders == 1}
-					<div class="col-12 content-area">
-					{include file='userHistoryOrders.tpl'}
-				{elseif $changepass == 1}
-					<div class="col-12 content-area">
-					{include file='change-pass.tpl'}
-				{elseif $userDataSection == 1}
-					<div class="col-12 content-area">
-					{include file='userDataSection.tpl'}
-				{elseif $listaProdotti == 1}
-					<div class="col-lg-9 col-md-8 col-sm-7 col-xs-12 content-area">
-					{include file='listaProdotti.tpl'}
-				{elseif $addProductForm == 1}
-					<div class="col-12 content-area">
-					{include file='addProductForm.tpl'}
-				{elseif $modifyProductForm == 1}
-					<div class="col-12 content-area">
-					{include file='modifyProductForm.tpl'}
-				{elseif $admin == 1}
-					<div class="col-12 content-area">
-					{include file='gestisciProdotti.tpl'}
-				{elseif $shop == 1}
-					<div class="col-lg-9 col-md-8 col-sm-7 col-xs-12 content-area">
-					{include file='shop.tpl'}
-				{elseif $indirizzi == 1}
-					<div class="col-12 content-area">
-					{include file='indirizzi.tpl'}
-				{elseif $carteCredito == 1}
-					<div class="col-12 content-area">
-					{include file='carteCredito.tpl'}
-				{elseif $aggiungiIndirizzi == 1}
-					<div class="col-12 content-area">
-					{include file='aggiungiIndirizzi.tpl'}
-				{elseif $aggiungiCarte == 1}
-					<div class="col-12 content-area">
-					{include file='aggiungiCarte.tpl'}
-				{elseif $dettaglioOrdine == 1}
-					<div class="col-12 content-area">
-					{include file='dettaglioOrdine.tpl'}
-				{/if}
-			</div>
-	</div>
-    </main>
-
+<br>
+<div class="container mt-5">
+    <h2>Le mie offerte</h2>
+    {if isset($offerte) && !empty($offerte)}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Prodotto</th>
+                    <th>Importo offerta</th>
+                    <th>Data offerta</th>
+                    <th>Stato</th>
+                    <th>Azioni</th>
+                </tr>
+            </thead>
+            <tbody>
+                {foreach $offerte as $offerta}
+                    <tr>
+                        <td>{$offerta->getProdotto()->getNome()}</td>
+                        <td>€{$offerta->getImporto()}</td>
+                        <td>{$offerta->getData()->format('d/m/Y H:i:s')}</td>
+                        <td>{$offerta->getStato()}</td>
+                        <td>
+                            {if $offerta->getStato() == 'Superata'}
+                                <a href="/TekHub/asta/rilancia/{$offerta->getIdOfferta()}" class="btn btn-primary btn-sm">Rilancia</a>
+                            {elseif $offerta->getStato() == 'Prodotto aggiudicato'}
+                                <span class="text-success">Hai vinto l'asta!</span>
+                            {elseif $offerta->getStato() == 'Vincente'}
+                                <span class="text-info">Offerta più alta al momento</span>
+                            {elseif $offerta->getStato() == 'Persa'}
+                                <span class="text-info">Asta persa</span>
+                            {else}
+                                <span class="text-info">In attesa</span>
+                            {/if}
+                        </td>
+                    </tr>
+                {/foreach}
+            </tbody>
+        </table>
+    {else}
+        <p>Non hai ancora effettuato offerte.</p>
+    {/if}
+</div>
 <script src="/TekHub/skin/electro-master/js/scripts-for-template.js"></script>
 <script src="/TekHub/skin/electro-master/js/jquery.min.js"></script>
 <script src="/TekHub/skin/electro-master/js/bootstrap.min.js"></script>

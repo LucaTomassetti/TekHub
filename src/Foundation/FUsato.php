@@ -14,7 +14,8 @@ class FUsato extends EntityRepository {
         $dql = "SELECT usato
                 FROM EUsato usato
                 JOIN usato.category_name categoria
-                WHERE usato.category_name = ?1";
+                WHERE usato.category_name = ?1
+                AND usato.is_deleted = false";
         $query = getEntityManager()->createQuery($dql)
         ->setParameter(1, $categoria)
         ->setFirstResult(($currentPage - 1) * $pageSize)
@@ -46,9 +47,9 @@ class FUsato extends EntityRepository {
         //(se non esiste significa che mi trovo nella form di modifica altrimenti mi trovo
         //nella form di aggiunta dei prodotti e quindi devo settare la data di inizio)
         if(isset($array_data['data-inizio-asta'])){
-            $found_prodotto->getAsta()->setDataCreazione(new DateTimeImmutable($array_data['data-inizio-asta']));
+            $found_prodotto->getAsta()->setDataCreazione(new DateTime($array_data['data-inizio-asta']));
         }
-        $found_prodotto->getAsta()->setDataFine(new DateTimeImmutable($array_data['data-fine-asta']));
+        $found_prodotto->getAsta()->setDataFine(new DateTime($array_data['data-fine-asta']));
         $em->persist($found_prodotto);
         $em->flush();
     }

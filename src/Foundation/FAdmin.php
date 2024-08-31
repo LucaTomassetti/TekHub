@@ -28,6 +28,17 @@ class FAdmin extends EntityRepository{
         $em->persist($found_admin);
         $em->flush();
     }
+    public function updateAdmin(EAdmin $cliente, $array_data){
+        $em = getEntityManager();
+        $found_cliente = $em->find(EAdmin::class, $cliente->getId());
+        $found_cliente->setNome($array_data['nome']);
+        $found_cliente->setCognome($array_data['cognome']);
+        //Aggiorno la sessione
+        $_SESSION['utente']->setNome($array_data['nome']);
+        $_SESSION['utente']->setCognome($array_data['cognome']);
+        $em->persist($found_cliente);
+        $em->flush();
+    }
     public function deleteAdmin(EAdmin $admin) {
         $em = getEntityManager();
         $found_admin = $em->find(EAdmin::class, $admin->getId());

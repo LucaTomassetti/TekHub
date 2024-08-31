@@ -38,7 +38,6 @@
 <body>
     
 {include file='header_section.tpl'}
-
 <!-- SECTION -->
 <div class="section">
 <!-- container -->
@@ -86,9 +85,11 @@
 					<h3 class="product-price">€{$prezzo_fisso}</h3>
 					<span class="product-available">In Stock: {$quantita_disp}</span>
 					{else}
-					<h3 class="product-price">Prezzo di partenza: €{$floor_price}</h3><br>
-					<div class="padding-top-20"><span>Data inizio asta: {$data_inizio_asta}</span></div>
-					<div class="padding-top-20"><span>Data fine asta: {$data_fine_asta}</span></div>
+						<h3 class="product-price">Prezzo di partenza: €{$floor_price}</h3>
+					<h3 class="product-price">Offerta {if $stato_asta == "Terminata"}aggiudicata{else}attuale{/if}: €{$offerta_attuale}</h3>
+						<div class="padding-top-20"><span>Data inizio asta: {$data_inizio_asta}</span></div>
+						<div class="padding-top-20"><span>Data fine asta: {$data_fine_asta}</span></div>
+						<div class="padding-top-20"><span>Stato asta: {$stato_asta}</span></div>
 					{/if}
 				</div>
 
@@ -134,13 +135,25 @@
 					</form>
 				</div>
 				{else}
-				<div class="add-to-cart padding-top-20">
-					<h3 class="product-price">Offerta attuale: </h3>
-					<input class="input padding-top-20" type="number" min="1" placeholder="Offri..." required></input>
-					<button class="add-to-cart-btn padding-top-20" type="submit"><i class="fas fa-hand-holding-usd"></i> Conferma offerta</button>
-				</div>
+					{if $stato_asta == 'Terminata'}
+						<h3 class="product-price">L'asta è terminata.</h3>
+					{elseif $stato_asta == 'In corso'}
+						<form action="/TekHub/asta/effettuaOfferta/{$productId}" method="POST">
+					<input class="input padding-top-20" type="number" name="importo" min="{if $offerta_attuale == 0}{$floor_price + 1}{else}{$offerta_attuale + 1}{/if}" step="0.01" placeholder="Offri..." required>
+							<button class="add-to-cart-btn padding-top-20" type="submit"><i class="fas fa-hand-holding-usd"></i> Conferma offerta</button>
+						</form>
+					{else}
+						<h3 class="product-price">L'asta non è ancora iniziata.</h3>
+					{/if}
 				{/if}
-
+				
+				{if $offerta_effettuata == 1}
+					<div class="mt-5">
+						<div class="alert alert-success">
+							Offerta effettuata con successo!
+						</div>
+					</div>
+				{/if}
 			</div>
 		</div>
 		<!-- /Product details -->
