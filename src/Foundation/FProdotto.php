@@ -111,5 +111,12 @@ class FProdotto extends EntityRepository {
         'totalPages' => ceil(count($paginator) / $pageSize)
         ];
     }
+    public function getProductById($id){
+        $dql= "SELECT prodotto FROM EProdotto prodotto WHERE prodotto.id_prodotto= ?1";
+        $query = getEntityManager()->createQuery($dql);
+        $query->setParameter(1, $id);
+        $query->setMaxResults(1);
+        return $query->getResult();
+    }
 }
 ?>

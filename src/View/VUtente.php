@@ -139,8 +139,9 @@ class VUtente{
         foreach ($loginVariables as $key => $value) {
             $this->smarty->assign($key, $value);
         }
-        $this->smarty->assign('admin_dashboard', 1);
-        $this->smarty->display('userinfo.tpl');
+        $this->smarty->assign('search_form', 1);
+        $this->smarty->assign('admin', 1);
+        $this->smarty->display('gestisciProdotti.tpl');
     }
 
     public function loginError(){

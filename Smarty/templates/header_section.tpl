@@ -145,9 +145,9 @@
             <li><a href="#">Recensioni</a></li>
         {elseif $check_login_admin == 1}
             <li><a href="/TekHub/utente/userDataSection">Profilo</a></li>
-                <li><a href="#">Gestione prodotti</a></li>
-                <li><a href="#">Gestione utenti registrati</a></li>
-                <li><a href="#">Segnalazioni</a></li>
+                <li><a href="/TekHub/utente/gestisciProdotti">Gestione prodotti</a></li>
+                <li><a href="/TekHub/utente/gestisciUtenti">Gestione utenti registrati</a></li>
+                <li><a href="/TekHub/utente/gestisciSegnalazioni">Segnalazioni</a></li>
         {/if}
 
         {if $utente_non_loggato == 1}

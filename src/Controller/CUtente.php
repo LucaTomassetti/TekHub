@@ -439,5 +439,65 @@ class CUtente {
         header('Location: /TekHub/utente/carteCredito');
         exit();
     }
+    public static function gestisciProdotti()
+    {
+        $view_admin = new VAdminDashboard();
+       if (static::isLogged()) {
+            $view_admin->gestioneProdotti();
+       } else {
+           header('Location: /TekHub/utente/login');
+        }
+    }
+    public static function gestisciUtenti(){
+        $view_admin = new VAdminDashboard();
+        if (static::isLogged()){
+            $view_admin->gestioneUtenti();
+        } else{
+            header('Location: /TekHub/utente/login');
+        }
+    }
+    public static function gestisciSegnalazioni(){
+        $view_admin = new VAdminDashboard();
+        if (static::isLogged()){
+            $view_admin->gestioneSegnalazioni();
+        } else{
+            header('Location: /TekHub/utente/login');
+        }
+    }
+
+    public static function searchProducts() {
+        if (!isset($_SESSION['utente']) || !($_SESSION['utente'] instanceof EAdmin)) {
+            header('Location: /TekHub/utente/login');
+            exit;
+         }
+     
+         $view_admin = new VAdminDashboard();
+     
+         if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['search'])) {
+             $search_term = $_POST['search'];
+             $products = FPersistentManager::getInstance()->getProductById($search_term);
+             $view_admin->displaySearchResults($products);
+         } 
+     }
+
+     public static function deleteProduct($id) {
+        if (!isset($_SESSION['utente']) || !($_SESSION['utente'] instanceof EAdmin)) {
+            header('Location: /TekHub/utente/login');
+            exit;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            
+            $result = FPersistentManager::getInstance()->deleteAllImages($id);
+            $result = FPersistentManager::getInstance()->deleteProdotto($id);
+            if ($result) {
+                $_SESSION['product_deleted'] = true;
+            } else {
+                $_SESSION['product_delete_error'] = true;
+            }
+            header('Location: /TekHub/utente/gestisciProdotti');
+            exit;
+        }
+    }
 }
 ?>

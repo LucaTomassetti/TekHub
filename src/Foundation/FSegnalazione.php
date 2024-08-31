@@ -13,6 +13,17 @@ class FSegnalazione extends EntityRepository {
         return $query->getResult();   
     }
 
+    public function deleteSegnalazione($id){
+        $entityManager = $this->getEntityManager();
+        $segnalazione = $this->find($id);
+        if ($segnalazione) {
+            $entityManager->remove($segnalazione);
+            $entityManager->flush();
+            return true;
+        }
+        return false;
+    }
+
 
 
 }

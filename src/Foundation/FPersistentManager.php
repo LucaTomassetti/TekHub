@@ -504,5 +504,15 @@ class FPersistentManager{
     public function aggiornaOfferta(EOfferta $offerta, $nuovoImporto){
         return getEntityManager()->getRepository(EOfferta::class)->aggiornaOfferta($offerta, $nuovoImporto);
     }
+
+    public function getProductById($id){
+        return getEntityManager()->getRepository(EProdotto::class)->getProductById($id);
+    }
+    public function findSegnalazione($id){
+        return getEntityManager()->getRepository(ESegnalazione::class)->findSegnalazione($id);
+    }
+    public function deleteSegnalazione($id){
+        return getEntityManager()->getRepository(ESegnalazione::class)->deleteSegnalazione($id);
+    }
 }
 ?>
