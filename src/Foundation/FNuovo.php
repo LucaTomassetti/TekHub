@@ -13,7 +13,8 @@ class FNuovo extends EntityRepository {
         $dql = "SELECT nuovo
                 FROM ENuovo nuovo
                 JOIN nuovo.category_name categoria
-                WHERE nuovo.category_name = ?1";
+                WHERE nuovo.category_name = ?1
+                AND nuovo.is_deleted = false";
         $query = getEntityManager()->createQuery($dql)
         ->setParameter(1, $categoria)
         ->setFirstResult(($currentPage - 1) * $pageSize)
@@ -33,6 +34,7 @@ class FNuovo extends EntityRepository {
         $dql = "SELECT nuovo.id_prodotto, nuovo.nome, nuovo.prezzo_fisso, categoria.nome_categoria
                 FROM ENuovo nuovo
                 JOIN nuovo.category_name categoria
+                WHERE nuovo.is_deleted = false
                 ORDER BY nuovo.id_prodotto DESC";
         $query = getEntityManager()->createQuery($dql)
         ->setMaxResults(4);

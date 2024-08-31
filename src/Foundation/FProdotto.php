@@ -12,7 +12,9 @@ class FProdotto extends EntityRepository {
     public function deleteProdotto($prodotto) {
         $em = getEntityManager();
         $found_prodotto = $em->find(EProdotto::class, $prodotto);
-        $em->remove($found_prodotto);
+        if(!$found_prodotto->isDeleted()){
+            $found_prodotto->setDeleted(true);
+        }
         $em->flush();
     }
     public function updateImageProdotto(EProdotto $prodotto, EImmagine $immagine){
@@ -38,6 +40,7 @@ class FProdotto extends EntityRepository {
         $qb->select('p')
            ->from('EProdotto', 'p')
            ->where('p.venditore = :venditore')
+           ->andWhere('p.is_deleted = false')
            ->setParameter('venditore', $venditore);
     
         if (!empty($filtri['query'])) {
@@ -96,7 +99,8 @@ class FProdotto extends EntityRepository {
     }
     public function getAllProducts($currentPage = 1, $pageSize = 4){
         $dql = "SELECT prodotto
-            FROM EProdotto prodotto";
+            FROM EProdotto prodotto
+            WHERE prodotto.is_deleted = false";
         $query = getEntityManager()->createQuery($dql);
         $query->setFirstResult(($currentPage - 1) * $pageSize)
         ->setMaxResults($pageSize);
@@ -112,7 +116,10 @@ class FProdotto extends EntityRepository {
         ];
     }
     public function getProductById($id){
-        $dql= "SELECT prodotto FROM EProdotto prodotto WHERE prodotto.id_prodotto= ?1";
+        $dql= "SELECT prodotto 
+        FROM EProdotto prodotto 
+        WHERE prodotto.id_prodotto= ?1
+        AND prodotto.is_deleted = false";
         $query = getEntityManager()->createQuery($dql);
         $query->setParameter(1, $id);
         $query->setMaxResults(1);

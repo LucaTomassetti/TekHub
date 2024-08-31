@@ -210,8 +210,10 @@ class VUtente{
         }
         $this->smarty->assign('nome', $_SESSION['utente']->getNome());
         $this->smarty->assign('cognome', $_SESSION['utente']->getCognome());
-        $this->smarty->assign('username', $_SESSION['utente']->getUsername());
-        $this->smarty->assign('cellulare', $_SESSION['utente']->getCellulare());
+        if(!($_SESSION['utente'] instanceof EAdmin)){
+            $this->smarty->assign('username', $_SESSION['utente']->getUsername());
+            $this->smarty->assign('cellulare', $_SESSION['utente']->getCellulare());
+        }
         $this->smarty->assign('email', $_SESSION['utente']->getEmail());
         $this->smarty->assign('userDataForm', 1);
         $this->smarty->display('userinfo.tpl');

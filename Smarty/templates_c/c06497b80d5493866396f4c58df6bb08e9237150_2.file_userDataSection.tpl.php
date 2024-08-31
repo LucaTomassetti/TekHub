@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-08-25 18:50:26
+/* Smarty version 5.3.0, created on 2024-08-31 10:55:37
   from 'file:userDataSection.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66cb60d20f8b77_60164036',
+  'unifunc' => 'content_66d2da8973fdb1_07303285',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'c06497b80d5493866396f4c58df6bb08e9237150' => 
     array (
       0 => 'userDataSection.tpl',
-      1 => 1724604623,
+      1 => 1725094534,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:accountDelete.tpl' => 1,
   ),
 ))) {
-function content_66cb60d20f8b77_60164036 (\Smarty\Template $_smarty_tpl) {
+function content_66d2da8973fdb1_07303285 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 if ($_smarty_tpl->getValue('changepasswordsucces') == 1) {?>
     <div class="mt-5">
@@ -50,6 +50,7 @@ if ($_smarty_tpl->getValue('changeuserdatasucces') == 1) {?>
 </span>
     </div>
     <br>
+    <?php if ($_smarty_tpl->getValue('check_login_acquirente') == 1 || $_smarty_tpl->getValue('check_login_venditore') == 1) {?>
     <div class="summary-item">
     <label>Username: </label><span id="summary-name"><?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('username')), ENT_QUOTES, 'UTF-8');?>
 </span>
@@ -59,6 +60,7 @@ if ($_smarty_tpl->getValue('changeuserdatasucces') == 1) {?>
     <label>Numero di telefono: </label><span id="summary-name"><?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('cellulare')), ENT_QUOTES, 'UTF-8');?>
 </span>
     </div>
+    <?php }?>
     <br>
     <div class="row d-flex justify-content-center">
         <?php if ($_smarty_tpl->getValue('check_login_admin') == 0 && $_smarty_tpl->getValue('check_login_venditore') == 0) {?>

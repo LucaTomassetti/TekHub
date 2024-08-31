@@ -30,6 +30,9 @@ class EProdotto{
     #[ORM\Column(type: 'string', length:50, columnDefinition: 'VARCHAR(30)')]
     private $colore;
 
+    #[ORM\Column(type: 'boolean')]
+    private $is_deleted = false;
+
     #[ORM\OneToMany(targetEntity:EImmagine::class, mappedBy:'prodotto')]
     private Collection $immagini;
 
@@ -269,6 +272,16 @@ class EProdotto{
     {
         $this->colore = $colore;
 
+        return $this;
+    }
+    public function isDeleted(): bool
+    {
+        return $this->is_deleted;
+    }
+
+    public function setDeleted(bool $deleted): self
+    {
+        $this->is_deleted = $deleted;
         return $this;
     }
 }

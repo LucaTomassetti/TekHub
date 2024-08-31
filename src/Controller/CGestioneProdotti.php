@@ -184,8 +184,8 @@ class CGestioneProdotti{
         
         //Elimino prima tutte le immagini legate all'id del prodotto
         //per non avere problemi con le chiavi esterne
-        FPersistentManager::getInstance()->deleteAllImages($productId);
         FPersistentManager::getInstance()->deleteProdotto($productId);
+        FPersistentManager::getInstance()->deleteAllImages($productId);
         $_SESSION['product_deleted'] = true;
         header('Location: /TekHub/gestioneProdotti/listaProdotti?page=1');
     }

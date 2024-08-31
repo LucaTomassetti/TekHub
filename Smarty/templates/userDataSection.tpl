@@ -23,6 +23,7 @@
     <label>Cognome: </label><span id="summary-name">{$cognome}</span>
     </div>
     <br>
+    {if $check_login_acquirente == 1 || $check_login_venditore == 1}
     <div class="summary-item">
     <label>Username: </label><span id="summary-name">{$username}</span>
     </div>
@@ -30,6 +31,7 @@
     <div class="summary-item">
     <label>Numero di telefono: </label><span id="summary-name">{$cellulare}</span>
     </div>
+    {/if}
     <br>
     <div class="row d-flex justify-content-center">
         {if $check_login_admin == 0 && $check_login_venditore == 0}

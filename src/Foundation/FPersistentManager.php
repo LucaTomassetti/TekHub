@@ -199,6 +199,8 @@ class FPersistentManager{
             getEntityManager()->getRepository('EAcquirente')->updateAcquirente($utente, $array_data);
         }else if($utente instanceof EVenditore){
             getEntityManager()->getRepository('EVenditore')->updateVenditore($utente, $array_data);
+        }else if($utente instanceof EAdmin){
+            getEntityManager()->getRepository('EAdmin')->updateAdmin($utente, $array_data);
         } 
     }
     public function deleteUtente($utente){
@@ -406,7 +408,7 @@ class FPersistentManager{
         $qb = getEntityManager()->createQueryBuilder();
         $qb->select('p')
            ->from('EProdotto', 'p')
-           ->where('1 = 1');
+           ->where('p.is_deleted = false');
     
         if ($filtri['query']) {
             $qb->andWhere('p.nome LIKE :query OR p.descrizione LIKE :query')

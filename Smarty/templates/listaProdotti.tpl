@@ -57,7 +57,7 @@
                                 <img src="data:{$prodotto->getImmagini()->last()->getType()};base64,{$prodotto->getImmagini()->last()->getEncodedData()}" alt="Immagine">
                             {else}
                                 <p>Immagine non trovata</p>
-                            {/if}         
+                            {/if}       
                         </div>
                         <div class="product-body">
                             <p class="product-category">{$prodotto->getCategoryName()->getNomeCategoria()}</p>
