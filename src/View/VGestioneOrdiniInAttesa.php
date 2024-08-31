@@ -35,6 +35,56 @@ class VGestioneOrdiniInAttesa {
         $this->smarty->display('ordiniAttesa.tpl');
     }
 
+    public function presiInCarico(array $array_ordini) {
+        $loginVariables = (new VUtente)->checkLogin();
+        foreach ($loginVariables as $key => $value) {
+            $this->smarty->assign($key, $value);
+        }
+        
+        // Assegna gli ordini e le informazioni di paginazione al template
+        $this->smarty->assign('array_ordini', $array_ordini['ordini']);
+        $this->smarty->assign('totalPages', $array_ordini['totalPages']);
+        $this->smarty->assign('currentPage', $array_ordini['currentPage']);
+        $this->smarty->assign('pageSize', $array_ordini['pageSize']);
+        $this->smarty->assign('n_ordini', $array_ordini['n_ordini']);
+        
+        // Gestione dei messaggi di successo e errore
+        if (isset($_SESSION['success'])) {
+            $this->smarty->assign('success', $_SESSION['success']);
+            unset($_SESSION['success']);
+        }
+        
+        if (isset($_SESSION['error'])) {
+            $this->smarty->assign('error', $_SESSION['error']);
+            unset($_SESSION['error']);
+        }
+        
+        // Mostra il template
+        $this->smarty->display('ordiniAttesa.tpl');
+    }
     
+    public function statoOrdini(array $array_ordini) {
+        $loginVariables = (new VUtente)->checkLogin();
+        foreach ($loginVariables as $key => $value) {
+            $this->smarty->assign($key, $value);
+        }
+        
+        // Assegna gli ordini e le informazioni di paginazione al template
+        $this->smarty->assign('array_ordini', $array_ordini);
+        
+        // Gestione dei messaggi di successo e errore
+        if (isset($_SESSION['success'])) {
+            $this->smarty->assign('success', $_SESSION['success']);
+            unset($_SESSION['success']);
+        }
+        
+        if (isset($_SESSION['error'])) {
+            $this->smarty->assign('error', $_SESSION['error']);
+            unset($_SESSION['error']);
+        }
+        
+        // Mostra il template
+        $this->smarty->display('statoOrdini.tpl');
+    }   
 }
 ?>

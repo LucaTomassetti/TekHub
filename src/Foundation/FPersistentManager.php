@@ -483,5 +483,21 @@ class FPersistentManager{
             return false;
         }
     }
+
+    public function getAllPresiInCarico($venditore, $currentPage){
+        return getEntityManager()->getRepository('EOrdineProdotto')->getAllPresiInCarico($venditore, $currentPage);
+    }
+
+    public function findAllOrdiniPresiInCarico($ordineId, $prodottoId) {
+        return getEntityManager()->getRepository('EOrdineProdotto')->findAllOrdiniPresiInCarico($ordineId, $prodottoId);
+    }
+
+    public function updateOrdineStato(EOrdine $ordine, $nuovoStato) {
+        $ordine->setStato_ordine($nuovoStato);
+        $this->update($ordine);  // Presumendo che il metodo update esista già e salvi l'ordine nel database
+    }
+    
+    
+
 }
 ?>

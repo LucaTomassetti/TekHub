@@ -62,4 +62,57 @@ class CGestioneOrdiniInAttesa {
         header('Location: /TekHub/gestioneOrdiniInAttesa/ordiniInAttesa');
         exit();
     }
+
+    public static function statoOrdini() {
+        if ($_SESSION['utente'] instanceof EVenditore) {
+            $venditore = $_SESSION['utente'];
+            $page = isset($_GET['orderpage']) ? (int)$_GET['orderpage'] : 1;
+    
+            $manager = FPersistentManager::getInstance();
+            $array_ordini = $manager->getAllPresiInCarico($venditore, $page);
+    
+            $view = new VGestioneOrdiniInAttesa();
+            $view->statoOrdini($array_ordini);  
+        } else {
+            header('Location: /TekHub/utente/home');
+            exit();
+        }
+    }
+
+    public function cambiaStatoOrdine(EOrdine $ordine, $nuovoStato) {
+        // Stato corrente dell'ordine
+        $statoCorrente = $ordine->getStato_ordine();
+
+        // Definizione delle transizioni di stato consentite
+        $transizioniConsentite = [
+            'Preso in carico' => ['In spedizione'],
+            'In spedizione' => ['Consegnato']
+        ];
+
+        // Controllo se la transizione di stato è consentita
+        if (isset($transizioniConsentite[$statoCorrente]) && in_array($nuovoStato, $transizioniConsentite[$statoCorrente])) {
+            // Cambia lo stato dell'ordine
+            $ordine->setStato_ordine($nuovoStato);
+
+            // Aggiorna l'ordine nel database
+            FPersistentManager::getInstance()->update($ordine);
+
+            // Gestione delle azioni successive al cambio di stato
+            if ($nuovoStato == 'In spedizione') {
+                // Esegui azioni per l'ordine in spedizione, ad esempio:
+                // $this->notificaUtente($ordine);
+            } elseif ($nuovoStato == 'Consegnato') {
+                // Esegui azioni per l'ordine consegnato, ad esempio:
+                // $this->aggiornaInventario($ordine);
+            }
+
+            return true;
+        } else {
+            throw new Exception("Il cambio di stato non è consentito.");
+        }
+    }
+
+
+    
+    
 }

@@ -85,5 +85,6 @@ class FOrdine extends EntityRepository {
             'totalPages' => ceil(count($paginator) / $pageSize)
         ];
     }
+    
 }
 ?>
