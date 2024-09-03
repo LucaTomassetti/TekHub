@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-09-03 20:29:15
+/* Smarty version 5.3.0, created on 2024-09-03 22:59:12
   from 'file:header_section.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66d7557beb5517_68766229',
+  'unifunc' => 'content_66d778a033fe21_68124945',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '865963af9ff487a66b8dbfc323e093391d8a98dc' => 
     array (
       0 => 'header_section.tpl',
-      1 => 1725388149,
+      1 => 1725397075,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66d7557beb5517_68766229 (\Smarty\Template $_smarty_tpl) {
+function content_66d778a033fe21_68124945 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?><!-- HEADER -->
 <header>
@@ -194,7 +194,7 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
         <?php } elseif ($_smarty_tpl->getValue('check_login_admin') == 1) {?>
             <li><a href="/TekHub/utente/userDataSection">Profilo</a></li>
                 <li><a href="/TekHub/utente/gestisciProdotti">Gestione prodotti</a></li>
-                <li><a href="/TekHub/utente/gestisciUtenti">Gestione utenti registrati</a></li>
+                <li><a href="/TekHub/admin/gestisciUtenti">Gestione utenti registrati</a></li>
                 <li><a href="/TekHub/utente/gestisciSegnalazioni">Segnalazioni</a></li>
         <?php }?>
 

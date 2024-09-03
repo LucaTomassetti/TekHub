@@ -19,10 +19,19 @@ class VAdminDashboard{
         $this->smarty->display('gestisciProdotti.tpl');
     }
 
-    public function gestioneUtenti(){
+    public function gestisciUtenti($utenti_info) {
         $loginVariables=(new VUtente)->checkLogin();
         foreach ($loginVariables as $key => $value){
             $this->smarty->assign($key, $value);
+        }
+        $this->smarty->assign('utenti_info', $utenti_info);
+        if (isset($_SESSION['message'])) {
+            $this->smarty->assign('message', $_SESSION['message']);
+            unset($_SESSION['message']);
+        }
+        if (isset($_SESSION['error'])) {
+            $this->smarty->assign('error', $_SESSION['error']);
+            unset($_SESSION['error']);
         }
         $this->smarty->display('gestisciUtenti.tpl');
     }

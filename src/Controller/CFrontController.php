@@ -77,6 +77,7 @@ class CFrontController{
             'admin' => [
                 'utente' => ['userDataForm', 'userDataSection', 'deleteAccount', 'changePass', 'changeUserData','gestisciProdotti','gestisciSegnalazioni',
                                 'gestisciUtenti','searchProducts','deleteProduct','gestioneSegnalazioni', 'filterSegnalazioni', 'deleteSegnalazione'],
+                'admin' => ['gestisciUtenti', 'eliminaUtente', 'bloccaUtente', 'sbloccaUtente']
                 // Add more controllers and methods for admin
             ],
             'acquirente' => [

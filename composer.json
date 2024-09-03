@@ -6,7 +6,8 @@
         "doctrine/orm": "^3",
         "doctrine/dbal": "^4.0",
         "symfony/cache": "^7",
-        "smarty/smarty": "^5.3"
+        "smarty/smarty": "^5.3",
+        "phpmailer/phpmailer": "^6.9"
     },
     "autoload": {
         "psr-0": {"": "src/"}

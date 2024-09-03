@@ -145,7 +145,7 @@
         {elseif $check_login_admin == 1}
             <li><a href="/TekHub/utente/userDataSection">Profilo</a></li>
                 <li><a href="/TekHub/utente/gestisciProdotti">Gestione prodotti</a></li>
-                <li><a href="/TekHub/utente/gestisciUtenti">Gestione utenti registrati</a></li>
+                <li><a href="/TekHub/admin/gestisciUtenti">Gestione utenti registrati</a></li>
                 <li><a href="/TekHub/utente/gestisciSegnalazioni">Segnalazioni</a></li>
         {/if}
 

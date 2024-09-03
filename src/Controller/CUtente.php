@@ -45,10 +45,18 @@ class CUtente {
                 // Salvo il ruolo dell'utente nella sessione in base al tipo di instanza della classe
                 // per poi fare il controllo dei permessi nel CFrontController
                 if($_SESSION['utente'] instanceof EAcquirente){
-                    $_SESSION['role'] = 'acquirente';
+                    if($utente[0]->isBlocked()){
+                        $_SESSION['role'] = 'utente_bloccato';
+                    }else{
+                        $_SESSION['role'] = 'acquirente';
+                    }
                     // Per testare gli utenti bloccati dall'admin : $_SESSION['role'] = 'utente_bloccato';
                 }else if($_SESSION['utente'] instanceof EVenditore){
-                    $_SESSION['role'] = 'venditore';
+                    if($utente[0]->isBlocked()){
+                        $_SESSION['role'] = 'utente_bloccato';
+                    }else{
+                        $_SESSION['role'] = 'venditore';
+                    }
                 }elseif($_SESSION['utente']instanceof EAdmin){
                     $_SESSION['role'] = 'admin';
                 }
@@ -446,14 +454,6 @@ class CUtente {
             $view_admin->gestioneProdotti();
        } else {
            header('Location: /TekHub/utente/login');
-        }
-    }
-    public static function gestisciUtenti(){
-        $view_admin = new VAdminDashboard();
-        if (static::isLogged()){
-            $view_admin->gestioneUtenti();
-        } else{
-            header('Location: /TekHub/utente/login');
         }
     }
     public static function gestisciSegnalazioni(){

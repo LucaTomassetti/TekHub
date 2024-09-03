@@ -3,3 +3,6 @@
 
 # Ignora la cartella proxies
 /proxies/
+
+# Ignora il configMailer
+/config/configMailer.php

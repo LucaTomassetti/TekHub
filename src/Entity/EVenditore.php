@@ -36,6 +36,12 @@ class EVenditore{
     #[ORM\Column(type: 'string', length:10, columnDefinition: 'VARCHAR(10)')]
     private $cellulare;
 
+    #[ORM\Column(type: 'boolean')]
+    private $is_blocked = false;
+    
+    #[ORM\Column(type: 'boolean')]
+    private $is_deleted = false;
+
     #[ORM\OneToMany(targetEntity:EProdotto::class, mappedBy:'venditore')]
     private Collection $prodotti;
 
@@ -285,6 +291,25 @@ class EVenditore{
     public function setIdVenditore($id_venditore)
     {
         $this->id_venditore = $id_venditore;
+    }
+    public function isBlocked(): bool
+    {
+        return $this->is_blocked;
+    }
+
+    public function setBlocked(bool $blocked)
+    {
+        $this->is_blocked = $blocked;
+    }
+    public function isDeleted(): bool
+    {
+        return $this->is_deleted;
+    }
+
+    public function setDeleted(bool $deleted): self
+    {
+        $this->is_deleted = $deleted;
+        return $this;
     }
 }
 ?>
