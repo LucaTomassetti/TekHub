@@ -164,7 +164,7 @@
 				<!-- product tab nav -->
 				<ul class="tab-nav">
 					<li class="active"><a data-toggle="tab" href="#tab1">Descrizione</a></li>
-					<li><a data-toggle="tab" href="#tab3">Reviews (3)</a></li>
+					<li><a data-toggle="tab" href="#tab3">Reviews ({$recensioni.n_recensioni})</a></li>
 				</ul>
 				<!-- /product tab nav -->
 
@@ -181,179 +181,105 @@
 					<!-- /tab1  -->
 
 					<!-- tab3  -->
-					<div id="tab3" class="tab-pane fade in">
-						<div class="row">
-							<!-- Rating -->
-							<div class="col-md-3">
-								<div id="rating">
-									<div class="rating-avg">
-										<span>4.5</span>
-										<div class="rating-stars">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-o"></i>
-										</div>
-									</div>
-									<ul class="rating">
-										<li>
-											<div class="rating-stars">
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-											</div>
-											<div class="rating-progress">
-												<div style="width: 80%;"></div>
-											</div>
-											<span class="sum">3</span>
-										</li>
-										<li>
-											<div class="rating-stars">
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star-o"></i>
-											</div>
-											<div class="rating-progress">
-												<div style="width: 60%;"></div>
-											</div>
-											<span class="sum">2</span>
-										</li>
-										<li>
-											<div class="rating-stars">
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star-o"></i>
-												<i class="fa fa-star-o"></i>
-											</div>
-											<div class="rating-progress">
-												<div></div>
-											</div>
-											<span class="sum">0</span>
-										</li>
-										<li>
-											<div class="rating-stars">
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star-o"></i>
-												<i class="fa fa-star-o"></i>
-												<i class="fa fa-star-o"></i>
-											</div>
-											<div class="rating-progress">
-												<div></div>
-											</div>
-											<span class="sum">0</span>
-										</li>
-										<li>
-											<div class="rating-stars">
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star-o"></i>
-												<i class="fa fa-star-o"></i>
-												<i class="fa fa-star-o"></i>
-												<i class="fa fa-star-o"></i>
-											</div>
-											<div class="rating-progress">
-												<div></div>
-											</div>
-											<span class="sum">0</span>
-										</li>
-									</ul>
-								</div>
+					<div class="mt-5 d-flex justify-content-center">
+						{if $successMessage}
+							<div class="alert alert-success" role="alert">
+								{$successMessage}
 							</div>
-							<!-- /Rating -->
-
+						{/if}
+						{if $errorMessage}
+							<div class="alert alert-danger" role="alert">
+								{$errorMessage}
+							</div>
+						{/if}
+					</div>
+					<div id="tab3" class="tab-pane fade in">
+					{if $recensioni['n_recensioni'] > 1}
+						<!-- Pagination -->
+						<ul class="reviews-pagination">
+						{if $recensioni['currentPage'] > 1}
+							<li><a href="?recensioni_page={$recensioni['currentPage']-1}"><i class="fa fa-angle-left"></i></a></li>
+						{/if}
+			
+						{for $page=1 to $recensioni['totalPages']}
+						<li {if $page == $recensioni['currentPage']}class="active"{/if}><a href="?recensioni_page={$page}">
+							{$page}
+						</a></li>
+						{/for}
+			
+						{if $recensioni['currentPage'] < $recensioni['totalPages']}
+							<li><a href="?recensioni_page={$recensioni['currentPage']+1}"><i class="fa fa-angle-right"></i></a></li>
+						{/if}
+						</ul>
+						<!-- /Pagination -->
+					{/if}
+						<div class="row">
 							<!-- Reviews -->
-							<div class="col-md-6">
+							<div class="col-md-7">
 								<div id="reviews">
 									<ul class="reviews">
+									{if $recensioni.n_recensioni > 0}
+										{foreach from=$recensioni.items item=recensione}
 										<li>
 											<div class="review-heading">
-												<h5 class="name">John</h5>
-												<p class="date">27 DEC 2018, 8:0 PM</p>
+												<h5 class="name">{$recensione->getAcquirente()->getUsername()}</h5>
+												
+												<p class="date"><i>Acquisto verificato</i></p>
 												<div class="review-rating">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star-o empty"></i>
+												{for $i=1 to 5}
+													{if $i <= $recensione->getValutazione()}
+														<i class="fa fa-star"></i>
+													{else}
+														<i class="fa fa-star-o empty"></i>
+													{/if}
+												{/for}
 												</div>
 											</div>
 											<div class="review-body">
-												<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+												<p>{$recensione->getTesto()}</p>
 											</div>
-										</li>
-										<li>
-											<div class="review-heading">
-												<h5 class="name">John</h5>
-												<p class="date">27 DEC 2018, 8:0 PM</p>
-												<div class="review-rating">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star-o empty"></i>
+											
+											{if isset($recensione->getRispostaVenditore())}
+												<div class="review-reply">
+													<h6>Risposta del venditore:</h6>
+													<p>{$recensione->getRispostaVenditore()}</p>
+												
 												</div>
-											</div>
-											<div class="review-body">
-												<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-											</div>
+											{/if}
 										</li>
-										<li>
-											<div class="review-heading">
-												<h5 class="name">John</h5>
-												<p class="date">27 DEC 2018, 8:0 PM</p>
-												<div class="review-rating">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star-o empty"></i>
-												</div>
-											</div>
-											<div class="review-body">
-												<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-											</div>
-										</li>
-									</ul>
-									<ul class="reviews-pagination">
-										<li class="active">1</li>
-										<li><a href="#">2</a></li>
-										<li><a href="#">3</a></li>
-										<li><a href="#">4</a></li>
-										<li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-									</ul>
+										<hr>
+										{/foreach}
+
+									{else}
+										<p>Nessuna recensione disponibile per questo prodotto.</p>
+									{/if}
 								</div>
 							</div>
 							<!-- /Reviews -->
-
+							{if $puo_recensire}
 							<!-- Review Form -->
-							<div class="col-md-3">
+							<div class="col-md-5">
 								<div id="review-form">
-									<form class="review-form">
-										<input class="input" type="text" placeholder="Your Name">
-										<input class="input" type="email" placeholder="Your Email">
-										<textarea class="input" placeholder="Your Review"></textarea>
+									<h4>{if $recensione_utente}Modifica la tua recensione{else}Scrivi una recensione{/if}</h4>
+									<form action="/TekHub/gestioneRecensioni/{if $recensione_utente}modifica{else}aggiungi{/if}/{$productId}" method="POST" class="review-form">
+									<textarea style="width:400px;height:200px" name="testo" placeholder="La tua recensione" required>{if $recensione_utente}{$recensione_utente->getTesto()}{/if}</textarea>
 										<div class="input-rating">
-											<span>Your Rating: </span>
+											<span>Valuta: </span>
 											<div class="stars">
-												<input id="star5" name="rating" value="5" type="radio"><label for="star5"></label>
-												<input id="star4" name="rating" value="4" type="radio"><label for="star4"></label>
-												<input id="star3" name="rating" value="3" type="radio"><label for="star3"></label>
-												<input id="star2" name="rating" value="2" type="radio"><label for="star2"></label>
-												<input id="star1" name="rating" value="1" type="radio"><label for="star1"></label>
+												{for $i=5 to 1 step -1}
+												<input id="star{$i}" name="valutazione" value="{$i}" type="radio" {if $recensione_utente && $recensione_utente->getValutazione() == $i}checked{/if}><label for="star{$i}"></label>
+												{/for}
 											</div>
 										</div>
-										<button class="primary-btn">Submit</button>
+									{if $recensione_utente}<input type="hidden" name="recensione_id" value="{$recensione_utente->getId()}">{/if}
+									<button class="primary-btn">{if $recensione_utente}Modifica Recensione{else}Invia Recensione{/if}</button>
 									</form>
 								</div>
 							</div>
 							<!-- /Review Form -->
+							{/if}
 						</div>
+						 
 					</div>
 					<!-- /tab3  -->
 				</div>
@@ -375,36 +301,35 @@
 	<!-- row -->
 	<div class="row">
 
+	{if $same_cat_products['n_prodotti'] == 1}
 		<div class="col-md-12">
 			<div class="section-title text-center">
 				<h3 class="title">Prodotti simili</h3>
 			</div>
-			{if $same_cat_products['n_prodotti'] == 1}
+			
 				<div class="alert-w alert-warning">
 					Non ci sono prodotti simili!
 				</div>
-			{/if}
 		</div>
-
-		{if $same_cat_products['n_prodotti'] > 1}
+	
+	{elseif $same_cat_products['n_prodotti'] > 1}
 			<!-- Pagination -->
 			<ul class="reviews-pagination">
 			{if $same_cat_products['currentPage'] > 1}
-				<li><a href="?page={$same_cat_products['currentPage']-1}"><i class="fa fa-angle-left"></i></a></li>
+				<li><a href="?prodotti_simili_page={$same_cat_products['currentPage']-1}"><i class="fa fa-angle-left"></i></a></li>
 			{/if}
 
 			{for $page=1 to $same_cat_products['totalPages']}
-			<li {if $page == $same_cat_products['currentPage']}class="active"{/if}><a href="?page={$page}">
+			<li {if $page == $same_cat_products['currentPage']}class="active"{/if}><a href="?prodotti_simili_page={$page}">
 				{$page}
 			</a></li>
 			{/for}
 
 			{if $same_cat_products['currentPage'] < $same_cat_products['totalPages']}
-				<li><a href="?page={$same_cat_products['currentPage']+1}"><i class="fa fa-angle-right"></i></a></li>
+				<li><a href="?prodotti_simili_page={$same_cat_products['currentPage']+1}"><i class="fa fa-angle-right"></i></a></li>
 			{/if}
 			</ul>
-			<!-- /Pagination -->
-		{/if} 
+			<!-- /Pagination --> 
 
 		<!-- product -->
 		{foreach from=$same_cat_products['prodotti'] item=same_cat_prodotto}
@@ -434,6 +359,7 @@
 		</div>
 		{/foreach}
 		<!-- /product --> 
+	{/if}
 	</div>
 	<!-- /row -->
 </div>

@@ -27,7 +27,7 @@ class VGestioneAcquisto{
         $this->smarty->assign('shop', 1);
         $this->smarty->display('userinfo.tpl');
     }
-    public function vediProdotto($prodotto, $immagini, $same_cat_products, $offerta_attuale = 0, $stato_asta = '') {
+    public function vediProdotto($prodotto, $immagini, $recensioni, $same_cat_products, $puo_recensire, $recensione_utente, $offerta_attuale = 0, $stato_asta = '', $successMessage, $errorMessage) {
         $loginVariables = (new VUtente)->checkLogin();
         foreach ($loginVariables as $key => $value) {
             $this->smarty->assign($key, $value);
@@ -47,6 +47,11 @@ class VGestioneAcquisto{
         $this->smarty->assign('categoria', $prodotto->getCategoryName()->getNomeCategoria());
         $this->smarty->assign('immagini', $immagini);
         $this->smarty->assign('productId', $prodotto->getIdProdotto());
+        $this->smarty->assign('recensioni', $recensioni);
+        $this->smarty->assign('puo_recensire', $puo_recensire);
+        $this->smarty->assign('recensione_utente', $recensione_utente);
+        $this->smarty->assign('successMessage', $successMessage);
+        $this->smarty->assign('errorMessage', $errorMessage);
         if($prodotto instanceof ENuovo){
             $this->smarty->assign('isProdottoNuovo', 1);
             $this->smarty->assign('quantita_disp', $prodotto->getQuantitaDisp());

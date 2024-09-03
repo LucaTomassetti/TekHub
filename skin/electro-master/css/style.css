@@ -2144,7 +2144,7 @@ border-color: black;
 }
 
 .review-form .input-rating .stars>label:before {
-  content: "\f006";
+  content: "☆";
   font-family: FontAwesome;
   color: #E4E7ED;
   -webkit-transition: 0.2s all;
@@ -2156,7 +2156,7 @@ border-color: black;
 }
 
 .review-form .input-rating .stars>input:checked label:before, .review-form .input-rating .stars>input:checked~label:before {
-  content: "\f005";
+  content: "★";
   color: #D10024;
 }
 

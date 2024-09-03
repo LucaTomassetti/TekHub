@@ -83,13 +83,15 @@ class CFrontController{
                 'utente' => ['userDataForm', 'userDataSection', 'userHistoryOrders', 'deleteAccount', 'changePass', 'changeUserData', 'indirizzi', 'carteCredito',
                              'indirizzi','aggiungiIndirizzi', 'eliminaIndirizzo', 'carteCredito', 'aggiungiCarte', 'eliminaCarta', 'riattivaCarta', 'riattivaIndirizzo'],
                 'gestioneAcquisto' => ['effettuaCheckout', 'completaOrdine', 'erroreOrdine', 'dettaglioOrdine'],
-                'asta' => ['effettuaOfferta', 'visualizzaOfferteEffettuate', 'rilancia']
+                'asta' => ['effettuaOfferta', 'visualizzaOfferteEffettuate', 'rilancia'],
+                'gestioneRecensioni' => ['aggiungi', 'modifica']
                 // Add more controllers and methods for acquirente
             ],
             'venditore' => [
                 'utente' => ['userDataForm', 'userDataSection', 'deleteAccount', 'changePass', 'changeUserData'],
                 'gestioneProdotti' => ['listaProdotti', 'addProduct', 'modificaProdotto', 'eliminaProdotto'],
                 'gestioneOrdiniInAttesa' => ['ordiniInAttesa', 'prendiInCarico', 'statoOrdini'],
+                'gestioneRecensioni' => ['rispondi', 'segnala', 'listaRecensioni']
                 // Add more controllers and methods for venditore
             ],
             'utente_bloccato' => [

@@ -231,7 +231,7 @@ class FPersistentManager{
     public function getAllUsedSameCatProd($categoria, $currentPage){
         return getEntityManager()->getRepository('EUsato')->getAllUsedSameCatProd($categoria, $currentPage);
     }
-    public function getAllSameCatProducts($categoria, $id_prodotto, $currentPage){
+    /*public function getAllSameCatProducts($categoria, $id_prodotto, $currentPage){
         $prod = FPersistentManager::getInstance()->find(EProdotto::class, $id_prodotto);
         if($prod instanceof ENuovo){
             $all_prodotti_nuovi = FPersistentManager::getInstance()->getAllNewSameCatProd($categoria, $currentPage);
@@ -254,6 +254,36 @@ class FPersistentManager{
             $all_prodotti_usati['prodotti'] = array_values($all_prodotti_usati['prodotti']);
             return $all_prodotti_usati;
         }
+    }*/
+    public function getAllSameCatProducts($categoria, $id_prodotto, $page = 1, $itemsPerPage = 4) {
+        $prod = $this->find(EProdotto::class, $id_prodotto);
+        if ($prod instanceof ENuovo) {
+            $all_prodotti = $this->getRepository('ENuovo')->getAllNewSameCatProd($categoria, $page, $itemsPerPage);
+        } else if ($prod instanceof EUsato) {
+            $all_prodotti = $this->getRepository('EUsato')->getAllUsedSameCatProd($categoria, $page, $itemsPerPage);
+        } else {
+            // Se $prod non è né ENuovo né EUsato, restituisci un array vuoto
+            return [
+                'prodotti' => [],
+                'n_prodotti' => 0,
+                'currentPage' => 1,
+                'pageSize' => $itemsPerPage,
+                'totalPages' => 0
+            ];
+        }
+    
+        if (isset($all_prodotti['prodotti']) && is_array($all_prodotti['prodotti'])) {
+            foreach ($all_prodotti['prodotti'] as $key => $prodotto) {
+                if ($prodotto && $prodotto->getIdProdotto() == $id_prodotto) {
+                    unset($all_prodotti['prodotti'][$key]);
+                }
+            }
+            $all_prodotti['prodotti'] = array_values($all_prodotti['prodotti']);
+        } else {
+            $all_prodotti['prodotti'] = [];
+        }
+        
+        return $all_prodotti;
     }
     public function getLatestNewProducts(){
         return getEntityManager()->getRepository('ENuovo')->getLatestNewProducts();
@@ -529,7 +559,23 @@ class FPersistentManager{
         $ordine->setStato_ordine($nuovoStato);
         $this->update($ordine);  // Presumendo che il metodo update esista già e salvi l'ordine nel database
     }
-    
+    public function getRecensioniVenditore($venditore, $page, $itemsPerPage) {
+        return getEntityManager()->getRepository('ERecensione')->getRecensioniVenditore($venditore, $page, $itemsPerPage);
+    }
+    public function getRecensioniProdotto($prodotto, $page = 1, $itemsPerPage = 5) {
+        return getEntityManager()->getRepository('ERecensione')->getRecensioniProdotto($prodotto, $page, $itemsPerPage);
+    }
+
+    public function haAcquistatoProdotto($prodotto) {
+        return getEntityManager()->getRepository('ERecensione')->haAcquistatoProdotto($prodotto);
+    }
+
+    public function aggiungiRecensione($recensione) {
+        getEntityManager()->getRepository('ERecensione')->aggiungiRecensione($recensione);
+    }
+    public function getRecensioneUtente($acquirente, $prodotto) {
+        return getEntityManager()->getRepository('ERecensione')->getRecensioneUtente($acquirente, $prodotto);
+    }
     
 
 }

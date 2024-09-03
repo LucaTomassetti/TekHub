@@ -12,11 +12,11 @@ class ESegnalazione{
     #[ORM\GeneratedValue]
     private int|null $id_segnalazione = null;
 
-    #[ORM\Column(type: 'string', length:50, columnDefinition: 'VARCHAR(50)')]
-    private $tipo;
+    #[ORM\Column(type: 'text', columnDefinition:'TEXT')]
+    private $motivo;
 
-    #[ORM\Column(type: 'string', columnDefinition:'TEXT')]
-    private $messaggio;
+    #[ORM\Column(type: 'boolean')]
+    private $gestita = false;
 
     #[ORM\OneToOne(targetEntity: ERecensione::class, mappedBy: 'segnalazione')]
     private ERecensione|null $recensione = null;
@@ -25,29 +25,7 @@ class ESegnalazione{
     #[ORM\JoinColumn(name:'venditore', referencedColumnName:'id_venditore', nullable:true)]
     private EVenditore|null $venditore = null;
 
-    public function __construct($tipo,$messaggio) {
-        $this->tipo=$tipo;
-        $this->messaggio=$messaggio;
-    }
-
-    /**
-     * Get the value of tipo
-     *
-     * @return $tipo
-     */
-    public function getTipo()
-    {
-        return $this->tipo;
-    }
-
-    /**
-    * Set the value of tipo
-    *
-    * @param $tipo
-    */   
-    public function setTipo($tipo)
-    {
-        $this->tipo = $tipo;
+    public function __construct() {
 
     }
 
@@ -58,7 +36,7 @@ class ESegnalazione{
      */
     public function getMessaggio()
     {
-        return $this->messaggio;
+        return $this->motivo;
     }
 
     /**
@@ -66,9 +44,9 @@ class ESegnalazione{
     *
     * @param $messaggio
     */   
-    public function setMessaggio($messaggio)
+    public function setMessaggio($motivo)
     {
-        $this->messaggio = $messaggio;
+        $this->motivo = $motivo;
 
     }
 
@@ -114,5 +92,23 @@ class ESegnalazione{
     public function getIdSegnalazione(): ?int
     {
         return $this->id_segnalazione;
+    }
+
+    /**
+     * Get the value of gestita
+     */
+    public function getGestita()
+    {
+        return $this->gestita;
+    }
+
+    /**
+     * Set the value of gestita
+     */
+    public function setGestita($gestita): self
+    {
+        $this->gestita = $gestita;
+
+        return $this;
     }
 }
