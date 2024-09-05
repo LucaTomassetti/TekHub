@@ -56,16 +56,16 @@ class FOrdineProdotto extends EntityRepository {
     }
 
     //per trovare gli ordini presi in carico
-    public function getAllPresiInCarico($venditore, $currentPage = 1, $pageSize = 4) {
+    public function getAllInElaborazione($venditore, $currentPage = 1, $pageSize = 4) {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('DISTINCT o')
             ->from('EOrdine', 'o')
             ->join('o.q_prodotto_ordine', 'op')
             ->join('op.prodotto_id', 'p')
             ->where('p.venditore = :venditore')
-            ->andWhere('o.stato_ordine = :stato')
+            ->andWhere('op.stato_ordine_prodotto = :stato')
             ->setParameter('venditore', $venditore)
-            ->setParameter('stato', 'Preso in carico')
+            ->setParameter('stato', 'In elaborazione')
             ->orderBy('o.data_ordine', 'DESC');
     
         $query = $qb->getQuery();
@@ -98,29 +98,14 @@ class FOrdineProdotto extends EntityRepository {
     }
 
     //per aggiornare lo stato
-    public function cambiaStato($ordine, $nuovoStato ){
+    public function cambiaStatoOrdineProdotto($ordineId, $prodottoId, $nuovoStato){
         $em = getEntityManager();
-        $found_ordine = $em->find(EOrdineProdotto::class, $ordine->getId_ordine());
+        $found_ordine = $this->findOrdineProdotto($ordineId, $prodottoId);
         $found_ordine->setStato_ordine($nuovoStato);
 
         $em->persist($found_ordine);
         $em->flush();
     }
-
-
-
-    //per la soft delete degli ordini presi in carico
-    public function deleteOrdineProdotto($ordineProdotto) {
-        $em = getEntityManager();
-        $found_ordine_prodotto = $em->find(EOrdineProdotto::class, $ordineProdotto);
-        if(!$found_ordine_prodotto->isDeleted()){
-            $found_ordine_prodotto->setDeleted(true);
-        }
-        $em->flush();
-    }
-
-
-
 
 }
 ?>

@@ -547,8 +547,8 @@ class FPersistentManager{
         return getEntityManager()->getRepository(ESegnalazione::class)->deleteSegnalazione($id);
     }
 
-    public function getAllPresiInCarico($venditore, $currentPage){
-        return getEntityManager()->getRepository('EOrdineProdotto')->getAllPresiInCarico($venditore, $currentPage);
+    public function getAllInElaborazione($venditore, $currentPage){
+        return getEntityManager()->getRepository('EOrdineProdotto')->getAllInElaborazione($venditore, $currentPage);
     }
 
     public function findAllOrdiniPresiInCarico($ordineId, $prodottoId) {
@@ -654,31 +654,13 @@ class FPersistentManager{
 
         return $totalAcquirenti + $totalVenditori;
     }
-        $this->update($ordine);  
+
+    public function cambiaStatoOrdineProdotto($ordineId, $prodottoId, $nuovoStato){
+        getEntityManager()->getRepository('EOrdineProdotto')->cambiaStatoOrdineProdotto($ordineId, $prodottoId, $nuovoStato);  
     }
-
-    public function cambiaStato($ordine, $nuovoStato){
-        if($ordine instanceof EOrdine){
-            getEntityManager()->getRepository('EOrdine')->cambiaStato($ordine, $nuovoStato);
-        }
-        else {
-            getEntityManager()->getRepository('EOrdineProdotto')->cambiaStato($ordine, $nuovoStato);
-        }    
+    public function cambiaStatoOrdine($ordineId, $nuovoStato){
+        getEntityManager()->getRepository('EOrdine')->cambiaStatoOrdine($ordineId, $nuovoStato);  
     }
-
-
-
-    //per soft delete degli ordini presi in carico
-    public function softDeleteOrdini(EOrdine $ordine) {
-        $ordine->setDeleted(true);
-        getEntityManager()->flush();
-    }
-
-    public function softDeleteOrdiniProdotti(EOrdineProdotto $ordineProdotto) {
-        $ordineProdotto->setDeleted(true);
-        getEntityManager()->flush();
-    }
-  
 
 }
 ?>

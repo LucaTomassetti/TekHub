@@ -91,7 +91,7 @@ class CFrontController{
             'venditore' => [
                 'utente' => ['userDataForm', 'userDataSection', 'deleteAccount', 'changePass', 'changeUserData'],
                 'gestioneProdotti' => ['listaProdotti', 'addProduct', 'modificaProdotto', 'eliminaProdotto'],
-                'gestioneOrdiniInAttesa' => ['ordiniInAttesa', 'prendiInCarico', 'statoOrdini'],
+                'gestioneOrdiniInAttesa' => ['ordiniInAttesa', 'prendiInCarico', 'statoOrdini','aggiornaStatoOrdine'],
                 'gestioneRecensioni' => ['rispondi', 'segnala', 'listaRecensioni']
                 // Add more controllers and methods for venditore
             ],

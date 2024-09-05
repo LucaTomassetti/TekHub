@@ -79,7 +79,6 @@
     {else}
         <div class="row">
             {foreach from=$array_ordini['ordini'] item=ordine}
-                {if !$ordine->isDeleted()} <!-- Assicurati che isDeleted() sia correttamente implementato -->
                     <div class="col-md-3">
                         <div class="card mb-4">
                             <div class="card-header">
@@ -112,7 +111,6 @@
                             </div>
                         </div>
                     </div>
-                {/if}
             {/foreach}
         </div>
     {/if}

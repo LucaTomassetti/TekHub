@@ -41,10 +41,6 @@ class EOrdine{
     #[ORM\OneToMany(targetEntity: EOrdineProdotto::class, mappedBy: 'ordine_id')]
     private Collection $q_prodotto_ordine;
 
-    //per la soft delete degli ordini presi in carico
-    #[ORM\Column(type: 'boolean')]
-    private $is_deleted = false;
-
     public function __construct(){
         $this->data_ordine = new \DateTime();
         $this->stato_ordine = 'In elaborazione';
@@ -240,21 +236,6 @@ class EOrdine{
     public function isConsegnato(){
         return $this->stato_ordine == 'Consegnato';
     }
-
-
-    //per la soft delete degli ordini presi in carico
-    public function isDeleted(): bool
-    {
-        return $this->is_deleted;
-    }
-
-    public function setDeleted(bool $deleted): self
-    {
-        $this->is_deleted = $deleted;
-        return $this;
-    }
-
-    
 
 }
 ?>

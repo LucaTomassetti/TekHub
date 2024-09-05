@@ -97,16 +97,17 @@
                                     <p><strong>Prodotto:</strong> {$ordineProdotto->getProdottoId()->getNome()}</p>
                                     <p><strong>Quantità:</strong> {$ordineProdotto->getQuantitaOrdinataProdotto()}</p>
                                     <p><strong>Stato:</strong> {$ordineProdotto->getStato_ordine()}</p>
-
-                                    {if $ordineProdotto->getStato_ordine() == 'Preso in carico'}
-                                        <form method="POST" action="/TekHub/gestioneOrdiniInAttesa/aggiornaStatoOrdine">
-                                            <input type="hidden" name="ordineId" value={$ordine->getId_ordine()}>
-                                            <input type="hidden" name="prodottoId" value={$ordineProdotto->getProdottoId()}>
+                        
+                                    {if $ordineProdotto->getStato_ordine() != 'Consegnato' && $ordineProdotto->getStato_ordine() != 'In elaborazione'}
+                                        <form method="POST" action="/TekHub/gestioneOrdiniInAttesa/aggiornaStatoOrdine/{$ordine->getId_ordine()}/{$ordineProdotto->getProdottoId()->getIdProdotto()}">
                                             <div class="form-group">
                                                 <label for="nuovoStato">Aggiorna stato:</label>
                                                 <select class="form-control" name="nuovoStato">
-                                                    <option value="In spedizione">In spedizione</option>
-                                                    <option value="Consegnato">Consegnato</option>
+                                                    {if $ordineProdotto->getStato_ordine() == 'Preso in carico'}
+                                                        <option value="In spedizione">In spedizione</option>
+                                                    {elseif $ordineProdotto->getStato_ordine() == 'In spedizione'}
+                                                        <option value="Consegnato">Consegnato</option>
+                                                    {/if}
                                                 </select>
                                             </div>
                                             <button type="submit" class="btn btn-primary">Aggiorna</button>
