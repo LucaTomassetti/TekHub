@@ -82,9 +82,8 @@
                 // Verifica se il venditore è autorizzato a rispondere
                 if (!self::puo_rispondere($venditore, $recensione)) {
                     // Mostra un errore
-                    $view = new VGestioneRecensioni();
-                    $view->mostraErrore("Non sei autorizzato a rispondere a questa recensione.");
-                    return;
+                    $_SESSION['errore'] = "Non sei autorizzato a rispondere a questa recensione.";
+                    header("Location: /TekHub/gestioneRecensioni/listaRecensioni");
                 }
                 
                 $risposta = $_POST['risposta'];
@@ -92,7 +91,7 @@
                 $recensione->setRispostaVenditore($risposta, new DateTime());
                 
                 FPersistentManager::getInstance()->flush();
-                
+                $_SESSION['successo'] = "Risposta inviata con successo.";
                 // Reindirizza alla pagina delle recensioni del venditore
                 header("Location: /TekHub/gestioneRecensioni/listaRecensioni");
             }
@@ -103,12 +102,11 @@
                 $venditore = FPersistentManager::getInstance()->find(EVenditore::class, $_SESSION['utente']->getIdVenditore());
                 $recensione = FPersistentManager::getInstance()->find(ERecensione::class, $idRecensione);
                 
-                // Verifica se il venditore può segnalare questa recensione
+                // Verifica se il venditore può segnalare questa recensione(nel senso se corrisponde all'id della sessione)
                 if (!self::puo_segnalare($venditore, $recensione)) {
                     // Mostra un errore
-                    $view = new VGestioneRecensioni();
-                    $view->mostraErrore("Non puoi segnalare questa recensione.");
-                    return;
+                    $_SESSION['errore'] = "Non puoi segnalare questa recensione.";
+                    header("Location: /TekHub/gestioneRecensioni/listaRecensioni");
                 }
                 
                 $motivo = $_POST['motivo'];
@@ -120,7 +118,7 @@
                 
                 FPersistentManager::getInstance()->persist($segnalazione);
                 FPersistentManager::getInstance()->flush();
-                
+                $_SESSION['successo'] = "Segnalazione inviata con successo.";
                 // Reindirizza alla pagina delle recensioni del venditore
                 header("Location: /TekHub/gestioneRecensioni/listaRecensioni");
             }
@@ -142,7 +140,7 @@
         }
     
         private static function puo_segnalare($venditore, $recensione) {
-            return $recensione->getProdotto()->getVenditore()->getIdVenditore() == $venditore->getIdVenditore() && !$recensione->getRispostaVenditore();
+            return $recensione->getProdotto()->getVenditore()->getIdVenditore() == $venditore->getIdVenditore();
         }
     }
 ?>
