@@ -114,7 +114,7 @@
 							</div>
 							<div class="shop-body">
 								<h3>{$categoria.nome_categoria}</h3>
-								<a href="/TekHub/gestioneAcquisto/shop" class="cta-btn">Vai allo shop <i class="fa fa-arrow-circle-right"></i></a>
+								<a href="/TekHub/gestioneAcquisto/shop?query=&categoria={$categoria.nome_categoria}&marca=&prezzo_max=5000" class="cta-btn">Vai allo shop <i class="fa fa-arrow-circle-right"></i></a>
 							</div>
 						</div>
 					</div>

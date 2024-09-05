@@ -3,7 +3,7 @@
         'name' => 'vendor/tekhub',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '4ada7a2b209b084fac934362b40509264773e8bc',
+        'reference' => '5d1113f87f04ba637d743c9c9327d2fae846e558',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -99,6 +99,15 @@
             'install_path' => __DIR__ . '/../nikic/php-parser',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'phpmailer/phpmailer' => array(
+            'pretty_version' => 'v6.9.1',
+            'version' => '6.9.1.0',
+            'reference' => '039de174cd9c17a8389754d3b877a2ed22743e18',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../phpmailer/phpmailer',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'psr/cache' => array(
             'pretty_version' => '3.0.0',
@@ -439,7 +448,7 @@
         'vendor/tekhub' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '4ada7a2b209b084fac934362b40509264773e8bc',
+            'reference' => '5d1113f87f04ba637d743c9c9327d2fae846e558',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

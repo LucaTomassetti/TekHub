@@ -3,7 +3,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass:FRecensione::class)]
 #[ORM\Table('recensione')]
 class ERecensione{
     #[ORM\Id]
@@ -17,6 +17,9 @@ class ERecensione{
     #[ORM\Column(type: 'integer', columnDefinition:'INT(5)')]
     private $valutazione;
 
+    #[ORM\Column(type: 'text', nullable: true)]
+    private $risposta_venditore;
+
     #[ORM\ManyToOne(targetEntity:EAcquirente::class, inversedBy:'recensioni')]
     #[ORM\JoinColumn(name:'acquirente', referencedColumnName:'id_acquirente', nullable:true)]
     private EAcquirente|null $acquirente = null;
@@ -29,9 +32,7 @@ class ERecensione{
     #[ORM\JoinColumn(name: 'segnalazione', referencedColumnName: 'id_segnalazione', nullable:true)]
     private ESegnalazione|null $segnalazione = null;
 
-    public function __construct($testo, $valutazione) {
-        $this->testo=$testo;
-        $this->valutazione=$valutazione;
+    public function __construct() {
 
     }
 
@@ -151,5 +152,11 @@ class ERecensione{
         $this->segnalazione = $segnalazione;
 
         return $this;
+    }
+    public function setRispostaVenditore($risposta) {
+        $this->risposta_venditore = $risposta;
+    }
+    public function getRispostaVenditore() {
+        return $this->risposta_venditore;
     }
 }

@@ -57,6 +57,7 @@ class ComposerStaticInit4e6f58c39a2db170b51b98127b3e3649
             'Psr\\Container\\' => 14,
             'Psr\\Cache\\' => 10,
             'PhpParser\\' => 10,
+            'PHPMailer\\PHPMailer\\' => 20,
         ),
         'D' => 
         array (
@@ -200,6 +201,10 @@ class ComposerStaticInit4e6f58c39a2db170b51b98127b3e3649
         'PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
         'Doctrine\\Persistence\\' => 
         array (

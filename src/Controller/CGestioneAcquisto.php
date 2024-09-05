@@ -25,17 +25,28 @@ class CGestioneAcquisto{
     }
     public static function vediProdotto($prodotto_id) {
         $view = new VGestioneAcquisto();
-        if (!isset($_GET['page'])) {
-            $url = $_SERVER['REQUEST_URI'];
-            $url = rtrim('?', $url);
-            $url .= '?page=1';
-            header("Location: $url");
-        }
-        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         $prod = FPersistentManager::getInstance()->find(EProdotto::class, $prodotto_id);
-        $same_cat_products = FPersistentManager::getInstance()->getAllSameCatProducts($prod->getCategoryName()->getNomeCategoria(), $prodotto_id, $page);
         $immagini = FPersistentManager::getInstance()->getAllImages($prod);
+    
+        $recensioni_page = isset($_GET['recensioni_page']) ? (int)$_GET['recensioni_page'] : 1;
+        $prodotti_simili_page = isset($_GET['prodotti_simili_page']) ? (int)$_GET['prodotti_simili_page'] : 1;
+        
+        $itemsPerPage = 2; // Numero di recensioni per pagina
+    
+        $recensioni = FPersistentManager::getInstance()->getRecensioniProdotto($prod, $recensioni_page, $itemsPerPage);
+        $same_cat_products = FPersistentManager::getInstance()->getAllSameCatProducts($prod->getCategoryName()->getNomeCategoria(), $prodotto_id, $prodotti_simili_page);
+        $view = new VGestioneAcquisto();
 
+        $recensione_utente = null;
+        $puo_recensire = false;
+        if (isset($_SESSION['utente']) && $_SESSION['utente'] instanceof EAcquirente) {
+            $acquirente = FPersistentManager::getInstance()->find(EAcquirente::class, $_SESSION['utente']->getId());
+            $puo_recensire = FPersistentManager::getInstance()->haAcquistatoProdotto($prodotto_id);
+            if ($puo_recensire) {
+                $recensione_utente = FPersistentManager::getInstance()->getRecensioneUtente($acquirente, $prod);
+            }
+        }
+    
         $offerta_attuale = 0;
         $stato_asta = '';
         if ($prod instanceof EUsato) {
@@ -43,8 +54,15 @@ class CGestioneAcquisto{
             $offerta_attuale = $ultimaOfferta ? $ultimaOfferta->getImporto() : 0;
             $stato_asta = $prod->getAsta()->getStatoAsta();
         }
+         // Recupera i messaggi dalla sessione
+        $successMessage = isset($_SESSION['recensione_success']) ? $_SESSION['recensione_success'] : null;
+        $errorMessage = isset($_SESSION['recensione_error']) ? $_SESSION['recensione_error'] : null;
 
-        $view->vediProdotto($prod, $immagini, $same_cat_products, $offerta_attuale, $stato_asta);
+        // Rimuovi i messaggi dalla sessione dopo averli recuperati
+        unset($_SESSION['recensione_success']);
+        unset($_SESSION['recensione_error']);
+
+        $view->vediProdotto($prod, $immagini, $recensioni, $same_cat_products, $puo_recensire, $recensione_utente, $offerta_attuale, $stato_asta, $successMessage, $errorMessage);
     }
     public static function aggiungiAlCarrello($idProdotto)
     {

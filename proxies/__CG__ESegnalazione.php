@@ -16,15 +16,15 @@ class ESegnalazione extends \ESegnalazione implements \Doctrine\ORM\Proxy\Intern
     }
 
     private const LAZY_OBJECT_PROPERTY_SCOPES = [
+        "\0".parent::class."\0".'gestita' => [parent::class, 'gestita', null],
         "\0".parent::class."\0".'id_segnalazione' => [parent::class, 'id_segnalazione', null],
-        "\0".parent::class."\0".'messaggio' => [parent::class, 'messaggio', null],
+        "\0".parent::class."\0".'motivo' => [parent::class, 'motivo', null],
         "\0".parent::class."\0".'recensione' => [parent::class, 'recensione', null],
-        "\0".parent::class."\0".'tipo' => [parent::class, 'tipo', null],
         "\0".parent::class."\0".'venditore' => [parent::class, 'venditore', null],
+        'gestita' => [parent::class, 'gestita', null],
         'id_segnalazione' => [parent::class, 'id_segnalazione', null],
-        'messaggio' => [parent::class, 'messaggio', null],
+        'motivo' => [parent::class, 'motivo', null],
         'recensione' => [parent::class, 'recensione', null],
-        'tipo' => [parent::class, 'tipo', null],
         'venditore' => [parent::class, 'venditore', null],
     ];
 

@@ -30,6 +30,12 @@ class EAcquirente{
     #[ORM\Column(type: 'string', length:10, columnDefinition: 'VARCHAR(10)')]
     private $cellulare;
 
+    #[ORM\Column(type: 'boolean')]
+    private $is_blocked = false;
+
+    #[ORM\Column(type: 'boolean')]
+    private $is_deleted = false;
+
     #[ORM\OneToMany(targetEntity:EIndirizzo::class, mappedBy:'acquirente')]
     private Collection $indirizzi;
 
@@ -273,6 +279,24 @@ class EAcquirente{
         $this->carte_di_credito = $carte_di_credito;
 
         return $this;
+    }
+    public function isBlocked(): bool
+    {
+        return $this->is_blocked;
+    }
+
+    public function setBlocked(bool $blocked)
+    {
+        $this->is_blocked = $blocked;
+    }
+    public function isDeleted(): bool
+    {
+        return $this->is_deleted;
+    }
+
+    public function setDeleted(bool $deleted)
+    {
+        $this->is_deleted = $deleted;
     }
 }
 

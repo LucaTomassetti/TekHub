@@ -1,18 +1,19 @@
 <?php
+/* Smarty version 5.3.0, created on 2024-09-03 22:59:12
 /* Smarty version 5.3.0, created on 2024-09-05 20:25:25
   from 'file:header_section.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66d9f7956e3a45_03883891',
+  'unifunc' => 'content_66d2d426c57495_66507897',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '865963af9ff487a66b8dbfc323e093391d8a98dc' => 
     array (
       0 => 'header_section.tpl',
-      1 => 1725100943,
+      1 => 1725092893,
       2 => 'file',
     ),
   ),
@@ -20,7 +21,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66d9f7956e3a45_03883891 (\Smarty\Template $_smarty_tpl) {
+function content_66d2d426c57495_66507897 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?><!-- HEADER -->
 <header>
@@ -184,18 +185,17 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
         <?php if ($_smarty_tpl->getValue('check_login_acquirente') == 1) {?>
             <li><a href="/TekHub/utente/userDataSection">Profilo</a></li>
             <li><a href="/TekHub/utente/userHistoryOrders">Stato ordini</a></li>
-            <li><a href="#">Recensioni</a></li>
             <li><a href="/TekHub/asta/visualizzaOfferteEffettuate">Offerte effettuate</a></li>
         <?php } elseif ($_smarty_tpl->getValue('check_login_venditore') == 1) {?>
         <li><a href="/TekHub/utente/userDataSection">Profilo</a></li>
             <li><a href="/TekHub/gestioneProdotti/listaProdotti">Gestione prodotti</a></li>
             <li><a href="/TekHub/gestioneOrdiniInAttesa/ordiniInAttesa?orderpage=1">Ordini in attesa</a></li>
             <li><a href="/TekHub/gestioneOrdiniInAttesa/statoOrdini?orderpage=1">Stato ordini</a></li>
-            <li><a href="#">Recensioni</a></li>
+            <li><a href="/TekHub/gestioneRecensioni/listaRecensioni?recensioni_page=1">Recensioni</a></li>
         <?php } elseif ($_smarty_tpl->getValue('check_login_admin') == 1) {?>
             <li><a href="/TekHub/utente/userDataSection">Profilo</a></li>
                 <li><a href="/TekHub/utente/gestisciProdotti">Gestione prodotti</a></li>
-                <li><a href="/TekHub/utente/gestisciUtenti">Gestione utenti registrati</a></li>
+                <li><a href="/TekHub/admin/gestisciUtenti">Gestione utenti registrati</a></li>
                 <li><a href="/TekHub/utente/gestisciSegnalazioni">Segnalazioni</a></li>
         <?php }?>
 

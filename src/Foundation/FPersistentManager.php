@@ -231,7 +231,7 @@ class FPersistentManager{
     public function getAllUsedSameCatProd($categoria, $currentPage){
         return getEntityManager()->getRepository('EUsato')->getAllUsedSameCatProd($categoria, $currentPage);
     }
-    public function getAllSameCatProducts($categoria, $id_prodotto, $currentPage){
+    /*public function getAllSameCatProducts($categoria, $id_prodotto, $currentPage){
         $prod = FPersistentManager::getInstance()->find(EProdotto::class, $id_prodotto);
         if($prod instanceof ENuovo){
             $all_prodotti_nuovi = FPersistentManager::getInstance()->getAllNewSameCatProd($categoria, $currentPage);
@@ -254,6 +254,36 @@ class FPersistentManager{
             $all_prodotti_usati['prodotti'] = array_values($all_prodotti_usati['prodotti']);
             return $all_prodotti_usati;
         }
+    }*/
+    public function getAllSameCatProducts($categoria, $id_prodotto, $page = 1, $itemsPerPage = 4) {
+        $prod = $this->find(EProdotto::class, $id_prodotto);
+        if ($prod instanceof ENuovo) {
+            $all_prodotti = $this->getRepository('ENuovo')->getAllNewSameCatProd($categoria, $page, $itemsPerPage);
+        } else if ($prod instanceof EUsato) {
+            $all_prodotti = $this->getRepository('EUsato')->getAllUsedSameCatProd($categoria, $page, $itemsPerPage);
+        } else {
+            // Se $prod non è né ENuovo né EUsato, restituisci un array vuoto
+            return [
+                'prodotti' => [],
+                'n_prodotti' => 0,
+                'currentPage' => 1,
+                'pageSize' => $itemsPerPage,
+                'totalPages' => 0
+            ];
+        }
+    
+        if (isset($all_prodotti['prodotti']) && is_array($all_prodotti['prodotti'])) {
+            foreach ($all_prodotti['prodotti'] as $key => $prodotto) {
+                if ($prodotto && $prodotto->getIdProdotto() == $id_prodotto) {
+                    unset($all_prodotti['prodotti'][$key]);
+                }
+            }
+            $all_prodotti['prodotti'] = array_values($all_prodotti['prodotti']);
+        } else {
+            $all_prodotti['prodotti'] = [];
+        }
+        
+        return $all_prodotti;
     }
     public function getLatestNewProducts(){
         return getEntityManager()->getRepository('ENuovo')->getLatestNewProducts();
@@ -527,6 +557,103 @@ class FPersistentManager{
 
     public function updateOrdineStato(EOrdine $ordine, $nuovoStato) {
         $ordine->setStato_ordine($nuovoStato);
+        $this->update($ordine);  // Presumendo che il metodo update esista già e salvi l'ordine nel database
+    }
+    public function getRecensioniVenditore($venditore, $page, $itemsPerPage) {
+        return getEntityManager()->getRepository('ERecensione')->getRecensioniVenditore($venditore, $page, $itemsPerPage);
+    }
+    public function getRecensioniProdotto($prodotto, $page = 1, $itemsPerPage = 5) {
+        return getEntityManager()->getRepository('ERecensione')->getRecensioniProdotto($prodotto, $page, $itemsPerPage);
+    }
+
+    public function haAcquistatoProdotto($prodotto) {
+        return getEntityManager()->getRepository('ERecensione')->haAcquistatoProdotto($prodotto);
+    }
+
+    public function aggiungiRecensione($recensione) {
+        getEntityManager()->getRepository('ERecensione')->aggiungiRecensione($recensione);
+    }
+    public function getRecensioneUtente($acquirente, $prodotto) {
+        return getEntityManager()->getRepository('ERecensione')->getRecensioneUtente($acquirente, $prodotto);
+    }
+    public function softDeleteUtente($utente) {
+        $utente->setDeleted(true);
+        $this->update($utente);
+    }
+
+    public function getAllUsersPaginated($page = 1, $itemsPerPage = 10) {
+        $offset = ($page - 1) * $itemsPerPage;
+        $limit = $itemsPerPage + 1;  // Richiediamo un elemento in più per determinare se c'è una pagina successiva
+        
+        $em = getEntityManager();
+        
+        // Query per gli acquirenti
+        $qbAcquirenti = $em->createQueryBuilder();
+        $qbAcquirenti->select('a.id_acquirente as id', 'a.nome', 'a.cognome', 'a.email', 'a.is_deleted', 'a.is_blocked', "'acquirente' as tipo")
+           ->from('EAcquirente', 'a')
+           ->where('a.is_deleted = :isDeleted')
+           ->setParameter('isDeleted', false)
+           ->setMaxResults($limit)
+           ->setFirstResult($offset)
+           ->orderBy('a.id_acquirente', 'ASC');
+
+        // Query per i venditori
+        $qbVenditori = $em->createQueryBuilder();
+        $qbVenditori->select('v.id_venditore as id', 'v.nome', 'v.cognome', 'v.email', 'v.is_deleted', 'v.is_blocked', "'venditore' as tipo")
+           ->from('EVenditore', 'v')
+           ->where('v.is_deleted = :isDeleted')
+           ->setParameter('isDeleted', false)
+           ->setMaxResults($limit)
+           ->setFirstResult($offset)
+           ->orderBy('v.id_venditore', 'ASC');
+
+        // Esecuzione delle query
+        $acquirenti = $qbAcquirenti->getQuery()->getResult();
+        $venditori = $qbVenditori->getQuery()->getResult();
+
+        // Unione e ordinamento dei risultati
+        $utenti = array_merge($acquirenti, $venditori);
+        usort($utenti, function($a, $b) {
+            return $a['id'] - $b['id'];
+        });
+
+        // Tagliamo l'array al numero di elementi richiesti
+        $hasMorePages = count($utenti) > $itemsPerPage;
+        $utenti = array_slice($utenti, 0, $itemsPerPage);
+
+        // Conteggio totale degli utenti (questa query verrà eseguita solo quando necessario)
+        $totalItems = $this->getTotalUsersCount();
+
+        return [
+            'utenti' => $utenti,
+            'totalItems' => $totalItems,
+            'itemsPerPage' => $itemsPerPage,
+            'currentPage' => $page,
+            'totalPages' => ceil($totalItems / $itemsPerPage),
+            'hasMorePages' => $hasMorePages
+        ];
+    }
+
+    private function getTotalUsersCount() {
+        $em = getEntityManager();
+
+        $qbAcquirenti = $em->createQueryBuilder();
+        $qbAcquirenti->select('COUNT(a.id_acquirente)')
+           ->from('EAcquirente', 'a')
+           ->where('a.is_deleted = :isDeleted')
+           ->setParameter('isDeleted', false);
+
+        $qbVenditori = $em->createQueryBuilder();
+        $qbVenditori->select('COUNT(v.id_venditore)')
+           ->from('EVenditore', 'v')
+           ->where('v.is_deleted = :isDeleted')
+           ->setParameter('isDeleted', false);
+
+        $totalAcquirenti = $qbAcquirenti->getQuery()->getSingleScalarResult();
+        $totalVenditori = $qbVenditori->getQuery()->getSingleScalarResult();
+
+        return $totalAcquirenti + $totalVenditori;
+    }
         $this->update($ordine);  
     }
 
