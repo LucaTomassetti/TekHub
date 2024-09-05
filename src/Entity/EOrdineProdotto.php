@@ -22,6 +22,11 @@ class EOrdineProdotto {
     #[ORM\Column(type: 'string', length:50, columnDefinition: 'VARCHAR(50)')]
     private $stato_ordine_prodotto;
 
+     //per la soft delete degli ordini presi in carico
+     #[ORM\Column(type: 'boolean')]
+     private $is_deleted = false;
+    
+
     public function __construct() {
         $this->quantita_ordinata_prodotto = 0;
         $this->stato_ordine_prodotto = 'In elaborazione';
@@ -90,8 +95,34 @@ class EOrdineProdotto {
     }
 
     public function isPresoInCarico() {
-        return $this->stato_ordine_prodotto != 'In elaborazione';
+        return $this->stato_ordine_prodotto == 'Preso in carico';   
     }
 
+    //per aggiornare lo  stato degli ordini presi in carico
+    public function isInSpedizione()
+    {
+        return $this->stato_ordine_prodotto == 'In spedizione';
+    }
+
+    public function isConsegnato(){
+
+        return $this->stato_ordine_prodotto == 'Consegnato';
+    }
+
+
+    //per la soft delete degli ordini presi in carico
+    public function isDeleted(): bool
+    {
+        return $this->is_deleted;
+    }
+
+    public function setDeleted(bool $deleted): self
+    {
+        $this->is_deleted = $deleted;
+        return $this;
+    }
+
+
+   
 }
 ?>

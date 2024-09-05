@@ -97,16 +97,21 @@
                                     <p><strong>Prodotto:</strong> {$ordineProdotto->getProdottoId()->getNome()}</p>
                                     <p><strong>Quantità:</strong> {$ordineProdotto->getQuantitaOrdinataProdotto()}</p>
                                     <p><strong>Stato:</strong> {$ordineProdotto->getStato_ordine()}</p>
-                                    
+
                                     {if $ordineProdotto->getStato_ordine() == 'Preso in carico'}
-                                        <form action="/TekHub/gestioneAcquisto/shop" method="POST">
-                                            <select class="input-select" name="Stato ordine">
-                                                <option value="">In spedizione</option>
-                                                <option value="">Consegnato</option>
-                                            </select>
+                                        <form method="POST" action="/TekHub/gestioneOrdiniInAttesa/aggiornaStatoOrdine">
+                                            <input type="hidden" name="ordineId" value={$ordine->getId_ordine()}>
+                                            <input type="hidden" name="prodottoId" value={$ordineProdotto->getProdottoId()}>
+                                            <div class="form-group">
+                                                <label for="nuovoStato">Aggiorna stato:</label>
+                                                <select class="form-control" name="nuovoStato">
+                                                    <option value="In spedizione">In spedizione</option>
+                                                    <option value="Consegnato">Consegnato</option>
+                                                </select>
+                                            </div>
                                             <button type="submit" class="btn btn-primary">Aggiorna</button>
                                         </form>
-                                    {/if}
+                                    {/if}              
                                 </div>
                             {/if}
                         {/foreach}
@@ -126,5 +131,6 @@
 	<script src="/TekHub/skin/electro-master/js/nouislider.min.js"></script>
 	<script src="/TekHub/skin/electro-master/js/jquery.zoom.min.js"></script>
 	<script src="/TekHub/skin/electro-master/js/main.js"></script>
+    <script>
     </body>
 </html>

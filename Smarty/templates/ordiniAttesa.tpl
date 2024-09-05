@@ -79,41 +79,43 @@
     {else}
         <div class="row">
             {foreach from=$array_ordini['ordini'] item=ordine}
-                <div class="col-md-3">
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h4>Ordine #{$ordine->getId_ordine()}</h4>
-                    </div>
-                    <div class="card-body">
-                        <p><strong>Data Ordine:</strong> {$ordine->getData_ordine()->format('d/m/Y')}</p>
-                        <p><strong>Acquirente:</strong> {$ordine->getAcquirente()->getNome()} {$ordine->getAcquirente()->getCognome()}</p>
-                        <p><strong>Indirizzo:</strong> {$ordine->getIndirizzo_spedizione()->getIndirizzo()}, {$ordine->getIndirizzo_spedizione()->getCap()}</p>
-                        <p><strong>Stato Ordine Complessivo:</strong> {$ordine->getStato_ordine()}</p>
-                        <br>
-                        <h5 class="mt-4">I tuoi prodotti in questo ordine:</h5>
-                        {foreach from=$ordine->getQProdottoOrdine() item=ordineProdotto}
-                            {if $ordineProdotto->getProdottoId()->getVenditore()->getIdVenditore() == $smarty.session.utente->getIdVenditore()}
-                                <div class="mt-3 p-3 border">
-                                    <p><strong>Prodotto:</strong> {$ordineProdotto->getProdottoId()->getNome()}</p>
-                                    <p><strong>Quantità:</strong> {$ordineProdotto->getQuantitaOrdinataProdotto()}</p>
-                                    <p><strong>Stato:</strong> {$ordineProdotto->getStato_ordine()}</p>
-                                    
-                                    {if $ordineProdotto->getStato_ordine() == 'In elaborazione'}
-                                        <form method="POST" action="/TekHub/gestioneOrdiniInAttesa/prendiInCarico/{$ordine->getId_ordine()}/{$ordineProdotto->getProdottoId()->getIdProdotto()}">
-                                            <button type="submit" class="btn btn-primary">Prendi in Carico</button>
-                                        </form>
-                                    {elseif $ordineProdotto->getStato_ordine() == 'Preso in carico'}
-                                        <button type="submit" class="btn btn-success" disabled>Preso in Carico</button>
+                {if !$ordine->isDeleted()} <!-- Assicurati che isDeleted() sia correttamente implementato -->
+                    <div class="col-md-3">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h4>Ordine #{$ordine->getId_ordine()}</h4>
+                            </div>
+                            <div class="card-body">
+                                <p><strong>Data Ordine:</strong> {$ordine->getData_ordine()->format('d/m/Y')}</p>
+                                <p><strong>Acquirente:</strong> {$ordine->getAcquirente()->getNome()} {$ordine->getAcquirente()->getCognome()}</p>
+                                <p><strong>Indirizzo:</strong> {$ordine->getIndirizzo_spedizione()->getIndirizzo()}, {$ordine->getIndirizzo_spedizione()->getCap()}</p>
+                                <p><strong>Stato Ordine Complessivo:</strong> {$ordine->getStato_ordine()}</p>
+                                <br>
+                                <h5 class="mt-4">I tuoi prodotti in questo ordine:</h5>
+                                {foreach from=$ordine->getQProdottoOrdine() item=ordineProdotto}
+                                    {if $ordineProdotto->getProdottoId()->getVenditore()->getIdVenditore() == $smarty.session.utente->getIdVenditore()}
+                                        <div class="mt-3 p-3 border">
+                                            <p><strong>Prodotto:</strong> {$ordineProdotto->getProdottoId()->getNome()}</p>
+                                            <p><strong>Quantità:</strong> {$ordineProdotto->getQuantitaOrdinataProdotto()}</p>
+                                            <p><strong>Stato:</strong> {$ordineProdotto->getStato_ordine()}</p>
+                                            
+                                            {if $ordineProdotto->getStato_ordine() == 'In elaborazione'}
+                                                <form method="POST" action="/TekHub/gestioneOrdiniInAttesa/prendiInCarico/{$ordine->getId_ordine()}/{$ordineProdotto->getProdottoId()->getIdProdotto()}">
+                                                    <button type="submit" class="btn btn-primary">Prendi in Carico</button>
+                                                </form>
+                                            {elseif $ordineProdotto->getStato_ordine() == 'Preso in carico'}
+                                                <button type="submit" class="btn btn-success" disabled>Preso in Carico</button>
+                                            {/if}
+                                        </div>
                                     {/if}
-                                </div>
-                            {/if}
-                        {/foreach}
+                                {/foreach}
+                            </div>
+                        </div>
                     </div>
-                </div>
-                </div>
+                {/if}
             {/foreach}
         </div>
-        {/if}
+    {/if}
     </div>
 
 <script src="/TekHub/skin/electro-master/js/scripts-for-template.js"></script>

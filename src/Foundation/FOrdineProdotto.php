@@ -55,6 +55,7 @@ class FOrdineProdotto extends EntityRepository {
         ]);
     }
 
+    //per trovare gli ordini presi in carico
     public function getAllPresiInCarico($venditore, $currentPage = 1, $pageSize = 4) {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('DISTINCT o')
@@ -95,8 +96,31 @@ class FOrdineProdotto extends EntityRepository {
             'stato' => 'Preso in carico'
         ]);
     }
-    
-    
+
+    //per aggiornare lo stato
+    public function cambiaStato($ordine, $nuovoStato ){
+        $em = getEntityManager();
+        $found_ordine = $em->find(EOrdineProdotto::class, $ordine->getId_ordine());
+        $found_ordine->setStato_ordine($nuovoStato);
+
+        $em->persist($found_ordine);
+        $em->flush();
+    }
+
+
+
+    //per la soft delete degli ordini presi in carico
+    public function deleteOrdineProdotto($ordineProdotto) {
+        $em = getEntityManager();
+        $found_ordine_prodotto = $em->find(EOrdineProdotto::class, $ordineProdotto);
+        if(!$found_ordine_prodotto->isDeleted()){
+            $found_ordine_prodotto->setDeleted(true);
+        }
+        $em->flush();
+    }
+
+
+
 
 }
 ?>

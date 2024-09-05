@@ -16,10 +16,12 @@ class EOrdineProdotto extends \EOrdineProdotto implements \Doctrine\ORM\Proxy\In
     }
 
     private const LAZY_OBJECT_PROPERTY_SCOPES = [
+        "\0".parent::class."\0".'is_deleted' => [parent::class, 'is_deleted', null],
         "\0".parent::class."\0".'ordine_id' => [parent::class, 'ordine_id', null],
         "\0".parent::class."\0".'prodotto_id' => [parent::class, 'prodotto_id', null],
         "\0".parent::class."\0".'quantita_ordinata_prodotto' => [parent::class, 'quantita_ordinata_prodotto', null],
         "\0".parent::class."\0".'stato_ordine_prodotto' => [parent::class, 'stato_ordine_prodotto', null],
+        'is_deleted' => [parent::class, 'is_deleted', null],
         'ordine_id' => [parent::class, 'ordine_id', null],
         'prodotto_id' => [parent::class, 'prodotto_id', null],
         'quantita_ordinata_prodotto' => [parent::class, 'quantita_ordinata_prodotto', null],

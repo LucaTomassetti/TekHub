@@ -85,6 +85,8 @@ class VGestioneOrdiniInAttesa {
         
         // Mostra il template
         $this->smarty->display('statoOrdini.tpl');
-    }   
+    } 
+    
+    
 }
 ?>

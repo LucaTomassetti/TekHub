@@ -527,10 +527,31 @@ class FPersistentManager{
 
     public function updateOrdineStato(EOrdine $ordine, $nuovoStato) {
         $ordine->setStato_ordine($nuovoStato);
-        $this->update($ordine);  // Presumendo che il metodo update esista già e salvi l'ordine nel database
+        $this->update($ordine);  
     }
-    
-    
+
+    public function cambiaStato($ordine, $nuovoStato){
+        if($ordine instanceof EOrdine){
+            getEntityManager()->getRepository('EOrdine')->cambiaStato($ordine, $nuovoStato);
+        }
+        else {
+            getEntityManager()->getRepository('EOrdineProdotto')->cambiaStato($ordine, $nuovoStato);
+        }    
+    }
+
+
+
+    //per soft delete degli ordini presi in carico
+    public function softDeleteOrdini(EOrdine $ordine) {
+        $ordine->setDeleted(true);
+        getEntityManager()->flush();
+    }
+
+    public function softDeleteOrdiniProdotti(EOrdineProdotto $ordineProdotto) {
+        $ordineProdotto->setDeleted(true);
+        getEntityManager()->flush();
+    }
+  
 
 }
 ?>
