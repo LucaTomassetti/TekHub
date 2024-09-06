@@ -1,6 +1,7 @@
 <?php
 
 class CAdmin{
+    //prende i dati degli utenti dal PersistentManager per darli a VAdminDashboard
     public static function gestisciUtenti() {
         $view = new VAdminDashboard();
         
@@ -10,7 +11,7 @@ class CAdmin{
         $utenti_info = FPersistentManager::getInstance()->getAllUsersPaginated($page, $itemsPerPage);
         $view->gestisciUtenti($utenti_info);
     }
-
+    //prende i dati degli utenti con l'ID inserito dal PersistentManager per darli a VAdminDashboard
     public static function filterUsersPaginated(){
         $page  = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         
@@ -24,7 +25,7 @@ class CAdmin{
         $view = new VAdminDashboard();
         $view->displayFilteredUsers($utenti);
     }
-
+    //chiede al PersistentMAnager di eliminare un utente dati il ruolo e l'ID, invia una mail all'interessato.
     public static function eliminaUtente($userId, $userType) {
         $entityClass = $userType === 'acquirente' ? 'EAcquirente' : 'EVenditore';
         $utente = FPersistentManager::getInstance()->find($entityClass, $userId);
@@ -40,7 +41,7 @@ class CAdmin{
         }
         header('Location: /TekHub/admin/gestisciUtenti');
     }
-
+    //chiede al PersistentManager di bloccare un utente dati il ruolo e l'ID.
     public static function bloccaUtente($userId, $userType) {
         $entityClass = $userType === 'acquirente' ? 'EAcquirente' : 'EVenditore';
         $utente = FPersistentManager::getInstance()->find($entityClass, $userId);
@@ -53,7 +54,7 @@ class CAdmin{
         }
         header('Location: /TekHub/admin/gestisciUtenti');
     }
-
+    //chiede al PersistentManager di sbloccare un utente dati il ruolo e l'ID.
     public static function sbloccaUtente($userId, $userType) {
         $entityClass = $userType === 'acquirente' ? 'EAcquirente' : 'EVenditore';
         $utente = FPersistentManager::getInstance()->find($entityClass, $userId);
@@ -66,7 +67,7 @@ class CAdmin{
         }
         header('Location: /TekHub/admin/gestisciUtenti');
     }
-
+    //chiede al PersistentManager i dati di tutte le segnalazioni per darli a VAdminDashboard
     public static function gestisciSegnalazioni() {
         $view = new VAdminDashboard();
 
@@ -82,6 +83,7 @@ class CAdmin{
 
         $view->gestioneSegnalazioni($segnalazioni);
     }
+    //prende dal PersistentManager i dati della segnalazione con l'ID cercato per farli a VAdminDashboard
     public static function filterSegnalazioni() {
         if (isset($_POST['venditore_id'])) {
             $id_venditore = $_POST['venditore_id'];
@@ -94,12 +96,13 @@ class CAdmin{
         $view = new VAdminDashboard();
         $view->displayFilteredSegnalazioni($segnalazioni);
     }
+    //chiede al PersistentManager di cambiare lo stato di una segnalazione, dato l'ID, da irrisolta a risolta
     public static function risolviSegnalazione($id_segnalazione) {
         FPersistentManager::getInstance()->risolviSegnalazione($id_segnalazione);
         $_SESSION['message'] = "Segnalazione gestita.";
         header('Location: /TekHub/admin/gestisciSegnalazioni');
     }
-
+    //chiede al PersistentManager i dati di tutte i prodotti per darli a VAdminDashboard
     public static function gestisciProdotti(){
         $view = new VAdminDashboard();
         
@@ -128,6 +131,7 @@ class CAdmin{
                 $view->gestisciProdotti($array_prodotti, $categorie, $marche, $product_added, $product_modified, $product_deleted);
         }
     }
+    //chiede al PersistentManager di cancellare un prodotto dato l'ID, una volta fatto manda una mail al venditore di riferimento
      public static function deleteProduct($id) {
         if (!isset($_SESSION['utente']) || !($_SESSION['utente'] instanceof EAdmin)) {
             header('Location: /TekHub/utente/login');
@@ -150,7 +154,5 @@ class CAdmin{
         exit;
         
     }
-
-
 }
 ?>

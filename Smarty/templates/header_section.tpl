@@ -146,7 +146,7 @@
             <li><a href="/TekHub/utente/userDataSection">Profilo</a></li>
                 <li><a href="/TekHub/admin/gestisciProdotti">Gestione prodotti</a></li>
                 <li><a href="/TekHub/admin/gestisciUtenti">Gestione utenti registrati</a></li>
-                <li><a href="/TekHub/admin/gestisciSegnalazioni">Segnalazioni</a></li>
+                <li><a href="/TekHub/admin/gestisciSegnalazioni">Gestione segnalazioni</a></li>
         {/if}
 
         {if $utente_non_loggato == 1}

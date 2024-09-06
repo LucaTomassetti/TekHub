@@ -3,12 +3,11 @@
 class VAdminDashboard{
 
     private $smarty;
-
+    //costruttore
     public function __construct(){
-
         $this->smarty = StartSmarty::configuration();
-
     }
+    //mostra la pagina per la gestione prodotti dell'admin
     public function gestisciProdotti($array_prodotti, $categorie, $marche, $product_added, $product_modified, $product_deleted){
 
         $loginVariables=(new VUtente)->checkLogin();
@@ -35,7 +34,7 @@ class VAdminDashboard{
         $this->smarty->display('gestisciProdotti.tpl');
 
     }
-
+    //mostra la pagina per la gestione utenti dell'admin
     public function gestisciUtenti($utenti_info) {
         $loginVariables=(new VUtente)->checkLogin();
         foreach ($loginVariables as $key => $value){
@@ -52,7 +51,7 @@ class VAdminDashboard{
         }
         $this->smarty->display('gestisciUtenti.tpl');
     }
-
+    //mostra la pagina per la gestione segnalazioni dell'admin
     public function gestioneSegnalazioni($segnalazioni) {
         $loginVariables = (new VUtente)->checkLogin();
         foreach ($loginVariables as $key => $value) {
@@ -71,7 +70,7 @@ class VAdminDashboard{
         $this->smarty->assign('segnalazioni', $segnalazioni);
         $this->smarty->display('gestisciSegnalazioni.tpl');
     }
-
+    //mostra solo i prodotti filtrti dall'admin
     public function displaySearchResults($products) {
         $loginVariables=(new VUtente)->checkLogin();
         foreach ($loginVariables as $key => $value){
@@ -83,7 +82,7 @@ class VAdminDashboard{
         $this->smarty->assign('prodottoFiltrato', 1);
         $this->smarty->display('gestisciProdotti.tpl');
     }
-
+    //mostra solo le segnalazioni filtrate dall'admin
     public function displayFilteredSegnalazioni($segnalazioni) {
         $loginVariables=(new VUtente)->checkLogin();
         foreach ($loginVariables as $key => $value){
@@ -95,7 +94,7 @@ class VAdminDashboard{
         $this->smarty->assign('segnalazioni', $segnalazioni);
         $this->smarty->display('gestisciSegnalazioni.tpl');
     }
-
+    //mostra solo gli utenti filtrati dall'admin
     public function displayFilteredUsers($utenti){
         $loginVariables=(new VUtente)->checkLogin();
         foreach ($loginVariables as $key => $value){
