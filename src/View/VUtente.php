@@ -139,6 +139,8 @@ class VUtente{
         foreach ($loginVariables as $key => $value) {
             $this->smarty->assign($key, $value);
         }
+        $this->smarty->assign('nome', $_SESSION['utente']->getNome());
+        $this->smarty->assign('cognome', $_SESSION['utente']->getCognome());
         $this->smarty->assign('search_form', 1);
         $this->smarty->assign('admin', 1);
         $this->smarty->display('userinfo.tpl');

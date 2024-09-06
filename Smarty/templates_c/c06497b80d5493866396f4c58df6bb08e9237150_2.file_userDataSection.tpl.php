@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-09-05 20:25:25
+/* Smarty version 5.3.0, created on 2024-09-06 13:32:05
   from 'file:userDataSection.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66d9f795a7bb29_03745476',
+  'unifunc' => 'content_66dae835e54064_32536809',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'c06497b80d5493866396f4c58df6bb08e9237150' => 
     array (
       0 => 'userDataSection.tpl',
-      1 => 1725100943,
+      1 => 1725620751,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:accountDelete.tpl' => 1,
   ),
 ))) {
-function content_66d9f795a7bb29_03745476 (\Smarty\Template $_smarty_tpl) {
+function content_66dae835e54064_32536809 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 if ($_smarty_tpl->getValue('changepasswordsucces') == 1) {?>
     <div class="mt-5">
@@ -79,8 +79,9 @@ if ($_smarty_tpl->getValue('changeuserdatasucces') == 1) {?>
             </div>
         <?php }?>
     </div>
-
+    <?php if ($_smarty_tpl->getValue('check_login_admin') == 0) {?>
     <?php $_smarty_tpl->renderSubTemplate('file:accountDelete.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
 ?>
+    <?php }?>
 </div><?php }
 }

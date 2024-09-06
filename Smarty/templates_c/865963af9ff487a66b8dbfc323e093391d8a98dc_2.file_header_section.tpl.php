@@ -1,19 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-09-03 22:59:12
-/* Smarty version 5.3.0, created on 2024-09-05 20:25:25
+/* Smarty version 5.3.0, created on 2024-09-06 13:31:54
   from 'file:header_section.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66d2d426c57495_66507897',
+  'unifunc' => 'content_66dae82a6b5214_75652065',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '865963af9ff487a66b8dbfc323e093391d8a98dc' => 
     array (
       0 => 'header_section.tpl',
-      1 => 1725092893,
+      1 => 1725620751,
       2 => 'file',
     ),
   ),
@@ -21,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_66d2d426c57495_66507897 (\Smarty\Template $_smarty_tpl) {
+function content_66dae82a6b5214_75652065 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?><!-- HEADER -->
 <header>
@@ -52,9 +51,9 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
                             <option value="">Tutte le categorie</option>
                             <?php
 $_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('array_categorie'), 'categoria');
-$foreach0DoElse = true;
+$foreach2DoElse = true;
 foreach ($_from ?? [] as $_smarty_tpl->getVariable('categoria')->value) {
-$foreach0DoElse = false;
+$foreach2DoElse = false;
 ?>
                                 <option value="<?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('categoria')['nome_categoria']), ENT_QUOTES, 'UTF-8');?>
 "><?php echo htmlspecialchars((string) ($_smarty_tpl->getValue('categoria')['nome_categoria']), ENT_QUOTES, 'UTF-8');?>
@@ -105,9 +104,9 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                             <?php if ($_smarty_tpl->getValue('prodotti_carrello') != 0) {?>
                                 <?php
 $_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('prodotti_carrello'), 'prodotto');
-$foreach1DoElse = true;
+$foreach3DoElse = true;
 foreach ($_from ?? [] as $_smarty_tpl->getVariable('prodotto')->value) {
-$foreach1DoElse = false;
+$foreach3DoElse = false;
 ?>
                                 <div class="product-widget">
                                     <div class="product-img">
@@ -194,9 +193,9 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
             <li><a href="/TekHub/gestioneRecensioni/listaRecensioni?recensioni_page=1">Recensioni</a></li>
         <?php } elseif ($_smarty_tpl->getValue('check_login_admin') == 1) {?>
             <li><a href="/TekHub/utente/userDataSection">Profilo</a></li>
-                <li><a href="/TekHub/utente/gestisciProdotti">Gestione prodotti</a></li>
+                <li><a href="/TekHub/admin/gestisciProdotti">Gestione prodotti</a></li>
                 <li><a href="/TekHub/admin/gestisciUtenti">Gestione utenti registrati</a></li>
-                <li><a href="/TekHub/utente/gestisciSegnalazioni">Segnalazioni</a></li>
+                <li><a href="/TekHub/admin/gestisciSegnalazioni">Segnalazioni</a></li>
         <?php }?>
 
         <?php if ($_smarty_tpl->getValue('utente_non_loggato') == 1) {?>

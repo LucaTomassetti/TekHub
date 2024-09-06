@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-09-05 20:25:25
+/* Smarty version 5.3.0, created on 2024-09-06 13:32:05
   from 'file:userinfo.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66d9f7952c36b2_70900590',
+  'unifunc' => 'content_66dae835b82263_85172912',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ea170b9416ffd88355818116817d4eab78b7165f' => 
     array (
       0 => 'userinfo.tpl',
-      1 => 1725100943,
+      1 => 1725620751,
       2 => 'file',
     ),
   ),
@@ -23,11 +23,10 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:userDataForm.tpl' => 1,
     'file:userHistoryOrders.tpl' => 1,
     'file:change-pass.tpl' => 1,
-    'file:userDataSection.tpl' => 1,
+    'file:userDataSection.tpl' => 2,
     'file:listaProdotti.tpl' => 1,
     'file:addProductForm.tpl' => 1,
     'file:modifyProductForm.tpl' => 1,
-    'file:gestisciProdotti.tpl' => 1,
     'file:shop.tpl' => 1,
     'file:indirizzi.tpl' => 1,
     'file:carteCredito.tpl' => 1,
@@ -36,7 +35,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:dettaglioOrdine.tpl' => 1,
   ),
 ))) {
-function content_66d9f7952c36b2_70900590 (\Smarty\Template $_smarty_tpl) {
+function content_66dae835b82263_85172912 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="en">
@@ -122,7 +121,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?>
 				<?php } elseif ($_smarty_tpl->getValue('admin') == 1) {?>
 					<div class="col-12 content-area">
-					<?php $_smarty_tpl->renderSubTemplate('file:gestisciProdotti.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+					<?php $_smarty_tpl->renderSubTemplate('file:userDataSection.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
 ?>
 				<?php } elseif ($_smarty_tpl->getValue('shop') == 1) {?>
 					<div class="col-lg-9 col-md-8 col-sm-7 col-xs-12 content-area">
