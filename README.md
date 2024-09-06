@@ -48,12 +48,12 @@ TekHub è una piattaforma di e-commerce specializzata in prodotti tecnologici, c
 1. **Homepage**: Mostra prodotti in evidenza, categorie e barra di ricerca.
 2. **Pagina di login/registrazione**: Per l'accesso e la creazione di nuovi account.
 3. **Catalogo prodotti**: Visualizzazione di tutti i prodotti con opzioni di filtro.![Screenshot 2024-09-06 231258](https://github.com/user-attachments/assets/20a17447-657c-4bc2-99cd-eff37cb1b0a0)
-4. **Pagina dettaglio prodotto**: Informazioni complete sul prodotto, opzioni di acquisto o partecipazione all'asta.
+4. **Pagina dettaglio prodotto**: Informazioni complete sul prodotto, opzioni di acquisto o partecipazione all'asta.![Screenshot 2024-09-06 231739](https://github.com/user-attachments/assets/34f9d033-3e6b-46a2-ab25-14cb2d7f659d)
 5. **Carrello**: Riepilogo dei prodotti selezionati per l'acquisto.![Screenshot 2024-09-06 231351](https://github.com/user-attachments/assets/8c1c4ce7-742c-4830-b17e-27ff2eb65ba7)
-6. **Checkout**: Processo di finalizzazione dell'ordine.
-7. **Profilo utente**: Gestione delle informazioni personali, indirizzi e carte di credito.
-8. **Dashboard venditore**: Gestione dei prodotti e degli ordini per i venditori.
-9. **Dashboard amministrazione**: Interfaccia per le funzionalità admin.
+6. **Checkout**: Processo di finalizzazione dell'ordine.![Screenshot 2024-09-06 231828](https://github.com/user-attachments/assets/fdd56292-c2ce-433d-919e-0445fabf0e5d)
+7. **Profilo utente**: Gestione delle informazioni personali, indirizzi e carte di credito.![Screenshot 2024-09-06 231853](https://github.com/user-attachments/assets/1e14eacb-d2be-4033-a161-3f95e48f02d5)
+8. **Dashboard venditore**: Gestione dei prodotti e degli ordini per i venditori.![Screenshot 2024-09-06 232141](https://github.com/user-attachments/assets/d10b0b36-ba0a-4c49-9244-cbb767464afb)
+9. **Dashboard amministrazione**: Interfaccia per le funzionalità admin.![Screenshot 2024-09-06 232223](https://github.com/user-attachments/assets/6812e93a-aad0-4d58-bc06-58afaf5b3f7a)
 
 
 ## Struttura del progetto
