@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.3.0, created on 2024-08-31 10:30:02
+/* Smarty version 5.3.0, created on 2024-09-05 20:25:25
   from 'file:userinfo.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.3.0',
-  'unifunc' => 'content_66d2d48a2a5132_37855731',
+  'unifunc' => 'content_66d9f7952c36b2_70900590',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ea170b9416ffd88355818116817d4eab78b7165f' => 
     array (
       0 => 'userinfo.tpl',
-      1 => 1725092893,
+      1 => 1725100943,
       2 => 'file',
     ),
   ),
@@ -36,7 +36,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:dettaglioOrdine.tpl' => 1,
   ),
 ))) {
-function content_66d2d48a2a5132_37855731 (\Smarty\Template $_smarty_tpl) {
+function content_66d9f7952c36b2_70900590 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\TekHub\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="en">

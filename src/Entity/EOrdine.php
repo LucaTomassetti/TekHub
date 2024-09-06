@@ -40,7 +40,7 @@ class EOrdine{
 
     #[ORM\OneToMany(targetEntity: EOrdineProdotto::class, mappedBy: 'ordine_id')]
     private Collection $q_prodotto_ordine;
-    
+
     public function __construct(){
         $this->data_ordine = new \DateTime();
         $this->stato_ordine = 'In elaborazione';
@@ -225,7 +225,17 @@ class EOrdine{
     }
 
     public function isPresoInCarico() {
-        return $this->stato_ordine != 'In elaborazione';
+        return $this->stato_ordine == 'Preso in carico';   
     }
+
+    //per aggiornare lo  stato degli ordini presi in carico
+     public function isInSpedizione(){
+        return $this->stato_ordine == 'In spedizione';
+    }
+
+    public function isConsegnato(){
+        return $this->stato_ordine == 'Consegnato';
+    }
+
 }
 ?>

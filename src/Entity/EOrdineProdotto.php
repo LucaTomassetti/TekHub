@@ -90,8 +90,19 @@ class EOrdineProdotto {
     }
 
     public function isPresoInCarico() {
-        return $this->stato_ordine_prodotto != 'In elaborazione';
+        return $this->stato_ordine_prodotto == 'Preso in carico';   
     }
 
+    //per aggiornare lo  stato degli ordini presi in carico
+    public function isInSpedizione()
+    {
+        return $this->stato_ordine_prodotto == 'In spedizione';
+    }
+
+    public function isConsegnato(){
+
+        return $this->stato_ordine_prodotto == 'Consegnato';
+    }
+   
 }
 ?>

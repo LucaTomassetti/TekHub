@@ -547,8 +547,8 @@ class FPersistentManager{
         return getEntityManager()->getRepository(ESegnalazione::class)->deleteSegnalazione($id);
     }
 
-    public function getAllPresiInCarico($venditore, $currentPage){
-        return getEntityManager()->getRepository('EOrdineProdotto')->getAllPresiInCarico($venditore, $currentPage);
+    public function getAllInElaborazione($venditore, $currentPage){
+        return getEntityManager()->getRepository('EOrdineProdotto')->getAllInElaborazione($venditore, $currentPage);
     }
 
     public function findAllOrdiniPresiInCarico($ordineId, $prodottoId) {
@@ -606,5 +606,13 @@ class FPersistentManager{
     public function findSegnalazioniByVenditoreId($id_venditore){
         return getEntityManager()->getRepository('EAdmin')->findSegnalazioniByVenditoreId($id_venditore);
     }
+
+    public function cambiaStatoOrdineProdotto($ordineId, $prodottoId, $nuovoStato){
+        getEntityManager()->getRepository('EOrdineProdotto')->cambiaStatoOrdineProdotto($ordineId, $prodottoId, $nuovoStato);  
+    }
+    public function cambiaStatoOrdine($ordineId, $nuovoStato){
+        getEntityManager()->getRepository('EOrdine')->cambiaStatoOrdine($ordineId, $nuovoStato);  
+    }
+
 }
 ?>

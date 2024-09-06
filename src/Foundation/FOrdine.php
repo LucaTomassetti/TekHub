@@ -85,6 +85,15 @@ class FOrdine extends EntityRepository {
             'totalPages' => ceil(count($paginator) / $pageSize)
         ];
     }
-    
+
+    //per aggiornare lo stato
+    public function cambiaStatoOrdine($ordineId, $nuovoStato){
+        $em = getEntityManager();
+        $found_ordine = $em->find(EOrdine::class, $ordineId);
+        $found_ordine->setStato_ordine($nuovoStato);
+
+        $em->persist($found_ordine);
+        $em->flush();
+    }
 }
 ?>

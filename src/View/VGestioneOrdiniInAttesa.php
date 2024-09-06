@@ -68,7 +68,10 @@ class VGestioneOrdiniInAttesa {
         foreach ($loginVariables as $key => $value) {
             $this->smarty->assign($key, $value);
         }
-        
+        if(isset($_SESSION['tuttiAggiornati'])){
+            $this->smarty->assign('tuttiAggiornati', $_SESSION['tuttiAggiornati']);
+        }
+        unset($_SESSION['tuttiAggiornati']);
         // Assegna gli ordini e le informazioni di paginazione al template
         $this->smarty->assign('array_ordini', $array_ordini);
         
@@ -85,6 +88,8 @@ class VGestioneOrdiniInAttesa {
         
         // Mostra il template
         $this->smarty->display('statoOrdini.tpl');
-    }   
+    } 
+    
+    
 }
 ?>
