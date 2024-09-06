@@ -95,3 +95,21 @@ Il progetto segue un'architettura MVC (Model-View-Controller) e utilizza la libr
 - Hashing delle password
 - Validazione degli input lato server
 - Protezione contro SQL injection
+
+## Sito Web
+Il sito web è online al seguente link: [fake-tekhub.infinityfreeapp.com](http://fake-tekhub.infinityfreeapp.com/)
+
+### Credenziali utenti
+## Acquirenti
+- email: luca@gmail.com passwd: luca
+- email: boh@gmail.com passwd : boh
+- email: zio@gmail.com passwd : zio
+
+## Venditori
+- email: asd@gmail.com passwd: asd
+- email: qwe@gmail.com passwd : qwe
+
+## Admin
+- email: admin@gmail.com passwd: admin
+
+
