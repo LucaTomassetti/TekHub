@@ -79,51 +79,6 @@ class CGestioneOrdiniInAttesa {
         }
     } 
 
-    //per aggiornare lo stato degli ordini presi in carico
-    /*public static function aggiornaStatoOrdine($ordineId, $prodottoId) {
-        $nuovoStato = $_POST['nuovoStato'];
-        // Recupera l'ordine e il prodotto associato
-        $ordine = FPersistentManager::getInstance()->find(EOrdine::class, $ordineId);
-        $ordineProdotto = FPersistentManager::getInstance()->findOrdineProdotto($ordineId, $prodottoId);
-        
-        if (!$ordineProdotto) {
-            // Gestione errore, prodotto non trovato
-            $_SESSION['error'] = "Prodotto non trovato nell'ordine.";
-            header('Location: /TekHub/gestioneOrdiniInAttesa/statoOrdini');
-            exit();
-        }
-    
-        // Controlla se il nuovo stato è valido ("In spedizione" o "Consegnato")
-        if ($nuovoStato != 'In spedizione' && $nuovoStato != 'Consegnato') {
-            // Stato non valido, gestisci errore
-            $_SESSION['error'] = "Stato non valido. Deve essere 'In spedizione' o 'Consegnato'.";
-            header('Location: /TekHub/gestioneOrdiniInAttesa/statoOrdini');
-            exit();
-        }
-    
-        // Aggiorna lo stato del prodotto specifico
-        FPersistentManager::getInstance()->cambiaStatoOrdineProdotto($ordineId, $prodottoId, $nuovoStato);
-    
-        // Controlla se tutti i prodotti dell'ordine sono nello stesso stato
-        $tuttiAggiornati = true;
-        foreach ($ordine->getQProdottoOrdine() as $op) {
-            if ($op->getStato_ordine() != $nuovoStato) {
-                $tuttiAggiornati = false;
-                break;
-            }
-        }
-        $_SESSION['tuttiAggiornati'] = $tuttiAggiornati == true ? 1 : 0;
-    
-        // Se tutti i prodotti hanno lo stesso nuovo stato, aggiorna lo stato dell'ordine
-        if ($tuttiAggiornati) {
-            FPersistentManager::getInstance()->cambiaStatoOrdine($ordineId, $nuovoStato);
-        }
-    
-        // Messaggio di successo
-        $_SESSION['success'] = "Prodotto aggiornato con successo allo stato '$nuovoStato'.";
-        header('Location: /TekHub/gestioneOrdiniInAttesa/statoOrdini');
-        exit();
-    }*/
     public static function aggiornaStatoOrdine($ordineId, $prodottoId) {
         $nuovoStato = $_POST['nuovoStato'];
         $ordine = FPersistentManager::getInstance()->find(EOrdine::class, $ordineId);

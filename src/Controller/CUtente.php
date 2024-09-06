@@ -447,16 +447,6 @@ class CUtente {
         header('Location: /TekHub/utente/carteCredito');
         exit();
     }
-    public static function gestisciProdotti()
-    {
-        $view_admin = new VAdminDashboard();
-       if (static::isLogged()) {
-            $view_admin->gestioneProdotti();
-       } else {
-           header('Location: /TekHub/utente/login');
-        }
-    }
-    
 
     public static function searchProducts() {
         if (!isset($_SESSION['utente']) || !($_SESSION['utente'] instanceof EAdmin)) {

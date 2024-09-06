@@ -59,7 +59,7 @@ class VGestioneProdotti{
         $this->smarty->assign('modifyProductForm', 1);
         $this->smarty->display('userinfo.tpl');
     }
-    public function errorImageUpload($categorie){
+    public function errorImageUpload($categorie = null){
         $loginVariables = (new VUtente)->checkLogin();
         foreach ($loginVariables as $key => $value) {
             $this->smarty->assign($key, $value);

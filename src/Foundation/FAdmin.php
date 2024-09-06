@@ -191,10 +191,11 @@ class FAdmin extends EntityRepository{
     
         // Query for paginated results
         $qb = $em->createQueryBuilder();
-        $qb->select('s.id_segnalazione', 's.motivo', 'v.id_venditore as venditore_id', 'v.nome as venditore_nome')
+        $qb->select('s.id_segnalazione', 's.motivo', 'v.id_venditore as venditore_id', 'v.nome as venditore_nome', 'r.testo as recensione_testo')
            ->from('ESegnalazione', 's')
            ->leftJoin('s.venditore', 'v')
-           ->where('s.gestita=false')
+           ->leftJoin('s.recensione', 'r')
+           ->where('s.gestita = false')
            ->setFirstResult($offset)
            ->setMaxResults($itemsPerPage)
            ->orderBy('s.id_segnalazione', 'ASC');
@@ -229,9 +230,10 @@ class FAdmin extends EntityRepository{
     
         // Query for paginated results
         $qb = $em->createQueryBuilder();
-        $qb->select('s.id_segnalazione', 's.motivo', 'v.id_venditore as venditore_id', 'v.nome as venditore_nome')
+        $qb->select('s.id_segnalazione', 's.motivo', 'v.id_venditore as venditore_id', 'v.nome as venditore_nome', 'r.testo as recensione_testo')
            ->from('ESegnalazione', 's')
            ->leftJoin('s.venditore', 'v')
+           ->leftJoin('s.recensione', 'r')
            ->where('s.gestita=false')
            ->andWhere('s.venditore=:venditore')
            ->setParameter('venditore', $idVenditore)

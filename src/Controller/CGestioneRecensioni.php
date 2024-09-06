@@ -113,7 +113,7 @@
                 
                 $segnalazione = new ESegnalazione();
                 $segnalazione->setVenditore($venditore);
-                $segnalazione->setMessaggio($motivo);
+                $segnalazione->setMotivo($motivo);
                 $recensione->setSegnalazione($segnalazione);
                 
                 FPersistentManager::getInstance()->persist($segnalazione);

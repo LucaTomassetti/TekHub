@@ -65,6 +65,7 @@
                 <tr>
                     <th>ID Segnalazione</th>
                     <th>Motivo</th>
+                    <th>Testo recensione</th>
                     <th>Venditore ID</th>
                     <th>Venditore Nome</th>
                     <th>Actions</th>
@@ -75,6 +76,7 @@
                     <tr>
                         <td>{$segnalazione.id_segnalazione|default:'N/A'}</td>
                         <td>{$segnalazione.motivo|default:'N/A'}</td>
+                        <td>{$segnalazione.recensione_testo|default:'N/A'}</td>
                         <td>{$segnalazione.venditore_id|default:'N/A'}</td>
                         <td>{$segnalazione.venditore_nome|default:'N/A'}</td>
                         <td>

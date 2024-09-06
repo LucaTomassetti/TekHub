@@ -106,7 +106,7 @@
 							</div>
 						</div>
 					</div>
-					{if $admin=!1}
+					{if $admin!=1}
 					<form id="gestioneAcquisti" action="/TekHub/gestioneAcquisto/aggiungiAlCarrello/{$productId}" method="POST">
 						{if $quantita_disp > 0}
 						<select class="input-select margin-bottom-20" id="quantity" name="quantity">
