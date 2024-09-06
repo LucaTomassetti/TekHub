@@ -78,7 +78,6 @@
 						<i class="fa fa-star"></i>
 						<i class="fa fa-star-o"></i>
 					</div>
-					<a class="review-link" href="#">10 Review(s) | Add your review</a>
 				</div>
 				<div>
 					{if $isProdottoNuovo == 1}
@@ -107,6 +106,7 @@
 							</div>
 						</div>
 					</div>
+					{if $admin=!1}
 					<form id="gestioneAcquisti" action="/TekHub/gestioneAcquisto/aggiungiAlCarrello/{$productId}" method="POST">
 						{if $quantita_disp > 0}
 						<select class="input-select margin-bottom-20" id="quantity" name="quantity">
@@ -133,6 +133,7 @@
 						{/if}
 						</div>
 					</form>
+					
 				</div>
 				{else}
 					{if $stato_asta == 'Terminata'}
@@ -146,7 +147,7 @@
 						<h3 class="product-price">L'asta non è ancora iniziata.</h3>
 					{/if}
 				{/if}
-				
+			{/if}
 				{if $offerta_effettuata == 1}
 					<div class="mt-5">
 						<div class="alert alert-success">

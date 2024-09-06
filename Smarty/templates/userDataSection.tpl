@@ -50,6 +50,7 @@
             </div>
         {/if}
     </div>
-
+    {if $check_login_admin==0}
     {include file = 'accountDelete.tpl'}
+    {/if}
 </div>

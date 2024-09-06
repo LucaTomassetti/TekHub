@@ -40,57 +40,76 @@
 
 {include file='header_section.tpl'}
 
-<h2> AREA GESTIONE PRODOTTI </h2>
+<div class="container mt-5">
+    <br>
+    <h2>Gestione Utenti</h2>
 
-
-<div class="col-lg-3 col-md-3 col-sm-4">
-
-<div class="form container">
-<h2>Cerca tramite ID</h2>
-    <form action="/TekHub/utente/searchProducts" method="post">
-        <input type="text" name="search" placeholder="inserisci id">
-        <input type="submit" value="Search">
-    </form>
-</div>
-
-	{if isset($search_results)}
-    <h2>Search Results</h2>
-    {if $products|@count > 0}
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Brand</th>
-                <th>Model</th>
-                <th>Color</th>
-            </tr>
-            {foreach $products as $product}
-                <tr>
-                    <td>{$product->getIdProdotto()}</td>
-                    <td>{$product->getNome()}</td>
-                    <td>{$product->getDescrizione()}</td>
-                    <td>{$product->getMarca()}</td>
-                    <td>{$product->getModello()}</td>
-                    <td>{$product->getColore()}</td>
-					<td>
-                    {if $show_delete_button}
-                        <form action="/TekHub/utente/deleteProduct/{$product->getIdProdotto()}" method="post">
-                            <button type="submit" onclick="return confirm('Sei sicuro di voler eliminare questo prodotto?');">Elimina</button>
-                        </form>
-                    {/if}
-                </td>
-                </tr>
-            {/foreach}
-        </table>
-    {else}
-        <p>No products found.</p>
+    {if isset($message)}
+        <div class="alert alert-success">{$message}</div>
     {/if}
-{/if}
 
+    {if isset($error)}
+        <div class="alert alert-danger">{$error}</div>
+    {/if}
 
-</div>
+     <!-- FILTRO -->
+     <form method="post" action="/TekHub/admin/gestisciProdotti">
+        <div class="form-group">
+            <label for="id_prodotto">Filter by ID:</label>
+            <input type="text" class="form-control" id="id_prodotto" name="id_prodotto">
+        </div>
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+     
+     <!-- /FILTRO -->
 
+    
 
+    <!-- Pagination --> 
+    {if $array_prodotti.totalPages > 1}
+        <ul class="reviews-pagination">
+            {if $array_prodotti.currentPage > 1}
+                <li><a href="?page={$array_prodotti.currentPage-1}"><i class="fa fa-angle-left"></i></a></li>
+            {/if}
+
+            {for $page=1 to $array_prodotti.totalPages}
+                <li {if $page == $array_prodotti.currentPage}class="active"{/if}>
+                    <a href="?page={$page}">{$page}</a>
+                </li>
+            {/for}
+
+            {if $array_prodotti.currentPage < $array_prodotti.totalPages}
+                <li><a href="?page={$array_prodotti.currentPage+1}"><i class="fa fa-angle-right"></i></a></li>
+            {/if}
+        </ul>
+    {/if} 
+            {foreach from=$array_prodotti['prodotti'] item=prodotto}
+                <!-- product -->
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="product">
+                        <div class="product-img">
+                            {if isset($prodotto->getImmagini()->last()->getImageData()) && isset($prodotto->getImmagini()->last()->getType())}
+                                <img src="data:{$prodotto->getImmagini()->last()->getType()};base64,{$prodotto->getImmagini()->last()->getEncodedData()}" alt="Immagine">
+                            {else}
+                                <p>Immagine non trovata</p>
+                            {/if}         
+                        </div>
+                        <div class="product-body">
+                            <p class="product-category">{$prodotto->getCategoryName()->getNomeCategoria()}</p>
+                            <h3 class="product-name">{$prodotto->getNome()}</h3>
+                                {if $prodotto instanceof EUsato}
+                                    <h4 class="product-price">In asta: €{$prodotto->getFloorPrice()}</h4>
+                                {elseif $prodotto instanceof ENuovo}
+                                    <h4 class="product-price">€{$prodotto->getPrezzoFisso()}</h4>
+                                {/if}
+                                <div class="mt-3">
+                                <a href="/TekHub/gestioneAcquisto/vediProdotto/{$prodotto->getIdProdotto()}" class="btn btn-info btn-sm">Visualizza</a>
+                                <a href="/TekHub/admin/deleteProduct/{$prodotto->getIdProdotto()}" class="btn btn-danger btn-sm" onclick="return confirm('Sei sicuro di voler eliminare questo prodotto? Questa azione non può essere annullata.');">Elimina</a>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /product -->
+            {/foreach}
 </body>
 </html>

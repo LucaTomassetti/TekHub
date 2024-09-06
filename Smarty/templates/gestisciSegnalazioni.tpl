@@ -36,44 +36,79 @@
 
     </head>
 
-<body>
-	{include file='header_section.tpl'}
+	<body>
+    {include file='header_section.tpl'}
 
+    <div class="container mt-5">
 
-{block name="admin_content"}
+    {block name="admin_content"}
     <h2>Gestione Segnalazioni</h2>
-    
-    {if $filter_form}
-        <form action="/TekHub/gestioneSegnalazioni/filterSegnalazioni" method="post">
-            <label for="id_segnalazione">ID Segnalazione:</label>
-            <input type="text" id="id_segnalazione" name="id_segnalazione" required>
-            <button type="submit">Filtra</button>
-        </form>
-    {/if}
-    
-    {if $filtered_results}
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Descrizione</th>
-                <th>Data</th>
-                <th>Azioni</th>
-            </tr>
-            {foreach $segnalazioni as $segnalazione}
-                <tr>
-                    <td>{$segnalazione->getId()}</td>
-                    <td>{$segnalazione->getDescrizione()}</td>
-                    <td>{$segnalazione->getData()}</td>
-                    <td>
-                        <form action="/TekHub/gestioneSegnalazioni/deleteSegnalazione/{$segnalazione->getId()}" method="post">
-                            <button type="submit" onclick="return confirm('Sei sicuro di voler eliminare questa segnalazione?');">Elimina</button>
-                        </form>
-                    </td>
-                </tr>
-            {/foreach}
-        </table>
-    {/if}
-{/block}
 
+    {if isset($message)}
+        <div class="alert alert-success">{$message}</div>
+    {/if}
+    {if isset($error)}
+        <div class="alert alert-danger">{$error}</div>
+    {/if}
+
+    <form method="post" action="/TekHub/admin/filterSegnalazioni">
+        <div class="form-group">
+            <label for="id_venditore">Filter by Venditore ID:</label>
+            <input type="text" class="form-control" id="venditore_id" name="venditore_id">
+        </div>
+        <button type="submit" class="btn btn-primary">Filtra</button>
+    </form>
+
+    {if isset($segnalazioni) && !empty($segnalazioni.items)}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID Segnalazione</th>
+                    <th>Motivo</th>
+                    <th>Venditore ID</th>
+                    <th>Venditore Nome</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {foreach $segnalazioni.items as $segnalazione}
+                    <tr>
+                        <td>{$segnalazione.id_segnalazione|default:'N/A'}</td>
+                        <td>{$segnalazione.motivo|default:'N/A'}</td>
+                        <td>{$segnalazione.venditore_id|default:'N/A'}</td>
+                        <td>{$segnalazione.venditore_nome|default:'N/A'}</td>
+                        <td>
+                            {if isset($segnalazione.id_segnalazione)}
+                                <form method="post" action="/TekHub/admin/risolviSegnalazione/{$segnalazione.id_segnalazione}" style="display:inline;">
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Sicuro di voler risolvere la segnalazione?');">Risolvi</button>
+                                </form>
+                            {/if}
+                        </td>
+                    </tr>
+                {/foreach}
+            </tbody>
+        </table>
+
+        <!-- Pagination -->
+        {if isset($segnalazioni.currentPage) && isset($segnalazioni.totalPages)}
+            <ul class="reviews-pagination">
+                {if $segnalazioni.currentPage > 1}
+                    <li><a href="?page={$segnalazioni.currentPage-1}"><i class="fa fa-angle-left"></i></a></li>
+                {/if}
+
+                {for $page=1 to $segnalazioni.totalPages}
+                    <li {if $page == $segnalazioni.currentPage}class="active"{/if}><a href="?page={$page}">{$page}</a></li>
+                {/for}
+
+                {if $segnalazioni.currentPage < $segnalazioni.totalPages}
+                    <li><a href="?page={$segnalazioni.currentPage+1}"><i class="fa fa-angle-right"></i></a></li>
+                {/if}
+            </ul>
+        {/if}
+    {else}
+        <p>Nessuna segnalazione da visualizzare.</p>
+    {/if}
+    {/block}
+    </div>
 </body>
 </html>

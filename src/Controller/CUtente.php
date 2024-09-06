@@ -456,14 +456,7 @@ class CUtente {
            header('Location: /TekHub/utente/login');
         }
     }
-    public static function gestisciSegnalazioni(){
-        $view_admin = new VAdminDashboard();
-        if (static::isLogged()){
-            $view_admin->gestioneSegnalazioni();
-        } else{
-            header('Location: /TekHub/utente/login');
-        }
-    }
+    
 
     public static function searchProducts() {
         if (!isset($_SESSION['utente']) || !($_SESSION['utente'] instanceof EAdmin)) {

@@ -69,7 +69,7 @@
 					{include file='modifyProductForm.tpl'}
 				{elseif $admin == 1}
 					<div class="col-12 content-area">
-					{include file='gestisciProdotti.tpl'}
+					{include file='userDataSection.tpl'}
 				{elseif $shop == 1}
 					<div class="col-lg-9 col-md-8 col-sm-7 col-xs-12 content-area">
 					{include file='shop.tpl'}

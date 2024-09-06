@@ -115,7 +115,7 @@ class FProdotto extends EntityRepository {
         'totalPages' => ceil(count($paginator) / $pageSize)
         ];
     }
-    public function getProductById($id){
+    public function getProductById($id, $currentPage = 1, $pageSize = 4){
         $dql= "SELECT prodotto 
         FROM EProdotto prodotto 
         WHERE prodotto.id_prodotto= ?1
@@ -123,7 +123,19 @@ class FProdotto extends EntityRepository {
         $query = getEntityManager()->createQuery($dql);
         $query->setParameter(1, $id);
         $query->setMaxResults(1);
-        return $query->getResult();
+        $query->setFirstResult(($currentPage - 1) * $pageSize)
+        ->setMaxResults($pageSize);
+
+        $paginator = new Paginator($query, fetchJoinCollection: true);
+
+        return [
+        'prodotti' => iterator_to_array($paginator),
+        'n_prodotti' => count($paginator),
+        'currentPage' => $currentPage,
+        'pageSize' => $pageSize,
+        'totalPages' => ceil(count($paginator) / $pageSize)
+        ];
+    
     }
 }
 ?>

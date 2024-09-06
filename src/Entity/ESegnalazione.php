@@ -3,7 +3,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass:FAdmin::class)]
 #[ORM\Table('segnalazione')]
 class ESegnalazione{
 
@@ -34,7 +34,7 @@ class ESegnalazione{
      *
      * @return $messaggio
      */
-    public function getMessaggio()
+    public function getMotivo()
     {
         return $this->motivo;
     }
@@ -44,7 +44,7 @@ class ESegnalazione{
     *
     * @param $messaggio
     */   
-    public function setMessaggio($motivo)
+    public function setMotivo($motivo)
     {
         $this->motivo = $motivo;
 

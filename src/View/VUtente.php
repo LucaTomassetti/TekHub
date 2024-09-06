@@ -141,7 +141,7 @@ class VUtente{
         }
         $this->smarty->assign('search_form', 1);
         $this->smarty->assign('admin', 1);
-        $this->smarty->display('gestisciProdotti.tpl');
+        $this->smarty->display('userinfo.tpl');
     }
 
     public function loginError(){

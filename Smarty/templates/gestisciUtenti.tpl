@@ -49,6 +49,15 @@
     {if isset($error)}
         <div class="alert alert-danger">{$error}</div>
     {/if}
+
+    <form method="post" action="/TekHub/admin/filterUsersPaginated">
+        <div class="form-group">
+            <label for="id">Filtra per ID:</label>
+            <input type="text" class="form-control" id="id" name="id">
+        </div>
+        <button type="submit" class="btn btn-primary">Filtra</button>
+    </form>
+
     
     {if $utenti_info['utenti'] > 1}
         <!-- Pagination -->
@@ -80,7 +89,7 @@
                 <div class="col-md-4 mb-4">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Utente #{$utente.id}</h4>
+                        <h4>{$utente.tipo} #{$utente.id}</h4>
                     </div>
                     <div class="card-body">
                         <p><strong>Nome:</strong> {$utente.nome} {$utente.cognome}</p>

@@ -56,4 +56,18 @@ class UEMailer {
             return false;
         }
     }
+
+    public function sendProductDeletionEmail($userEmail,$nomeProdotto) {
+        try {
+            $this->mailer->addAddress($userEmail);
+            $this->mailer->Subject = 'Un tuo prodotto e\' stato eliminato';
+            $this->mailer->Body = 'Il prodotto '. $nomeProdotto .' che avevi messo in vendita e\' stato eliminato dall\'amministratore di TekHub.';
+
+            $this->mailer->send();
+            return true;
+        } catch (Exception $e) {
+            error_log("Errore nell'invio dell'email: " . $this->mailer->ErrorInfo);
+            return false;
+        }
+    }
 }

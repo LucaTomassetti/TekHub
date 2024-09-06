@@ -109,6 +109,32 @@ ul, ol {
   color: #FFF;
 }
 
+.button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+
+.button-wrapper {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.button-wrapper:last-child {
+  margin-right: 0;
+}
+
+.product-btns {
+  display: inline-block;
+}
+
+.product-btns button {
+  display: inline-block;
+}
+
+
 /*----------------------------*\
 	Inputs
 \*----------------------------*/

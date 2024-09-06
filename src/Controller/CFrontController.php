@@ -75,9 +75,9 @@ class CFrontController{
         // Define your user roles and permissions here
         $rolePermissions = [
             'admin' => [
-                'utente' => ['userDataForm', 'userDataSection', 'deleteAccount', 'changePass', 'changeUserData','gestisciProdotti','gestisciSegnalazioni',
-                                'gestisciUtenti','searchProducts','deleteProduct','gestioneSegnalazioni', 'filterSegnalazioni', 'deleteSegnalazione'],
-                'admin' => ['gestisciUtenti', 'eliminaUtente', 'bloccaUtente', 'sbloccaUtente']
+                'utente' => ['userDataForm', 'userDataSection', 'deleteAccount', 'changePass', 'changeUserData'],
+                'admin' => ['gestisciUtenti','filterUsersPaginated', 'eliminaUtente', 'bloccaUtente', 'sbloccaUtente','gestisciSegnalazioni', 'filterSegnalazioni', 'risolviSegnalazione',
+                            'gestisciProdotti','searchProducts','deleteProduct'],
                 // Add more controllers and methods for admin
             ],
             'acquirente' => [

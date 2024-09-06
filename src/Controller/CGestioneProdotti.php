@@ -40,9 +40,9 @@ class CGestioneProdotti{
     public static function addProduct(){
         
         $view = new VGestioneProdotti();
+        $array_categorie = FPersistentManager::getInstance()->getAllCategories();
         if ($_SERVER['REQUEST_METHOD'] == "GET") {
             if($_SESSION['utente'] instanceof EVenditore){
-                $array_categorie = FPersistentManager::getInstance()->getAllCategories();
                 $view->addProductForm($array_categorie);
             }else{
                 header('Location: /TekHub/utente/login');
@@ -58,14 +58,14 @@ class CGestioneProdotti{
                 // Controllo se le immagini inserite eccedono una dimensione di 1MB
                 foreach($_FILES['images']['size'] as $key => $value) {
                     if($_FILES['images']['size'][$key] > 1000000){
-                        $view->errorImageUpload();
+                        $view->errorImageUpload($array_categorie);
                         exit;
                     }
                 }
                 // Controllo il tipo di file caricati
                 foreach($_FILES['images']['type'] as $key => $value) {
                     if(!(in_array($_FILES['images']['type'][$key], $allowed_types))){
-                        $view->errorImageUpload();
+                        $view->errorImageUpload($array_categorie);
                         exit;
                     }
                 }
@@ -189,6 +189,5 @@ class CGestioneProdotti{
         $_SESSION['product_deleted'] = true;
         header('Location: /TekHub/gestioneProdotti/listaProdotti?page=1');
     }
-    
 }
 ?>

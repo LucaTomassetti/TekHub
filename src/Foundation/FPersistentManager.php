@@ -577,83 +577,34 @@ class FPersistentManager{
         return getEntityManager()->getRepository('ERecensione')->getRecensioneUtente($acquirente, $prodotto);
     }
     public function softDeleteUtente($utente) {
-        $utente->setDeleted(true);
-        $this->update($utente);
+        return getEntityManager()->getRepository('EAdmin')->softDeleteUtente($utente);
     }
 
-    public function getAllUsersPaginated($page = 1, $itemsPerPage = 10) {
+    public function getAllUsersPaginated($page, $itemsPerPage) {
+        return getEntityManager()->getRepository('EAdmin')->getAllUsersPaginated($page,$itemsPerPage);
+    }
+
+    public function getFilteredUsersPaginated($id){
+        return getEntityManager()->getRepository('EAdmin')->getFilteredUsersPaginated($id);
+    }
+
+    public function getAllSegnalazioniPaginated($page = 1, $itemsPerPage = 5) {
+        return getEntityManager()->getRepository('EAdmin')->getAllSegnalazioniPaginated($page,$itemsPerPage);
+    }
+
+    public function getProdottiForAdmin($page = 1, $itemsPerPage = 10){
         $offset = ($page - 1) * $itemsPerPage;
         $limit = $itemsPerPage + 1;  // Richiediamo un elemento in più per determinare se c'è una pagina successiva
         
         $em = getEntityManager();
-        
-        // Query per gli acquirenti
-        $qbAcquirenti = $em->createQueryBuilder();
-        $qbAcquirenti->select('a.id_acquirente as id', 'a.nome', 'a.cognome', 'a.email', 'a.is_deleted', 'a.is_blocked', "'acquirente' as tipo")
-           ->from('EAcquirente', 'a')
-           ->where('a.is_deleted = :isDeleted')
-           ->setParameter('isDeleted', false)
-           ->setMaxResults($limit)
-           ->setFirstResult($offset)
-           ->orderBy('a.id_acquirente', 'ASC');
 
-        // Query per i venditori
-        $qbVenditori = $em->createQueryBuilder();
-        $qbVenditori->select('v.id_venditore as id', 'v.nome', 'v.cognome', 'v.email', 'v.is_deleted', 'v.is_blocked', "'venditore' as tipo")
-           ->from('EVenditore', 'v')
-           ->where('v.is_deleted = :isDeleted')
-           ->setParameter('isDeleted', false)
-           ->setMaxResults($limit)
-           ->setFirstResult($offset)
-           ->orderBy('v.id_venditore', 'ASC');
-
-        // Esecuzione delle query
-        $acquirenti = $qbAcquirenti->getQuery()->getResult();
-        $venditori = $qbVenditori->getQuery()->getResult();
-
-        // Unione e ordinamento dei risultati
-        $utenti = array_merge($acquirenti, $venditori);
-        usort($utenti, function($a, $b) {
-            return $a['id'] - $b['id'];
-        });
-
-        // Tagliamo l'array al numero di elementi richiesti
-        $hasMorePages = count($utenti) > $itemsPerPage;
-        $utenti = array_slice($utenti, 0, $itemsPerPage);
-
-        // Conteggio totale degli utenti (questa query verrà eseguita solo quando necessario)
-        $totalItems = $this->getTotalUsersCount();
-
-        return [
-            'utenti' => $utenti,
-            'totalItems' => $totalItems,
-            'itemsPerPage' => $itemsPerPage,
-            'currentPage' => $page,
-            'totalPages' => ceil($totalItems / $itemsPerPage),
-            'hasMorePages' => $hasMorePages
-        ];
     }
 
-    private function getTotalUsersCount() {
-        $em = getEntityManager();
-
-        $qbAcquirenti = $em->createQueryBuilder();
-        $qbAcquirenti->select('COUNT(a.id_acquirente)')
-           ->from('EAcquirente', 'a')
-           ->where('a.is_deleted = :isDeleted')
-           ->setParameter('isDeleted', false);
-
-        $qbVenditori = $em->createQueryBuilder();
-        $qbVenditori->select('COUNT(v.id_venditore)')
-           ->from('EVenditore', 'v')
-           ->where('v.is_deleted = :isDeleted')
-           ->setParameter('isDeleted', false);
-
-        $totalAcquirenti = $qbAcquirenti->getQuery()->getSingleScalarResult();
-        $totalVenditori = $qbVenditori->getQuery()->getSingleScalarResult();
-
-        return $totalAcquirenti + $totalVenditori;
+    public function risolviSegnalazione($id_segnalazione){
+        getEntityManager()->getRepository('EAdmin')->risolviSegnalazione($id_segnalazione);
     }
-
+    public function findSegnalazioniByVenditoreId($id_venditore){
+        return getEntityManager()->getRepository('EAdmin')->findSegnalazioniByVenditoreId($id_venditore);
+    }
 }
 ?>
